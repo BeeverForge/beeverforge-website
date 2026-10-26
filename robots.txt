@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# The install command is a command, not a page. Indexing it helps nobody and a
+# search result for a shell script is a small hazard of its own.
+Disallow: /install.sh
+
 Sitemap: https://beeverforge.com/sitemap.xml
