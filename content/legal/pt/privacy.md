@@ -62,7 +62,7 @@ Usamos os seguintes provedores, cada um sob contrato e somente para a finalidade
 
 - **O nosso provedor de modelos de IA (atualmente a Anthropic)** — recebe o que você escreve e envia, e os arquivos do protótipo, para gerar o protótipo e os requisitos.
 - **Amazon Web Services** — hospeda o teste e os seus dados nos Estados Unidos.
-- **Resend** — envia os nossos e-mails (confirmação, convite, avisos).
+- **Resend** — envia os nossos e-mails (confirmação, convite, avisos) e nos entrega os contatos sobre a Enterprise.
 - **Cloudflare** — a verificação humana dos nossos formulários (vê o seu endereço IP e sinais do navegador) e o serviço que recebe os contatos sobre a Enterprise.
 - **Google** — a entrada, se você escolher Google; e o analytics do site, somente com o seu consentimento.
 - **GitHub** — a entrada, se você escolher GitHub; e a hospedagem deste site.

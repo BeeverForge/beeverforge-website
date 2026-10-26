@@ -40,7 +40,7 @@ This policy covers this website (beeverforge.com), the Enterprise inquiry form, 
 
 ### Security
 
-- To protect the trial against abuse (for example, automated sign-ups and password-guessing), we and our providers process your **IP address and technical data about your browser**, for rate limiting, a human-verification check (Cloudflare Turnstile) and firewall rules.
+- To protect the trial against abuse (for example, automated sign-ups and repeated access attempts), we and our providers process your **IP address and technical data about your browser**, for rate limiting, a human-verification check (Cloudflare Turnstile) and firewall rules.
 - We keep an **audit record** of significant actions (an invitation, a sign-in, an acceptance, a deletion, a hand-over): who, when and what, never the content.
 
 ## 3. Legal bases
@@ -62,7 +62,7 @@ We use the following providers, each under contract and only for the purpose sta
 
 - **Our AI model provider (currently Anthropic)** — receives what you write and upload, and the prototype's files, to generate the prototype and the requirements.
 - **Amazon Web Services** — hosts the trial and its data in the United States.
-- **Resend** — sends our emails (confirmation, invitation, notices).
+- **Resend** — sends our emails (confirmation, invitation, notices) and delivers Enterprise inquiries to us.
 - **Cloudflare** — the human-verification check on our forms (it sees your IP address and browser signals) and the service that receives Enterprise inquiries.
 - **Google** — sign-in, if you choose Google; and website analytics, only if you consent.
 - **GitHub** — sign-in, if you choose GitHub; and the hosting of this website.

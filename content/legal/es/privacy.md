@@ -62,7 +62,7 @@ Usamos los siguientes proveedores, cada uno bajo contrato y solo para la finalid
 
 - **Nuestro proveedor de modelos de IA (actualmente Anthropic)** — recibe lo que usted escribe y sube, y los archivos del prototipo, para generar el prototipo y los requisitos.
 - **Amazon Web Services** — aloja la prueba y sus datos en los Estados Unidos.
-- **Resend** — envía nuestros correos (confirmación, invitación, avisos).
+- **Resend** — envía nuestros correos (confirmación, invitación, avisos) y nos entrega las consultas Enterprise.
 - **Cloudflare** — la verificación humana de nuestros formularios (ve su dirección IP y señales del navegador) y el servicio que recibe las consultas Enterprise.
 - **Google** — el inicio de sesión, si elige Google; y la analítica del sitio, solo con su consentimiento.
 - **GitHub** — el inicio de sesión, si elige GitHub; y el alojamiento de este sitio web.

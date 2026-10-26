@@ -13,8 +13,11 @@ const translations = new Map(lines.map((line, index) => {
 }));
 
 // The trial's waitlist. The site key is public; the endpoint is the door (beeverforge-try). An empty site key keeps the
-// form in its "unavailable" state, so the live site never collects an address the door cannot take. When the site is
-// served from this machine (127.0.0.1 or localhost), assets/try.js uses the local door and Cloudflare's always-pass test key.
+// form in its "unavailable" state from the moment the page loads, so the live site never collects an address the door
+// cannot take. A local build (`BUILD_LOCAL=1 node scripts/build.mjs`, the laptop bed) also writes the local door and
+// Cloudflare's always-pass test key into the page, and assets/try.js uses them when the site is served from this
+// machine (127.0.0.1 or localhost). The default build carries neither: the published page knows only the real door.
+const buildLocal = process.env.BUILD_LOCAL === '1';
 const site = {
   waitlistEndpoint: 'https://try.beeverforge.com/waitlist',
   turnstileSiteKey: '',
@@ -40,8 +43,12 @@ const trial = {
     error: 'We could not add you to the waitlist. Please try again in a moment or email contact@beeverforge.com.',
     unavailable: 'The waitlist opens soon. Please email contact@beeverforge.com to be told when it does.',
     rateLimited: 'Too many attempts from this connection. Please wait a few minutes and try again.',
+    rateWait: 'Too many attempts from this connection. Please wait {minutes} minutes and try again.',
+    rateWaitOne: 'Too many attempts from this connection. Please wait a minute and try again.',
     invalid: 'Please check your name, your email and your description, then try again.',
     captcha: 'Please complete the check above the button, then try again.',
+    captchaLabel: 'Human-verification check',
+    unavailableCheck: 'The check is not answering; please try again in a moment.',
     thanksTitle: 'Check your inbox — BeeverForge', thanksEyebrow: 'Prototype Builder waitlist', thanksHeading: 'Check your inbox.',
     thanksBody: 'If this address is new to us, a confirmation is on its way. Follow the link in it to confirm your place on the waitlist. We’ll write again when it’s your turn.',
     thanksBack: 'Return to the trial page ↗',
@@ -57,8 +64,12 @@ const trial = {
     error: 'No pudimos añadirle a la lista de espera. Inténtelo de nuevo en un momento o escriba a contact@beeverforge.com.',
     unavailable: 'La lista de espera abre pronto. Escriba a contact@beeverforge.com para que le avisemos.',
     rateLimited: 'Demasiados intentos desde esta conexión. Espere unos minutos e inténtelo de nuevo.',
+    rateWait: 'Demasiados intentos desde esta conexión. Espere {minutes} minutos e inténtelo de nuevo.',
+    rateWaitOne: 'Demasiados intentos desde esta conexión. Espere un minuto e inténtelo de nuevo.',
     invalid: 'Revise su nombre, su correo y su descripción, e inténtelo de nuevo.',
     captcha: 'Complete la verificación sobre el botón e inténtelo de nuevo.',
+    captchaLabel: 'Verificación humana',
+    unavailableCheck: 'La verificación no responde; inténtelo de nuevo en un momento.',
     thanksTitle: 'Revise su correo — BeeverForge', thanksEyebrow: 'Lista de espera del Prototype Builder', thanksHeading: 'Revise su correo.',
     thanksBody: 'Si esta dirección es nueva para nosotros, le llegará una confirmación. Siga el enlace para confirmar su lugar en la lista de espera. Le escribiremos de nuevo cuando sea su turno.',
     thanksBack: 'Volver a la página de la prueba ↗',
@@ -74,8 +85,12 @@ const trial = {
     error: 'Não conseguimos incluir você na lista de espera. Tente novamente em instantes ou escreva para contact@beeverforge.com.',
     unavailable: 'A lista de espera abre em breve. Escreva para contact@beeverforge.com para ser avisado quando abrir.',
     rateLimited: 'Muitas tentativas a partir desta conexão. Aguarde alguns minutos e tente novamente.',
+    rateWait: 'Muitas tentativas a partir desta conexão. Aguarde {minutes} minutos e tente novamente.',
+    rateWaitOne: 'Muitas tentativas a partir desta conexão. Aguarde um minuto e tente novamente.',
     invalid: 'Confira seu nome, seu e-mail e sua descrição, e tente novamente.',
     captcha: 'Conclua a verificação acima do botão e tente novamente.',
+    captchaLabel: 'Verificação humana',
+    unavailableCheck: 'A verificação não está respondendo; tente novamente em instantes.',
     thanksTitle: 'Confira seu e-mail — BeeverForge', thanksEyebrow: 'Lista de espera do Prototype Builder', thanksHeading: 'Confira seu e-mail.',
     thanksBody: 'Se este endereço é novo para nós, uma confirmação está a caminho. Siga o link para confirmar seu lugar na lista de espera. Escreveremos de novo quando chegar a sua vez.',
     thanksBack: 'Voltar à página do teste ↗',
@@ -84,6 +99,10 @@ const trial = {
   },
 };
 const legalPages = ['terms', 'privacy', 'acceptable-use'];
+// The three languages stay in step: every sentence the form can say exists in each of them.
+for (const [locale, texts] of Object.entries(trial)) {
+  for (const key of Object.keys(trial.en)) if (!texts[key]) throw new Error(`Missing ${locale} trial text: ${key}`);
+}
 
 function replaceRequired(html, oldText, newText) {
   if (!html.includes(oldText)) throw new Error(`Missing source marker: ${oldText}`);
@@ -211,9 +230,10 @@ ${main}
 }
 
 // The waitlist page's own policy (GitHub Pages sends no headers, so it travels as a meta element): the site's own files,
-// the theme script by its hash, Cloudflare Turnstile, the door's endpoint, and Google Analytics as the rest of the site
-// loads it — only after consent.
-const waitlistOrigins = [...new Set([site.waitlistEndpoint, site.localWaitlistEndpoint].map((u) => new URL(u).origin))].join(' ');
+// the theme script by its hash, Cloudflare Turnstile, the door's endpoint (and the local door's, in a local build only),
+// and Google Analytics as the rest of the site loads it — only after consent.
+const waitlistEndpoints = buildLocal ? [site.waitlistEndpoint, site.localWaitlistEndpoint] : [site.waitlistEndpoint];
+const waitlistOrigins = [...new Set(waitlistEndpoints.map((u) => new URL(u).origin))].join(' ');
 const tryPolicy = [
   "default-src 'self'",
   `script-src 'self' 'sha256-${themeHash}' https://challenges.cloudflare.com https://www.googletagmanager.com`,
@@ -238,18 +258,21 @@ function tryPage(locale, home) {
   main = replaceRequired(main, 'data-waitlist-form', [
     'data-waitlist-form',
     `data-endpoint="${site.waitlistEndpoint}"`,
-    `data-local-endpoint="${site.localWaitlistEndpoint}"`,
     `data-sitekey="${site.turnstileSiteKey}"`,
-    `data-local-sitekey="${site.localTurnstileSiteKey}"`,
+    ...(buildLocal ? [`data-local-endpoint="${site.localWaitlistEndpoint}"`, `data-local-sitekey="${site.localTurnstileSiteKey}"`] : []),
     `data-language="${l.lang}"`,
     `data-success-url="${l.path}try/thank-you/"`,
     `data-pending-message="${t.pending}"`,
     `data-error-message="${t.error}"`,
     `data-unavailable-message="${t.unavailable}"`,
+    `data-unavailable-check-message="${t.unavailableCheck}"`,
     `data-rate-message="${t.rateLimited}"`,
+    `data-rate-wait-message="${t.rateWait}"`,
+    `data-rate-wait-one-message="${t.rateWaitOne}"`,
     `data-invalid-message="${t.invalid}"`,
     `data-captcha-message="${t.captcha}"`,
   ].join(' '));
+  main = replaceRequired(main, '<div class="turnstile-slot" data-turnstile></div>', `<div class="turnstile-slot" data-turnstile role="group" aria-label="${t.captchaLabel}"></div>`);
   main = localizeText(main, locale);
   return page(locale, home, 'try/', { title: t.title, description: t.description, csp: tryPolicy }, main, '\n  <script src="/assets/try.js" defer></script>');
 }
@@ -261,6 +284,10 @@ function tryThanksPage(locale) {
 
 // ── The legal pages: Markdown with a front matter (title, description, version, date, status), rendered here.
 // Counsel's text replaces a file in content/legal/<language>/ and nothing else changes; `status: final` drops the banner.
+// A draft is published `noindex,follow` and stays out of the sitemap. A note for counsel is a bold bracketed segment —
+// "**[… — to be completed by counsel]**", in any language — and a page that still carries one is never indexable.
+const counselNote = /\*\*\[[^\]]*\]\*\*/;
+const renderedCounselNote = /<strong>\[[^\]]*\]<\/strong>/;
 const escapeHtml = (text) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 function inline(text, locale) {
   let html = escapeHtml(text);
@@ -285,6 +312,7 @@ function markdown(text, locale) {
     return [line.slice(0, at).trim(), line.slice(at + 1).trim()];
   }));
   for (const key of ['title', 'description', 'version', 'date', 'status']) if (!meta[key]) throw new Error(`A legal page needs ${key}`);
+  if (!['draft', 'final'].includes(meta.status)) throw new Error(`A legal page’s status is draft or final, not ${meta.status}`);
   const out = [];
   let paragraph = [];
   let list = null;
@@ -319,7 +347,7 @@ function markdown(text, locale) {
     }
   }
   flushParagraph(); flushList();
-  return { meta, html: out.join('\n') };
+  return { meta, html: out.join('\n'), forCounsel: counselNote.test(text) };
 }
 function legalDate(locale, iso) {
   return new Date(`${iso}T00:00:00Z`).toLocaleDateString(locales[locale].lang, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -330,7 +358,8 @@ async function legalDocument(locale, name) {
 function legalPage(locale, home, name, documents) {
   const l = locales[locale];
   const t = trial[locale];
-  const { meta, html } = documents[name];
+  const { meta, html, forCounsel } = documents[name];
+  if (forCounsel && meta.status !== 'draft') throw new Error(`content/legal/${locale}/${name}.md still carries a note for counsel: its status must stay draft`);
   const nav = legalPages.map((other) => `<a href="${l.path}legal/${other}/"${other === name ? ' aria-current="page"' : ''}>${escapeHtml(documents[other].meta.title)}</a>`).join('');
   const draft = meta.status === 'draft' ? `\n        <p class="legal-draft" role="note">${t.draft}</p>` : '';
   const main = `  <main id="main" class="legal-main">
@@ -344,9 +373,16 @@ ${html}
       <nav class="legal-nav" aria-label="${t.legal}">${nav}</nav>
     </div>
   </main>`;
-  return page(locale, home, `legal/${name}/`, { title: `${meta.title} — BeeverForge`, description: meta.description }, main, '');
+  const robots = meta.status === 'draft' ? 'noindex,follow' : 'index,follow';
+  const built = page(locale, home, `legal/${name}/`, { title: `${meta.title} — BeeverForge`, description: meta.description, robots }, main, '');
+  // the assertion on the page itself: whatever the front matter says, a note for counsel is never indexable
+  if (renderedCounselNote.test(built) && !built.includes('<meta name="robots" content="noindex,follow">')) {
+    throw new Error(`${l.path}legal/${name}/ would be indexable with a note for counsel on it`);
+  }
+  return built;
 }
 
+const legal = {};
 for (const [locale, l] of Object.entries(locales)) {
   const directory = `${root}${l.path}`;
   await mkdir(directory, { recursive: true });
@@ -363,10 +399,15 @@ for (const [locale, l] of Object.entries(locales)) {
     await mkdir(`${directory}legal/${name}/`, { recursive: true });
     await writeFile(`${directory}legal/${name}/index.html`, legalPage(locale, home, name, documents));
   }
+  legal[locale] = documents;
 }
 const retiredConcept = (version) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><meta http-equiv="refresh" content="0;url=/"><link rel="canonical" href="https://beeverforge.com/"><title>BeeverForge — website</title><script>location.replace('/')</script></head><body><main><h1>BeeverForge has a new home.</h1><p>The ${version.toUpperCase()} concept has been replaced by the website.</p><p><a href="/">Visit BeeverForge</a></p></main></body></html>`;
 await Promise.all(['v1', 'v2'].map((version) => writeFile(`${root}${version}/index.html`, retiredConcept(version))));
-const indexed = ['', 'try/', ...legalPages.map((name) => `legal/${name}/`)];
+// a legal page enters the sitemap once it is final in every language, so no entry points at a draft
+const finalEverywhere = (name) => Object.keys(locales).every((locale) => legal[locale][name].meta.status === 'final');
+const indexed = ['', 'try/', ...legalPages.filter(finalEverywhere).map((name) => `legal/${name}/`)];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${indexed.flatMap((sub) => Object.values(locales).map(l => `  <url><loc>https://beeverforge.com${l.path}${sub}</loc>${Object.values(locales).map((alt) => `<xhtml:link rel="alternate" hreflang="${alt.lang}" href="https://beeverforge.com${alt.path}${sub}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="https://beeverforge.com/${sub}"/></url>`)).join('\n')}\n</urlset>\n`;
 await writeFile(`${root}sitemap.xml`, sitemap);
-console.log('Built English, Spanish and Portuguese static pages, the trial’s waitlist page, the legal pages and localized confirmation pages.');
+const drafts = legalPages.filter((name) => !finalEverywhere(name));
+console.log(`Built English, Spanish and Portuguese static pages, the trial’s waitlist page, the legal pages and localized confirmation pages${buildLocal ? ' — a local build: the waitlist page knows the local door' : ''}.`);
+if (drafts.length) console.log(`Legal drafts, noindex and out of the sitemap: ${drafts.join(', ')}.`);
