@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#1F1F24">
-  <meta name="description" content="Dónde se ejecuta un trabajo de BeeverForge, cómo se prueba la caja antes de recoger trabajo, qué permite la red, el piso de calidad que hereda todo proyecto y cómo se sellan las respuestas a los controles humanos.">
+  <meta name="description" content="Dónde se ejecuta un job de BeeverForge, cómo se certifica la caja antes de recoger trabajo, qué permite la red, el piso de calidad que hereda todo proyecto y cómo se sellan las respuestas a los controles humanos.">
   <title>La caja y el piso de calidad — BeeverForge</title>
   <meta property="og:type" content="article">
   <meta property="og:locale" content="es_ES">
   <meta property="og:site_name" content="BeeverForge">
   <meta property="og:title" content="La caja y el piso de calidad — BeeverForge">
-  <meta property="og:description" content="Dónde se ejecuta un trabajo de BeeverForge, cómo se prueba la caja antes de recoger trabajo, qué permite la red, el piso de calidad que hereda todo proyecto y cómo se sellan las respuestas a los controles humanos.">
+  <meta property="og:description" content="Dónde se ejecuta un job de BeeverForge, cómo se certifica la caja antes de recoger trabajo, qué permite la red, el piso de calidad que hereda todo proyecto y cómo se sellan las respuestas a los controles humanos.">
   <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -42,22 +42,22 @@
   </header>
   <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Contenido de la arquitectura"><details class="doc-toc" open data-doc-toc><summary>Contenido</summary><p class="doc-toc-title">Arquitectura de BeeverForge Community</p><ol><li><a href="/es/architecture/">Visión general</a></li><li><a href="/es/architecture/lifecycle/">Ciclo de vida de un ticket</a></li><li><a href="/es/architecture/runtime/">Ejecución y durabilidad</a></li><li><a href="/es/architecture/box/" aria-current="page">La caja y el piso de calidad</a></li><li><a href="/es/architecture/extensions/">Modelo de extensión</a></li><li><a href="/es/architecture/principles/">Principios de ingeniería</a></li><li><a href="/es/architecture/repository/">Principios del repositorio</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">Arquitectura de BeeverForge Community</p>
 <h1>La caja y el piso de calidad</h1>
-<p class="doc-lead">Un trabajo se ejecuta en una caja: un entorno que el worker crea para ese trabajo y descarta después. La caja ejecuta la imagen propia del cliente con las herramientas de la plataforma montadas dentro, y se prueba contra los controles propios del proyecto antes de recoger cualquier ticket.</p>
+<p class="doc-lead">Un job se ejecuta en una caja: un entorno que el worker crea para ese job y descarta después. La caja ejecuta la imagen propia del cliente con las herramientas de la plataforma montadas dentro, y se certifica contra los controles propios del proyecto antes de recoger cualquier ticket.</p>
 
 <h2>Tipos de caja</h2>
 <div class="doc-table doc-wrap">
 <table>
 <thead><tr><th>Tipo</th><th>Qué aísla</th></tr></thead>
 <tbody>
-<tr><td><code>container</code></td><td>El predeterminado. Un contenedor Docker desechable creado a partir de la imagen del proyecto. Limita CPU y memoria, lleva secretos solo durante el trabajo y solo ve el clon montado, la caja de herramientas, las directrices y una caché. No aísla la red.</td></tr>
+<tr><td><code>container</code></td><td>El predeterminado. Un contenedor Docker desechable creado a partir de la imagen del proyecto. Limita CPU y memoria, lleva secretos solo durante el job y solo ve el clon montado, la caja de herramientas, las directrices y una caché. No aísla la red.</td></tr>
 <tr><td><code>worktree</code></td><td>Un <code>git worktree</code> en la propia máquina del worker. Solo aísla el estado del código: no aísla CPU, memoria, red ni secretos. El código lo describe como nunca apto para trabajo no confiable.</td></tr>
 <tr><td><code>fargate</code></td><td>Solo una descripción de una caja de tareas remota. Su ejecutor no está en este repositorio; lo proporciona un complemento.</td></tr>
 </tbody>
 </table>
 </div>
-<p>Un trabajo durable se rechaza en una caja que no limita nada, salvo que el proyecto declare que el trabajo es del propio operador. Se pueden añadir más tipos como puntos de entrada <code>box.&lt;kind&gt;</code>.</p>
+<p>Un job durable se rechaza en una caja que no limita nada, salvo que el proyecto declare que el trabajo es del propio operador. Se pueden añadir más tipos como puntos de entrada <code>box.&lt;kind&gt;</code>.</p>
 
-<h2>Probar la caja</h2>
+<h2>Certificar la caja</h2>
 <p><code>beeverforge box prove</code> convierte la configuración de la caja en un hecho registrado (ADR-0037). Ejecuta una secuencia fija y se detiene en el primer fallo del que dependen las comprobaciones posteriores, de modo que cada causa se informa una sola vez, con su solución:</p>
 <ol>
 <li>La etiqueta de la imagen se resuelve en un digest.</li>
@@ -66,43 +66,43 @@
 <li>La caja arranca, se ejecuta el <code>setup:</code> del proyecto y luego sus controles <code>validate:</code> sobre una copia intacta de <code>main</code>, dentro de la caja.</li>
 <li>Se comprueba el harness: su versión, sus credenciales tal como se ven dentro de la caja, el almacén de confianza y si el endpoint del harness es accesible a través de la red de la caja.</li>
 </ol>
-<p>En una caja que ejecuta la imagen del cliente, la prueba no pide nada a ningún agente y no gasta tokens del harness. En una caja sin imagen, donde el inicio de sesión del harness es una sesión en la máquina del operador, pide al harness una sola palabra para confirmar que el inicio de sesión funciona.</p>
-<p>Una prueba es válida mientras no cambien el digest de la imagen, la caja de herramientas ni el hash de los comandos <code>setup:</code> y <code>validate:</code> del proyecto; una nueva versión del harness también la deja obsoleta. Las pruebas no caducan por tiempo. La exploración del tablero se niega a recoger trabajo de un proyecto cuya caja tiene algo que probar y no tiene una prueba válida, e indica cuál de esos hechos cambió. Una caja <code>worktree</code> no tiene imagen y no está sujeta a este control.</p>
-<p>Un control consultivo que falla durante la prueba no detiene la recogida, salvo que su comando no haya podido ejecutarse en absoluto.</p>
+<p>En una caja que ejecuta la imagen del cliente, la certificación no pide nada a ningún agente y no gasta tokens del harness. En una caja sin imagen, donde el inicio de sesión del harness es una sesión en la máquina del operador, pide al harness una sola palabra para confirmar que el inicio de sesión funciona.</p>
+<p>Una certificación es válida mientras no cambien el digest de la imagen, la caja de herramientas ni el hash de los comandos <code>setup:</code> y <code>validate:</code> del proyecto; una nueva versión del harness también la deja obsoleta. Las certificaciones no caducan por tiempo. La exploración del tablero se niega a recoger trabajo de un proyecto cuya caja tiene algo que certificar y no tiene una certificación válida, e indica cuál de esos hechos cambió. Una caja <code>worktree</code> no tiene imagen y no está sujeta a este control.</p>
+<p>Un control no bloqueante que falla durante la certificación no detiene la recogida, salvo que su comando no haya podido ejecutarse en absoluto.</p>
 
 <h2>El montaje de la caja de herramientas</h2>
-<p>Los binarios del harness no se instalan en la imagen del cliente. Están en una caja de herramientas que se monta en cada caja en modo de solo lectura en <code>/opt/beeverforge-toolbox</code>; las directrices del operador también se montan en solo lectura. El código indica el límite de ese indicador: la solo lectura limita un accidente, no a un adversario, porque un proceso que se ejecuta como root en la caja todavía puede copiar un binario fuera.</p>
+<p>Los binarios del harness no se instalan en la imagen del cliente. Están en una caja de herramientas que se monta en cada caja en modo de solo lectura en <code>/opt/beeverforge-toolbox</code>; las directrices del operador también se montan en solo lectura. El código indica el límite de esa opción: la solo lectura protege contra accidentes, no contra un adversario, porque un proceso que se ejecuta como root en la caja todavía puede copiar un binario fuera.</p>
 
 <h2>Tráfico de red saliente</h2>
 <p>La red de la caja <code>container</code> es de forma predeterminada <code>bridge</code> de Docker, que da acceso completo a internet de salida. Todo lo que la red de la caja puede alcanzar es alcanzable por el código que escribió el agente.</p>
 <ul>
 <li><code>box.network</code> en el registro selecciona otra red de Docker, como una red restringida o una detrás de un proxy que proporcione el despliegue. El núcleo no tiene una lista de permitidos ni un proxy integrados.</li>
-<li>Un trabajo necesita como mínimo el endpoint del harness. Un proyecto en una plataforma Git remota necesita además la plataforma Git y el tracker, y todo lo que <code>setup:</code> instale desde registros de paquetes.</li>
-<li>La prueba comprueba que el endpoint del harness es accesible y verifica si la caja puede llegar a la dirección de metadatos de instancia de la nube.</li>
-<li>Un entorno aislado de la red no puede ejecutar un trabajo, porque el agente de programación es un servicio remoto.</li>
+<li>Un job necesita como mínimo el endpoint del harness. Un proyecto en una plataforma Git remota necesita además la plataforma Git y el tracker, y todo lo que <code>setup:</code> instale desde registros de paquetes.</li>
+<li>La certificación comprueba que el endpoint del harness es accesible y verifica si la caja puede llegar a la dirección de metadatos de instancia de la nube.</li>
+<li>Un entorno aislado de la red no puede ejecutar un job, porque el agente de programación es un servicio remoto.</li>
 </ul>
 
 <h2>El piso de calidad</h2>
 <p>El piso está en <code>policy/floor.py</code>: los roles de validación <code>test</code> y <code>security</code> son obligatorios. Antes de cualquier llamada a un agente, el ejecutor comprueba que ambos roles están presentes después de la cascada de valores predeterminados del despliegue, presets del stack, el bloque de todo el repositorio y los bloques por componente. Un proyecto al que le falta uno se rechaza nombrando el rol y una solución; no se ejecuta nada.</p>
 <ul>
 <li>Todo proyecto hereda un control <code>security</code> de <code>org_defaults/floor.yaml</code>: un análisis de los archivos versionados en busca de credenciales incluidas en commits. Está declarado como <code>advisory: true</code>.</li>
-<li>La herencia solo añade los roles que el proyecto no declara. Un proyecto que declara un rol lo conserva tal como está escrito, así que puede sustituir el comando de un rol obligatorio, o hacerlo consultivo, y seguir cumpliendo el piso. El piso comprueba que los roles existen, no lo que ejecutan.</li>
+<li>La herencia solo añade los roles que el proyecto no declara. Un proyecto que declara un rol lo conserva tal como está escrito, así que puede sustituir el comando de un rol obligatorio, o hacerlo no bloqueante, y seguir cumpliendo el piso. El piso comprueba que los roles existen, no lo que ejecutan.</li>
 <li>Las rutas protegidas son aditivas: un proyecto puede ampliar la lista del despliegue y no tiene ningún campo para quitar elementos. Un cambio que toca una ruta protegida nunca recibe un merge automático.</li>
 </ul>
-<p><strong>Qué hace <code>advisory: true</code>.</strong> El control se ejecuta y se informa, con una marca de advertencia en el cuerpo del pull request. Nunca hace fallar el trabajo, nunca bloquea el merge y nunca provoca una reparación. Un perfil puede convertir un control consultivo en bloqueante, nunca al revés.</p>
+<p><strong>Qué hace <code>advisory: true</code>.</strong> El control se ejecuta y se informa, con una marca de advertencia en el cuerpo del pull request. Nunca hace fallar el job, nunca bloquea el merge y nunca provoca una reparación. Un perfil puede convertir un control no bloqueante en bloqueante, nunca al revés.</p>
 
 <h2>Ejecutor y revisor separados</h2>
 <p>El revisor se ejecuta en un contexto propio. Recibe el ticket, el diff, los resultados de los controles y las restricciones, y nunca se le muestra cómo se hizo el cambio ni lo que el ejecutor dice que hizo. El revisor de Claude Code es una sesión nueva, no reanudada, en modo de planificación; al revisor genérico del harness se le indica que no escribió el código. El código señala que la independencia se reduce cuando el revisor y el ejecutor usan el mismo harness.</p>
 
 <h2>El diff es la verdad</h2>
-<p>ADR-0001 lo formula así: «La etiqueta es una suposición; el diff es la verdad». La revisión recibe <code>git diff</code> desde la base medida hasta <code>HEAD</code>, calculado dentro de la caja. El resumen propio del ejecutor va en el pull request etiquetado como una afirmación: ningún control lo verifica y no se muestra al revisor.</p>
+<p>ADR-0001 lo formula así: «La etiqueta es una suposición; el diff es la verdad». La revisión recibe <code>git diff</code> desde la base medida hasta <code>HEAD</code>, calculado dentro de la caja. El resumen propio del ejecutor va en el pull request, marcado como una afirmación: ningún control lo verifica y no se muestra al revisor.</p>
 
 <h2>Respuestas selladas a los controles humanos</h2>
 <p>Una persona aprueba una versión de producción, responde a un control de merge o dice «todavía no» en el panel, que comprueba quién llama antes de enviar nada. Como cualquier cosa que pueda llegar al motor podría enviar la misma señal, cada respuesta se sella con <code>gate_seal.py</code>:</p>
 <ul>
 <li>El sello es un HMAC-SHA256 sobre el tipo de control, el id del workflow, una caducidad, un nonce y exactamente los campos sobre los que actuará el workflow, como la versión y quien aprueba.</li>
 <li>Un sello es válido durante 600 segundos y para un solo workflow, y se consume una sola vez.</li>
-<li>El worker lo verifica en una actividad, con una comparación de tiempo constante, antes de publicar una versión o hacer un merge. Cualquier fallo cuenta como un no, se registra donde el panel lo muestra y deja el control abierto.</li>
+<li>El worker lo verifica en una actividad, con una comparación de tiempo constante, antes de publicar una versión o hacer un merge. Cualquier fallo cuenta como un no, se registra donde el panel lo muestra y deja el control pendiente.</li>
 <li>La clave es <code>BEEVERFORGE_GATE_SECRET</code> cuando está definida; si no, un archivo <code>gate.key</code> creado con modo 0600, junto al registro o en <code>~/.beeverforge/</code>.</li>
 </ul>
 <div class="doc-note">

@@ -64,7 +64,7 @@
 <li><strong>D-4</strong> Um ambiente efêmero com um cache de dependências persistente.</li>
 <li><strong>D-5</strong> Um worker genérico por ticket; executor e revisor são contextos separados.</li>
 <li><strong>D-6</strong> O rótulo é um palpite; o diff é a verdade. Os componentes resolvem os stacks.</li>
-<li><strong>D-7</strong> As dependências declaradas são a verdade; as inferidas são consultivas.</li>
+<li><strong>D-7</strong> As dependências declaradas são a verdade; as inferidas são indicativas.</li>
 <li><strong>D-8</strong> Um controle de qualidade da especificação: confiar para começar, verificar para terminar.</li>
 <li><strong>D-9</strong> A documentação tem papéis padrão, não locais padrão; os ADRs são a constituição.</li>
 <li><strong>D-10</strong> Derivar, não manter.</li>
@@ -86,7 +86,7 @@
 <dt>A vaga é liberada no merge</dt>
 <dd>O workflow do job mantém sua vaga até o merge do pull request ou até o job ficar em espera.</dd>
 <dt>A qualidade é um piso</dt>
-<dd>Os papéis <code>test</code> e <code>security</code> são obrigatórios antes de qualquer chamada a um agente. O piso verifica que os papéis existem, não o que executam, e o controle <code>security</code> herdado é consultivo.</dd>
+<dd>Os papéis <code>test</code> e <code>security</code> são obrigatórios antes de qualquer chamada a um agente. O piso verifica que os papéis existem, não o que executam, e o controle <code>security</code> herdado é não bloqueante.</dd>
 <dt>O código é a fonte da verdade</dt>
 <dd>O mapa de conhecimento é entregue a um agente só quando suas somas de verificação provam que ele descreve a cópia de trabalho do próprio job; caso contrário, nada é entregue.</dd>
 <dt>Atribuído ao bot</dt>

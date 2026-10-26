@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#1F1F24">
-  <meta name="description" content="Como adaptadores são adicionados ao núcleo do BeeverForge Community: os eixos, o grupo de pontos de entrada, o carregamento sob demanda, as colisões, as recusas pelo nome e a suíte de conformidade de adaptadores.">
+  <meta name="description" content="Como adaptadores são adicionados ao núcleo do BeeverForge Community: os eixos, o grupo de pontos de entrada, o carregamento sob demanda, as colisões, as recusas que nomeiam o tipo e a suíte de conformidade de adaptadores.">
   <title>Modelo de extensão — BeeverForge</title>
   <meta property="og:type" content="article">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="BeeverForge">
   <meta property="og:title" content="Modelo de extensão — BeeverForge">
-  <meta property="og:description" content="Como adaptadores são adicionados ao núcleo do BeeverForge Community: os eixos, o grupo de pontos de entrada, o carregamento sob demanda, as colisões, as recusas pelo nome e a suíte de conformidade de adaptadores.">
+  <meta property="og:description" content="Como adaptadores são adicionados ao núcleo do BeeverForge Community: os eixos, o grupo de pontos de entrada, o carregamento sob demanda, as colisões, as recusas que nomeiam o tipo e a suíte de conformidade de adaptadores.">
   <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -78,15 +78,15 @@ credential  board_setup  extract  embed  preview  credential_store</code></pre>
 <li><strong>Carregamento sob demanda.</strong> Os registros procuram primeiro na própria tabela. Os pontos de entrada são carregados uma vez, na primeira busca por um tipo que não é incluído, e ficam em cache; uma implantação que só usa tipos incluídos nunca carrega nenhum. Listar os complementos instalados lê os metadados dos pacotes sem importá-los.</li>
 <li><strong>Um complemento com defeito</strong> é registrado no log e ignorado; os demais continuam sendo carregados.</li>
 <li><strong>Os incluídos vencem uma colisão.</strong> Declarar <code>forge.github</code> não substitui a linha incluída: a incluída responde e a colisão é registrada no log. Um complemento não pode mudar o que um tipo existente significa para todos os projetos de uma implantação.</li>
-<li><strong>Um tipo desconhecido é recusado pelo nome.</strong> O registro lança um erro com o tipo, os tipos conhecidos e, quando o tipo pertence a um pacote complementar conhecido, qual pacote o inclui. Ele nunca recorre a um provedor padrão.</li>
+<li><strong>Um tipo desconhecido gera uma recusa que o nomeia.</strong> O registro lança um erro com o tipo, os tipos conhecidos e, quando o tipo pertence a um pacote complementar conhecido, qual pacote o inclui. Ele nunca recorre a um provedor padrão.</li>
 </ul>
 
 <h2>Nascer com dois</h2>
-<p>O ADR-0022 define o critério: um eixo é agnóstico não porque declara uma interface, mas quando nasce com mais de uma implementação e uma junção que despacha entre elas. Os protocolos são <code>@runtime_checkable</code> e os testes os verificam com <code>isinstance</code>.</p>
+<p>O ADR-0022 define o critério: um eixo é agnóstico não porque declara uma interface, mas quando nasce com mais de uma implementação e um ponto de junção que despacha entre elas. Os protocolos são <code>@runtime_checkable</code> e os testes os verificam com <code>isinstance</code>.</p>
 <p>A regra não é cumprida hoje em todos os eixos. Os eixos <code>channel</code>, <code>notifier</code>, <code>session_store</code> e <code>token_pool</code> têm um único tipo incluído cada, e <code>box_runner</code> não tem nenhum. Nenhum teste exige dois tipos incluídos por eixo; existem testes por eixo para os eixos <code>preview</code> e <code>credential_store</code>.</p>
 
 <h2>Conformidade de adaptadores</h2>
-<p><code>beeverforge conformance-adapter &lt;kind&gt; &lt;factory&gt;</code> executa um adaptador contra a suíte de conformidade da plataforma, <code>beeverforge/conformance/adapters.py</code>. A fábrica é um caminho de importação, <code>pkg.module:attr</code>, que nomeia uma instância, uma classe ou uma função que retorna uma.</p>
+<p><code>beeverforge conformance-adapter &lt;kind&gt; &lt;factory&gt;</code> executa um adaptador contra a suíte de conformidade da plataforma, <code>beeverforge/conformance/adapters.py</code>. A função fábrica (factory) é um caminho de importação, <code>pkg.module:attr</code>, que nomeia uma instância, uma classe ou uma função que retorna uma.</p>
 <ul>
 <li>As verificações são funções simples que retornam achados. Não constroem nada remoto nem alteram nada remoto; exercitam o contrato local: assinaturas, regras de degradação e o formato das recusas.</li>
 <li>Há verificações para canais, notificadores, identidade, quadros, trackers, plataformas Git, harnesses, observadores de CI, caixas e prévias.</li>

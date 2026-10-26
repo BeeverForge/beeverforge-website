@@ -48,10 +48,10 @@
 <h2>Modelo de control</h2>
 <p>El README del proyecto enuncia el modelo como <strong>«Las políticas autorizan, las personas evalúan».</strong> El manifiesto del proyecto, <code>.beeverforge/project.yaml</code>, declara la política de merge, el piso de calidad y la cadena de promoción. Dentro de esas políticas, la fábrica actúa sin pedir aprobación en cada paso; las personas juzgan el resultado.</p>
 <ul>
-<li>Un proyecto que no declara un control <code>test</code> no se considera aprobado. Antes de cualquier llamada a un agente, el ejecutor comprueba el piso y rechaza el trabajo, nombrando el control que falta y cómo declararlo.</li>
+<li>Un proyecto que no declara un control <code>test</code> no se considera aprobado. Antes de cualquier llamada a un agente, el ejecutor comprueba el piso y rechaza el job, nombrando el control que falta y cómo declararlo.</li>
 <li>La política de merge predeterminada es <code>human</code>: una persona hace el merge del pull request. El merge automático ocurre solo cuando un proyecto define <code>merge_policy: auto</code> y se cumplen todas sus condiciones.</li>
 <li>La promoción a producción espera una aprobación humana. La aprobación llega al workflow como una respuesta sellada de un solo uso (véase La caja y el piso de calidad).</li>
-<li>Cuando un trabajo no puede continuar, queda en espera en la tarjeta con las opciones que una persona puede tomar, en lugar de esperar en silencio.</li>
+<li>Cuando un job no puede continuar, queda en espera en la tarjeta con las opciones que una persona puede tomar, en lugar de esperar en silencio.</li>
 </ul>
 
 <h2>Modelo de capas</h2>
@@ -97,7 +97,7 @@
 <tbody>
 <tr><th>Aplicaciones</th><td><code>beeverforge/product/</code>, <code>beeverforge/techlead/</code>, <code>beeverforge/api/</code></td><td>Realizado. El panel, el tech-lead y el rol de producto opcional.</td></tr>
 <tr><th>Capa de acciones</th><td><code>beeverforge/actions/</code></td><td>Realizado. Un catálogo a través del cual ejecutan tanto la API del panel como la CLI.</td></tr>
-<tr><th>Núcleo</th><td><code>beeverforge/contracts/</code>, <code>beeverforge/policy/</code>, <code>beeverforge/lifecycle/</code></td><td>Realizado en parte. El ciclo de vida de la tarjeta se decide con tablas puras. El núcleo de decisión puro para trabajos propuesto en ADR-0033 no existe; las transiciones de los trabajos todavía se deciden dentro del ejecutor y del workflow.</td></tr>
+<tr><th>Núcleo</th><td><code>beeverforge/contracts/</code>, <code>beeverforge/policy/</code>, <code>beeverforge/lifecycle/</code></td><td>Realizado en parte. El ciclo de vida de la tarjeta se decide con tablas puras. El kernel de decisión puro para jobs propuesto en ADR-0033 no existe; las transiciones de los jobs todavía se deciden dentro del ejecutor y del workflow.</td></tr>
 <tr><th>Motor</th><td><code>beeverforge/runtime/temporal/</code></td><td>Realizado sobre Temporal. El motor no está detrás de un puerto propio.</td></tr>
 <tr><th>Capacidades y proveedores</th><td><code>beeverforge/adapters/</code></td><td>Realizado. Cada proveedor lo elige un registro a partir de la configuración.</td></tr>
 </tbody>
@@ -109,10 +109,10 @@
 <ul>
 <li><strong>Las máquinas del propio operador.</strong> La instalación predeterminada es <code>docker compose</code> en una sola máquina y no necesita ninguna cuenta en la nube (ADR-0040). A una nube solo se llega mediante paquetes complementarios.</li>
 <li><strong>Servicios.</strong> El archivo compose ejecuta una base de datos Postgres para el motor, un servidor Temporal, la interfaz web de Temporal, el worker y el panel. Los puertos publicados se vinculan a <code>127.0.0.1</code> de forma predeterminada.</li>
-<li><strong>El motor.</strong> Temporal guarda el estado de los trabajos. Cada trabajo es un workflow durable, de modo que un worker reiniciado reanuda el trabajo donde se detuvo.</li>
-<li><strong>La caja.</strong> El worker ejecuta cada trabajo en una caja. El tipo predeterminado es <code>container</code>: un contenedor Docker desechable que se lanza como hermano en el daemon del host, a través del socket de Docker que el archivo compose monta en el worker.</li>
+<li><strong>El motor.</strong> Temporal guarda el estado de los jobs. Cada job es un workflow durable, de modo que un worker reiniciado reanuda el job donde se detuvo.</li>
+<li><strong>La caja.</strong> El worker ejecuta cada job en una caja. El tipo predeterminado es <code>container</code>: un contenedor Docker desechable que se lanza como hermano en el daemon del host, a través del socket de Docker que el archivo compose monta en el worker.</li>
 <li><strong>Un solo inquilino, varios proyectos.</strong> Una instalación sirve a un equipo con un registro de proyectos. El registro contiene cualquier cantidad de proyectos, cada uno con su propio repositorio, tablero y manifiesto (ADR-0001, D-14).</li>
-<li><strong>Un trabajo a la vez de forma predeterminada.</strong> La cantidad de trabajos en curso es <code>BEEVERFORGE_MAX_CONCURRENT_JOBS</code>, con valor predeterminado <code>1</code>.</li>
+<li><strong>Un job a la vez de forma predeterminada.</strong> La cantidad de jobs en curso es <code>BEEVERFORGE_MAX_CONCURRENT_JOBS</code>, con valor predeterminado <code>1</code>.</li>
 </ul>
 <div class="doc-note">
 <p>El worker tiene el socket de Docker del host, lo que le da control del daemon de Docker del host. La caja predeterminada tiene acceso completo a la red saliente. Ambas cosas se describen con sus límites en La caja y el piso de calidad.</p>
@@ -120,7 +120,7 @@
 
 <h2>Fuera del núcleo</h2>
 <ul>
-<li><strong>Los agentes de programación.</strong> El núcleo conduce herramientas de línea de comandos de agentes existentes a través de un único contrato de adaptador. Los tipos de harness del árbol son <code>claude_code</code> (el predeterminado), <code>codex</code>, <code>kimi</code> y <code>opencode</code>. Cada uno llama al servicio de su proveedor; ese endpoint es un destino de red que toda instalación necesita.</li>
+<li><strong>Los agentes de programación.</strong> El núcleo conduce herramientas de línea de comandos de agentes existentes a través de un único contrato de adaptador. Los tipos de harness del árbol son <code>claude_code</code> (el predeterminado), <code>codex</code>, <code>kimi</code> y <code>opencode</code>. Cada uno llama al servicio de su fabricante; ese endpoint es un destino de red que toda instalación necesita.</li>
 <li><strong>Canales de chat.</strong> El núcleo está completo sin un conector de chat (ADR-0038). El único canal y notificador del árbol es el panel. Los adaptadores de Slack y Telegram se distribuyen en un paquete complementario aparte y se registran mediante el mismo mecanismo de extensión que cualquier otro adaptador.</li>
 <li><strong>Ejecutores y almacenes en la nube.</strong> El núcleo no incluye ningún ejecutor de cajas remotas. El ejecutor de tareas remotas, la tabla de métricas en la nube, el almacén de sesiones remoto y el pool de tokens en la nube están declarados como tipos de complementos.</li>
 </ul>

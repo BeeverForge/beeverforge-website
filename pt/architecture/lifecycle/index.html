@@ -50,7 +50,7 @@
 <div class="doc-diagram">
 <svg viewBox="0 0 960 540" role="img" aria-labelledby="states-title states-desc">
 <title id="states-title">Máquina de estados do job</title>
-<desc id="states-desc">O caminho de trabalho vai de todo a done. Os estados em espera aguardam uma pessoa. Três estados declarados não são atribuídos pelo código.</desc>
+<desc id="states-desc">O caminho de trabalho vai de <code>todo</code> a <code>done</code>. Os estados em espera aguardam uma pessoa. Três estados declarados não são atribuídos pelo código.</desc>
 <defs><marker id="states-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-head" d="M0 0L10 5L0 10z"/></marker></defs>
 <rect class="d-box" x="20" y="30" width="160" height="34" rx="5"/><text class="d-mono" x="100" y="51" text-anchor="middle" translate="no">todo</text>
 <rect class="d-box" x="210" y="30" width="160" height="34" rx="5"/><text class="d-mono" x="290" y="51" text-anchor="middle" translate="no">spec_validation</text>
@@ -116,7 +116,7 @@
 <h2>Estações, de ponta a ponta</h2>
 
 <h3>1. Consulta e vagas</h3>
-<p>Um agendamento do Temporal inicia o workflow de consulta a cada 3 minutos por padrão; um ciclo que se sobreporia a outro em andamento é ignorado. Cada ciclo inicia no máximo as vagas livres: <code>BEEVERFORGE_MAX_CONCURRENT_JOBS</code> (padrão <code>1</code>) menos os jobs já em andamento, na ordem do quadro. Um projeto cuja caixa precisa de uma prova e não tem uma válida não é recolhido; a consulta informa o motivo.</p>
+<p>Um agendamento do Temporal inicia o workflow de consulta a cada 3 minutos por padrão; um ciclo que se sobreporia a outro em andamento é ignorado. Cada ciclo inicia no máximo tantos jobs quantas vagas livres houver: <code>BEEVERFORGE_MAX_CONCURRENT_JOBS</code> (padrão <code>1</code>) menos os jobs já em andamento, na ordem do quadro. Um projeto cuja caixa precisa de uma prova e não tem uma válida não é recolhido; a consulta informa o motivo.</p>
 
 <h3>2. Dimensionamento e divisão automática</h3>
 <p>Antes de o job ser executado, uma passada de dimensionamento lê o ticket e o código (ADR-0013). Ela vem ativada por padrão. Seu veredito é um entre: cabe, pouco claro ou dividir. Pouco claro deixa o ticket em espera em <code>needs_refinement</code>. Dividir registra os filhos na coluna de entrada e fecha o pai; se a própria divisão falhar, o ticket fica em espera com a proposta para uma pessoa dividir manualmente. Uma passada de dimensionamento que não consegue julgar não interrompe o job: o job é executado sem dimensionamento e o cartão informa que o dimensionamento não foi executado.</p>
@@ -141,7 +141,7 @@
 <p>Um agente revisor, em sua própria sessão, recebe o ticket, o diff, os resultados dos controles e as restrições, e nunca o relato do executor sobre o próprio trabalho. <code>review_mode</code> é <code>advisory</code> por padrão: os achados são publicados e não bloqueiam. Só com <code>review_mode: blocking</code> uma rejeição com achados acionáveis dispara uma passada de reparo (<code>review_repair_max_attempts</code>, padrão <code>1</code>) seguida de uma nova revisão (ADR-0006).</p>
 
 <h3>9. Pull request</h3>
-<p>O job publica o branch e abre o pull request. A abertura é buscar e depois atualizar: se já existe um pull request aberto para o branch, ele é reutilizado e seu título e corpo são atualizados, de modo que uma nova tentativa não cria um segundo. O resumo do próprio agente vai para o pull request marcado como uma afirmação que nenhum controle verifica.</p>
+<p>O job publica o branch e abre o pull request. A abertura é buscar e depois atualizar: se já existe um pull request aberto para o branch, ele é reutilizado e seu título e corpo são atualizados, de modo que uma nova tentativa não cria um segundo. O resumo do próprio agente vai para o pull request, marcado como uma afirmação que nenhum controle verifica.</p>
 
 <h3>10. Reparo guiado pela CI</h3>
 <p>Enquanto o pull request está aberto, o workflow o acompanha, qualquer que seja a política de merge (ADR-0004). Ele consulta a cada 2 minutos na primeira hora e a cada 15 minutos depois disso. Uma CI vermelha dispara até 2 passadas de reparo; um branch que ficou atrás da sua base é atualizado até 6 vezes; quando nenhum check informou nada após 10 minutos, o job diz isso em vez de interpretar o silêncio como verde. Após 14 dias sem merge, o job fica em espera.</p>

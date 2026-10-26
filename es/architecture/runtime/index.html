@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#1F1F24">
-  <meta name="description" content="Cómo se ejecuta el núcleo de BeeverForge Community sobre Temporal: workflows, actividades, programaciones, señales, temporizadores durables, efectos secundarios idempotentes, seguridad en la reproducción, memoria acotada y observabilidad.">
+  <meta name="description" content="Cómo se ejecuta el núcleo de BeeverForge Community sobre Temporal: workflows, actividades, programaciones, señales, temporizadores durables, efectos secundarios idempotentes, seguridad en la reejecución, memoria acotada y observabilidad.">
   <title>Ejecución y durabilidad — BeeverForge</title>
   <meta property="og:type" content="article">
   <meta property="og:locale" content="es_ES">
   <meta property="og:site_name" content="BeeverForge">
   <meta property="og:title" content="Ejecución y durabilidad — BeeverForge">
-  <meta property="og:description" content="Cómo se ejecuta el núcleo de BeeverForge Community sobre Temporal: workflows, actividades, programaciones, señales, temporizadores durables, efectos secundarios idempotentes, seguridad en la reproducción, memoria acotada y observabilidad.">
+  <meta property="og:description" content="Cómo se ejecuta el núcleo de BeeverForge Community sobre Temporal: workflows, actividades, programaciones, señales, temporizadores durables, efectos secundarios idempotentes, seguridad en la reejecución, memoria acotada y observabilidad.">
   <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -42,18 +42,18 @@
   </header>
   <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Contenido de la arquitectura"><details class="doc-toc" open data-doc-toc><summary>Contenido</summary><p class="doc-toc-title">Arquitectura de BeeverForge Community</p><ol><li><a href="/es/architecture/">Visión general</a></li><li><a href="/es/architecture/lifecycle/">Ciclo de vida de un ticket</a></li><li><a href="/es/architecture/runtime/" aria-current="page">Ejecución y durabilidad</a></li><li><a href="/es/architecture/box/">La caja y el piso de calidad</a></li><li><a href="/es/architecture/extensions/">Modelo de extensión</a></li><li><a href="/es/architecture/principles/">Principios de ingeniería</a></li><li><a href="/es/architecture/repository/">Principios del repositorio</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">Arquitectura de BeeverForge Community</p>
 <h1>Ejecución y durabilidad</h1>
-<p class="doc-lead">El motor es Temporal. Cada trabajo es un workflow, cada efecto secundario es una actividad y cada espera, desde una consulta a la CI hasta una aprobación de producción, es un temporizador o una condición durable. Por eso, al reiniciar un worker el trabajo se reanuda en lugar de perderse.</p>
+<p class="doc-lead">El motor es Temporal. Cada job es un workflow, cada efecto secundario es una actividad y cada espera, desde una consulta a la CI hasta una aprobación de producción, es un temporizador o una condición durable. Por eso, al reiniciar un worker el job se reanuda en lugar de perderse.</p>
 
 <h2>Workflows, actividades y la cola de tareas</h2>
 <p>Un único proceso worker registra todos los workflows y todas las actividades en una sola cola de tareas, <code>beeverforge-jobs</code>. Los workflows principales son:</p>
 <dl>
 <dt><code>JobWorkflow</code></dt><dd>Uno por ticket. El dimensionamiento, la ejecución en la caja, la vigilancia hasta el merge, la promoción y cada espera ocurren dentro de él.</dd>
-<dt><code>PollWorkflow</code></dt><dd>Una exploración del tablero por ciclo, que inicia trabajos en las plazas libres.</dd>
+<dt><code>PollWorkflow</code></dt><dd>Una exploración del tablero por ciclo, que inicia jobs en los cupos libres.</dd>
 <dt><code>DeployWatchWorkflow</code></dt><dd>Un hijo independiente que observa el despliegue después de un merge.</dd>
 <dt><code>PreviewWorkflow</code></dt><dd>Una vista previa en ejecución de un cambio sin merge, cuando hay un entorno de vista previa configurado.</dd>
 <dt><code>ConversationWorkflow</code></dt><dd>Una conversación con la fábrica, admitida y avanzada mediante señales.</dd>
 </dl>
-<p>Otros workflows cubren la vigilancia del tech-lead, la actualización del conocimiento, el rol de producto y los barridos que se listan abajo. El trabajo pesado, como ejecutar el trabajo en su caja, es la actividad <code>run_job</code>.</p>
+<p>Otros workflows cubren la vigilancia del tech-lead, la actualización del conocimiento, el rol de producto y los barridos que se listan abajo. El trabajo pesado, como ejecutar el job en su caja, es la actividad <code>run_job</code>.</p>
 
 <h2>Programaciones</h2>
 <p>El trabajo recurrente es una programación de Temporal, que el worker concilia al arrancar.</p>
@@ -73,7 +73,7 @@
 <p>El motor conserva el historial de los workflows durante 30 días de forma predeterminada (<code>BEEVERFORGE_ENGINE_RETENTION_DAYS</code>).</p>
 
 <h2>Señales y temporizadores durables</h2>
-<p>La respuesta de una persona llega a un trabajo en curso como una señal: <code>approve_prod</code>, <code>not_yet</code>, <code>human_merge_gate</code>, <code>act_on_impediment</code> y <code>advise_decision</code>. Las esperas son <code>workflow.sleep</code> y <code>workflow.wait_condition</code> con un tiempo límite, de modo que una espera de minutos o días no ocupa ningún worker y sobrevive a un reinicio. Por ejemplo, la consulta a la CI (2 minutos, luego 15), la consulta del despliegue (1 minuto), la aprobación de producción (3 días), la vigilancia del merge (14 días) y un impedimento en espera (3 días).</p>
+<p>La respuesta de una persona llega a un job en curso como una señal: <code>approve_prod</code>, <code>not_yet</code>, <code>human_merge_gate</code>, <code>act_on_impediment</code> y <code>advise_decision</code>. Las esperas son <code>workflow.sleep</code> y <code>workflow.wait_condition</code> con un tiempo límite, de modo que una espera de minutos o días no ocupa ningún worker y sobrevive a un reinicio. Por ejemplo, la consulta a la CI (2 minutos, luego 15), la consulta del despliegue (1 minuto), la aprobación de producción (3 días), la vigilancia del merge (14 días) y un impedimento en espera (3 días).</p>
 
 <h2>Efectos secundarios idempotentes</h2>
 <p>Una actividad puede volver a ejecutarse tras un fallo, así que cada escritura externa está hecha para poder repetirse sin riesgo o no se reintenta:</p>
@@ -82,18 +82,18 @@
 <li><strong>Las etiquetas de versión</strong> son buscar o crear.</li>
 <li><strong>Las transiciones y los comentarios de las tarjetas</strong> llevan el id del evento de la actividad que los causó; la puerta de la tarjeta devuelve la transición ya registrada para ese id en lugar de escribirla de nuevo.</li>
 <li><strong>Los merges</strong> se vuelven a leer en la plataforma Git después de la llamada de merge, en lugar de confiar en el resultado de la llamada.</li>
-<li><strong>El propio trabajo</strong> solo se reintenta cuando su tipo de caja declara que un reintento se vuelve a conectar al trabajo en curso. Ningún tipo de caja de este repositorio lo declara: las cajas <code>container</code> y <code>worktree</code> ejecutan su actividad de trabajo una sola vez, porque un reintento sería una segunda pasada del agente que repetiría cada comentario. El ejecutor que se vuelve a conectar lo proporciona un complemento.</li>
+<li><strong>El propio job</strong> solo se reintenta cuando su tipo de caja declara que un reintento se vuelve a conectar al job en curso. Ningún tipo de caja de este repositorio lo declara: las cajas <code>container</code> y <code>worktree</code> ejecutan su actividad de job una sola vez, porque un reintento sería una segunda pasada del agente que repetiría cada comentario. El ejecutor que se vuelve a conectar lo proporciona un complemento.</li>
 </ul>
 
 <h2>Heartbeats</h2>
-<p>Las actividades largas emiten heartbeats. Las actividades de trabajo se ejecutan con un tiempo límite de heartbeat de 120 segundos y laten aproximadamente cada 30 segundos; el trabajo que continúa después del último latido está acotado para caber en esa ventana. Así, un worker que muere a mitad de una actividad se detecta dentro del tiempo límite y no al final de la duración completa de la actividad.</p>
+<p>Las actividades largas emiten heartbeats. Las actividades de job se ejecutan con un tiempo límite de heartbeat de 120 segundos y laten aproximadamente cada 30 segundos; el trabajo que continúa después del último latido está acotado para caber en esa ventana. Así, un worker que muere a mitad de una actividad se detecta dentro del tiempo límite y no al final de la duración completa de la actividad.</p>
 
-<h2>Seguridad en la reproducción</h2>
+<h2>Seguridad en la reejecución</h2>
 <p>Temporal reproduce el historial de un workflow contra el código actual, así que un cambio en la lógica del workflow no debe cambiar los comandos que un workflow en curso ya registró.</p>
 <ul>
-<li>Cada cambio de ese tipo está protegido por <code>workflow.patched()</code> con un id que nombra el comportamiento, por ejemplo <code>signed-gates</code> o <code>a-self-merge-is-read-back</code>. Los historiales antiguos toman la rama antigua; las ejecuciones nuevas toman la nueva.</li>
-<li>Las pruebas de Replayer ejecutan un workflow contra un servidor Temporal efímero, obtienen el historial registrado y lo reproducen con <code>Replayer</code> contra el código actual. Algunas ejecutan primero una copia del workflow anterior al parche. Los historiales se registran dentro de las pruebas; ninguno está guardado como archivo en el repositorio.</li>
-<li>El código que debe quedar fuera del cuerpo del workflow se mantiene en actividades. La comprobación de la prueba de la caja al recoger trabajo está en la actividad de exploración del tablero precisamente por eso.</li>
+<li>Cada cambio de ese tipo está protegido por <code>workflow.patched()</code> con un id que nombra el comportamiento, por ejemplo <code>signed-gates</code> o <code>a-self-merge-is-read-back</code>. Los historiales antiguos toman el camino antiguo; las ejecuciones nuevas toman el nuevo.</li>
+<li>Las pruebas de Replayer ejecutan un workflow contra un servidor Temporal efímero, obtienen el historial registrado y lo reejecutan con <code>Replayer</code> contra el código actual. Algunas ejecutan primero una copia del workflow anterior al parche. Los historiales se registran dentro de las pruebas; ninguno está guardado como archivo en el repositorio.</li>
+<li>El código que debe quedar fuera del cuerpo del workflow se mantiene en actividades. La comprobación de la certificación de la caja al recoger trabajo está en la actividad de exploración del tablero precisamente por eso.</li>
 </ul>
 
 <h2>Un cliente del motor por proceso</h2>
@@ -104,13 +104,13 @@
 <ul>
 <li><code>util/bounded.py</code> proporciona <code>BoundedDict</code>: seguro entre hilos, con un tamaño máximo obligatorio, que expulsa primero la entrada más antigua y cuenta lo que expulsó. Deliberadamente no es una subclase de <code>dict</code>, para que nada pueda hacerlo crecer saltándose su límite.</li>
 <li><code>util/single_flight.py</code> permite que los lectores que llegan a la vez compartan una lectura. Cada uno queda protegido de la cancelación de otro llamador, hay como máximo una lectura en curso, y un fallo se comparte con quienes esperan en ese momento y no se guarda.</li>
-<li>Una prueba estructural, <code>tests/test_no_unbounded_growth.py</code>, exige que cada lugar que reserva o memoriza datos en un proceso de larga vida declare su límite.</li>
+<li>Una prueba estructural, <code>tests/test_no_unbounded_growth.py</code>, exige que cada lugar que reserva o memoiza datos en un proceso de larga vida declare su límite.</li>
 </ul>
 
 <h2>Diario, métricas y observabilidad</h2>
 <ul>
-<li><strong>El diario del trabajo</strong> registra eventos tipados (<code>state</code>, <code>agent_action</code>, <code>validation</code>, <code>review</code>, <code>pr</code>, <code>note</code>, <code>warning</code>, <code>error</code>). El destino predeterminado es un archivo, <code>&lt;issue&gt;-events.jsonl</code> en el directorio de registros del proyecto; <code>BEEVERFORGE_EVENT_SINK</code> selecciona otro.</li>
-<li><strong>Las métricas</strong> registran el coste y el esfuerzo por invocación del agente y por trabajo. Los destinos incluidos son ninguno, SQLite y memoria; sin configuración no se guardan métricas. El panel las sirve en <code>GET /api/metrics</code>.</li>
+<li><strong>El diario del job</strong> registra eventos tipados (<code>state</code>, <code>agent_action</code>, <code>validation</code>, <code>review</code>, <code>pr</code>, <code>note</code>, <code>warning</code>, <code>error</code>). El destino predeterminado es un archivo, <code>&lt;issue&gt;-events.jsonl</code> en el directorio de registros del proyecto; <code>BEEVERFORGE_EVENT_SINK</code> selecciona otro.</li>
+<li><strong>Las métricas</strong> registran el costo y el esfuerzo por invocación del agente y por job. Los destinos incluidos son ninguno, SQLite y memoria; sin configuración no se guardan métricas. El panel las sirve en <code>GET /api/metrics</code>.</li>
 <li><strong>El estado de salud</strong> tiene sus propias rutas, y la interfaz web de Temporal muestra el historial de cada workflow.</li>
 <li>El núcleo no tiene exportador de Prometheus ni de OpenTelemetry.</li>
 </ul>

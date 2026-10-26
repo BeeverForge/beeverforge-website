@@ -68,7 +68,7 @@
 <p>La falta de una herramienta opcional, como Docker o <code>node</code>, hace que una prueba se omita al ejecutarse; nunca cambia lo que se recolecta. La CI define <code>TEST_REQUIRE_DOCKER</code>, que allí convierte la omisión por Docker en un fallo. El servidor de pruebas de Temporal es un requisito obligatorio, no una omisión.</p>
 <h3>La CI se atiene al Makefile y cada prueba se ejecuta una vez</h3>
 <ul>
-<li>Cada paso de la CI ejecuta un objetivo de <code>make</code> (<code>install</code>, <code>lint</code>, <code>test-collect</code>, <code>test-unit</code> en cuatro fragmentos, <code>test-integration</code>, <code>test-alone</code>, <code>test-ran-once</code>), salvo el paso final que informa de si todos los trabajos pasaron.</li>
+<li>Cada paso de la CI ejecuta un objetivo de <code>make</code> (<code>install</code>, <code>lint</code>, <code>test-collect</code>, <code>test-unit</code> en cuatro fragmentos, <code>test-integration</code>, <code>test-alone</code>, <code>test-ran-once</code>), salvo el paso final que informa de si todos los jobs pasaron.</li>
 <li>Una guarda expande con <code>make -n</code> los objetivos que nombra la CI y comprueba que siguen ejecutando la suite y analizando cada raíz que cubre la suite. Ninguna guarda prohíbe un paso de CI que no sea un objetivo de <code>make</code>.</li>
 <li>La suite se recolecta una vez; cada fragmento registra los ids de las pruebas que ejecutó; <code>scripts/every_test_ran_once.py</code> falla ante una prueba que falta, se duplica o es desconocida. Una recolección vacía es un fallo, no un éxito.</li>
 </ul>

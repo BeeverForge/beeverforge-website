@@ -68,10 +68,10 @@
 </ol>
 <p>Em uma caixa que executa a imagem do cliente, a prova não pede nada a nenhum agente e não gasta tokens do harness. Em uma caixa sem imagem, onde o login do harness é uma sessão na máquina do operador, ela pede ao harness uma única palavra para confirmar que o login funciona.</p>
 <p>Uma prova é válida enquanto o digest da imagem, a caixa de ferramentas e o hash dos comandos <code>setup:</code> e <code>validate:</code> do projeto não mudarem; uma nova versão do harness também a torna obsoleta. As provas não expiram por tempo. A varredura do quadro se recusa a recolher trabalho de um projeto cuja caixa tem algo a provar e não tem prova válida, e informa qual desses fatos mudou. Uma caixa <code>worktree</code> não tem imagem e não passa por esse controle.</p>
-<p>Um controle consultivo que falha durante a prova não impede o recolhimento, a menos que seu comando nem tenha conseguido ser executado.</p>
+<p>Um controle não bloqueante que falha durante a prova não impede o recolhimento, a menos que seu comando nem tenha conseguido ser executado.</p>
 
 <h2>A montagem da caixa de ferramentas</h2>
-<p>Os binários do harness não são instalados na imagem do cliente. Eles ficam em uma caixa de ferramentas montada em cada caixa como somente leitura em <code>/opt/beeverforge-toolbox</code>; as diretrizes do operador também são montadas como somente leitura. O código declara o limite dessa opção: somente leitura limita um acidente, não um adversário, porque um processo rodando como root na caixa ainda pode copiar um binário para fora.</p>
+<p>Os binários do harness não são instalados na imagem do cliente. Eles ficam em uma caixa de ferramentas montada em cada caixa como somente leitura em <code>/opt/beeverforge-toolbox</code>; as diretrizes do operador também são montadas como somente leitura. O código declara o limite dessa opção: somente leitura protege contra acidentes, não contra um adversário, porque um processo rodando como root na caixa ainda pode copiar um binário para fora.</p>
 
 <h2>Tráfego de rede de saída</h2>
 <p>A rede da caixa <code>container</code> é, por padrão, a <code>bridge</code> do Docker, que dá acesso total à internet de saída. Tudo o que a rede da caixa alcança pode ser alcançado pelo código que o agente escreveu.</p>
@@ -86,23 +86,23 @@
 <p>O piso está em <code>policy/floor.py</code>: os papéis de validação <code>test</code> e <code>security</code> são obrigatórios. Antes de qualquer chamada a um agente, o executor verifica que os dois papéis estão presentes depois da cascata de padrões da implantação, presets do stack, do bloco de todo o repositório e dos blocos por componente. Um projeto em que falta um deles é recusado com o papel nomeado e uma solução; nada é executado.</p>
 <ul>
 <li>Todo projeto herda um controle <code>security</code> de <code>org_defaults/floor.yaml</code>: uma varredura dos arquivos versionados em busca de credenciais incluídas em commits. Ele é declarado como <code>advisory: true</code>.</li>
-<li>A herança só adiciona os papéis que o projeto não declara. Um projeto que declara um papel o mantém exatamente como escrito, então pode substituir o comando de um papel obrigatório, ou torná-lo consultivo, e ainda assim cumprir o piso. O piso verifica que os papéis existem, não o que eles executam.</li>
+<li>A herança só adiciona os papéis que o projeto não declara. Um projeto que declara um papel o mantém exatamente como escrito, então pode substituir o comando de um papel obrigatório, ou torná-lo não bloqueante, e ainda assim cumprir o piso. O piso verifica que os papéis existem, não o que eles executam.</li>
 <li>Os caminhos protegidos são aditivos: um projeto pode ampliar a lista da implantação e não tem nenhum campo para remover itens. Uma mudança que toca um caminho protegido nunca recebe merge automático.</li>
 </ul>
-<p><strong>O que <code>advisory: true</code> faz.</strong> O controle é executado e informado, com uma marca de aviso no corpo do pull request. Ele nunca faz o job falhar, nunca bloqueia o merge e nunca dispara um reparo. Um perfil pode tornar um controle consultivo bloqueante, nunca o contrário.</p>
+<p><strong>O que <code>advisory: true</code> faz.</strong> O controle é executado e informado, com uma marca de aviso no corpo do pull request. Ele nunca faz o job falhar, nunca bloqueia o merge e nunca dispara um reparo. Um perfil pode tornar bloqueante um controle não bloqueante, nunca o contrário.</p>
 
 <h2>Executor e revisor separados</h2>
 <p>O revisor roda em um contexto próprio. Ele recebe o ticket, o diff, os resultados dos controles e as restrições, e nunca vê como a mudança foi feita nem o que o executor diz ter feito. O revisor do Claude Code é uma sessão nova, não retomada, em modo de planejamento; o revisor genérico do harness é informado de que não escreveu o código. O código observa que a independência diminui quando o revisor e o executor usam o mesmo harness.</p>
 
 <h2>O diff é a verdade</h2>
-<p>O ADR-0001 formula assim: “O rótulo é um palpite; o diff é a verdade.” A revisão recebe <code>git diff</code> da base medida até <code>HEAD</code>, calculado dentro da caixa. O resumo do próprio executor vai para o pull request marcado como uma afirmação: nenhum controle o verifica e ele não é mostrado ao revisor.</p>
+<p>O ADR-0001 formula assim: “O rótulo é um palpite; o diff é a verdade.” A revisão recebe <code>git diff</code> da base medida até <code>HEAD</code>, calculado dentro da caixa. O resumo do próprio executor vai para o pull request, marcado como uma afirmação: nenhum controle o verifica e ele não é mostrado ao revisor.</p>
 
 <h2>Respostas seladas aos controles humanos</h2>
 <p>Uma pessoa aprova uma versão de produção, responde a um controle de merge ou diz “ainda não” no painel, que verifica quem está chamando antes de enviar qualquer coisa. Como qualquer coisa que alcance o motor poderia enviar o mesmo sinal, cada resposta é selada por <code>gate_seal.py</code>:</p>
 <ul>
 <li>O selo é um HMAC-SHA256 sobre o tipo de controle, o id do workflow, uma expiração, um nonce e exatamente os campos sobre os quais o workflow vai agir, como a versão e quem aprova.</li>
 <li>Um selo vale por 600 segundos e para um único workflow, e é consumido uma única vez.</li>
-<li>O worker o verifica em uma atividade, com uma comparação de tempo constante, antes de liberar uma versão ou fazer um merge. Qualquer falha conta como não, é registrada onde o painel a mostra e deixa o controle aberto.</li>
+<li>O worker o verifica em uma atividade, com uma comparação de tempo constante, antes de liberar uma versão ou fazer um merge. Qualquer falha conta como não, é registrada onde o painel a mostra e deixa o controle pendente.</li>
 <li>A chave é <code>BEEVERFORGE_GATE_SECRET</code> quando definida; caso contrário, um arquivo <code>gate.key</code> criado com modo 0600, ao lado do registro ou em <code>~/.beeverforge/</code>.</li>
 </ul>
 <div class="doc-note">

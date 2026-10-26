@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#1F1F24">
-  <meta name="description" content="Cómo se añaden adaptadores al núcleo de BeeverForge Community: los ejes, el grupo de puntos de entrada, la carga diferida, las colisiones, los rechazos por nombre y la suite de conformidad de adaptadores.">
+  <meta name="description" content="Cómo se añaden adaptadores al núcleo de BeeverForge Community: los ejes, el grupo de puntos de entrada, la carga diferida, las colisiones, los rechazos que nombran el tipo y la suite de conformidad de adaptadores.">
   <title>Modelo de extensión — BeeverForge</title>
   <meta property="og:type" content="article">
   <meta property="og:locale" content="es_ES">
   <meta property="og:site_name" content="BeeverForge">
   <meta property="og:title" content="Modelo de extensión — BeeverForge">
-  <meta property="og:description" content="Cómo se añaden adaptadores al núcleo de BeeverForge Community: los ejes, el grupo de puntos de entrada, la carga diferida, las colisiones, los rechazos por nombre y la suite de conformidad de adaptadores.">
+  <meta property="og:description" content="Cómo se añaden adaptadores al núcleo de BeeverForge Community: los ejes, el grupo de puntos de entrada, la carga diferida, las colisiones, los rechazos que nombran el tipo y la suite de conformidad de adaptadores.">
   <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -78,15 +78,15 @@ credential  board_setup  extract  embed  preview  credential_store</code></pre>
 <li><strong>Carga diferida.</strong> Los registros buscan primero en su propia tabla. Los puntos de entrada se cargan una vez, en la primera búsqueda de un tipo que no está incluido, y se guardan en caché; un despliegue que solo usa tipos incluidos nunca carga ninguno. Listar los complementos instalados lee los metadatos de los paquetes sin importarlos.</li>
 <li><strong>Un complemento defectuoso</strong> se registra en el log y se ignora; los demás se siguen cargando.</li>
 <li><strong>Los incluidos ganan una colisión.</strong> Declarar <code>forge.github</code> no sustituye la fila incluida: responde la incluida y la colisión se registra en el log. Un complemento no puede cambiar lo que significa un tipo existente para todos los proyectos de un despliegue.</li>
-<li><strong>Un tipo desconocido se rechaza por su nombre.</strong> El registro lanza un error con el tipo, los tipos conocidos y, cuando el tipo pertenece a un paquete complementario conocido, qué paquete lo incluye. Nunca recurre a un proveedor predeterminado.</li>
+<li><strong>Un tipo desconocido provoca un rechazo que lo nombra.</strong> El registro lanza un error con el tipo, los tipos conocidos y, cuando el tipo pertenece a un paquete complementario conocido, qué paquete lo incluye. Nunca recurre a un proveedor predeterminado.</li>
 </ul>
 
 <h2>Nacer con dos</h2>
-<p>ADR-0022 fija el listón: un eje es agnóstico no porque declare una interfaz, sino cuando nace con más de una implementación y una junta que despacha entre ellas. Los protocolos son <code>@runtime_checkable</code> y las pruebas los comprueban con <code>isinstance</code>.</p>
+<p>ADR-0022 fija el listón: un eje es agnóstico no porque declare una interfaz, sino cuando nace con más de una implementación y un punto de unión que despacha entre ellas. Los protocolos son <code>@runtime_checkable</code> y las pruebas los comprueban con <code>isinstance</code>.</p>
 <p>La regla no se cumple hoy en todos los ejes. Los ejes <code>channel</code>, <code>notifier</code>, <code>session_store</code> y <code>token_pool</code> tienen un solo tipo incluido cada uno, y <code>box_runner</code> no tiene ninguno. Ninguna prueba exige dos tipos incluidos por eje; existen pruebas por eje para los ejes <code>preview</code> y <code>credential_store</code>.</p>
 
 <h2>Conformidad de adaptadores</h2>
-<p><code>beeverforge conformance-adapter &lt;kind&gt; &lt;factory&gt;</code> ejecuta un adaptador contra la suite de conformidad de la plataforma, <code>beeverforge/conformance/adapters.py</code>. La factoría es una ruta de importación, <code>pkg.module:attr</code>, que nombra una instancia, una clase o una función que devuelve una.</p>
+<p><code>beeverforge conformance-adapter &lt;kind&gt; &lt;factory&gt;</code> ejecuta un adaptador contra la suite de conformidad de la plataforma, <code>beeverforge/conformance/adapters.py</code>. La función fábrica (factory) es una ruta de importación, <code>pkg.module:attr</code>, que nombra una instancia, una clase o una función que devuelve una.</p>
 <ul>
 <li>Las comprobaciones son funciones simples que devuelven hallazgos. No construyen nada remoto ni cambian nada remoto; ejercitan el contrato local: firmas, reglas de degradación y la forma de los rechazos.</li>
 <li>Hay comprobaciones para canales, notificadores, identidad, tableros, trackers, plataformas Git, harnesses, observadores de CI, cajas y vistas previas.</li>

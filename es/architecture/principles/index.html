@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#1F1F24">
-  <meta name="description" content="Los principios sobre los que se construye el núcleo de BeeverForge Community y dónde los hace cumplir el código: neutralidad respecto a proveedores, una capa de acciones, una puerta para los cambios de tarjeta, rechazos, presupuestos de prompt y la capa de conocimiento.">
+  <meta name="description" content="Los principios sobre los que se construye el núcleo de BeeverForge Community y dónde los hace cumplir el código: neutralidad respecto a fabricantes, una capa de acciones, una puerta para los cambios de tarjeta, rechazos, presupuestos de prompt y la capa de conocimiento.">
   <title>Principios de ingeniería — BeeverForge</title>
   <meta property="og:type" content="article">
   <meta property="og:locale" content="es_ES">
   <meta property="og:site_name" content="BeeverForge">
   <meta property="og:title" content="Principios de ingeniería — BeeverForge">
-  <meta property="og:description" content="Los principios sobre los que se construye el núcleo de BeeverForge Community y dónde los hace cumplir el código: neutralidad respecto a proveedores, una capa de acciones, una puerta para los cambios de tarjeta, rechazos, presupuestos de prompt y la capa de conocimiento.">
+  <meta property="og:description" content="Los principios sobre los que se construye el núcleo de BeeverForge Community y dónde los hace cumplir el código: neutralidad respecto a fabricantes, una capa de acciones, una puerta para los cambios de tarjeta, rechazos, presupuestos de prompt y la capa de conocimiento.">
   <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -47,7 +47,7 @@
 <h2>Principios de la visión</h2>
 <p>De <code>docs/core/00-vision.md</code>:</p>
 <ol>
-<li><strong>El núcleo no nombra a ningún proveedor.</strong> A un proveedor se llega mediante un puerto, elegido por un registro, a partir de la configuración.</li>
+<li><strong>El núcleo no nombra a ningún fabricante.</strong> A un fabricante se llega mediante un puerto, elegido por un registro, a partir de la configuración.</li>
 <li><strong>Todo lo que está fuera del núcleo es reemplazable</strong>, por alguien que no sean los mantenedores: un punto de entrada, no un pull request.</li>
 <li><strong>Una aplicación construida sobre el núcleo no es el núcleo.</strong> Usa la misma superficie que usaría la aplicación de un tercero.</li>
 <li><strong>El núcleo es útil por sí mismo.</strong> Nada de lo que incluye se retira para crear una vía de actualización.</li>
@@ -64,7 +64,7 @@
 <li><strong>D-4</strong> Un entorno efímero con una caché de dependencias persistente.</li>
 <li><strong>D-5</strong> Un worker genérico por ticket; el ejecutor y el revisor son contextos separados.</li>
 <li><strong>D-6</strong> La etiqueta es una suposición; el diff es la verdad. Los componentes resuelven los stacks.</li>
-<li><strong>D-7</strong> Las dependencias declaradas son la verdad; las inferidas son consultivas.</li>
+<li><strong>D-7</strong> Las dependencias declaradas son la verdad; las inferidas son orientativas.</li>
 <li><strong>D-8</strong> Un control de calidad de la especificación: confiar para empezar, verificar para terminar.</li>
 <li><strong>D-9</strong> La documentación tiene roles estándar, no ubicaciones estándar; los ADR son la constitución.</li>
 <li><strong>D-10</strong> Derivar, no mantener.</li>
@@ -74,21 +74,21 @@
 <li><strong>D-14</strong> Un solo inquilino, varios proyectos.</li>
 <li><strong>D-15</strong> Recogida, propiedad y gestión de impedimentos.</li>
 <li><strong>D-16</strong> Temporal como motor de ejecución durable.</li>
-<li><strong>D-17</strong> Una caja de tareas remota que ejecuta el trabajo completo. En este repositorio esa caja es solo una descripción; su ejecutor es un complemento.</li>
+<li><strong>D-17</strong> Una caja de tareas remota que ejecuta el job completo. En este repositorio esa caja es solo una descripción; su ejecutor es un complemento.</li>
 </ul>
 
 <h2>Invariantes, comprobados contra el código</h2>
 <dl>
 <dt>Nunca un bloqueo silencioso</dt>
-<dd>Toda espera en el workflow del trabajo tiene un plazo o una persona al final: la vigilancia del merge, la aprobación de producción y un impedimento sin respuesta tienen plazos, y una espera por decisión se mantiene hasta que se responde. Las esperas incluyen las opciones que una persona puede tomar. Un pull request en el que ningún check informa se señala, no se interpreta como verde.</dd>
+<dd>Toda espera en el workflow del job tiene un plazo o una persona al final: la vigilancia del merge, la aprobación de producción y un impedimento sin respuesta tienen plazos, y una espera por decisión se mantiene hasta que se responde. Las esperas incluyen las opciones que una persona puede tomar. Un pull request en el que ningún check informa se señala, no se interpreta como verde.</dd>
 <dt>Nada se pierde, nada se duplica</dt>
-<dd>Los trabajos son workflows durables. Los pull requests son buscar y luego actualizar; antes de reconstruir una rama, el ejecutor pregunta a la plataforma Git si existe un pull request, y si no puede leer la respuesta se detiene en lugar de suponer.</dd>
-<dt>La plaza se libera con el merge</dt>
-<dd>El workflow del trabajo conserva su plaza hasta que el pull request recibe el merge o el trabajo queda en espera.</dd>
+<dd>Los jobs son workflows durables. Los pull requests son buscar y luego actualizar; antes de reconstruir una rama, el ejecutor pregunta a la plataforma Git si existe un pull request, y si no puede leer la respuesta se detiene en lugar de suponer.</dd>
+<dt>El cupo se libera con el merge</dt>
+<dd>El workflow del job conserva su cupo hasta que el pull request recibe el merge o el job queda en espera.</dd>
 <dt>La calidad es un piso</dt>
-<dd>Los roles <code>test</code> y <code>security</code> son obligatorios antes de cualquier llamada a un agente. El piso comprueba que los roles existen, no lo que ejecutan, y el control <code>security</code> heredado es consultivo.</dd>
+<dd>Los roles <code>test</code> y <code>security</code> son obligatorios antes de cualquier llamada a un agente. El piso comprueba que los roles existen, no lo que ejecutan, y el control <code>security</code> heredado es no bloqueante.</dd>
 <dt>El código es la fuente de verdad</dt>
-<dd>El mapa de conocimiento se entrega a un agente solo cuando sus sumas de comprobación prueban que describe la copia de trabajo de ese mismo trabajo; si no, no se entrega nada.</dd>
+<dd>El mapa de conocimiento se entrega a un agente solo cuando sus sumas de comprobación prueban que describe la copia de trabajo de ese mismo job; si no, no se entrega nada.</dd>
 <dt>Atribuido al bot</dt>
 <dd>La fábrica hace commits y actúa con la identidad de bot que define el despliegue (<code>BEEVERFORGE_BOT_NAME</code>, <code>BEEVERFORGE_BOT_EMAIL</code>).</dd>
 <dt>Mínimo privilegio</dt>
@@ -109,7 +109,7 @@
 <li>Las tablas de <code>lifecycle/table.py</code> son puras: sin reloj, sin almacén, sin tracker. Los estados de la tarjeta son <code>backlog</code>, <code>todo</code>, <code>running</code>, <code>waiting_on_a_person</code>, <code>merged</code>, <code>staged</code>, <code>delivered</code>, <code>closed</code> y <code>removed</code>.</li>
 <li>Una prueba de guarda no permite ningún escritor de tarjetas fuera de la puerta; la única excepción, por regla, es la caja escribiendo sus marcas de progreso.</li>
 <li>ADR-0055 está implementado aunque su registro todavía dice Proposed. Un evento, <code>picked_up</code>, sigue sin decidirse y se rechaza desde cualquier estado.</li>
-<li>Los trabajos no tienen una tabla equivalente. Las transiciones de los trabajos se deciden en el ejecutor y en el workflow, que es la parte de ADR-0033 que sigue propuesta.</li>
+<li>Los jobs no tienen una tabla equivalente. Las transiciones de los jobs se deciden en el ejecutor y en el workflow, que es la parte de ADR-0033 que sigue propuesta.</li>
 </ul>
 
 <h2>Los rechazos nombran la causa y la solución</h2>
@@ -119,17 +119,17 @@
 <p>Toda lectura de un tracker sigue una regla, enunciada en su clase base: <code>None</code> significa que la lectura falló; una lista vacía significa que la lectura tuvo éxito y no encontró nada. Los tableros siguen la misma regla, y la suite de conformidad de adaptadores la comprueba para los trackers. Valores tipados como <code>Unreadable</code> mantienen la misma distinción en otras partes.</p>
 
 <h2>Rechazar antes de escribir</h2>
-<p>Una comprobación que puede rechazar se ejecuta antes de escribir nada. Una transición de tarjeta rechazada no cambia nada y explica por qué; el piso rechaza un trabajo antes de cualquier llamada a un agente; el pipeline de conocimiento rechaza un destino fuera de su directorio antes de clonar nada; una opción de línea de comandos rechazada indica que no se leyó ni se escribió nada.</p>
+<p>Una comprobación que puede rechazar se ejecuta antes de escribir nada. Una transición de tarjeta rechazada no cambia nada y explica por qué; el piso rechaza un job antes de cualquier llamada a un agente; el pipeline de conocimiento rechaza un destino fuera de su directorio antes de clonar nada; una opción de línea de comandos rechazada indica que no se leyó ni se escribió nada.</p>
 
 <h2>Un presupuesto de prompt que nombra lo que deja fuera</h2>
-<p>El prompt de un trabajo tiene un único presupuesto (ADR-0056): <code>BEEVERFORGE_PROMPT_BUDGET</code>, predeterminado 160.000 bytes, compartido por la tarjeta, el plan y los documentos que declara el proyecto. <code>off</code> lo desactiva; un valor que no puede leerse se rechaza. Cada documento que queda fuera se nombra en el prompt, con la ruta que el agente puede abrir y su tamaño, bajo un encabezado que indica al agente que lo abra antes de cambiar lo que regula. Un documento recortado por su propio límite de longitud se lista con cuánto de él se incluyó.</p>
+<p>El prompt de un job tiene un único presupuesto (ADR-0056): <code>BEEVERFORGE_PROMPT_BUDGET</code>, predeterminado 160.000 bytes, compartido por la tarjeta, el plan y los documentos que declara el proyecto. <code>off</code> lo desactiva; un valor que no puede leerse se rechaza. Cada documento que queda fuera se nombra en el prompt, con la ruta que el agente puede abrir y su tamaño, bajo un encabezado que indica al agente que lo abra antes de cambiar lo que regula. Un documento recortado por su propio límite de longitud se lista con cuánto de él se incluyó.</p>
 
-<h2>Neutralidad respecto a proveedores, impuesta por pruebas</h2>
+<h2>Neutralidad respecto a fabricantes, impuesta por pruebas</h2>
 <ul>
-<li><code>tests/test_kernel_names_no_vendor.py</code> analiza <code>beeverforge/contracts</code> y <code>beeverforge/policy</code> y falla ante cualquier nombre de proveedor.</li>
-<li><code>tests/test_the_core_names_no_vendor.py</code> falla si se nombra un proveedor de chat fuera de los comentarios del núcleo.</li>
-<li><code>tests/test_the_core_addon_ledger.py</code> deriva cada importación de un SDK de proveedor y mantiene la lista igual al registro de <code>docs/core/07-extensibility.md</code>.</li>
-<li><code>tests/test_the_core_is_a_core.py</code> carga el núcleo en un subproceso donde todo SDK de proveedor se niega a importarse, y comprueba que el catálogo de acciones se resuelve y que el panel arranca.</li>
+<li><code>tests/test_kernel_names_no_vendor.py</code> analiza <code>beeverforge/contracts</code> y <code>beeverforge/policy</code> y falla ante cualquier nombre de fabricante.</li>
+<li><code>tests/test_the_core_names_no_vendor.py</code> falla si se nombra un fabricante de chat fuera de los comentarios del núcleo.</li>
+<li><code>tests/test_the_core_addon_ledger.py</code> deriva cada importación de un SDK de fabricante y mantiene la lista igual al registro de <code>docs/core/07-extensibility.md</code>.</li>
+<li><code>tests/test_the_core_is_a_core.py</code> carga el núcleo en un subproceso donde todo SDK de fabricante se niega a importarse, y comprueba que el catálogo de acciones se resuelve y que el panel arranca.</li>
 </ul>
 
 <h2>La capa de conocimiento</h2>

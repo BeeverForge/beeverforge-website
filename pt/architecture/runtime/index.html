@@ -104,7 +104,7 @@
 <ul>
 <li><code>util/bounded.py</code> fornece <code>BoundedDict</code>: seguro entre threads, com tamanho máximo obrigatório, que remove primeiro a entrada mais antiga e conta o que removeu. De propósito, não é uma subclasse de <code>dict</code>, para que nada possa fazê-lo crescer contornando seu limite.</li>
 <li><code>util/single_flight.py</code> permite que leitores que chegam juntos compartilhem uma leitura. Cada um fica protegido do cancelamento de outro chamador, há no máximo uma leitura em andamento, e uma falha é compartilhada com quem está esperando naquele momento e não é guardada.</li>
-<li>Um teste estrutural, <code>tests/test_no_unbounded_growth.py</code>, exige que cada ponto que aloca ou memoriza dados em um processo de longa duração declare seu limite.</li>
+<li>Um teste estrutural, <code>tests/test_no_unbounded_growth.py</code>, exige que cada ponto que aloca dados ou faz memoização em um processo de longa duração declare seu limite.</li>
 </ul>
 
 <h2>Diário, métricas e observabilidade</h2>
