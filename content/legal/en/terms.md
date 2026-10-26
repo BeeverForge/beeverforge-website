@@ -2,7 +2,7 @@
 title: Terms of use
 description: The terms that apply to the BeeverForge Prototype Builder trial: who may use it, what it includes, what you keep and what we promise.
 version: 0.1
-date: 2026-10-25
+date: 2026-10-26
 status: draft
 ---
 
@@ -23,6 +23,7 @@ These terms apply to the trial: the waitlist, your invitation, the Prototype Bui
 - The trial lets you describe a product in a conversation, see it as a clickable prototype on simulated data, and generate its requirements.
 - It is offered by invitation, a few people at a time. Each invitation is valid for **fifteen days** from the date we send it.
 - It is **free of charge within a usage quota per person**. When you reach the quota, the trial tells you when you can continue. We may also limit the total use of the trial at any time.
+- Each person makes **one prototype**, about one product. It can change as much as the quota allows, but it stays that product: a request for a different product is declined.
 - After your invitation ends, you can still sign in to read and download what you created until it is deleted (see the [privacy policy](/legal/privacy/)), but you cannot start new work.
 - The trial is a preview of a service that is still evolving. We may change, suspend or end it, or any part of it, at any time. There is no service level, uptime commitment or support obligation.
 

@@ -2,7 +2,7 @@
 title: Termos de uso
 description: Os termos que se aplicam ao teste do Prototype Builder da BeeverForge: quem pode usá-lo, o que ele inclui, o que é seu e o que prometemos.
 version: 0.1
-date: 2026-10-25
+date: 2026-10-26
 status: draft
 ---
 
@@ -23,6 +23,7 @@ Estes termos se aplicam ao teste: a lista de espera, o seu convite, o Prototype 
 - O teste permite descrever um produto numa conversa, vê-lo como um protótipo clicável com dados simulados e gerar os seus requisitos.
 - Ele é oferecido por convite, para poucas pessoas de cada vez. Cada convite vale por **quinze dias** a partir da data em que o enviamos.
 - Ele é **gratuito dentro de uma cota de uso por pessoa**. Quando você atinge a cota, o teste informa quando você pode continuar. Também podemos limitar o uso total do teste a qualquer momento.
+- Cada pessoa faz **um protótipo**, sobre um produto. Ele pode mudar o quanto a cota permitir, mas continua sendo esse produto: um pedido de outro produto é recusado.
 - Quando o seu convite termina, você ainda pode entrar para ler e baixar o que criou até que seja apagado (veja a [política de privacidade](/legal/privacy/)), mas não pode começar trabalhos novos.
 - O teste é uma versão preliminar de um serviço que ainda está evoluindo. Podemos alterá-lo, suspendê-lo ou encerrá-lo, no todo ou em parte, a qualquer momento. Não há nível de serviço, compromisso de disponibilidade nem obrigação de suporte.
 

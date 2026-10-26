@@ -2,7 +2,7 @@
 title: Términos de uso
 description: Los términos que se aplican a la prueba del Prototype Builder de BeeverForge: quién puede usarla, qué incluye, qué conserva usted y qué prometemos.
 version: 0.1
-date: 2026-10-25
+date: 2026-10-26
 status: draft
 ---
 
@@ -23,6 +23,7 @@ Estos términos se aplican a la prueba: la lista de espera, su invitación, el P
 - La prueba le permite describir un producto en una conversación, verlo como un prototipo navegable con datos simulados y generar sus requisitos.
 - Se ofrece por invitación, a pocas personas a la vez. Cada invitación es válida por **quince días** desde la fecha en que la enviamos.
 - Es **gratuita dentro de una cuota de uso por persona**. Cuando alcanza la cuota, la prueba le indica cuándo puede continuar. También podemos limitar el uso total de la prueba en cualquier momento.
+- Cada persona hace **un prototipo**, sobre un producto. Puede cambiar tanto como la cuota lo permita, pero sigue siendo ese producto: una solicitud de otro producto se rechaza.
 - Cuando termina su invitación, todavía puede iniciar sesión para leer y descargar lo que creó hasta que se elimine (vea la [política de privacidad](/legal/privacy/)), pero no puede empezar trabajos nuevos.
 - La prueba es una versión preliminar de un servicio que sigue evolucionando. Podemos cambiarla, suspenderla o terminarla, total o parcialmente, en cualquier momento. No hay nivel de servicio, compromiso de disponibilidad ni obligación de soporte.
 
