@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#1F1F24">
+  <meta name="description" content="Qué es el núcleo de BeeverForge Community, su modelo de control, sus capas, cómo se despliega y qué queda fuera de él.">
+  <title>Visión general de la arquitectura — BeeverForge</title>
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="BeeverForge">
+  <meta property="og:title" content="Visión general de la arquitectura — BeeverForge">
+  <meta property="og:description" content="Qué es el núcleo de BeeverForge Community, su modelo de control, sus capas, cómo se despliega y qué queda fuera de él.">
+  <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://beeverforge.com/es/architecture/">
+  <meta property="og:url" content="https://beeverforge.com/es/architecture/">
+  <link rel="alternate" hreflang="en" href="https://beeverforge.com/architecture/">
+  <link rel="alternate" hreflang="es" href="https://beeverforge.com/es/architecture/">
+  <link rel="alternate" hreflang="pt-BR" href="https://beeverforge.com/pt/architecture/">
+  <link rel="alternate" hreflang="x-default" href="https://beeverforge.com/architecture/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/final.css">
+  <link rel="stylesheet" href="/assets/docs.css">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('beeverforge-theme')==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+</head>
+<body class="doc-body">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/es/" aria-label="Inicio de BeeverForge"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"></a>
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menú">Menú</button>
+      <nav id="site-nav" class="site-nav" aria-label="Navegación principal">
+        <a href="/es/#editions">Ediciones</a><a href="/es/#lifecycle">Ciclo de vida</a><a href="/es/#comparison">Comparar</a><a href="/es/#questions">Preguntas frecuentes</a><a href="/es/architecture/" aria-current="true">Arquitectura</a><a class="nav-cta" href="/es/#contact">Hablar con BeeverForge <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="header-tools"><label class="language-picker"><span class="sr-only">Idioma</span><select aria-label="Idioma" data-language><option value="/architecture/">English</option><option value="/es/architecture/" selected>Español</option><option value="/pt/architecture/">Português</option></select></label><button class="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar al modo claro" aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Modo claro</span></button></div>
+    </div>
+  </header>
+  <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Contenido de la arquitectura"><details class="doc-toc" open data-doc-toc><summary>Contenido</summary><p class="doc-toc-title">Arquitectura de BeeverForge Community</p><ol><li><a href="/es/architecture/" aria-current="page">Visión general</a></li><li><a href="/es/architecture/lifecycle/">Ciclo de vida de un ticket</a></li><li><a href="/es/architecture/runtime/">Ejecución y durabilidad</a></li><li><a href="/es/architecture/box/">La caja y el piso de calidad</a></li><li><a href="/es/architecture/extensions/">Modelo de extensión</a></li><li><a href="/es/architecture/principles/">Principios de ingeniería</a></li><li><a href="/es/architecture/repository/">Principios del repositorio</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">Arquitectura de BeeverForge Community</p>
+<h1>Visión general de la arquitectura</h1>
+<p class="doc-lead">El núcleo de BeeverForge Community toma tickets de un tablero y conduce agentes de programación existentes a través de la planificación, la implementación, la validación, la revisión, el pull request, el merge y la observación del despliegue. Es un orquestador: no contiene un agente de programación propio.</p>
+<p>Esta sección describe el núcleo tal como existe en el repositorio en el commit enlazado en las fuentes de cada página. Cuando un registro de diseño describe algo que el código todavía no hace, la página lo indica.</p>
+
+<h2>Modelo de control</h2>
+<p>El README del proyecto enuncia el modelo como <strong>«Las políticas autorizan, las personas evalúan».</strong> El manifiesto del proyecto, <code>.beeverforge/project.yaml</code>, declara la política de merge, el piso de calidad y la cadena de promoción. Dentro de esas políticas, la fábrica actúa sin pedir aprobación en cada paso; las personas juzgan el resultado.</p>
+<ul>
+<li>Un proyecto que no declara un control <code>test</code> no se considera aprobado. Antes de cualquier llamada a un agente, el ejecutor comprueba el piso y rechaza el trabajo, nombrando el control que falta y cómo declararlo.</li>
+<li>La política de merge predeterminada es <code>human</code>: una persona hace el merge del pull request. El merge automático ocurre solo cuando un proyecto define <code>merge_policy: auto</code> y se cumplen todas sus condiciones.</li>
+<li>La promoción a producción espera una aprobación humana. La aprobación llega al workflow como una respuesta sellada de un solo uso (véase La caja y el piso de calidad).</li>
+<li>Cuando un trabajo no puede continuar, queda en espera en la tarjeta con las opciones que una persona puede tomar, en lugar de esperar en silencio.</li>
+</ul>
+
+<h2>Modelo de capas</h2>
+<p>El documento de visión del núcleo representa el sistema como aplicaciones sobre una capa de acciones, un núcleo que decide, un motor que lo impulsa y proveedores a los que se llega mediante puertos. Las capacidades se representan como una frontera, no como una capa: el núcleo y el motor llegan a los proveedores mediante el mismo tipo de puerto.</p>
+<figure class="doc-figure">
+<div class="doc-diagram">
+<svg viewBox="0 0 720 470" role="img" aria-labelledby="layers-title layers-desc">
+<title id="layers-title">Modelo de capas del núcleo</title>
+<desc id="layers-desc">Las aplicaciones consumen la capa de acciones. El motor impulsa el núcleo. El núcleo y el motor llegan a los proveedores mediante puertos de capacidad.</desc>
+<defs><marker id="layers-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-head" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="d-box" x="20" y="16" width="680" height="64" rx="6"/>
+<text class="d-label" x="40" y="42">APLICACIONES</text>
+<text x="40" y="64">Rol de producto, tech-lead, panel</text>
+<text class="d-small" x="520" y="42">Realizado</text>
+<line class="d-edge" x1="360" y1="80" x2="360" y2="106" marker-end="url(#layers-arrow)"/>
+<rect class="d-box d-hot" x="20" y="108" width="680" height="64" rx="6"/>
+<text class="d-label" x="40" y="134">CAPA DE ACCIONES</text>
+<text x="40" y="156">Un catálogo de lo que una persona puede pedir</text>
+<text class="d-small" x="520" y="134">Realizado</text>
+<rect class="d-box" x="20" y="198" width="680" height="64" rx="6"/>
+<text class="d-label" x="40" y="224">NÚCLEO</text>
+<text x="40" y="246">Contratos, políticas, tablas del ciclo de vida de la tarjeta</text>
+<text class="d-small" x="520" y="224">Realizado en parte</text>
+<line class="d-edge" x1="360" y1="288" x2="360" y2="264" marker-end="url(#layers-arrow)"/>
+<text class="d-small" x="372" y="281">impulsa</text>
+<rect class="d-box" x="20" y="290" width="680" height="64" rx="6"/>
+<text class="d-label" x="40" y="316">MOTOR</text>
+<text x="40" y="338">Durabilidad, programaciones, reintentos, temporizadores</text>
+<text class="d-small" x="520" y="316">Realizado</text>
+<line class="d-edge d-dash" x1="20" y1="378" x2="700" y2="378"/>
+<text class="d-small" x="40" y="372">Capacidades: puertos</text>
+<rect class="d-box" x="20" y="392" width="680" height="64" rx="6"/>
+<text class="d-label" x="40" y="418">PROVEEDORES</text>
+<text x="40" y="440">Agentes de programación, plataformas Git, trackers, tableros, cajas</text>
+<text class="d-small" x="520" y="418">Realizado</text>
+</svg>
+</div>
+<figcaption>Capas tal como aparecen en el documento de visión, marcadas según cuánto realiza el código de cada una.</figcaption>
+</figure>
+<div class="doc-table doc-wrap">
+<table>
+<thead><tr><th>Capa</th><th>Dónde está en el código</th><th>Estado</th></tr></thead>
+<tbody>
+<tr><th>Aplicaciones</th><td><code>beeverforge/product/</code>, <code>beeverforge/techlead/</code>, <code>beeverforge/api/</code></td><td>Realizado. El panel, el tech-lead y el rol de producto opcional.</td></tr>
+<tr><th>Capa de acciones</th><td><code>beeverforge/actions/</code></td><td>Realizado. Un catálogo a través del cual ejecutan tanto la API del panel como la CLI.</td></tr>
+<tr><th>Núcleo</th><td><code>beeverforge/contracts/</code>, <code>beeverforge/policy/</code>, <code>beeverforge/lifecycle/</code></td><td>Realizado en parte. El ciclo de vida de la tarjeta se decide con tablas puras. El núcleo de decisión puro para trabajos propuesto en ADR-0033 no existe; las transiciones de los trabajos todavía se deciden dentro del ejecutor y del workflow.</td></tr>
+<tr><th>Motor</th><td><code>beeverforge/runtime/temporal/</code></td><td>Realizado sobre Temporal. El motor no está detrás de un puerto propio.</td></tr>
+<tr><th>Capacidades y proveedores</th><td><code>beeverforge/adapters/</code></td><td>Realizado. Cada proveedor lo elige un registro a partir de la configuración.</td></tr>
+</tbody>
+</table>
+</div>
+<p>El propio documento de fronteras del núcleo describe <code>orchestrator/machine.py</code> como política del núcleo y ejecución del motor que actualmente están fusionadas. La visión de un núcleo que solo decide y un motor que solo ejecuta es la dirección de ADR-0033, que está registrado como propuesto.</p>
+
+<h2>Forma de despliegue</h2>
+<ul>
+<li><strong>Las máquinas del propio operador.</strong> La instalación predeterminada es <code>docker compose</code> en una sola máquina y no necesita ninguna cuenta en la nube (ADR-0040). A una nube solo se llega mediante paquetes complementarios.</li>
+<li><strong>Servicios.</strong> El archivo compose ejecuta una base de datos Postgres para el motor, un servidor Temporal, la interfaz web de Temporal, el worker y el panel. Los puertos publicados se vinculan a <code>127.0.0.1</code> de forma predeterminada.</li>
+<li><strong>El motor.</strong> Temporal guarda el estado de los trabajos. Cada trabajo es un workflow durable, de modo que un worker reiniciado reanuda el trabajo donde se detuvo.</li>
+<li><strong>La caja.</strong> El worker ejecuta cada trabajo en una caja. El tipo predeterminado es <code>container</code>: un contenedor Docker desechable que se lanza como hermano en el daemon del host, a través del socket de Docker que el archivo compose monta en el worker.</li>
+<li><strong>Un solo inquilino, varios proyectos.</strong> Una instalación sirve a un equipo con un registro de proyectos. El registro contiene cualquier cantidad de proyectos, cada uno con su propio repositorio, tablero y manifiesto (ADR-0001, D-14).</li>
+<li><strong>Un trabajo a la vez de forma predeterminada.</strong> La cantidad de trabajos en curso es <code>BEEVERFORGE_MAX_CONCURRENT_JOBS</code>, con valor predeterminado <code>1</code>.</li>
+</ul>
+<div class="doc-note">
+<p>El worker tiene el socket de Docker del host, lo que le da control del daemon de Docker del host. La caja predeterminada tiene acceso completo a la red saliente. Ambas cosas se describen con sus límites en La caja y el piso de calidad.</p>
+</div>
+
+<h2>Fuera del núcleo</h2>
+<ul>
+<li><strong>Los agentes de programación.</strong> El núcleo conduce herramientas de línea de comandos de agentes existentes a través de un único contrato de adaptador. Los tipos de harness del árbol son <code>claude_code</code> (el predeterminado), <code>codex</code>, <code>kimi</code> y <code>opencode</code>. Cada uno llama al servicio de su proveedor; ese endpoint es un destino de red que toda instalación necesita.</li>
+<li><strong>Canales de chat.</strong> El núcleo está completo sin un conector de chat (ADR-0038). El único canal y notificador del árbol es el panel. Los adaptadores de Slack y Telegram se distribuyen en un paquete complementario aparte y se registran mediante el mismo mecanismo de extensión que cualquier otro adaptador.</li>
+<li><strong>Ejecutores y almacenes en la nube.</strong> El núcleo no incluye ningún ejecutor de cajas remotas. El ejecutor de tareas remotas, la tabla de métricas en la nube, el almacén de sesiones remoto y el pool de tokens en la nube están declarados como tipos de complementos.</li>
+</ul>
+
+<section class="doc-sources">
+<h2>Fuentes</h2>
+<ul>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/README.md"><code>README.md</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/core/00-vision.md"><code>docs/core/00-vision.md</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/core/02-boundary.md"><code>docs/core/02-boundary.md</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docker-compose.yml"><code>docker-compose.yml</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/policy/conformance.py"><code>beeverforge/policy/conformance.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/contracts/manifest.py"><code>beeverforge/contracts/manifest.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/__init__.py"><code>beeverforge/runtime/temporal/__init__.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/agent/registry.py"><code>beeverforge/adapters/agent/registry.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/plugins.py"><code>beeverforge/plugins.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0001-foundational-conceptual-model.md" translate="no">ADR-0001</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0033-decision-kernel.md" translate="no">ADR-0033</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0038-the-platform-is-complete-channels-are-add-ons.md" translate="no">ADR-0038</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0040-the-core-runs-on-the-clients-own-machines.md" translate="no">ADR-0040</a></li>
+</ul>
+</section>
+<nav class="doc-pager" aria-label="Páginas anterior y siguiente"><span class="doc-pager-gap"></span><a class="doc-pager-next" rel="next" href="/es/architecture/lifecycle/"><small>Siguiente</small><span>Ciclo de vida de un ticket</span></a></nav></article></div></main>
+  <aside class="consent-panel" data-consent-panel role="region" aria-live="polite" aria-labelledby="consent-title" hidden><div class="consent-copy"><p class="eyebrow">Preferencias de cookies</p><h2 id="consent-title">Usamos cookies.</h2><p>Usamos cookies para entender el tráfico del sitio. Acepte las cookies opcionales o rechácelas. Elija Configuración de cookies para ver los detalles.</p></div><div class="consent-actions"><button class="consent-reject" type="button" data-consent-reject>Rechazar opcionales</button><button class="consent-settings" type="button" data-consent-details-toggle aria-expanded="false" aria-controls="consent-details">Configuración de cookies</button><button class="button button-gold" type="button" data-consent-accept>Aceptar todas</button></div><div class="consent-details" id="consent-details" data-consent-details hidden><h3>Configuración de cookies</h3><p><strong>Almacenamiento esencial de preferencias</strong> recuerda su tema y su elección de cookies. Siempre está activo.</p><label class="consent-toggle"><input type="checkbox" data-analytics-toggle><span><strong>Cookies de analítica</strong><small>Opcionales · Google Analytics mide las visitas y el uso del sitio. La etiqueta de analítica permanece desactivada si no la permite.</small></span></label><div class="consent-detail-actions"><button class="consent-reject" type="button" data-consent-cancel>Cancelar</button><button class="button button-gold" type="button" data-consent-save>Guardar preferencias</button></div></div></aside>
+  <footer class="site-footer"><div class="shell footer-grid"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"><p>El siguiente capítulo de OpenFactory. Una base de ingeniería abierta y un ciclo Enterprise para decisiones de producto.</p><nav aria-label="Enlaces del pie de página"><a href="/es/#editions">Ediciones</a><a href="/es/#lifecycle">Ciclo de vida</a><a href="/es/#comparison">Comparar</a><a href="/es/architecture/" aria-current="true">Arquitectura</a><a href="https://github.com/BeeverForge/beeverforge-oss">Código Community ↗</a><button class="consent-link" type="button" data-consent-open>Configuración de cookies</button></nav></div><div class="shell footer-bottom"><span>© 2026 BeeverForge</span><span>El siguiente capítulo de OpenFactory</span></div></footer>
+  <script src="/assets/final.js" defer></script>
+  <script src="/assets/docs.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#1F1F24">
+  <meta name="description" content="Dónde se ejecuta un trabajo de BeeverForge, cómo se prueba la caja antes de recoger trabajo, qué permite la red, el piso de calidad que hereda todo proyecto y cómo se sellan las respuestas a los controles humanos.">
+  <title>La caja y el piso de calidad — BeeverForge</title>
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="BeeverForge">
+  <meta property="og:title" content="La caja y el piso de calidad — BeeverForge">
+  <meta property="og:description" content="Dónde se ejecuta un trabajo de BeeverForge, cómo se prueba la caja antes de recoger trabajo, qué permite la red, el piso de calidad que hereda todo proyecto y cómo se sellan las respuestas a los controles humanos.">
+  <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://beeverforge.com/es/architecture/box/">
+  <meta property="og:url" content="https://beeverforge.com/es/architecture/box/">
+  <link rel="alternate" hreflang="en" href="https://beeverforge.com/architecture/box/">
+  <link rel="alternate" hreflang="es" href="https://beeverforge.com/es/architecture/box/">
+  <link rel="alternate" hreflang="pt-BR" href="https://beeverforge.com/pt/architecture/box/">
+  <link rel="alternate" hreflang="x-default" href="https://beeverforge.com/architecture/box/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/final.css">
+  <link rel="stylesheet" href="/assets/docs.css">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('beeverforge-theme')==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+</head>
+<body class="doc-body">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/es/" aria-label="Inicio de BeeverForge"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"></a>
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menú">Menú</button>
+      <nav id="site-nav" class="site-nav" aria-label="Navegación principal">
+        <a href="/es/#editions">Ediciones</a><a href="/es/#lifecycle">Ciclo de vida</a><a href="/es/#comparison">Comparar</a><a href="/es/#questions">Preguntas frecuentes</a><a href="/es/architecture/" aria-current="true">Arquitectura</a><a class="nav-cta" href="/es/#contact">Hablar con BeeverForge <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="header-tools"><label class="language-picker"><span class="sr-only">Idioma</span><select aria-label="Idioma" data-language><option value="/architecture/box/">English</option><option value="/es/architecture/box/" selected>Español</option><option value="/pt/architecture/box/">Português</option></select></label><button class="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar al modo claro" aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Modo claro</span></button></div>
+    </div>
+  </header>
+  <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Contenido de la arquitectura"><details class="doc-toc" open data-doc-toc><summary>Contenido</summary><p class="doc-toc-title">Arquitectura de BeeverForge Community</p><ol><li><a href="/es/architecture/">Visión general</a></li><li><a href="/es/architecture/lifecycle/">Ciclo de vida de un ticket</a></li><li><a href="/es/architecture/runtime/">Ejecución y durabilidad</a></li><li><a href="/es/architecture/box/" aria-current="page">La caja y el piso de calidad</a></li><li><a href="/es/architecture/extensions/">Modelo de extensión</a></li><li><a href="/es/architecture/principles/">Principios de ingeniería</a></li><li><a href="/es/architecture/repository/">Principios del repositorio</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">Arquitectura de BeeverForge Community</p>
+<h1>La caja y el piso de calidad</h1>
+<p class="doc-lead">Un trabajo se ejecuta en una caja: un entorno que el worker crea para ese trabajo y descarta después. La caja ejecuta la imagen propia del cliente con las herramientas de la plataforma montadas dentro, y se prueba contra los controles propios del proyecto antes de recoger cualquier ticket.</p>
+
+<h2>Tipos de caja</h2>
+<div class="doc-table doc-wrap">
+<table>
+<thead><tr><th>Tipo</th><th>Qué aísla</th></tr></thead>
+<tbody>
+<tr><td><code>container</code></td><td>El predeterminado. Un contenedor Docker desechable creado a partir de la imagen del proyecto. Limita CPU y memoria, lleva secretos solo durante el trabajo y solo ve el clon montado, la caja de herramientas, las directrices y una caché. No aísla la red.</td></tr>
+<tr><td><code>worktree</code></td><td>Un <code>git worktree</code> en la propia máquina del worker. Solo aísla el estado del código: no aísla CPU, memoria, red ni secretos. El código lo describe como nunca apto para trabajo no confiable.</td></tr>
+<tr><td><code>fargate</code></td><td>Solo una descripción de una caja de tareas remota. Su ejecutor no está en este repositorio; lo proporciona un complemento.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Un trabajo durable se rechaza en una caja que no limita nada, salvo que el proyecto declare que el trabajo es del propio operador. Se pueden añadir más tipos como puntos de entrada <code>box.&lt;kind&gt;</code>.</p>
+
+<h2>Probar la caja</h2>
+<p><code>beeverforge box prove</code> convierte la configuración de la caja en un hecho registrado (ADR-0037). Ejecuta una secuencia fija y se detiene en el primer fallo del que dependen las comprobaciones posteriores, de modo que cada causa se informa una sola vez, con su solución:</p>
+<ol>
+<li>La etiqueta de la imagen se resuelve en un digest.</li>
+<li>La caja de herramientas se comprueba contra la imagen: una imagen cuya biblioteca C difiere de la compilación de la caja de herramientas, como una imagen musl para una caja de herramientas glibc, no puede ejecutar los binarios del harness y se rechaza nombrando la causa.</li>
+<li>El contrato de la imagen: un shell POSIX en <code>/bin/sh</code>, un proceso que la mantenga viva, <code>git</code>, un <code>HOME</code> con permiso de escritura y un <code>/workspace</code> con permiso de escritura. Una imagen distroless o scratch no puede usarse.</li>
+<li>La caja arranca, se ejecuta el <code>setup:</code> del proyecto y luego sus controles <code>validate:</code> sobre una copia intacta de <code>main</code>, dentro de la caja.</li>
+<li>Se comprueba el harness: su versión, sus credenciales tal como se ven dentro de la caja, el almacén de confianza y si el endpoint del harness es accesible a través de la red de la caja.</li>
+</ol>
+<p>En una caja que ejecuta la imagen del cliente, la prueba no pide nada a ningún agente y no gasta tokens del harness. En una caja sin imagen, donde el inicio de sesión del harness es una sesión en la máquina del operador, pide al harness una sola palabra para confirmar que el inicio de sesión funciona.</p>
+<p>Una prueba es válida mientras no cambien el digest de la imagen, la caja de herramientas ni el hash de los comandos <code>setup:</code> y <code>validate:</code> del proyecto; una nueva versión del harness también la deja obsoleta. Las pruebas no caducan por tiempo. La exploración del tablero se niega a recoger trabajo de un proyecto cuya caja tiene algo que probar y no tiene una prueba válida, e indica cuál de esos hechos cambió. Una caja <code>worktree</code> no tiene imagen y no está sujeta a este control.</p>
+<p>Un control consultivo que falla durante la prueba no detiene la recogida, salvo que su comando no haya podido ejecutarse en absoluto.</p>
+
+<h2>El montaje de la caja de herramientas</h2>
+<p>Los binarios del harness no se instalan en la imagen del cliente. Están en una caja de herramientas que se monta en cada caja en modo de solo lectura en <code>/opt/beeverforge-toolbox</code>; las directrices del operador también se montan en solo lectura. El código indica el límite de ese indicador: la solo lectura limita un accidente, no a un adversario, porque un proceso que se ejecuta como root en la caja todavía puede copiar un binario fuera.</p>
+
+<h2>Tráfico de red saliente</h2>
+<p>La red de la caja <code>container</code> es de forma predeterminada <code>bridge</code> de Docker, que da acceso completo a internet de salida. Todo lo que la red de la caja puede alcanzar es alcanzable por el código que escribió el agente.</p>
+<ul>
+<li><code>box.network</code> en el registro selecciona otra red de Docker, como una red restringida o una detrás de un proxy que proporcione el despliegue. El núcleo no tiene una lista de permitidos ni un proxy integrados.</li>
+<li>Un trabajo necesita como mínimo el endpoint del harness. Un proyecto en una plataforma Git remota necesita además la plataforma Git y el tracker, y todo lo que <code>setup:</code> instale desde registros de paquetes.</li>
+<li>La prueba comprueba que el endpoint del harness es accesible y verifica si la caja puede llegar a la dirección de metadatos de instancia de la nube.</li>
+<li>Un entorno aislado de la red no puede ejecutar un trabajo, porque el agente de programación es un servicio remoto.</li>
+</ul>
+
+<h2>El piso de calidad</h2>
+<p>El piso está en <code>policy/floor.py</code>: los roles de validación <code>test</code> y <code>security</code> son obligatorios. Antes de cualquier llamada a un agente, el ejecutor comprueba que ambos roles están presentes después de la cascada de valores predeterminados del despliegue, presets del stack, el bloque de todo el repositorio y los bloques por componente. Un proyecto al que le falta uno se rechaza nombrando el rol y una solución; no se ejecuta nada.</p>
+<ul>
+<li>Todo proyecto hereda un control <code>security</code> de <code>org_defaults/floor.yaml</code>: un análisis de los archivos versionados en busca de credenciales incluidas en commits. Está declarado como <code>advisory: true</code>.</li>
+<li>La herencia solo añade los roles que el proyecto no declara. Un proyecto que declara un rol lo conserva tal como está escrito, así que puede sustituir el comando de un rol obligatorio, o hacerlo consultivo, y seguir cumpliendo el piso. El piso comprueba que los roles existen, no lo que ejecutan.</li>
+<li>Las rutas protegidas son aditivas: un proyecto puede ampliar la lista del despliegue y no tiene ningún campo para quitar elementos. Un cambio que toca una ruta protegida nunca recibe un merge automático.</li>
+</ul>
+<p><strong>Qué hace <code>advisory: true</code>.</strong> El control se ejecuta y se informa, con una marca de advertencia en el cuerpo del pull request. Nunca hace fallar el trabajo, nunca bloquea el merge y nunca provoca una reparación. Un perfil puede convertir un control consultivo en bloqueante, nunca al revés.</p>
+
+<h2>Ejecutor y revisor separados</h2>
+<p>El revisor se ejecuta en un contexto propio. Recibe el ticket, el diff, los resultados de los controles y las restricciones, y nunca se le muestra cómo se hizo el cambio ni lo que el ejecutor dice que hizo. El revisor de Claude Code es una sesión nueva, no reanudada, en modo de planificación; al revisor genérico del harness se le indica que no escribió el código. El código señala que la independencia se reduce cuando el revisor y el ejecutor usan el mismo harness.</p>
+
+<h2>El diff es la verdad</h2>
+<p>ADR-0001 lo formula así: «La etiqueta es una suposición; el diff es la verdad». La revisión recibe <code>git diff</code> desde la base medida hasta <code>HEAD</code>, calculado dentro de la caja. El resumen propio del ejecutor va en el pull request etiquetado como una afirmación: ningún control lo verifica y no se muestra al revisor.</p>
+
+<h2>Respuestas selladas a los controles humanos</h2>
+<p>Una persona aprueba una versión de producción, responde a un control de merge o dice «todavía no» en el panel, que comprueba quién llama antes de enviar nada. Como cualquier cosa que pueda llegar al motor podría enviar la misma señal, cada respuesta se sella con <code>gate_seal.py</code>:</p>
+<ul>
+<li>El sello es un HMAC-SHA256 sobre el tipo de control, el id del workflow, una caducidad, un nonce y exactamente los campos sobre los que actuará el workflow, como la versión y quien aprueba.</li>
+<li>Un sello es válido durante 600 segundos y para un solo workflow, y se consume una sola vez.</li>
+<li>El worker lo verifica en una actividad, con una comparación de tiempo constante, antes de publicar una versión o hacer un merge. Cualquier fallo cuenta como un no, se registra donde el panel lo muestra y deja el control abierto.</li>
+<li>La clave es <code>BEEVERFORGE_GATE_SECRET</code> cuando está definida; si no, un archivo <code>gate.key</code> creado con modo 0600, junto al registro o en <code>~/.beeverforge/</code>.</li>
+</ul>
+<div class="doc-note">
+<p><strong>Límites que documenta el módulo.</strong> El sello prueba que un proceso que tiene la clave envió la respuesta, no que la envió el panel. La clave es simétrica, así que cualquier proceso que pueda leerla puede sellar; el panel y el rol de producto del worker son firmantes legítimos. El sello resiste frente a la caja <code>container</code>, que nunca ve la clave. No resiste frente a una caja <code>worktree</code>, que se ejecuta como el usuario del operador y puede leer el archivo de la clave, ni frente a los roles evaluadores, que en la instalación con compose se ejecutan como cajas worktree dentro del contenedor del worker. Resolverlo requiere un sello asimétrico.</p>
+<p>Lo que el sello sí cambia: una vía no prevista hacia el motor puede leer y cancelar workflows, pero no puede aprobar una versión ni hacer el merge de un pull request.</p>
+</div>
+
+<section class="doc-sources">
+<h2>Fuentes</h2>
+<ul>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/sandbox/registry.py"><code>beeverforge/adapters/sandbox/registry.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/sandbox/container.py"><code>beeverforge/adapters/sandbox/container.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/sandbox/worktree.py"><code>beeverforge/adapters/sandbox/worktree.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/box_prove.py"><code>beeverforge/box_prove.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/activities.py"><code>beeverforge/runtime/temporal/activities.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/policy/floor.py"><code>beeverforge/policy/floor.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/policy/conformance.py"><code>beeverforge/policy/conformance.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/org_defaults/floor.yaml"><code>beeverforge/org_defaults/floor.yaml</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/contracts/manifest.py"><code>beeverforge/contracts/manifest.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/reviewer/base.py"><code>beeverforge/adapters/reviewer/base.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/reviewer/harness.py"><code>beeverforge/adapters/reviewer/harness.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/gate_seal.py"><code>beeverforge/gate_seal.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0001-foundational-conceptual-model.md" translate="no">ADR-0001</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0037-the-box.md" translate="no">ADR-0037</a></li>
+</ul>
+</section>
+<nav class="doc-pager" aria-label="Páginas anterior y siguiente"><a class="doc-pager-prev" rel="prev" href="/es/architecture/runtime/"><small>Anterior</small><span>Ejecución y durabilidad</span></a><a class="doc-pager-next" rel="next" href="/es/architecture/extensions/"><small>Siguiente</small><span>Modelo de extensión</span></a></nav></article></div></main>
+  <aside class="consent-panel" data-consent-panel role="region" aria-live="polite" aria-labelledby="consent-title" hidden><div class="consent-copy"><p class="eyebrow">Preferencias de cookies</p><h2 id="consent-title">Usamos cookies.</h2><p>Usamos cookies para entender el tráfico del sitio. Acepte las cookies opcionales o rechácelas. Elija Configuración de cookies para ver los detalles.</p></div><div class="consent-actions"><button class="consent-reject" type="button" data-consent-reject>Rechazar opcionales</button><button class="consent-settings" type="button" data-consent-details-toggle aria-expanded="false" aria-controls="consent-details">Configuración de cookies</button><button class="button button-gold" type="button" data-consent-accept>Aceptar todas</button></div><div class="consent-details" id="consent-details" data-consent-details hidden><h3>Configuración de cookies</h3><p><strong>Almacenamiento esencial de preferencias</strong> recuerda su tema y su elección de cookies. Siempre está activo.</p><label class="consent-toggle"><input type="checkbox" data-analytics-toggle><span><strong>Cookies de analítica</strong><small>Opcionales · Google Analytics mide las visitas y el uso del sitio. La etiqueta de analítica permanece desactivada si no la permite.</small></span></label><div class="consent-detail-actions"><button class="consent-reject" type="button" data-consent-cancel>Cancelar</button><button class="button button-gold" type="button" data-consent-save>Guardar preferencias</button></div></div></aside>
+  <footer class="site-footer"><div class="shell footer-grid"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"><p>El siguiente capítulo de OpenFactory. Una base de ingeniería abierta y un ciclo Enterprise para decisiones de producto.</p><nav aria-label="Enlaces del pie de página"><a href="/es/#editions">Ediciones</a><a href="/es/#lifecycle">Ciclo de vida</a><a href="/es/#comparison">Comparar</a><a href="/es/architecture/" aria-current="true">Arquitectura</a><a href="https://github.com/BeeverForge/beeverforge-oss">Código Community ↗</a><button class="consent-link" type="button" data-consent-open>Configuración de cookies</button></nav></div><div class="shell footer-bottom"><span>© 2026 BeeverForge</span><span>El siguiente capítulo de OpenFactory</span></div></footer>
+  <script src="/assets/final.js" defer></script>
+  <script src="/assets/docs.js" defer></script>
+</body>
+</html>

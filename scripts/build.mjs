@@ -1,5 +1,6 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import { buildArchitecture, urlOf } from './architecture.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const source = await readFile(`${root}final-preview/index.html`, 'utf8');
@@ -48,8 +49,12 @@ function buildPage(locale) {
   html = replaceRequired(html, 'placeholder="What do you want to build, and how does your team work today?"', `placeholder="${locale === 'es' ? '¿Qué quiere construir y cómo trabaja hoy su equipo?' : locale === 'pt' ? 'O que você quer construir e como sua equipe trabalha hoje?' : 'What do you want to build, and how does your team work today?'}"`);
   html = html.replace(/(<option value="\/(?:es\/|pt\/)?") selected>/g, '$1>');
   html = replaceRequired(html, `<option value="${l.path}">`, `<option value="${l.path}" selected>`);
+  html = html.replaceAll('href="/architecture/"', `href="${l.path}architecture/"`);
   if (locale !== 'en') html = localizeText(html, locale);
-  html = html.replace('aria-label="Main navigation"', `aria-label="${locale === 'es' ? 'Navegación principal' : locale === 'pt' ? 'Navegação principal' : 'Main navigation'}"`)
+  return localizeLabels(html, locale);
+}
+function localizeLabels(html, locale) {
+  return html.replace('aria-label="Main navigation"', `aria-label="${locale === 'es' ? 'Navegación principal' : locale === 'pt' ? 'Navegação principal' : 'Main navigation'}"`)
     .replace('aria-label="Footer links"', `aria-label="${locale === 'es' ? 'Enlaces del pie de página' : locale === 'pt' ? 'Links do rodapé' : 'Footer links'}"`)
     .replace('aria-label="The four connected decisions"', `aria-label="${locale === 'es' ? 'Cuatro decisiones conectadas' : locale === 'pt' ? 'Quatro decisões conectadas' : 'The four connected decisions'}"`)
     .replace('aria-label="Enterprise product lifecycle"', `aria-label="${locale === 'es' ? 'Ciclo de vida del producto Enterprise' : locale === 'pt' ? 'Ciclo de vida do produto Enterprise' : 'Enterprise product lifecycle'}"`)
@@ -58,7 +63,6 @@ function buildPage(locale) {
     .replace('aria-label="Language"', `aria-label="${locale === 'es' ? 'Idioma' : locale === 'pt' ? 'Idioma' : 'Language'}"`)
     .replace('aria-label="Open menu"', `aria-label="${locale === 'es' ? 'Abrir menú' : locale === 'pt' ? 'Abrir menu' : 'Open menu'}"`)
     .replace('aria-label="Switch to light mode"', `aria-label="${locale === 'es' ? 'Cambiar al modo claro' : locale === 'pt' ? 'Mudar para o modo claro' : 'Switch to light mode'}"`);
-  return html;
 }
 function thanksPage(locale) {
   const l = locales[locale];
@@ -73,6 +77,12 @@ for (const [locale, l] of Object.entries(locales)) {
 }
 const retiredConcept = (version) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><meta http-equiv="refresh" content="0;url=/"><link rel="canonical" href="https://beeverforge.com/"><title>BeeverForge — website</title><script>location.replace('/')</script></head><body><main><h1>BeeverForge has a new home.</h1><p>The ${version.toUpperCase()} concept has been replaced by the website.</p><p><a href="/">Visit BeeverForge</a></p></main></body></html>`;
 await Promise.all(['v1', 'v2'].map((version) => writeFile(`${root}${version}/index.html`, retiredConcept(version))));
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${Object.values(locales).map(l => `  <url><loc>https://beeverforge.com${l.path}</loc>${Object.entries(locales).map(([code, alt]) => `<xhtml:link rel="alternate" hreflang="${alt.lang}" href="https://beeverforge.com${alt.path}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="https://beeverforge.com/"/></url>`).join('\n')}\n</urlset>\n`;
+const architecture = await buildArchitecture({ root, source, translations, locales, localizeText, localizeLabels });
+const alternatesFor = (pathOf) => `${Object.entries(locales).map(([code, alt]) => `<xhtml:link rel="alternate" hreflang="${alt.lang}" href="https://beeverforge.com${pathOf(code)}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="https://beeverforge.com${pathOf('en')}"/>`;
+const sitemapUrls = [
+  ...Object.keys(locales).map((code) => `  <url><loc>https://beeverforge.com${locales[code].path}</loc>${alternatesFor((alt) => locales[alt].path)}</url>`),
+  ...architecture.flatMap(({ page }) => Object.keys(locales).map((code) => `  <url><loc>https://beeverforge.com${urlOf(code, locales, page)}</loc>${alternatesFor((alt) => urlOf(alt, locales, page))}</url>`)),
+];
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapUrls.join('\n')}\n</urlset>\n`;
 await writeFile(`${root}sitemap.xml`, sitemap);
-console.log('Built English, Spanish and Portuguese static pages and localized confirmation pages.');
+console.log('Built English, Spanish and Portuguese static pages, the architecture section and localized confirmation pages.');

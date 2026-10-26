@@ -6,7 +6,7 @@ The production website at [beeverforge.com](https://beeverforge.com/) has comple
 
 Edit the English editorial source in `final-preview/index.html` and its Spanish/Portuguese equivalents in `scripts/translations.tsv`. Run `node scripts/build.mjs` to generate all publishable pages, localized confirmation pages, retired-concept redirects and the sitemap. A local static server can serve the repository root for review. The source preview remains `noindex` and is not deployed.
 
-The translation file has three tab-separated columns: exact English source text, Spanish, Portuguese. The build keeps the same semantic page structure across languages. Shared scripts and styles live in `assets/`.
+The translation file has three tab-separated columns: exact English source text, Spanish, Portuguese. The architecture section (`/architecture/`) is built from `architecture-src/*.html` by `scripts/architecture.mjs`: each heading, paragraph, list item, table cell and diagram label is one row of the same file, code and elements marked `translate="no"` stay in English and appear in a row as `{0}`, `{1}`…, and every translation must carry the same tokens. Its source links are pinned to one core commit in `scripts/architecture.mjs`. The build keeps the same semantic page structure across languages. Shared scripts and styles live in `assets/`.
 
 ## Contact
 

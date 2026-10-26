@@ -1,0 +1,90 @@
+<title>The box and the quality floor</title>
+<meta name="description" content="Where a BeeverForge job runs, how the box is proven before pickup, what the network allows, the quality floor every project inherits and how human gate answers are sealed.">
+<p class="eyebrow">BeeverForge Community architecture</p>
+<h1>The box and the quality floor</h1>
+<p class="doc-lead">A job runs in a box: an environment the worker creates for that job and discards afterwards. The box runs the client’s own image with the platform’s tools mounted into it, and it is proven against the project’s own gates before any ticket is picked up.</p>
+
+<h2>Box kinds</h2>
+<div class="doc-table doc-wrap">
+<table>
+<thead><tr><th>Kind</th><th>What it isolates</th></tr></thead>
+<tbody>
+<tr><td><code>container</code></td><td>The default. A throwaway Docker container from the project’s image. It bounds CPU and memory, carries secrets only for the job’s duration and sees only the mounted clone, the toolbox, the guidelines and a cache. It does not isolate the network.</td></tr>
+<tr><td><code>worktree</code></td><td>A <code>git worktree</code> on the worker’s own machine. It isolates the code state only: no CPU, memory, network or secret isolation. The code describes it as never for untrusted work.</td></tr>
+<tr><td><code>fargate</code></td><td>A description of a remote task box only. Its runner is not in this repository; it is supplied by an add-on.</td></tr>
+</tbody>
+</table>
+</div>
+<p>A durable job is refused in a box that bounds nothing, unless the project declares that the work is the operator’s own. Further kinds can be added as <code>box.&lt;kind&gt;</code> entry points.</p>
+
+<h2>Proving the box</h2>
+<p><code>beeverforge box prove</code> turns the box configuration into a recorded fact (ADR-0037). It runs a fixed sequence and stops at the first fault that later checks depend on, so one cause is reported once, with its remedy:</p>
+<ol>
+<li>The image’s tag is resolved to a digest.</li>
+<li>The toolbox is checked against the image: an image whose C library differs from the toolbox’s build, such as a musl image for a glibc toolbox, cannot execute the harness binaries and is refused by name.</li>
+<li>The image contract: a POSIX shell at <code>/bin/sh</code>, a keep-alive, <code>git</code>, a writable <code>HOME</code> and a writable <code>/workspace</code>. A distroless or scratch image cannot be used.</li>
+<li>The box starts, the project’s <code>setup:</code> runs, then its <code>validate:</code> gates run on an untouched checkout of <code>main</code>, inside the box.</li>
+<li>The harness is checked: its version, its credentials as seen inside the box, the trust store and whether the harness endpoint is reachable through the box’s network.</li>
+</ol>
+<p>On a box that runs the client’s image the proof asks no agent anything and spends no harness tokens. On a box with no image, where the harness login is a session on the operator’s machine, it asks the harness for a single word to confirm the login works.</p>
+<p>A proof is valid while the image digest, the toolbox and the hash of the project’s <code>setup:</code> and <code>validate:</code> commands are unchanged; a new harness version also makes it stale. Proofs do not expire by time. The board scan refuses to pick up work for a project whose box has something to prove and no valid proof, and states which of those facts moved. A <code>worktree</code> box has no image and is not gated.</p>
+<p>An advisory gate that fails during the proof does not hold pickup, unless its command could not run at all.</p>
+
+<h2>The toolbox mount</h2>
+<p>The harness binaries are not installed in the client’s image. They live in a toolbox that is mounted into each box read-only at <code>/opt/beeverforge-toolbox</code>; the operator’s guidelines are mounted read-only as well. The code states the limit of that flag: read-only bounds an accident, not an adversary, because a process running as root in the box can still copy a binary out.</p>
+
+<h2>Network egress</h2>
+<p>The <code>container</code> box’s network defaults to Docker’s <code>bridge</code>, which is full outbound internet access. Anything the box’s network can reach is reachable by code the agent wrote.</p>
+<ul>
+<li><code>box.network</code> in the registry selects another Docker network, such as a restricted network or one behind a proxy the deployment provides. The core has no built-in allowlist or proxy.</li>
+<li>A job needs at least the harness endpoint. A project on a remote forge also needs the forge and the tracker, and whatever <code>setup:</code> installs from package registries.</li>
+<li>The proof checks that the harness endpoint is reachable and probes whether the box can reach the cloud instance-metadata address.</li>
+<li>An air-gapped environment cannot run a job, because the coding agent is a remote service.</li>
+</ul>
+
+<h2>The quality floor</h2>
+<p>The floor is in <code>policy/floor.py</code>: the validation roles <code>test</code> and <code>security</code> are required. Before any agent call the runner checks that both roles are present after the cascade of deployment defaults, stack presets, the repository-wide block and per-component blocks. A project missing one is refused with the role named and a remedy; nothing runs.</p>
+<ul>
+<li>Every project inherits a <code>security</code> gate from <code>org_defaults/floor.yaml</code>: a scan of tracked files for committed credentials. It is declared <code>advisory: true</code>.</li>
+<li>Inheritance only adds roles the project does not declare. A project that declares a role keeps it exactly as written, so it can replace a required role’s command, or make it advisory, and still satisfy the floor. The floor checks that the roles are present, not what they run.</li>
+<li>Protected paths are additive: a project can add to the deployment’s list and has no field to remove from it. A change that touches a protected path is never merged automatically.</li>
+</ul>
+<p><strong>What <code>advisory: true</code> does.</strong> The gate runs and is reported, with a warning mark in the pull request body. It never fails the job, never blocks the merge and never triggers a repair. A profile can promote an advisory gate to blocking, never the reverse.</p>
+
+<h2>Separate executor and reviewer</h2>
+<p>The reviewer runs in a context of its own. It receives the ticket, the diff, the gate results and the constraints, and is never shown how the change was made or what the executor says it did. The Claude Code reviewer is a fresh, non-resumed session in plan mode; the generic harness reviewer is told that it did not write the code. The code notes that independence is reduced when the reviewer and the executor use the same harness.</p>
+
+<h2>The diff is the truth</h2>
+<p>ADR-0001 states it as “The label is a guess; the diff is the truth.” The review is given <code>git diff</code> from the measured base to <code>HEAD</code>, computed inside the box. The executor’s own summary goes into the pull request labelled as a claim: no gate checks it and the reviewer is not shown it.</p>
+
+<h2>Sealed human gate answers</h2>
+<p>A person approves a production release, answers a merge gate or says “not yet” in the panel, which checks the caller before it sends anything. Because anything that can reach the engine could send the same signal, each answer is sealed by <code>gate_seal.py</code>:</p>
+<ul>
+<li>The seal is HMAC-SHA256 over the gate kind, the workflow id, an expiry, a nonce and exactly the fields the workflow will act on, such as the version and the approver.</li>
+<li>A seal is valid for 600 seconds and for one workflow, and it is spent once.</li>
+<li>The worker verifies it in an activity, with a constant-time comparison, before it releases or merges. Any failure counts as no, is recorded where the panel shows it, and leaves the gate open.</li>
+<li>The key is <code>BEEVERFORGE_GATE_SECRET</code> when set; otherwise a <code>gate.key</code> file created with mode 0600, beside the registry or in <code>~/.beeverforge/</code>.</li>
+</ul>
+<div class="doc-note">
+<p><strong>Limits the module documents.</strong> The seal proves that a process holding the key sent the answer, not that the panel did. The key is symmetric, so any process that can read it can seal; the panel and the worker’s product role are both legitimate signers. The seal holds against the <code>container</code> box, which never sees the key. It does not hold against a <code>worktree</code> box, which runs as the operator’s user and can read the key file, nor against the judging roles, which on the compose installation run as worktree boxes inside the worker container. Closing this needs an asymmetric seal.</p>
+<p>What the seal does change: an unintended path to the engine can read and cancel workflows, but cannot approve a release or land a pull request.</p>
+</div>
+
+<section class="doc-sources">
+<h2>Sources</h2>
+<ul>
+<li><a href="@core/beeverforge/adapters/sandbox/registry.py"><code>beeverforge/adapters/sandbox/registry.py</code></a></li>
+<li><a href="@core/beeverforge/adapters/sandbox/container.py"><code>beeverforge/adapters/sandbox/container.py</code></a></li>
+<li><a href="@core/beeverforge/adapters/sandbox/worktree.py"><code>beeverforge/adapters/sandbox/worktree.py</code></a></li>
+<li><a href="@core/beeverforge/box_prove.py"><code>beeverforge/box_prove.py</code></a></li>
+<li><a href="@core/beeverforge/runtime/temporal/activities.py"><code>beeverforge/runtime/temporal/activities.py</code></a></li>
+<li><a href="@core/beeverforge/policy/floor.py"><code>beeverforge/policy/floor.py</code></a></li>
+<li><a href="@core/beeverforge/policy/conformance.py"><code>beeverforge/policy/conformance.py</code></a></li>
+<li><a href="@core/beeverforge/org_defaults/floor.yaml"><code>beeverforge/org_defaults/floor.yaml</code></a></li>
+<li><a href="@core/beeverforge/contracts/manifest.py"><code>beeverforge/contracts/manifest.py</code></a></li>
+<li><a href="@core/beeverforge/adapters/reviewer/base.py"><code>beeverforge/adapters/reviewer/base.py</code></a></li>
+<li><a href="@core/beeverforge/adapters/reviewer/harness.py"><code>beeverforge/adapters/reviewer/harness.py</code></a></li>
+<li><a href="@core/beeverforge/gate_seal.py"><code>beeverforge/gate_seal.py</code></a></li>
+<li><a href="@core/docs/adr/0001-foundational-conceptual-model.md" translate="no">ADR-0001</a>, <a href="@core/docs/adr/0037-the-box.md" translate="no">ADR-0037</a></li>
+</ul>
+</section>

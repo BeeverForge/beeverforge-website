@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#1F1F24">
+  <meta name="description" content="How the BeeverForge Community core runs on Temporal: workflows, activities, schedules, signals, durable timers, idempotent side effects, replay safety, bounded memory and observability.">
+  <title>Runtime and durability — BeeverForge</title>
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="BeeverForge">
+  <meta property="og:title" content="Runtime and durability — BeeverForge">
+  <meta property="og:description" content="How the BeeverForge Community core runs on Temporal: workflows, activities, schedules, signals, durable timers, idempotent side effects, replay safety, bounded memory and observability.">
+  <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://beeverforge.com/architecture/runtime/">
+  <meta property="og:url" content="https://beeverforge.com/architecture/runtime/">
+  <link rel="alternate" hreflang="en" href="https://beeverforge.com/architecture/runtime/">
+  <link rel="alternate" hreflang="es" href="https://beeverforge.com/es/architecture/runtime/">
+  <link rel="alternate" hreflang="pt-BR" href="https://beeverforge.com/pt/architecture/runtime/">
+  <link rel="alternate" hreflang="x-default" href="https://beeverforge.com/architecture/runtime/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/final.css">
+  <link rel="stylesheet" href="/assets/docs.css">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('beeverforge-theme')==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+</head>
+<body class="doc-body">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="BeeverForge home"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"></a>
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <a href="/#editions">Editions</a><a href="/#lifecycle">Lifecycle</a><a href="/#comparison">Compare</a><a href="/#questions">FAQ</a><a href="/architecture/" aria-current="true">Architecture</a><a class="nav-cta" href="/#contact">Talk to BeeverForge <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="header-tools"><label class="language-picker"><span class="sr-only">Language</span><select aria-label="Language" data-language><option value="/architecture/runtime/" selected>English</option><option value="/es/architecture/runtime/">Español</option><option value="/pt/architecture/runtime/">Português</option></select></label><button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Light mode</span></button></div>
+    </div>
+  </header>
+  <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Architecture contents"><details class="doc-toc" open data-doc-toc><summary>Contents</summary><p class="doc-toc-title">BeeverForge Community architecture</p><ol><li><a href="/architecture/">Overview</a></li><li><a href="/architecture/lifecycle/">Lifecycle of a ticket</a></li><li><a href="/architecture/runtime/" aria-current="page">Runtime and durability</a></li><li><a href="/architecture/box/">The box and the quality floor</a></li><li><a href="/architecture/extensions/">Extension model</a></li><li><a href="/architecture/principles/">Engineering principles</a></li><li><a href="/architecture/repository/">Repository principles</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">BeeverForge Community architecture</p>
+<h1>Runtime and durability</h1>
+<p class="doc-lead">The engine is Temporal. Every job is a workflow, every side effect is an activity, and every wait, from a CI poll to a production approval, is a durable timer or condition. A worker restart therefore resumes the job instead of losing it.</p>
+
+<h2>Workflows, activities and the task queue</h2>
+<p>One worker process registers every workflow and every activity on a single task queue, <code>beeverforge-jobs</code>. The main workflows are:</p>
+<dl>
+<dt><code>JobWorkflow</code></dt><dd>One per ticket. Sizing, the run in the box, the watch to merge, the promotion and every park happen inside it.</dd>
+<dt><code>PollWorkflow</code></dt><dd>One board scan per tick, starting jobs into the free slots.</dd>
+<dt><code>DeployWatchWorkflow</code></dt><dd>A detached child that observes the deployment after a merge.</dd>
+<dt><code>PreviewWorkflow</code></dt><dd>A running preview of an unmerged change, when a preview runtime is configured.</dd>
+<dt><code>ConversationWorkflow</code></dt><dd>A conversation with the factory, admitted and progressed by signals.</dd>
+</dl>
+<p>Other workflows cover the tech-lead watch, the knowledge refresh, the product role and the sweeps listed below. The heavy work, such as running the job in its box, is the <code>run_job</code> activity.</p>
+
+<h2>Schedules</h2>
+<p>Recurring work is a Temporal schedule, reconciled by the worker when it starts.</p>
+<div class="doc-table">
+<table>
+<thead><tr><th>Schedule</th><th>Interval</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>beeverforge-poller</code></td><td>3 minutes</td><td>Scan the boards; a tick that would overlap is skipped.</td></tr>
+<tr><td><code>beeverforge-techlead-watch-*</code></td><td>1 hour</td><td>The tech-lead’s rounds over parked work.</td></tr>
+<tr><td><code>beeverforge-card-questions-*</code></td><td>1 hour</td><td>Read the answers to questions asked on cards.</td></tr>
+<tr><td><code>beeverforge-okf-refresh-*</code></td><td>6 hours</td><td>Bring the knowledge map current against the base branch.</td></tr>
+<tr><td><code>beeverforge-product-sweep-*</code></td><td>1 week</td><td>The product role’s sweep for work that cannot finish.</td></tr>
+<tr><td><code>beeverforge-preview-reaper</code></td><td>10 minutes</td><td>End previews whose pull request has merged.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Workflow histories are retained by the engine for 30 days by default (<code>BEEVERFORGE_ENGINE_RETENTION_DAYS</code>).</p>
+
+<h2>Signals and durable timers</h2>
+<p>A person’s answer reaches a running job as a signal: <code>approve_prod</code>, <code>not_yet</code>, <code>human_merge_gate</code>, <code>act_on_impediment</code> and <code>advise_decision</code>. Waits are <code>workflow.sleep</code> and <code>workflow.wait_condition</code> with a timeout, so a wait of minutes or days holds no worker and survives a restart. Examples are the CI poll (2 minutes, then 15), the deploy poll (1 minute), the production approval (3 days), the merge watch (14 days) and a parked impediment (3 days).</p>
+
+<h2>Idempotent side effects</h2>
+<p>An activity may run again after a failure, so each external write is written to be safe to repeat or is not retried:</p>
+<ul>
+<li><strong>Pull requests</strong> are find-then-update: an open pull request for the branch is reused.</li>
+<li><strong>Release tags</strong> are find-or-create.</li>
+<li><strong>Card transitions and comments</strong> carry the event id of the activity that caused them; the card’s door returns the transition already recorded for that id instead of writing it again.</li>
+<li><strong>Merges</strong> are read back from the forge after the merge call, instead of trusting the call’s result.</li>
+<li><strong>The job itself</strong> is retried only when its box kind declares that a retry re-attaches to the running job. No box kind in this repository declares that: the <code>container</code> and <code>worktree</code> boxes run their job activity once, because a retry would be a second agent pass that repeats every comment. The re-attaching runner is supplied by an add-on.</li>
+</ul>
+
+<h2>Heartbeats</h2>
+<p>Long activities heartbeat. Job activities run with a heartbeat timeout of 120 seconds and beat about every 30 seconds; work that continues after the last beat is bounded to fit inside that window. A worker that dies mid-activity is therefore noticed within the timeout rather than at the end of the activity’s full duration.</p>
+
+<h2>Replay safety</h2>
+<p>Temporal replays a workflow’s history against the current code, so a change to workflow logic must not change the commands an in-flight workflow already recorded.</p>
+<ul>
+<li>Every such change is gated by <code>workflow.patched()</code> with an id that names the behaviour, for example <code>signed-gates</code> or <code>a-self-merge-is-read-back</code>. Old histories take the old branch; new runs take the new one.</li>
+<li>Replayer tests run a workflow against an ephemeral Temporal server, fetch the recorded history and replay it with <code>Replayer</code> against the current code. Some first run a twin of the workflow from before the patch. The histories are recorded inside the tests; none are committed as files.</li>
+<li>Code that must stay out of the workflow body is kept in activities. The box-proof check at pickup lives in the board-scan activity for exactly that reason.</li>
+</ul>
+
+<h2>One engine client per process</h2>
+<p>A process holds one engine client. <code>runtime/temporal/connection.py</code> keeps a single client keyed by the connection’s settings; concurrent first callers share one connection attempt, and reconnection backs off for at most 60 seconds. Guard tests assert that concurrent first calls, and repeated approvals, open one client.</p>
+
+<h2>Bounded structures</h2>
+<p>The worker and the panel are long-lived processes, so in-memory caches are bounded by construction.</p>
+<ul>
+<li><code>util/bounded.py</code> provides <code>BoundedDict</code>: thread-safe, with a required maximum size, evicting the oldest entry first, counting what it evicted. It is deliberately not a <code>dict</code> subclass, so nothing can grow it around its bound.</li>
+<li><code>util/single_flight.py</code> lets readers that arrive together share one read. Each waiter is shielded from another caller’s cancellation, at most one read is in flight, and a failure is shared with the current waiters and not stored.</li>
+<li>A structural test, <code>tests/test_no_unbounded_growth.py</code>, requires every site that allocates or memoises in a long-lived process to state its bound.</li>
+</ul>
+
+<h2>Journal, metrics and observability</h2>
+<ul>
+<li><strong>The job journal</strong> records typed events (<code>state</code>, <code>agent_action</code>, <code>validation</code>, <code>review</code>, <code>pr</code>, <code>note</code>, <code>warning</code>, <code>error</code>). The default sink is a file, <code>&lt;issue&gt;-events.jsonl</code> in the project’s log directory; <code>BEEVERFORGE_EVENT_SINK</code> selects another.</li>
+<li><strong>Metrics</strong> record cost and effort per agent invocation and per job. The built-in sinks are none, SQLite and memory; without configuration no metrics are stored. The panel serves them at <code>GET /api/metrics</code>.</li>
+<li><strong>Health</strong> has its own routes, and the Temporal web UI shows each workflow’s history.</li>
+<li>The core has no Prometheus or OpenTelemetry exporter.</li>
+</ul>
+
+<h2>Panel API</h2>
+<p>The panel is a FastAPI application. Typed reads are served under <code>/api/v1/</code>, and their unversioned paths remain, marked deprecated. The OpenAPI description is committed at <code>docs/reference/openapi.json</code>; a test asserts that the committed file equals what the application generates and prints the command that regenerates it, <code>python -m beeverforge.api.openapi</code>.</p>
+
+<section class="doc-sources">
+<h2>Sources</h2>
+<ul>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/__init__.py"><code>beeverforge/runtime/temporal/__init__.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/worker.py"><code>beeverforge/runtime/temporal/worker.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/workflow.py"><code>beeverforge/runtime/temporal/workflow.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/activities.py"><code>beeverforge/runtime/temporal/activities.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/schedule.py"><code>beeverforge/runtime/temporal/schedule.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/connection.py"><code>beeverforge/runtime/temporal/connection.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/sandbox/registry.py"><code>beeverforge/adapters/sandbox/registry.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/lifecycle/card.py"><code>beeverforge/lifecycle/card.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/util/bounded.py"><code>beeverforge/util/bounded.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/util/single_flight.py"><code>beeverforge/util/single_flight.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/observability/events.py"><code>beeverforge/observability/events.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/observability/registry.py"><code>beeverforge/observability/registry.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/api/openapi.py"><code>beeverforge/api/openapi.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/reference/openapi.json"><code>docs/reference/openapi.json</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_the_merge_gate_is_heard_on_every_path.py"><code>tests/test_the_merge_gate_is_heard_on_every_path.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_the_panel_holds_one_engine_client.py"><code>tests/test_the_panel_holds_one_engine_client.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_no_unbounded_growth.py"><code>tests/test_no_unbounded_growth.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_the_api_is_versioned.py"><code>tests/test_the_api_is_versioned.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0009-durability-and-resilience-hardening.md" translate="no">ADR-0009</a></li>
+</ul>
+</section>
+<nav class="doc-pager" aria-label="Previous and next pages"><a class="doc-pager-prev" rel="prev" href="/architecture/lifecycle/"><small>Previous</small><span>Lifecycle of a ticket</span></a><a class="doc-pager-next" rel="next" href="/architecture/box/"><small>Next</small><span>The box and the quality floor</span></a></nav></article></div></main>
+  <aside class="consent-panel" data-consent-panel role="region" aria-live="polite" aria-labelledby="consent-title" hidden><div class="consent-copy"><p class="eyebrow">Cookie preferences</p><h2 id="consent-title">We use cookies.</h2><p>We use cookies to understand site traffic. Accept optional cookies or reject them. Choose Cookie settings for details.</p></div><div class="consent-actions"><button class="consent-reject" type="button" data-consent-reject>Reject optional</button><button class="consent-settings" type="button" data-consent-details-toggle aria-expanded="false" aria-controls="consent-details">Cookie settings</button><button class="button button-gold" type="button" data-consent-accept>Accept all</button></div><div class="consent-details" id="consent-details" data-consent-details hidden><h3>Cookie settings</h3><p><strong>Essential preference storage</strong> remembers your theme and cookie choice. It is always active.</p><label class="consent-toggle"><input type="checkbox" data-analytics-toggle><span><strong>Analytics cookies</strong><small>Optional · Google Analytics measures visits and how the site is used. The Analytics tag stays off unless you allow it.</small></span></label><div class="consent-detail-actions"><button class="consent-reject" type="button" data-consent-cancel>Cancel</button><button class="button button-gold" type="button" data-consent-save>Save choices</button></div></div></aside>
+  <footer class="site-footer"><div class="shell footer-grid"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"><p>The next chapter of OpenFactory. An open engineering foundation and an Enterprise lifecycle for product decisions.</p><nav aria-label="Footer links"><a href="/#editions">Editions</a><a href="/#lifecycle">Lifecycle</a><a href="/#comparison">Compare</a><a href="/architecture/" aria-current="true">Architecture</a><a href="https://github.com/BeeverForge/beeverforge-oss">Community code ↗</a><button class="consent-link" type="button" data-consent-open>Cookie settings</button></nav></div><div class="shell footer-bottom"><span>© 2026 BeeverForge</span><span>The next chapter of OpenFactory</span></div></footer>
+  <script src="/assets/final.js" defer></script>
+  <script src="/assets/docs.js" defer></script>
+</body>
+</html>

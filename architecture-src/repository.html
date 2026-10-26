@@ -1,0 +1,152 @@
+<title>Repository principles</title>
+<meta name="description" content="How the BeeverForge Community core repository is tested, guarded, documented and released, with an index of its architecture decision records.">
+<p class="eyebrow">BeeverForge Community architecture</p>
+<h1>Repository principles</h1>
+<p class="doc-lead">The rules the core repository holds itself to, from how a test is named to how a release is cut. Most are written in <code>CONTRIBUTING.md</code> and <code>docs/RELEASING.md</code> and enforced by a test or a workflow; where a rule is a convention rather than a check, this page says so.</p>
+
+<h2>Tests</h2>
+<h3>Named as sentences</h3>
+<p>A test file states what it proves, for example <code>test_a_card_is_closed_only_when_its_work_merges.py</code>, so that searching the suite for a behaviour finds the test that holds it.</p>
+<h3>Both orders and in parallel</h3>
+<p>The suite runs in random order by default (<code>pytest-randomly</code>) and in parallel (<code>pytest-xdist</code>). Contributors are asked to run it in parallel in both random and fixed order (<code>-p no:randomly</code>). A failure that depends on order is treated as a state leak, not as flakiness. CI runs the random order, sharded; it does not run the fixed order. The conftest records each run’s seed so an order can be replayed.</p>
+<h3>Mutation-proven guards</h3>
+<p><code>tools/mutate.py</code> runs a mutation plan: each plan names a test and a list of exact source edits, and every edit must turn that test red. It refuses to start unless each edit’s anchor matches exactly once and the baseline is green.</p>
+<ul>
+<li>The runner is crash-safe. Before it mutates a file it backs the file up outside the tree and writes an in-flight note at the repository root; it restores the file and checks the restored text in a <code>finally</code> block. Because a killed process skips <code>finally</code>, the next run refuses to start while a note exists and prints the commands that restore the file.</li>
+<li>Mutation plans are run by contributors, not in CI. A test checks that every plan can run.</li>
+</ul>
+<h3>A guard reads the thing, not text about the thing</h3>
+<p>A test that guards a configuration executes it or parses it: it runs the script and reads its arguments, or loads the YAML and reads the key. Where text must be searched, comments are stripped first.</p>
+<h3>A hermetic suite</h3>
+<ul>
+<li>Live credentials are removed from the environment before collection and again before every test: forge, chat, engine, harness and cloud variables, and the operator’s own <code>BEEVERFORGE_*</code> settings.</li>
+<li>The suite runs under its own <code>HOME</code>, with each test given a fresh one, and the <code>gh</code> login hidden. The project registry is a temporary directory, fresh for every test.</li>
+<li>No test reaches a live engine: connecting to Temporal raises, except in tests marked <code>owns_its_engine</code>, which start and dispose of their own ephemeral server.</li>
+<li>The suite commits under its own git identity.</li>
+</ul>
+<h3>Optional externals skip at run time</h3>
+<p>A missing optional tool, such as Docker or <code>node</code>, makes a test skip when it runs; it never changes what is collected. CI sets <code>TEST_REQUIRE_DOCKER</code>, which turns the Docker skip into a failure there. The Temporal test server is a hard prerequisite, not a skip.</p>
+<h3>CI is held to the Makefile, and every test runs once</h3>
+<ul>
+<li>Each CI step runs a <code>make</code> target (<code>install</code>, <code>lint</code>, <code>test-collect</code>, <code>test-unit</code> in four shards, <code>test-integration</code>, <code>test-alone</code>, <code>test-ran-once</code>), apart from the final step that reports whether every job passed.</li>
+<li>A guard expands the targets CI names with <code>make -n</code> and checks that they still run the suite and lint every root the suite covers. No guard forbids a CI step that is not a <code>make</code> target.</li>
+<li>The suite is collected once; every shard records the test ids it ran; <code>scripts/every_test_ran_once.py</code> fails on a test that is missing, doubled or unknown. An empty collection is a failure, not a pass.</li>
+</ul>
+<h3>Linters and type checking</h3>
+<p><code>make lint</code> runs <code>ruff</code> and <code>shellcheck</code>. <code>mypy</code> and <code>bandit</code> are configured in <code>pyproject.toml</code> and installed with the development extra, but neither runs in the Makefile or in CI; they are not enforced.</p>
+
+<h2>Code and documentation</h2>
+<ul>
+<li><strong>Comments say why</strong>, with the measurement: the date, the exit code or the incident that made the line necessary.</li>
+<li><strong>Changelog fragments.</strong> A pull request that changes behaviour adds <code>changes/&lt;issue&gt;.&lt;type&gt;.md</code>, where the type is one of <code>highlight</code>, <code>behaviour</code>, <code>fix</code>, <code>security</code>, <code>upgrade</code> or <code>limitation</code>. A workflow checks every pull request; one that changes only documentation or tests carries the <code>no-release-note</code> label instead.</li>
+<li><strong>Decision records are amended in place.</strong> When a decision moves, the ADR is edited with a dated note that names the pull request. A new ADR supersedes an old one only when the decision is reversed, not refined.</li>
+</ul>
+
+<h2>Releases and versions</h2>
+<ul>
+<li>Versions are pre-1.0 semantic versions. A minor release carries features and changes of behaviour; a patch carries fixes only and is tagged on its <code>release/x.y</code> branch, never on <code>main</code>.</li>
+<li>A release candidate is tagged <code>vx.y.z-rc.N</code> and published as a pre-release; installs keep resolving the last final release unless the candidate is named. A minor always goes through at least one candidate.</li>
+<li>The package declares exactly the tag without its <code>v</code>, and the release workflow refuses a tag the package does not declare. Every version change regenerates the committed OpenAPI description in the same commit.</li>
+<li>The final release is tagged on the commit the last candidate was verified on, plus the commit that declares the version and its notes.</li>
+<li>A published release is frozen: no tag is moved, deleted or re-pushed. The upgrade is rehearsed before every tag. Security defects follow a private advisory path. Only the release manager creates a release branch or a tag.</li>
+</ul>
+<h3>Release guards</h3>
+<ul>
+<li><strong>The wheel.</strong> A test builds a real wheel from a pristine copy of the tree and checks that it ships <code>LICENSE</code> and <code>NOTICE</code>, that its only console script is <code>beeverforge</code>, that its long description is the declared page, and that every runtime data file the platform needs is inside it.</li>
+<li><strong>The API description.</strong> <code>docs/reference/openapi.json</code> must equal what the application generates.</li>
+</ul>
+
+<h2>Licence and name</h2>
+<p>The core is licensed under Apache-2.0. There is no contributor licence agreement: the licence already settles what happens to a contribution, and copyright stays with its author. The <code>NOTICE</code> file separates the code from the name: the licence grants no right to the BeeverForge name, logo or marks, and only builds that pass the published conformance suite (<code>beeverforge conformance</code>, <code>beeverforge conformance-adapter</code>) may be called BeeverForge.</p>
+
+<h2>Architecture decision records</h2>
+<p>The status column reflects the code at the pinned commit. Where a record’s own status line and the code disagree, the code is used: “partly implemented” means some of the decision is in the code and some is not.</p>
+<div class="doc-table doc-adr">
+<table>
+<thead><tr><th>Record</th><th>Title</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><a href="@core/docs/adr/0001-foundational-conceptual-model.md" translate="no">ADR-0001</a></td><td translate="no">Foundational conceptual model of the platform</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0002-task-sizing-and-execution-budget.md" translate="no">ADR-0002</a></td><td translate="no">Task sizing and the execution budget</td><td>Accepted; amended by ADR-0013</td></tr>
+<tr><td><a href="@core/docs/adr/0003-autonomous-merge-on-current-base.md" translate="no">ADR-0003</a></td><td translate="no">Autonomous merge on the current base</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0004-ci-aware-autonomous-repair.md" translate="no">ADR-0004</a></td><td translate="no">CI-aware autonomous repair (react, don't block)</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0005-post-merge-deploy-watch.md" translate="no">ADR-0005</a></td><td translate="no">Post-merge deploy watch (observe &amp; notify, never block)</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0006-review-repair-loop.md" translate="no">ADR-0006</a></td><td translate="no">Bounded review-repair loop (react to a rejection, once)</td><td>Accepted; opt-in under ADR-0014</td></tr>
+<tr><td><a href="@core/docs/adr/0007-floor-frees-at-merge.md" translate="no">ADR-0007</a></td><td translate="no">The floor frees at merge, not at agent-done (dependency safety)</td><td>Accepted; revised by ADR-0010</td></tr>
+<tr><td><a href="@core/docs/adr/0008-on-demand-e2e-ticket.md" translate="no">ADR-0008</a></td><td translate="no">On-demand e2e via a labelled ticket (not on every PR)</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0009-durability-and-resilience-hardening.md" translate="no">ADR-0009</a></td><td translate="no">Durability &amp; resilience hardening (post-audit)</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0010-single-line-strict-park-on-impediment.md" translate="no">ADR-0010</a></td><td translate="no">Single-line strict: the queue advances only on a clean merge (park on any impediment)</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0011-suppression-repair-and-reviewer-vetted-pragmas.md" translate="no">ADR-0011</a></td><td translate="no">Suppression-repair in the sandbox + reviewer-vetted coverage pragmas</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0012-perfect-resume-after-pause.md" translate="no">ADR-0012</a></td><td translate="no">Perfect resume after a rate-limit pause (token visibility + honoured backoff + session resume)</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0013-preflight-sizing-effort-budget-recovery.md" translate="no">ADR-0013</a></td><td translate="no">Pre-flight sizing gate, autonomous split, ticket effort budget, and stuck-recovery</td><td>Accepted, partly implemented</td></tr>
+<tr><td><a href="@core/docs/adr/0014-single-agent-execution-and-advisory-review.md" translate="no">ADR-0014</a></td><td translate="no">Single-agent execution + advisory review (frontier-default, still agnostic)</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0015-tech-lead-diagnosis-and-slack.md" translate="no">ADR-0015</a></td><td translate="no">The tech-lead: impediment diagnosis + Slack, one brain, two triggers</td><td>Accepted; the chat transport is an add-on</td></tr>
+<tr><td><a href="@core/docs/adr/0016-slack-actions-authorization.md" translate="no">ADR-0016</a></td><td translate="no">Acting from Slack: read for all, write behind an allowlist</td><td>Accepted; the chat transport is an add-on</td></tr>
+<tr><td><a href="@core/docs/adr/0017-knowledge-layer.md" translate="no">ADR-0017</a></td><td translate="no">The Knowledge Layer: a derived, verifiable map the agent may not trust blindly</td><td>Accepted; revised by ADR-0023 and ADR-0035</td></tr>
+<tr><td><a href="@core/docs/adr/0018-harness-roles.md" translate="no">ADR-0018</a></td><td translate="no">Three harness roles: executor, reviewer, techlead</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0019-product-role-and-requirements-repo.md" translate="no">ADR-0019</a></td><td translate="no">The product role: requirements are authored documents, in their own repo</td><td>Accepted; the chat transport is an add-on</td></tr>
+<tr><td><a href="@core/docs/adr/0020-techlead-on-call.md" translate="no">ADR-0020</a></td><td translate="no">The tech-lead is on call: classify by remedy, resolve what it can, speak while doing it</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0021-agents-that-follow-through.md" translate="no">ADR-0021</a></td><td translate="no">Agents that follow through: the open loop as the unit of memory</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0022-provider-seams.md" translate="no">ADR-0022</a></td><td translate="no">Provider seams: an axis is agnostic when it is BORN with two</td><td>Accepted, partly implemented</td></tr>
+<tr><td><a href="@core/docs/adr/0023-derive-dont-cache.md" translate="no">ADR-0023</a></td><td translate="no">The map is derived, not learned: generate it where the checkout is</td><td>Accepted; revised by ADR-0035</td></tr>
+<tr><td><a href="@core/docs/adr/0024-conversational-memory.md" translate="no">ADR-0024</a></td><td translate="no">Conversational memory: the thread is the unit, the raw log is sacred</td><td>Proposed, partly implemented</td></tr>
+<tr><td><a href="@core/docs/adr/0025-delivery-closes-with-the-client.md" translate="no">ADR-0025</a></td><td translate="no">Delivery closes with the client, not with the board</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0026-shared-vocabulary-beats-an-invented-word.md" translate="no">ADR-0026</a></td><td translate="no">A word the reader already has beats one you invent</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0027-the-clients-board-is-not-our-test-bench.md" translate="no">ADR-0027</a></td><td translate="no">The client's board is not our test bench</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0028-a-yes-is-read-a-done-is-not-asserted.md" translate="no">ADR-0028</a></td><td translate="no">A "yes" is read; a "done" is not asserted</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0029-a-click-is-not-interpreted.md" translate="no">ADR-0029</a></td><td translate="no">A click is not interpreted</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0030-what-the-parallel-audit-found.md" translate="no">ADR-0030</a></td><td translate="no">What the parallel audit found, and the inversion it exposed</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0031-observing-is-not-correcting.md" translate="no">ADR-0031</a></td><td translate="no">Observing is not correcting: when the safety net becomes the damage</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0032-the-requirement-cycle-happens-in-the-channel.md" translate="no">ADR-0032</a></td><td translate="no">The requirement cycle happens in the channel; merging is not agreeing</td><td>Accepted; refined by ADR-0047</td></tr>
+<tr><td><a href="@core/docs/adr/0033-decision-kernel.md" translate="no">ADR-0033</a></td><td translate="no">The lifecycle decides in pure code; the engine only executes</td><td>Proposed, partly implemented</td></tr>
+<tr><td><a href="@core/docs/adr/0034-extension-model.md" translate="no">ADR-0034</a></td><td translate="no">Providers stay in-process for now, and the door stays open by a test</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0035-knowledge-layer-on-by-default.md" translate="no">ADR-0035</a></td><td translate="no">The knowledge layer becomes the behaviour, not an experiment</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0036-cross-repo-ordering.md" translate="no">ADR-0036</a></td><td translate="no">Ordering across repositories: the product declares it, the floor enforces it</td><td>Proposed</td></tr>
+<tr><td><a href="@core/docs/adr/0037-the-box.md" translate="no">ADR-0037</a></td><td translate="no">The box: the client's image, an injected toolbox, and a proof before any pickup</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0038-the-platform-is-complete-channels-are-add-ons.md" translate="no">ADR-0038</a></td><td translate="no">The platform is complete on its own; channels are add-ons</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0039-the-action-layer.md" translate="no">ADR-0039</a></td><td translate="no">The action layer: what a human can ask the factory to do, written once</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0040-the-core-runs-on-the-clients-own-machines.md" translate="no">ADR-0040</a></td><td translate="no">The core runs on the client's own machines; a cloud is an add-on</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0041-facts-are-files-not-a-protocol.md" translate="no">ADR-0041</a></td><td translate="no">The roles read facts as files, not through a tool protocol</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0042-the-backfill-has-four-inputs.md" translate="no">ADR-0042</a></td><td translate="no">The backfill has four inputs, and a legacy system is the product</td><td>Accepted, partly implemented</td></tr>
+<tr><td><a href="@core/docs/adr/0043-the-distribution-is-a-published-image.md" translate="no">ADR-0043</a></td><td translate="no">The distribution is a published image, and one compose file both installs and builds</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0044-a-project-declares-what-it-is.md" translate="no">ADR-0044</a></td><td translate="no">A project declares what it is: profiles as a cascade layer</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0045-a-fingerprint-nothing-reads-is-a-promise.md" translate="no">ADR-0045</a></td><td translate="no">A fingerprint nothing reads is a promise, not a mechanism</td><td>Proposed, partly implemented</td></tr>
+<tr><td><a href="@core/docs/adr/0046-a-file-nothing-describes-is-the-least-safe-to-change.md" translate="no">ADR-0046</a></td><td translate="no">A file nothing describes is the least safe to change</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0047-a-requirement-is-agreed-twice-and-never-through-a-pull-request.md" translate="no">ADR-0047</a></td><td translate="no">A requirement is agreed twice, in the conversation, and never through a pull request</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0048-the-factory-asks-before-it-spends.md" translate="no">ADR-0048</a></td><td translate="no">The factory asks before it spends, and the question goes to the person who asked</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0049-the-whole-cycle-on-one-machine.md" translate="no">ADR-0049</a></td><td translate="no">The whole cycle runs on one machine: <code>local</code> is a kind, not a mode</td><td>Accepted, partly implemented</td></tr>
+<tr><td><a href="@core/docs/adr/0050-a-preview-before-the-merge.md" translate="no">ADR-0050</a></td><td translate="no">A preview before the merge, because nothing after it can be taken back</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0051-one-door-parallel-conversations-one-semaphore-on-work.md" translate="no">ADR-0051</a></td><td translate="no">One door, parallel conversations, one semaphore on work</td><td>Accepted, partly implemented</td></tr>
+<tr><td><a href="@core/docs/adr/0052-the-owners-view.md" translate="no">ADR-0052</a></td><td translate="no">The owner's view: what the product is doing, and the whole map of it</td><td>Proposed, partly implemented</td></tr>
+<tr><td><a href="@core/docs/adr/0053-the-guardians-memory.md" translate="no">ADR-0053</a></td><td translate="no">The guardian's memory: raw, evidence and curated truth, with time as data</td><td>Proposed, partly implemented</td></tr>
+<tr><td><a href="@core/docs/adr/0054-a-card-is-judged-before-the-yes.md" translate="no">ADR-0054</a></td><td translate="no">A card the product role opens is drafted, judged against a rubric, and shown whole before the yes</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0055-a-card-has-one-lifecycle.md" translate="no">ADR-0055</a></td><td translate="no">A card has one lifecycle: one door for every change of its state, one table of what follows, one record of what happened</td><td>Implemented; the record reads Proposed</td></tr>
+<tr><td><a href="@core/docs/adr/0056-a-prompt-has-one-budget-and-names-what-it-leaves-out.md" translate="no">ADR-0056</a></td><td translate="no">A job's prompt has one budget, and every document it leaves out is named in it</td><td>Accepted</td></tr>
+<tr><td><a href="@core/docs/adr/0057-who-may-act-is-one-decision-and-a-production-approval-is-a-person.md" translate="no">ADR-0057</a></td><td translate="no">Who may act is one decision the core's policy makes, and a production approval is a person, not a password</td><td>Proposed</td></tr>
+<tr><td><a href="@core/docs/adr/0058-a-product-owns-its-requirement-template.md" translate="no">ADR-0058</a></td><td translate="no">A product owns its requirement template</td><td>Accepted</td></tr>
+
+</tbody>
+</table>
+</div>
+
+<section class="doc-sources">
+<h2>Sources</h2>
+<ul>
+<li><a href="@core/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a></li>
+<li><a href="@core/Makefile"><code>Makefile</code></a></li>
+<li><a href="@core/.github/workflows/ci.yml"><code>.github/workflows/ci.yml</code></a></li>
+<li><a href="@core/.github/workflows/release-note.yml"><code>.github/workflows/release-note.yml</code></a></li>
+<li><a href="@core/pyproject.toml"><code>pyproject.toml</code></a></li>
+<li><a href="@core/tests/conftest.py"><code>tests/conftest.py</code></a></li>
+<li><a href="@core/tools/mutate.py"><code>tools/mutate.py</code></a></li>
+<li><a href="@core/scripts/every_test_ran_once.py"><code>scripts/every_test_ran_once.py</code></a></li>
+<li><a href="@core/scripts/release_notes.py"><code>scripts/release_notes.py</code></a></li>
+<li><a href="@core/tests/test_ci_runs_what_we_run.py"><code>tests/test_ci_runs_what_we_run.py</code></a></li>
+<li><a href="@core/tests/test_ci_runs_every_test_exactly_once.py"><code>tests/test_ci_runs_every_test_exactly_once.py</code></a></li>
+<li><a href="@core/tests/test_the_wheel_ships_what_the_platform_needs.py"><code>tests/test_the_wheel_ships_what_the_platform_needs.py</code></a></li>
+<li><a href="@core/tests/test_the_api_is_versioned.py"><code>tests/test_the_api_is_versioned.py</code></a></li>
+<li><a href="@core/docs/RELEASING.md"><code>docs/RELEASING.md</code></a></li>
+<li><a href="@core/docs/adr/README.md"><code>docs/adr/README.md</code></a></li>
+<li><a href="@core/LICENSE"><code>LICENSE</code></a></li>
+<li><a href="@core/NOTICE"><code>NOTICE</code></a></li>
+</ul>
+</section>

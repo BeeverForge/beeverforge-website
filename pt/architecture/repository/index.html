@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#1F1F24">
+  <meta name="description" content="Como o repositório do núcleo do BeeverForge Community é testado, protegido, documentado e publicado, com um índice dos seus registros de decisão de arquitetura.">
+  <title>Princípios do repositório — BeeverForge</title>
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="BeeverForge">
+  <meta property="og:title" content="Princípios do repositório — BeeverForge">
+  <meta property="og:description" content="Como o repositório do núcleo do BeeverForge Community é testado, protegido, documentado e publicado, com um índice dos seus registros de decisão de arquitetura.">
+  <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://beeverforge.com/pt/architecture/repository/">
+  <meta property="og:url" content="https://beeverforge.com/pt/architecture/repository/">
+  <link rel="alternate" hreflang="en" href="https://beeverforge.com/architecture/repository/">
+  <link rel="alternate" hreflang="es" href="https://beeverforge.com/es/architecture/repository/">
+  <link rel="alternate" hreflang="pt-BR" href="https://beeverforge.com/pt/architecture/repository/">
+  <link rel="alternate" hreflang="x-default" href="https://beeverforge.com/architecture/repository/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/final.css">
+  <link rel="stylesheet" href="/assets/docs.css">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('beeverforge-theme')==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+</head>
+<body class="doc-body">
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/pt/" aria-label="Página inicial da BeeverForge"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"></a>
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menu">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Navegação principal">
+        <a href="/pt/#editions">Edições</a><a href="/pt/#lifecycle">Ciclo de vida</a><a href="/pt/#comparison">Comparar</a><a href="/pt/#questions">Perguntas frequentes</a><a href="/pt/architecture/" aria-current="true">Arquitetura</a><a class="nav-cta" href="/pt/#contact">Falar com a BeeverForge <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="header-tools"><label class="language-picker"><span class="sr-only">Idioma</span><select aria-label="Idioma" data-language><option value="/architecture/repository/">English</option><option value="/es/architecture/repository/">Español</option><option value="/pt/architecture/repository/" selected>Português</option></select></label><button class="theme-toggle" type="button" data-theme-toggle aria-label="Mudar para o modo claro" aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Modo claro</span></button></div>
+    </div>
+  </header>
+  <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Conteúdo da arquitetura"><details class="doc-toc" open data-doc-toc><summary>Conteúdo</summary><p class="doc-toc-title">Arquitetura do BeeverForge Community</p><ol><li><a href="/pt/architecture/">Visão geral</a></li><li><a href="/pt/architecture/lifecycle/">Ciclo de vida de um ticket</a></li><li><a href="/pt/architecture/runtime/">Execução e durabilidade</a></li><li><a href="/pt/architecture/box/">A caixa e o piso de qualidade</a></li><li><a href="/pt/architecture/extensions/">Modelo de extensão</a></li><li><a href="/pt/architecture/principles/">Princípios de engenharia</a></li><li><a href="/pt/architecture/repository/" aria-current="page">Princípios do repositório</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">Arquitetura do BeeverForge Community</p>
+<h1>Princípios do repositório</h1>
+<p class="doc-lead">As regras que o repositório do núcleo impõe a si mesmo, de como um teste é nomeado a como uma versão é publicada. A maioria está escrita em <code>CONTRIBUTING.md</code> e <code>docs/RELEASING.md</code> e é garantida por um teste ou por um workflow; quando uma regra é uma convenção e não uma verificação, esta página informa isso.</p>
+
+<h2>Testes</h2>
+<h3>Nomeados como frases</h3>
+<p>Um arquivo de teste diz o que prova, por exemplo <code>test_a_card_is_closed_only_when_its_work_merges.py</code>, para que buscar um comportamento na suíte encontre o teste que o garante.</p>
+<h3>Nas duas ordens e em paralelo</h3>
+<p>A suíte roda em ordem aleatória por padrão (<code>pytest-randomly</code>) e em paralelo (<code>pytest-xdist</code>). Quem contribui deve rodá-la em paralelo tanto em ordem aleatória quanto em ordem fixa (<code>-p no:randomly</code>). Uma falha que depende da ordem é tratada como vazamento de estado, não como instabilidade. A CI roda a ordem aleatória, dividida em partes; ela não roda a ordem fixa. O conftest registra a semente de cada execução para que uma ordem possa ser reproduzida.</p>
+<h3>Guardas provadas por mutação</h3>
+<p><code>tools/mutate.py</code> executa um plano de mutação: cada plano nomeia um teste e uma lista de edições exatas do código, e cada edição precisa deixar esse teste vermelho. Ele se recusa a começar a menos que a âncora de cada edição corresponda exatamente uma vez e a linha de base esteja verde.</p>
+<ul>
+<li>O executor é seguro contra falhas. Antes de mutar um arquivo, ele faz uma cópia fora da árvore e grava uma nota de operação em andamento na raiz do repositório; restaura o arquivo e verifica o texto restaurado em um bloco <code>finally</code>. Como um processo encerrado à força pula o <code>finally</code>, a próxima execução se recusa a começar enquanto existir uma nota e imprime os comandos que restauram o arquivo.</li>
+<li>Os planos de mutação são executados por quem contribui, não pela CI. Um teste verifica que cada plano pode ser executado.</li>
+</ul>
+<h3>Uma guarda lê a coisa, não um texto sobre a coisa</h3>
+<p>Um teste que protege uma configuração a executa ou a analisa: executa o script e lê seus argumentos, ou carrega o YAML e lê a chave. Quando é preciso buscar em texto, os comentários são removidos antes.</p>
+<h3>Uma suíte hermética</h3>
+<ul>
+<li>As credenciais reais são removidas do ambiente antes da coleta e de novo antes de cada teste: variáveis da plataforma Git, do chat, do motor, do harness e da nuvem, e as configurações <code>BEEVERFORGE_*</code> do próprio operador.</li>
+<li>A suíte roda com seu próprio <code>HOME</code>, com um novo para cada teste, e com o login do <code>gh</code> oculto. O registro de projetos é um diretório temporário, novo para cada teste.</li>
+<li>Nenhum teste alcança um motor real: conectar ao Temporal lança um erro, exceto nos testes marcados <code>owns_its_engine</code>, que iniciam e descartam seu próprio servidor efêmero.</li>
+<li>A suíte faz commits com sua própria identidade de git.</li>
+</ul>
+<h3>Dependências externas opcionais são puladas em tempo de execução</h3>
+<p>A falta de uma ferramenta opcional, como Docker ou <code>node</code>, faz um teste ser pulado ao rodar; isso nunca muda o que é coletado. A CI define <code>TEST_REQUIRE_DOCKER</code>, que lá transforma o pulo por falta de Docker em falha. O servidor de testes do Temporal é um pré-requisito obrigatório, não um pulo.</p>
+<h3>A CI segue o Makefile e cada teste roda uma vez</h3>
+<ul>
+<li>Cada etapa da CI executa um alvo do <code>make</code> (<code>install</code>, <code>lint</code>, <code>test-collect</code>, <code>test-unit</code> em quatro partes, <code>test-integration</code>, <code>test-alone</code>, <code>test-ran-once</code>), exceto a etapa final, que informa se todos os jobs passaram.</li>
+<li>Uma guarda expande com <code>make -n</code> os alvos que a CI nomeia e verifica que eles continuam rodando a suíte e analisando cada raiz que a suíte cobre. Nenhuma guarda proíbe uma etapa de CI que não seja um alvo do <code>make</code>.</li>
+<li>A suíte é coletada uma vez; cada parte registra os ids dos testes que executou; <code>scripts/every_test_ran_once.py</code> falha diante de um teste ausente, duplicado ou desconhecido. Uma coleta vazia é uma falha, não um sucesso.</li>
+</ul>
+<h3>Linters e verificação de tipos</h3>
+<p><code>make lint</code> executa <code>ruff</code> e <code>shellcheck</code>. <code>mypy</code> e <code>bandit</code> estão configurados em <code>pyproject.toml</code> e são instalados com o extra de desenvolvimento, mas nenhum deles roda no Makefile nem na CI; eles não são obrigatórios.</p>
+
+<h2>Código e documentação</h2>
+<ul>
+<li><strong>Os comentários dizem por quê</strong>, com a medição: a data, o código de saída ou o incidente que tornou a linha necessária.</li>
+<li><strong>Fragmentos do changelog.</strong> Um pull request que muda comportamento adiciona <code>changes/&lt;issue&gt;.&lt;type&gt;.md</code>, onde o tipo é um entre <code>highlight</code>, <code>behaviour</code>, <code>fix</code>, <code>security</code>, <code>upgrade</code> ou <code>limitation</code>. Um workflow verifica cada pull request; um que só muda documentação ou testes leva, em vez disso, o rótulo <code>no-release-note</code>.</li>
+<li><strong>Os registros de decisão são alterados no próprio arquivo.</strong> Quando uma decisão muda, o ADR é editado com uma nota datada que nomeia o pull request. Um novo ADR substitui um antigo só quando a decisão é revertida, não quando é refinada.</li>
+</ul>
+
+<h2>Lançamentos e versões</h2>
+<ul>
+<li>As versões são versões semânticas anteriores à 1.0. Uma versão menor traz funcionalidades e mudanças de comportamento; um patch traz só correções e recebe a tag no seu branch <code>release/x.y</code>, nunca no <code>main</code>.</li>
+<li>Uma versão candidata recebe a tag <code>vx.y.z-rc.N</code> e é publicada como pré-lançamento; as instalações continuam resolvendo a última versão final, a menos que a candidata seja nomeada. Uma versão menor sempre passa por pelo menos uma candidata.</li>
+<li>O pacote declara exatamente a tag sem o <code>v</code>, e o workflow de publicação recusa uma tag que o pacote não declara. Cada mudança de versão regenera a descrição OpenAPI versionada no mesmo commit.</li>
+<li>A versão final recebe a tag no commit em que a última candidata foi verificada, mais o commit que declara a versão e suas notas.</li>
+<li>Uma versão publicada fica congelada: nenhuma tag é movida, apagada ou enviada de novo. O upgrade é ensaiado antes de cada tag. Defeitos de segurança seguem um caminho de aviso privado. Só o responsável pelas versões cria um branch de versão ou uma tag.</li>
+</ul>
+<h3>Guardas de publicação</h3>
+<ul>
+<li><strong>O wheel.</strong> Um teste constrói um wheel real a partir de uma cópia limpa da árvore e verifica que ele inclui <code>LICENSE</code> e <code>NOTICE</code>, que seu único script de console é <code>beeverforge</code>, que sua descrição longa é a página declarada e que contém todos os arquivos de dados de que a plataforma precisa em tempo de execução.</li>
+<li><strong>A descrição da API.</strong> <code>docs/reference/openapi.json</code> precisa ser igual ao que a aplicação gera.</li>
+</ul>
+
+<h2>Licença e nome</h2>
+<p>O núcleo é licenciado sob Apache-2.0. Não há acordo de licença de contribuidor: a licença já define o que acontece com uma contribuição, e os direitos autorais continuam com quem a escreveu. O arquivo <code>NOTICE</code> separa o código do nome: a licença não concede nenhum direito sobre o nome, o logotipo ou as marcas BeeverForge, e só os builds aprovados na suíte de conformidade publicada (<code>beeverforge conformance</code>, <code>beeverforge conformance-adapter</code>) podem se chamar BeeverForge.</p>
+
+<h2>Registros de decisão de arquitetura</h2>
+<p>A coluna de status reflete o código no commit fixado. Quando a linha de status do próprio registro e o código divergem, vale o código: “implementado em parte” significa que parte da decisão está no código e parte não.</p>
+<div class="doc-table doc-adr">
+<table>
+<thead><tr><th>Registro</th><th>Título</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0001-foundational-conceptual-model.md" translate="no">ADR-0001</a></td><td translate="no">Foundational conceptual model of the platform</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0002-task-sizing-and-execution-budget.md" translate="no">ADR-0002</a></td><td translate="no">Task sizing and the execution budget</td><td>Aceito; alterado pelo ADR-0013</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0003-autonomous-merge-on-current-base.md" translate="no">ADR-0003</a></td><td translate="no">Autonomous merge on the current base</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0004-ci-aware-autonomous-repair.md" translate="no">ADR-0004</a></td><td translate="no">CI-aware autonomous repair (react, don't block)</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0005-post-merge-deploy-watch.md" translate="no">ADR-0005</a></td><td translate="no">Post-merge deploy watch (observe &amp; notify, never block)</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0006-review-repair-loop.md" translate="no">ADR-0006</a></td><td translate="no">Bounded review-repair loop (react to a rejection, once)</td><td>Aceito; opcional pelo ADR-0014</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0007-floor-frees-at-merge.md" translate="no">ADR-0007</a></td><td translate="no">The floor frees at merge, not at agent-done (dependency safety)</td><td>Aceito; revisado pelo ADR-0010</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0008-on-demand-e2e-ticket.md" translate="no">ADR-0008</a></td><td translate="no">On-demand e2e via a labelled ticket (not on every PR)</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0009-durability-and-resilience-hardening.md" translate="no">ADR-0009</a></td><td translate="no">Durability &amp; resilience hardening (post-audit)</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0010-single-line-strict-park-on-impediment.md" translate="no">ADR-0010</a></td><td translate="no">Single-line strict: the queue advances only on a clean merge (park on any impediment)</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0011-suppression-repair-and-reviewer-vetted-pragmas.md" translate="no">ADR-0011</a></td><td translate="no">Suppression-repair in the sandbox + reviewer-vetted coverage pragmas</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0012-perfect-resume-after-pause.md" translate="no">ADR-0012</a></td><td translate="no">Perfect resume after a rate-limit pause (token visibility + honoured backoff + session resume)</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0013-preflight-sizing-effort-budget-recovery.md" translate="no">ADR-0013</a></td><td translate="no">Pre-flight sizing gate, autonomous split, ticket effort budget, and stuck-recovery</td><td>Aceito, implementado em parte</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0014-single-agent-execution-and-advisory-review.md" translate="no">ADR-0014</a></td><td translate="no">Single-agent execution + advisory review (frontier-default, still agnostic)</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0015-tech-lead-diagnosis-and-slack.md" translate="no">ADR-0015</a></td><td translate="no">The tech-lead: impediment diagnosis + Slack, one brain, two triggers</td><td>Aceito; o transporte de chat é um complemento</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0016-slack-actions-authorization.md" translate="no">ADR-0016</a></td><td translate="no">Acting from Slack: read for all, write behind an allowlist</td><td>Aceito; o transporte de chat é um complemento</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0017-knowledge-layer.md" translate="no">ADR-0017</a></td><td translate="no">The Knowledge Layer: a derived, verifiable map the agent may not trust blindly</td><td>Aceito; revisado pelos ADR-0023 e ADR-0035</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0018-harness-roles.md" translate="no">ADR-0018</a></td><td translate="no">Three harness roles: executor, reviewer, techlead</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0019-product-role-and-requirements-repo.md" translate="no">ADR-0019</a></td><td translate="no">The product role: requirements are authored documents, in their own repo</td><td>Aceito; o transporte de chat é um complemento</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0020-techlead-on-call.md" translate="no">ADR-0020</a></td><td translate="no">The tech-lead is on call: classify by remedy, resolve what it can, speak while doing it</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0021-agents-that-follow-through.md" translate="no">ADR-0021</a></td><td translate="no">Agents that follow through: the open loop as the unit of memory</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0022-provider-seams.md" translate="no">ADR-0022</a></td><td translate="no">Provider seams: an axis is agnostic when it is BORN with two</td><td>Aceito, implementado em parte</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0023-derive-dont-cache.md" translate="no">ADR-0023</a></td><td translate="no">The map is derived, not learned: generate it where the checkout is</td><td>Aceito; revisado pelo ADR-0035</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0024-conversational-memory.md" translate="no">ADR-0024</a></td><td translate="no">Conversational memory: the thread is the unit, the raw log is sacred</td><td>Proposto, implementado em parte</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0025-delivery-closes-with-the-client.md" translate="no">ADR-0025</a></td><td translate="no">Delivery closes with the client, not with the board</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0026-shared-vocabulary-beats-an-invented-word.md" translate="no">ADR-0026</a></td><td translate="no">A word the reader already has beats one you invent</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0027-the-clients-board-is-not-our-test-bench.md" translate="no">ADR-0027</a></td><td translate="no">The client's board is not our test bench</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0028-a-yes-is-read-a-done-is-not-asserted.md" translate="no">ADR-0028</a></td><td translate="no">A "yes" is read; a "done" is not asserted</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0029-a-click-is-not-interpreted.md" translate="no">ADR-0029</a></td><td translate="no">A click is not interpreted</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0030-what-the-parallel-audit-found.md" translate="no">ADR-0030</a></td><td translate="no">What the parallel audit found, and the inversion it exposed</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0031-observing-is-not-correcting.md" translate="no">ADR-0031</a></td><td translate="no">Observing is not correcting: when the safety net becomes the damage</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0032-the-requirement-cycle-happens-in-the-channel.md" translate="no">ADR-0032</a></td><td translate="no">The requirement cycle happens in the channel; merging is not agreeing</td><td>Aceito; refinado pelo ADR-0047</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0033-decision-kernel.md" translate="no">ADR-0033</a></td><td translate="no">The lifecycle decides in pure code; the engine only executes</td><td>Proposto, implementado em parte</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0034-extension-model.md" translate="no">ADR-0034</a></td><td translate="no">Providers stay in-process for now, and the door stays open by a test</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0035-knowledge-layer-on-by-default.md" translate="no">ADR-0035</a></td><td translate="no">The knowledge layer becomes the behaviour, not an experiment</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0036-cross-repo-ordering.md" translate="no">ADR-0036</a></td><td translate="no">Ordering across repositories: the product declares it, the floor enforces it</td><td>Proposto</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0037-the-box.md" translate="no">ADR-0037</a></td><td translate="no">The box: the client's image, an injected toolbox, and a proof before any pickup</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0038-the-platform-is-complete-channels-are-add-ons.md" translate="no">ADR-0038</a></td><td translate="no">The platform is complete on its own; channels are add-ons</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0039-the-action-layer.md" translate="no">ADR-0039</a></td><td translate="no">The action layer: what a human can ask the factory to do, written once</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0040-the-core-runs-on-the-clients-own-machines.md" translate="no">ADR-0040</a></td><td translate="no">The core runs on the client's own machines; a cloud is an add-on</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0041-facts-are-files-not-a-protocol.md" translate="no">ADR-0041</a></td><td translate="no">The roles read facts as files, not through a tool protocol</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0042-the-backfill-has-four-inputs.md" translate="no">ADR-0042</a></td><td translate="no">The backfill has four inputs, and a legacy system is the product</td><td>Aceito, implementado em parte</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0043-the-distribution-is-a-published-image.md" translate="no">ADR-0043</a></td><td translate="no">The distribution is a published image, and one compose file both installs and builds</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0044-a-project-declares-what-it-is.md" translate="no">ADR-0044</a></td><td translate="no">A project declares what it is: profiles as a cascade layer</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0045-a-fingerprint-nothing-reads-is-a-promise.md" translate="no">ADR-0045</a></td><td translate="no">A fingerprint nothing reads is a promise, not a mechanism</td><td>Proposto, implementado em parte</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0046-a-file-nothing-describes-is-the-least-safe-to-change.md" translate="no">ADR-0046</a></td><td translate="no">A file nothing describes is the least safe to change</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0047-a-requirement-is-agreed-twice-and-never-through-a-pull-request.md" translate="no">ADR-0047</a></td><td translate="no">A requirement is agreed twice, in the conversation, and never through a pull request</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0048-the-factory-asks-before-it-spends.md" translate="no">ADR-0048</a></td><td translate="no">The factory asks before it spends, and the question goes to the person who asked</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0049-the-whole-cycle-on-one-machine.md" translate="no">ADR-0049</a></td><td translate="no">The whole cycle runs on one machine: <code>local</code> is a kind, not a mode</td><td>Aceito, implementado em parte</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0050-a-preview-before-the-merge.md" translate="no">ADR-0050</a></td><td translate="no">A preview before the merge, because nothing after it can be taken back</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0051-one-door-parallel-conversations-one-semaphore-on-work.md" translate="no">ADR-0051</a></td><td translate="no">One door, parallel conversations, one semaphore on work</td><td>Aceito, implementado em parte</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0052-the-owners-view.md" translate="no">ADR-0052</a></td><td translate="no">The owner's view: what the product is doing, and the whole map of it</td><td>Proposto, implementado em parte</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0053-the-guardians-memory.md" translate="no">ADR-0053</a></td><td translate="no">The guardian's memory: raw, evidence and curated truth, with time as data</td><td>Proposto, implementado em parte</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0054-a-card-is-judged-before-the-yes.md" translate="no">ADR-0054</a></td><td translate="no">A card the product role opens is drafted, judged against a rubric, and shown whole before the yes</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0055-a-card-has-one-lifecycle.md" translate="no">ADR-0055</a></td><td translate="no">A card has one lifecycle: one door for every change of its state, one table of what follows, one record of what happened</td><td>Implementado; o registro diz Proposed</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0056-a-prompt-has-one-budget-and-names-what-it-leaves-out.md" translate="no">ADR-0056</a></td><td translate="no">A job's prompt has one budget, and every document it leaves out is named in it</td><td>Aceito</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0057-who-may-act-is-one-decision-and-a-production-approval-is-a-person.md" translate="no">ADR-0057</a></td><td translate="no">Who may act is one decision the core's policy makes, and a production approval is a person, not a password</td><td>Proposto</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0058-a-product-owns-its-requirement-template.md" translate="no">ADR-0058</a></td><td translate="no">A product owns its requirement template</td><td>Aceito</td></tr>
+
+</tbody>
+</table>
+</div>
+
+<section class="doc-sources">
+<h2>Fontes</h2>
+<ul>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/Makefile"><code>Makefile</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/.github/workflows/ci.yml"><code>.github/workflows/ci.yml</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/.github/workflows/release-note.yml"><code>.github/workflows/release-note.yml</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/pyproject.toml"><code>pyproject.toml</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/conftest.py"><code>tests/conftest.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tools/mutate.py"><code>tools/mutate.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/scripts/every_test_ran_once.py"><code>scripts/every_test_ran_once.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/scripts/release_notes.py"><code>scripts/release_notes.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_ci_runs_what_we_run.py"><code>tests/test_ci_runs_what_we_run.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_ci_runs_every_test_exactly_once.py"><code>tests/test_ci_runs_every_test_exactly_once.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_the_wheel_ships_what_the_platform_needs.py"><code>tests/test_the_wheel_ships_what_the_platform_needs.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_the_api_is_versioned.py"><code>tests/test_the_api_is_versioned.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/RELEASING.md"><code>docs/RELEASING.md</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/README.md"><code>docs/adr/README.md</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/LICENSE"><code>LICENSE</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/NOTICE"><code>NOTICE</code></a></li>
+</ul>
+</section>
+<nav class="doc-pager" aria-label="Páginas anterior e seguinte"><a class="doc-pager-prev" rel="prev" href="/pt/architecture/principles/"><small>Anterior</small><span>Princípios de engenharia</span></a></nav></article></div></main>
+  <aside class="consent-panel" data-consent-panel role="region" aria-live="polite" aria-labelledby="consent-title" hidden><div class="consent-copy"><p class="eyebrow">Preferências de cookies</p><h2 id="consent-title">Usamos cookies.</h2><p>Usamos cookies para entender o tráfego do site. Aceite os cookies opcionais ou recuse-os. Acesse Configurações de cookies para ver os detalhes.</p></div><div class="consent-actions"><button class="consent-reject" type="button" data-consent-reject>Recusar opcionais</button><button class="consent-settings" type="button" data-consent-details-toggle aria-expanded="false" aria-controls="consent-details">Configurações de cookies</button><button class="button button-gold" type="button" data-consent-accept>Aceitar todos</button></div><div class="consent-details" id="consent-details" data-consent-details hidden><h3>Configurações de cookies</h3><p><strong>Armazenamento essencial de preferências</strong> lembra seu tema e sua escolha de cookies. Está sempre ativo.</p><label class="consent-toggle"><input type="checkbox" data-analytics-toggle><span><strong>Cookies de análise</strong><small>Opcionais · O Google Analytics mede visitas e como o site é usado. A tag do Analytics fica desativada até você permitir.</small></span></label><div class="consent-detail-actions"><button class="consent-reject" type="button" data-consent-cancel>Cancelar</button><button class="button button-gold" type="button" data-consent-save>Salvar escolhas</button></div></div></aside>
+  <footer class="site-footer"><div class="shell footer-grid"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"><p>O próximo capítulo da OpenFactory. Uma base aberta de engenharia e um ciclo Enterprise para decisões de produto.</p><nav aria-label="Links do rodapé"><a href="/pt/#editions">Edições</a><a href="/pt/#lifecycle">Ciclo de vida</a><a href="/pt/#comparison">Comparar</a><a href="/pt/architecture/" aria-current="true">Arquitetura</a><a href="https://github.com/BeeverForge/beeverforge-oss">Código Community ↗</a><button class="consent-link" type="button" data-consent-open>Configurações de cookies</button></nav></div><div class="shell footer-bottom"><span>© 2026 BeeverForge</span><span>O próximo capítulo da OpenFactory</span></div></footer>
+  <script src="/assets/final.js" defer></script>
+  <script src="/assets/docs.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#1F1F24">
+  <meta name="description" content="Os estados de um job no núcleo do BeeverForge Community e cada estação pela qual um ticket passa, da entrada no quadro ao merge, à observação da implantação e ao controle humano de produção.">
+  <title>Ciclo de vida de um ticket — BeeverForge</title>
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="BeeverForge">
+  <meta property="og:title" content="Ciclo de vida de um ticket — BeeverForge">
+  <meta property="og:description" content="Os estados de um job no núcleo do BeeverForge Community e cada estação pela qual um ticket passa, da entrada no quadro ao merge, à observação da implantação e ao controle humano de produção.">
+  <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://beeverforge.com/pt/architecture/lifecycle/">
+  <meta property="og:url" content="https://beeverforge.com/pt/architecture/lifecycle/">
+  <link rel="alternate" hreflang="en" href="https://beeverforge.com/architecture/lifecycle/">
+  <link rel="alternate" hreflang="es" href="https://beeverforge.com/es/architecture/lifecycle/">
+  <link rel="alternate" hreflang="pt-BR" href="https://beeverforge.com/pt/architecture/lifecycle/">
+  <link rel="alternate" hreflang="x-default" href="https://beeverforge.com/architecture/lifecycle/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/final.css">
+  <link rel="stylesheet" href="/assets/docs.css">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('beeverforge-theme')==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+</head>
+<body class="doc-body">
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/pt/" aria-label="Página inicial da BeeverForge"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"></a>
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menu">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Navegação principal">
+        <a href="/pt/#editions">Edições</a><a href="/pt/#lifecycle">Ciclo de vida</a><a href="/pt/#comparison">Comparar</a><a href="/pt/#questions">Perguntas frequentes</a><a href="/pt/architecture/" aria-current="true">Arquitetura</a><a class="nav-cta" href="/pt/#contact">Falar com a BeeverForge <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="header-tools"><label class="language-picker"><span class="sr-only">Idioma</span><select aria-label="Idioma" data-language><option value="/architecture/lifecycle/">English</option><option value="/es/architecture/lifecycle/">Español</option><option value="/pt/architecture/lifecycle/" selected>Português</option></select></label><button class="theme-toggle" type="button" data-theme-toggle aria-label="Mudar para o modo claro" aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Modo claro</span></button></div>
+    </div>
+  </header>
+  <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Conteúdo da arquitetura"><details class="doc-toc" open data-doc-toc><summary>Conteúdo</summary><p class="doc-toc-title">Arquitetura do BeeverForge Community</p><ol><li><a href="/pt/architecture/">Visão geral</a></li><li><a href="/pt/architecture/lifecycle/" aria-current="page">Ciclo de vida de um ticket</a></li><li><a href="/pt/architecture/runtime/">Execução e durabilidade</a></li><li><a href="/pt/architecture/box/">A caixa e o piso de qualidade</a></li><li><a href="/pt/architecture/extensions/">Modelo de extensão</a></li><li><a href="/pt/architecture/principles/">Princípios de engenharia</a></li><li><a href="/pt/architecture/repository/">Princípios do repositório</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">Arquitetura do BeeverForge Community</p>
+<h1>Ciclo de vida de um ticket</h1>
+<p class="doc-lead">Um ticket na coluna de entrada do quadro se torna um job: um workflow durável que o dimensiona, prepara uma caixa, faz um agente implementá-lo, executa os controles do próprio projeto, faz outro agente revisá-lo, abre um pull request e o acompanha até o merge e, onde configurado, pela promoção.</p>
+
+<h2>Estados do job</h2>
+<p>Os estados são a enumeração <code>JobState</code> em <code>beeverforge/contracts/state.py</code>. Esse módulo só declara os estados; não contém nenhuma tabela de transições. As transições são feitas pelo executor de jobs (<code>orchestrator/machine.py</code>), pelo workflow do job (<code>runtime/temporal/workflow.py</code>) e pelo caminho de promoção (<code>orchestrator/promotion.py</code>). O diagrama mostra as transições que esses módulos fazem.</p>
+<figure class="doc-figure">
+<div class="doc-diagram">
+<svg viewBox="0 0 960 540" role="img" aria-labelledby="states-title states-desc">
+<title id="states-title">Máquina de estados do job</title>
+<desc id="states-desc">O caminho de trabalho vai de todo a done. Os estados em espera aguardam uma pessoa. Três estados declarados não são atribuídos pelo código.</desc>
+<defs><marker id="states-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-head" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="d-box" x="20" y="30" width="160" height="34" rx="5"/><text class="d-mono" x="100" y="51" text-anchor="middle" translate="no">todo</text>
+<rect class="d-box" x="210" y="30" width="160" height="34" rx="5"/><text class="d-mono" x="290" y="51" text-anchor="middle" translate="no">spec_validation</text>
+<rect class="d-box" x="400" y="30" width="160" height="34" rx="5"/><text class="d-mono" x="480" y="51" text-anchor="middle" translate="no">preparing</text>
+<rect class="d-box d-dash" x="590" y="30" width="160" height="34" rx="5"/><text class="d-mono" x="670" y="51" text-anchor="middle" translate="no">planning</text>
+<rect class="d-box" x="780" y="30" width="160" height="34" rx="5"/><text class="d-mono" x="860" y="51" text-anchor="middle" translate="no">implementing</text>
+<line class="d-edge" x1="180" y1="47" x2="208" y2="47" marker-end="url(#states-arrow)"/>
+<line class="d-edge" x1="370" y1="47" x2="398" y2="47" marker-end="url(#states-arrow)"/>
+<line class="d-edge" x1="560" y1="47" x2="588" y2="47" marker-end="url(#states-arrow)"/>
+<line class="d-edge" x1="750" y1="47" x2="778" y2="47" marker-end="url(#states-arrow)"/>
+<line class="d-edge" x1="860" y1="64" x2="860" y2="118" marker-end="url(#states-arrow)"/>
+<rect class="d-box" x="780" y="120" width="160" height="34" rx="5"/><text class="d-mono" x="860" y="141" text-anchor="middle" translate="no">validating</text>
+<rect class="d-box" x="590" y="120" width="160" height="34" rx="5"/><text class="d-mono" x="670" y="141" text-anchor="middle" translate="no">reviewing</text>
+<rect class="d-box" x="400" y="120" width="160" height="34" rx="5"/><text class="d-mono" x="480" y="141" text-anchor="middle" translate="no">pr_open</text>
+<rect class="d-box" x="210" y="120" width="160" height="34" rx="5"/><text class="d-mono" x="290" y="141" text-anchor="middle" translate="no">merged</text>
+<rect class="d-box" x="20" y="120" width="160" height="34" rx="5"/><text class="d-mono" x="100" y="141" text-anchor="middle" translate="no">staging_verifying</text>
+<line class="d-edge" x1="780" y1="137" x2="752" y2="137" marker-end="url(#states-arrow)"/>
+<line class="d-edge" x1="590" y1="137" x2="562" y2="137" marker-end="url(#states-arrow)"/>
+<line class="d-edge" x1="400" y1="137" x2="372" y2="137" marker-end="url(#states-arrow)"/>
+<line class="d-edge" x1="210" y1="137" x2="182" y2="137" marker-end="url(#states-arrow)"/>
+<rect class="d-box" x="780" y="210" width="160" height="34" rx="5"/><text class="d-mono" x="860" y="231" text-anchor="middle" translate="no">repairing</text>
+<line class="d-edge" x1="845" y1="154" x2="845" y2="208" marker-end="url(#states-arrow)"/>
+<line class="d-edge" x1="875" y1="210" x2="875" y2="156" marker-end="url(#states-arrow)"/>
+<line class="d-edge" x1="100" y1="154" x2="100" y2="208" marker-end="url(#states-arrow)"/>
+<rect class="d-box" x="20" y="210" width="160" height="34" rx="5"/><text class="d-mono" x="100" y="231" text-anchor="middle" translate="no">awaiting_prod_approval</text>
+<rect class="d-box" x="210" y="210" width="160" height="34" rx="5"/><text class="d-mono" x="290" y="231" text-anchor="middle" translate="no">prod_releasing</text>
+<rect class="d-box" x="400" y="210" width="160" height="34" rx="5"/><text class="d-mono" x="480" y="231" text-anchor="middle" translate="no">prod_verifying</text>
+<rect class="d-box d-hot" x="590" y="210" width="160" height="34" rx="5"/><text class="d-mono" x="670" y="231" text-anchor="middle" translate="no">done</text>
+<line class="d-edge" x1="180" y1="227" x2="208" y2="227" marker-end="url(#states-arrow)"/>
+<line class="d-edge" x1="370" y1="227" x2="398" y2="227" marker-end="url(#states-arrow)"/>
+<line class="d-edge" x1="560" y1="227" x2="588" y2="227" marker-end="url(#states-arrow)"/>
+<rect class="d-box" x="400" y="300" width="160" height="34" rx="5"/><text class="d-mono" x="480" y="321" text-anchor="middle" translate="no">rolling_back</text>
+<line class="d-edge" x1="480" y1="244" x2="480" y2="298" marker-end="url(#states-arrow)"/>
+<rect class="d-box d-dash" x="780" y="300" width="160" height="34" rx="5"/><text class="d-mono" x="860" y="321" text-anchor="middle" translate="no">paused</text>
+<text class="d-small" x="780" y="350">Limite de uso; retoma sozinho</text>
+<rect class="d-box d-dash" x="10" y="372" width="750" height="76" rx="6"/>
+<text class="d-label" x="24" y="390">EM ESPERA: AGUARDA UMA PESSOA</text>
+<rect class="d-box" x="20" y="402" width="160" height="34" rx="5"/><text class="d-mono" x="100" y="423" text-anchor="middle" translate="no">needs_refinement</text>
+<rect class="d-box" x="210" y="402" width="160" height="34" rx="5"/><text class="d-mono" x="290" y="423" text-anchor="middle" translate="no">blocked</text>
+<rect class="d-box" x="400" y="402" width="160" height="34" rx="5"/><text class="d-mono" x="480" y="423" text-anchor="middle" translate="no">on_hold</text>
+<rect class="d-box" x="590" y="402" width="160" height="34" rx="5"/><text class="d-mono" x="670" y="423" text-anchor="middle" translate="no">failed</text>
+<line class="d-edge" x1="480" y1="334" x2="480" y2="400" marker-end="url(#states-arrow)"/>
+<rect class="d-box" x="780" y="402" width="160" height="34" rx="5"/><text class="d-mono" x="860" y="423" text-anchor="middle" translate="no">skipped</text>
+<line class="d-edge" x1="760" y1="419" x2="778" y2="419" marker-end="url(#states-arrow)"/>
+<text class="d-small" x="780" y="458">Pulo feito por uma pessoa</text>
+<rect class="d-box d-dash" x="20" y="482" width="160" height="34" rx="5"/><text class="d-mono" x="100" y="503" text-anchor="middle" translate="no">ready</text>
+<rect class="d-box d-dash" x="210" y="482" width="160" height="34" rx="5"/><text class="d-mono" x="290" y="503" text-anchor="middle" translate="no">ci_waiting</text>
+<rect class="d-box d-dash" x="400" y="482" width="160" height="34" rx="5"/><text class="d-mono" x="480" y="503" text-anchor="middle" translate="no">staging_deploying</text>
+<text class="d-small" x="590" y="503">Declarados, não atribuídos pelo código</text>
+</svg>
+</div>
+<figcaption>Estados de trabalho, o caminho de promoção, os estados em espera e os estados declarados que o código não atribui. Os estados com borda tracejada são opcionais ou não são alcançados.</figcaption>
+</figure>
+<ul>
+<li>Um job também pode terminar em <code>done</code> diretamente a partir de <code>merged</code> quando nada está configurado depois do merge, e a partir de <code>todo</code> quando o dimensionamento divide o ticket em filhos.</li>
+<li><code>planning</code> só é alcançado quando o projeto define <code>planner_stage: true</code>.</li>
+<li>O caminho de promoção depois de <code>merged</code> só é executado quando a promoção está habilitada para o job. Por padrão, um job para no merge do pull request.</li>
+<li>Qualquer estado de trabalho pode ficar em espera. <code>needs_refinement</code> significa que o próprio ticket precisa de uma pessoa; <code>failed</code> significa que a preparação do ambiente falhou, não o ticket; <code>blocked</code> retém uma decisão que o agente pediu a uma pessoa; <code>on_hold</code> cobre os demais impedimentos.</li>
+<li><code>ready</code> aparece apenas como mapeamento para uma coluna do quadro. <code>ci_waiting</code> e <code>staging_deploying</code> estão declarados na enumeração e não são atribuídos em lugar nenhum.</li>
+</ul>
+<p>O cartão no quadro tem seu próprio ciclo de vida, menor, com uma tabela de transições explícita; ele é descrito em Princípios de engenharia.</p>
+
+<h2>Estações, de ponta a ponta</h2>
+
+<h3>1. Consulta e vagas</h3>
+<p>Um agendamento do Temporal inicia o workflow de consulta a cada 3 minutos por padrão; um ciclo que se sobreporia a outro em andamento é ignorado. Cada ciclo inicia no máximo as vagas livres: <code>BEEVERFORGE_MAX_CONCURRENT_JOBS</code> (padrão <code>1</code>) menos os jobs já em andamento, na ordem do quadro. Um projeto cuja caixa precisa de uma prova e não tem uma válida não é recolhido; a consulta informa o motivo.</p>
+
+<h3>2. Dimensionamento e divisão automática</h3>
+<p>Antes de o job ser executado, uma passada de dimensionamento lê o ticket e o código (ADR-0013). Ela vem ativada por padrão. Seu veredito é um entre: cabe, pouco claro ou dividir. Pouco claro deixa o ticket em espera em <code>needs_refinement</code>. Dividir registra os filhos na coluna de entrada e fecha o pai; se a própria divisão falhar, o ticket fica em espera com a proposta para uma pessoa dividir manualmente. Uma passada de dimensionamento que não consegue julgar não interrompe o job: o job é executado sem dimensionamento e o cartão informa que o dimensionamento não foi executado.</p>
+
+<h3>3. Perguntar antes de gastar</h3>
+<p>Um projeto pode fazer o job reunir contexto antes de gastar uma passada de implementação e perguntar no cartão quando o contexto reunido deixa uma pergunta em aberto (ADR-0048). Isso vem desativado por padrão: exige <code>preflight.gather: true</code> e <code>okf_gate: enforce</code>. Quando pergunta, o job termina como <code>skipped</code> com a nota de que perguntou antes de começar, e uma pergunta sem resposta é lembrada uma vez após 48 horas.</p>
+
+<h3>4. Controle da especificação</h3>
+<p>O controle da especificação é determinístico. Exige um objetivo e critérios de aceitação, e recusa um ticket cujas listas de escopo incluído e excluído se sobrepõem. Uma recusa deixa o ticket em espera em <code>needs_refinement</code> com o motivo. Ele é executado depois do dimensionamento.</p>
+
+<h3>5. Preparação e configuração</h3>
+<p>Em <code>preparing</code>, o job prepara seu espaço de trabalho na caixa e executa os comandos <code>setup:</code> do manifesto, com tempo limite de 1.800 segundos. Uma falha de configuração encerra o job como <code>failed</code>, porque é o ambiente, não o ticket, que precisa de atenção.</p>
+
+<h3>6. Plano e um único executor</h3>
+<p>Um único agente executor planeja e implementa o ticket (ADR-0014). Uma passada de planejamento separada só é executada quando o projeto define <code>planner_stage: true</code>; por padrão ela fica desativada.</p>
+
+<h3>7. Controles de validação e reparo limitado</h3>
+<p>O job executa na caixa os controles <code>validate:</code> declarados pelo projeto. Enquanto um controle bloqueante está vermelho, o agente faz reparos, até <code>repair_max_attempts</code> (padrão <code>2</code>, no máximo <code>10</code>) e dentro do teto de custo e do orçamento de esforço do ticket (<code>effort_budget_turns</code>, padrão <code>400</code>). Um job que continua vermelho depois disso fica em espera em <code>on_hold</code> com o trabalho parcial no branch.</p>
+<p><strong>Reparo de supressões</strong> (ADR-0011). Quando o diff adiciona uma supressão como <code>noqa</code>, <code>type: ignore</code>, <code>pragma: no cover</code> ou <code>nosec</code>, o job executa até <code>suppression_repair_max_attempts</code> passadas (padrão <code>1</code>) para corrigir a causa. Uma passada que quebra um controle deixa o job em espera; as supressões que restam são mostradas ao revisor.</p>
+
+<h3>8. Revisão independente</h3>
+<p>Um agente revisor, em sua própria sessão, recebe o ticket, o diff, os resultados dos controles e as restrições, e nunca o relato do executor sobre o próprio trabalho. <code>review_mode</code> é <code>advisory</code> por padrão: os achados são publicados e não bloqueiam. Só com <code>review_mode: blocking</code> uma rejeição com achados acionáveis dispara uma passada de reparo (<code>review_repair_max_attempts</code>, padrão <code>1</code>) seguida de uma nova revisão (ADR-0006).</p>
+
+<h3>9. Pull request</h3>
+<p>O job publica o branch e abre o pull request. A abertura é buscar e depois atualizar: se já existe um pull request aberto para o branch, ele é reutilizado e seu título e corpo são atualizados, de modo que uma nova tentativa não cria um segundo. O resumo do próprio agente vai para o pull request marcado como uma afirmação que nenhum controle verifica.</p>
+
+<h3>10. Reparo guiado pela CI</h3>
+<p>Enquanto o pull request está aberto, o workflow o acompanha, qualquer que seja a política de merge (ADR-0004). Ele consulta a cada 2 minutos na primeira hora e a cada 15 minutos depois disso. Uma CI vermelha dispara até 2 passadas de reparo; um branch que ficou atrás da sua base é atualizado até 6 vezes; quando nenhum check informou nada após 10 minutos, o job diz isso em vez de interpretar o silêncio como verde. Após 14 dias sem merge, o job fica em espera.</p>
+
+<h3>11. Merge sobre a base atual</h3>
+<p>Com o <code>merge_policy: human</code> padrão, uma pessoa faz o merge. Com <code>merge_policy: auto</code>, o job faz o merge só quando os controles estão verdes, nenhuma revisão bloqueante o rejeitou, não resta nenhuma supressão grave, a mudança não é avaliada como de alto risco, não toca nenhum caminho protegido e o piso pôde ser lido. Antes, ele leva o branch para a base atual e executa os controles de novo se a base mudou (ADR-0003).</p>
+
+<h3>12. A vaga é liberada no merge</h3>
+<p>O job mantém sua vaga até o merge do seu pull request ou até ficar em espera, não quando o agente termina (ADR-0007, ADR-0010). Por isso, o próximo ticket parte de uma base que inclui este.</p>
+
+<h3>13. Observação da implantação e promoção</h3>
+<p>Quando o manifesto configura <code>post_merge_deploy</code>, um workflow filho independente observa a cada minuto a implantação do próprio projeto e informa o resultado; ele não ocupa uma vaga e não bloqueia (ADR-0005). Quando a promoção está habilitada, o job verifica o staging e depois espera em <code>awaiting_prod_approval</code> por uma pessoa, por até 3 dias antes de ficar em espera. A aprovação chega ao workflow como uma resposta selada que é verificada antes de qualquer ação e só pode ser usada uma vez. Após a aprovação, o job cria a tag da versão, verifica a produção e termina em <code>done</code>, ou reverte e fica em espera.</p>
+
+<h3>14. Em espera com opções</h3>
+<p>Um job que não pode continuar fica em espera e move seu cartão para a coluna de atenção do quadro com um comentário que explica o motivo. As opções oferecidas são retomar, que continua o trabalho preservado, e pular, que libera a vaga, além das opções de decisão que o job tenha levantado. Um impedimento simples que ninguém responde em 3 dias é pulado automaticamente para que a fila não trave; uma espera por decisão se mantém até ser respondida. Só o pulo feito por uma pessoa registra o job como <code>skipped</code>. Um job que atinge um limite de uso passa a <code>paused</code> e retoma sozinho com um intervalo que cresce de 30 minutos a 2 horas, no máximo 48 vezes, e depois fica em espera.</p>
+
+<section class="doc-sources">
+<h2>Fontes</h2>
+<ul>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/contracts/state.py"><code>beeverforge/contracts/state.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/orchestrator/machine.py"><code>beeverforge/orchestrator/machine.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/orchestrator/promotion.py"><code>beeverforge/orchestrator/promotion.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/orchestrator/merge_policy.py"><code>beeverforge/orchestrator/merge_policy.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/workflow.py"><code>beeverforge/runtime/temporal/workflow.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/poller.py"><code>beeverforge/runtime/temporal/poller.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/schedule.py"><code>beeverforge/runtime/temporal/schedule.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/io.py"><code>beeverforge/runtime/temporal/io.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/contracts/manifest.py"><code>beeverforge/contracts/manifest.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/forge/github.py"><code>beeverforge/adapters/forge/github.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0003-autonomous-merge-on-current-base.md" translate="no">ADR-0003</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0004-ci-aware-autonomous-repair.md" translate="no">ADR-0004</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0005-post-merge-deploy-watch.md" translate="no">ADR-0005</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0006-review-repair-loop.md" translate="no">ADR-0006</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0007-floor-frees-at-merge.md" translate="no">ADR-0007</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0010-single-line-strict-park-on-impediment.md" translate="no">ADR-0010</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0011-suppression-repair-and-reviewer-vetted-pragmas.md" translate="no">ADR-0011</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0013-preflight-sizing-effort-budget-recovery.md" translate="no">ADR-0013</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0014-single-agent-execution-and-advisory-review.md" translate="no">ADR-0014</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0048-the-factory-asks-before-it-spends.md" translate="no">ADR-0048</a></li>
+</ul>
+</section>
+<nav class="doc-pager" aria-label="Páginas anterior e seguinte"><a class="doc-pager-prev" rel="prev" href="/pt/architecture/"><small>Anterior</small><span>Visão geral</span></a><a class="doc-pager-next" rel="next" href="/pt/architecture/runtime/"><small>Próxima</small><span>Execução e durabilidade</span></a></nav></article></div></main>
+  <aside class="consent-panel" data-consent-panel role="region" aria-live="polite" aria-labelledby="consent-title" hidden><div class="consent-copy"><p class="eyebrow">Preferências de cookies</p><h2 id="consent-title">Usamos cookies.</h2><p>Usamos cookies para entender o tráfego do site. Aceite os cookies opcionais ou recuse-os. Acesse Configurações de cookies para ver os detalhes.</p></div><div class="consent-actions"><button class="consent-reject" type="button" data-consent-reject>Recusar opcionais</button><button class="consent-settings" type="button" data-consent-details-toggle aria-expanded="false" aria-controls="consent-details">Configurações de cookies</button><button class="button button-gold" type="button" data-consent-accept>Aceitar todos</button></div><div class="consent-details" id="consent-details" data-consent-details hidden><h3>Configurações de cookies</h3><p><strong>Armazenamento essencial de preferências</strong> lembra seu tema e sua escolha de cookies. Está sempre ativo.</p><label class="consent-toggle"><input type="checkbox" data-analytics-toggle><span><strong>Cookies de análise</strong><small>Opcionais · O Google Analytics mede visitas e como o site é usado. A tag do Analytics fica desativada até você permitir.</small></span></label><div class="consent-detail-actions"><button class="consent-reject" type="button" data-consent-cancel>Cancelar</button><button class="button button-gold" type="button" data-consent-save>Salvar escolhas</button></div></div></aside>
+  <footer class="site-footer"><div class="shell footer-grid"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"><p>O próximo capítulo da OpenFactory. Uma base aberta de engenharia e um ciclo Enterprise para decisões de produto.</p><nav aria-label="Links do rodapé"><a href="/pt/#editions">Edições</a><a href="/pt/#lifecycle">Ciclo de vida</a><a href="/pt/#comparison">Comparar</a><a href="/pt/architecture/" aria-current="true">Arquitetura</a><a href="https://github.com/BeeverForge/beeverforge-oss">Código Community ↗</a><button class="consent-link" type="button" data-consent-open>Configurações de cookies</button></nav></div><div class="shell footer-bottom"><span>© 2026 BeeverForge</span><span>O próximo capítulo da OpenFactory</span></div></footer>
+  <script src="/assets/final.js" defer></script>
+  <script src="/assets/docs.js" defer></script>
+</body>
+</html>

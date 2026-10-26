@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#1F1F24">
+  <meta name="description" content="Cómo se añaden adaptadores al núcleo de BeeverForge Community: los ejes, el grupo de puntos de entrada, la carga diferida, las colisiones, los rechazos por nombre y la suite de conformidad de adaptadores.">
+  <title>Modelo de extensión — BeeverForge</title>
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="BeeverForge">
+  <meta property="og:title" content="Modelo de extensión — BeeverForge">
+  <meta property="og:description" content="Cómo se añaden adaptadores al núcleo de BeeverForge Community: los ejes, el grupo de puntos de entrada, la carga diferida, las colisiones, los rechazos por nombre y la suite de conformidad de adaptadores.">
+  <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://beeverforge.com/es/architecture/extensions/">
+  <meta property="og:url" content="https://beeverforge.com/es/architecture/extensions/">
+  <link rel="alternate" hreflang="en" href="https://beeverforge.com/architecture/extensions/">
+  <link rel="alternate" hreflang="es" href="https://beeverforge.com/es/architecture/extensions/">
+  <link rel="alternate" hreflang="pt-BR" href="https://beeverforge.com/pt/architecture/extensions/">
+  <link rel="alternate" hreflang="x-default" href="https://beeverforge.com/architecture/extensions/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/final.css">
+  <link rel="stylesheet" href="/assets/docs.css">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('beeverforge-theme')==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+</head>
+<body class="doc-body">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/es/" aria-label="Inicio de BeeverForge"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"></a>
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menú">Menú</button>
+      <nav id="site-nav" class="site-nav" aria-label="Navegación principal">
+        <a href="/es/#editions">Ediciones</a><a href="/es/#lifecycle">Ciclo de vida</a><a href="/es/#comparison">Comparar</a><a href="/es/#questions">Preguntas frecuentes</a><a href="/es/architecture/" aria-current="true">Arquitectura</a><a class="nav-cta" href="/es/#contact">Hablar con BeeverForge <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="header-tools"><label class="language-picker"><span class="sr-only">Idioma</span><select aria-label="Idioma" data-language><option value="/architecture/extensions/">English</option><option value="/es/architecture/extensions/" selected>Español</option><option value="/pt/architecture/extensions/">Português</option></select></label><button class="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar al modo claro" aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Modo claro</span></button></div>
+    </div>
+  </header>
+  <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Contenido de la arquitectura"><details class="doc-toc" open data-doc-toc><summary>Contenido</summary><p class="doc-toc-title">Arquitectura de BeeverForge Community</p><ol><li><a href="/es/architecture/">Visión general</a></li><li><a href="/es/architecture/lifecycle/">Ciclo de vida de un ticket</a></li><li><a href="/es/architecture/runtime/">Ejecución y durabilidad</a></li><li><a href="/es/architecture/box/">La caja y el piso de calidad</a></li><li><a href="/es/architecture/extensions/" aria-current="page">Modelo de extensión</a></li><li><a href="/es/architecture/principles/">Principios de ingeniería</a></li><li><a href="/es/architecture/repository/">Principios del repositorio</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">Arquitectura de BeeverForge Community</p>
+<h1>Modelo de extensión</h1>
+<p class="doc-lead">Cada dependencia externa del núcleo está detrás de un adaptador, y cada adaptador lo elige un registro a partir de la configuración. Un proveedor nuevo se añade instalando un paquete que declara un punto de entrada, sin cambiar el núcleo.</p>
+
+<h2>Ejes</h2>
+<p>Un eje es un tipo de cosa con la que se puede extender el núcleo. La lista publicada es <code>AXES</code> en <code>beeverforge/plugins.py</code>:</p>
+<pre><code>tracker  board  forge  ci  harness  box  event  metrics  channel
+notifier  identity  role  session_store  token_pool  box_runner
+credential  board_setup  extract  embed  preview  credential_store</code></pre>
+<p>Una prueba mantiene esta lista exactamente igual a lo que piden los registros, y otra comprueba que cada registro consulta el cargador de puntos de entrada.</p>
+<div class="doc-table">
+<table>
+<caption>Tipos incluidos en los ejes principales</caption>
+<thead><tr><th>Eje</th><th>Tipos incluidos</th></tr></thead>
+<tbody>
+<tr><td><code>harness</code></td><td><code>claude_code</code>, <code>codex</code>, <code>kimi</code>, <code>opencode</code></td></tr>
+<tr><td><code>tracker</code></td><td><code>local</code>, <code>github</code>, <code>jira</code>, <code>azure_devops</code></td></tr>
+<tr><td><code>board</code></td><td><code>local</code>, <code>github</code>, <code>jira</code>, <code>azure_devops</code></td></tr>
+<tr><td><code>forge</code></td><td><code>local</code>, <code>github</code>, <code>azure_devops</code></td></tr>
+<tr><td><code>ci</code></td><td><code>none</code> y <code>local</code>, <code>github</code> y <code>github_actions</code>, <code>azure_devops</code> y <code>azure_pipelines</code>; cada par designa un mismo observador</td></tr>
+<tr><td><code>box</code></td><td><code>container</code>, <code>worktree</code>, <code>fargate</code> (solo descripción; su ejecutor es un complemento)</td></tr>
+<tr><td><code>box_runner</code></td><td>Ninguno</td></tr>
+<tr><td><code>channel</code></td><td><code>panel</code></td></tr>
+<tr><td><code>notifier</code></td><td><code>panel</code></td></tr>
+<tr><td><code>identity</code></td><td><code>local</code>, <code>oidc</code></td></tr>
+<tr><td><code>metrics</code></td><td><code>null</code>, <code>sqlite</code>, <code>memory</code></td></tr>
+<tr><td><code>preview</code></td><td><code>compose</code>, <code>none</code></td></tr>
+<tr><td><code>credential_store</code></td><td><code>env</code>, <code>file</code></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>El grupo de puntos de entrada</h2>
+<ul>
+<li>Un paquete declara sus adaptadores en un único grupo de puntos de entrada, <code>beeverforge.adapters</code>. Cada nombre es <code>&lt;axis&gt;.&lt;kind&gt;</code>, por ejemplo <code>forge.gitlab</code>. Un nombre con cualquier otra forma se omite con una advertencia que muestra la forma esperada.</li>
+<li><strong>Carga diferida.</strong> Los registros buscan primero en su propia tabla. Los puntos de entrada se cargan una vez, en la primera búsqueda de un tipo que no está incluido, y se guardan en caché; un despliegue que solo usa tipos incluidos nunca carga ninguno. Listar los complementos instalados lee los metadatos de los paquetes sin importarlos.</li>
+<li><strong>Un complemento defectuoso</strong> se registra en el log y se ignora; los demás se siguen cargando.</li>
+<li><strong>Los incluidos ganan una colisión.</strong> Declarar <code>forge.github</code> no sustituye la fila incluida: responde la incluida y la colisión se registra en el log. Un complemento no puede cambiar lo que significa un tipo existente para todos los proyectos de un despliegue.</li>
+<li><strong>Un tipo desconocido se rechaza por su nombre.</strong> El registro lanza un error con el tipo, los tipos conocidos y, cuando el tipo pertenece a un paquete complementario conocido, qué paquete lo incluye. Nunca recurre a un proveedor predeterminado.</li>
+</ul>
+
+<h2>Nacer con dos</h2>
+<p>ADR-0022 fija el listón: un eje es agnóstico no porque declare una interfaz, sino cuando nace con más de una implementación y una junta que despacha entre ellas. Los protocolos son <code>@runtime_checkable</code> y las pruebas los comprueban con <code>isinstance</code>.</p>
+<p>La regla no se cumple hoy en todos los ejes. Los ejes <code>channel</code>, <code>notifier</code>, <code>session_store</code> y <code>token_pool</code> tienen un solo tipo incluido cada uno, y <code>box_runner</code> no tiene ninguno. Ninguna prueba exige dos tipos incluidos por eje; existen pruebas por eje para los ejes <code>preview</code> y <code>credential_store</code>.</p>
+
+<h2>Conformidad de adaptadores</h2>
+<p><code>beeverforge conformance-adapter &lt;kind&gt; &lt;factory&gt;</code> ejecuta un adaptador contra la suite de conformidad de la plataforma, <code>beeverforge/conformance/adapters.py</code>. La factoría es una ruta de importación, <code>pkg.module:attr</code>, que nombra una instancia, una clase o una función que devuelve una.</p>
+<ul>
+<li>Las comprobaciones son funciones simples que devuelven hallazgos. No construyen nada remoto ni cambian nada remoto; ejercitan el contrato local: firmas, reglas de degradación y la forma de los rechazos.</li>
+<li>Hay comprobaciones para canales, notificadores, identidad, tableros, trackers, plataformas Git, harnesses, observadores de CI, cajas y vistas previas.</li>
+<li>Ejemplos: una lectura de un tracker debe devolver <code>None</code> cuando no pudo leer y una lista vacía cuando no hay nada; una plataforma Git debe enviar una credencial solo al host que la emitió; la comprobación de salud de un observador devuelve un booleano y nunca lanza errores.</li>
+</ul>
+<p><code>beeverforge conformance &lt;project&gt;</code> es un comando distinto: comprueba el manifiesto de un proyecto, no un adaptador.</p>
+
+<h2>El stack no necesita adaptador</h2>
+<p>El núcleo no nombra ninguna herramienta de compilación. Las entradas <code>setup:</code> y <code>validate:</code> del manifiesto son comandos de shell, y la caja ejecuta cada uno tal como está escrito: <code>sh -c</code> en un contenedor, un shell en un worktree. Un proyecto en cualquier lenguaje se admite declarando sus propios comandos, sin adaptador.</p>
+
+<h2>Ejemplo: un complemento de notificación</h2>
+<p>De <code>docs/writing-an-addon.md</code>. El paquete declara un punto de entrada:</p>
+<pre><code>[project.entry-points."beeverforge.adapters"]
+"notifier.acme" = "beeverforge_acme:build_notifier"</code></pre>
+<p>e implementa lo que el núcleo llama:</p>
+<pre><code>class AcmeNotifier:
+    def notify(self, *, message: str, level: str = "info",
+               about: str = "") -&gt; str | None:
+        ...                      # your provider
+        return None              # or the provider's own handle for the message
+
+
+def build_notifier(project=None, **_kw):
+    return AcmeNotifier()</code></pre>
+<p>Cada eje llama a su constructor con sus propios argumentos; la guía los enumera por eje y explica cómo una fila declara su nombre visible y las soluciones que el núcleo muestra para ese proveedor.</p>
+
+<section class="doc-sources">
+<h2>Fuentes</h2>
+<ul>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/plugins.py"><code>beeverforge/plugins.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/forge/registry.py"><code>beeverforge/adapters/forge/registry.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/agent/registry.py"><code>beeverforge/adapters/agent/registry.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/sandbox/registry.py"><code>beeverforge/adapters/sandbox/registry.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/environment/registry.py"><code>beeverforge/adapters/environment/registry.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/conformance/adapters.py"><code>beeverforge/conformance/adapters.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/cli.py"><code>beeverforge/cli.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/orchestrator/validation.py"><code>beeverforge/orchestrator/validation.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/writing-an-addon.md"><code>docs/writing-an-addon.md</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/core/07-extensibility.md"><code>docs/core/07-extensibility.md</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_a_stranger_can_add_an_adapter.py"><code>tests/test_a_stranger_can_add_an_adapter.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0022-provider-seams.md" translate="no">ADR-0022</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0034-extension-model.md" translate="no">ADR-0034</a></li>
+</ul>
+</section>
+<nav class="doc-pager" aria-label="Páginas anterior y siguiente"><a class="doc-pager-prev" rel="prev" href="/es/architecture/box/"><small>Anterior</small><span>La caja y el piso de calidad</span></a><a class="doc-pager-next" rel="next" href="/es/architecture/principles/"><small>Siguiente</small><span>Principios de ingeniería</span></a></nav></article></div></main>
+  <aside class="consent-panel" data-consent-panel role="region" aria-live="polite" aria-labelledby="consent-title" hidden><div class="consent-copy"><p class="eyebrow">Preferencias de cookies</p><h2 id="consent-title">Usamos cookies.</h2><p>Usamos cookies para entender el tráfico del sitio. Acepte las cookies opcionales o rechácelas. Elija Configuración de cookies para ver los detalles.</p></div><div class="consent-actions"><button class="consent-reject" type="button" data-consent-reject>Rechazar opcionales</button><button class="consent-settings" type="button" data-consent-details-toggle aria-expanded="false" aria-controls="consent-details">Configuración de cookies</button><button class="button button-gold" type="button" data-consent-accept>Aceptar todas</button></div><div class="consent-details" id="consent-details" data-consent-details hidden><h3>Configuración de cookies</h3><p><strong>Almacenamiento esencial de preferencias</strong> recuerda su tema y su elección de cookies. Siempre está activo.</p><label class="consent-toggle"><input type="checkbox" data-analytics-toggle><span><strong>Cookies de analítica</strong><small>Opcionales · Google Analytics mide las visitas y el uso del sitio. La etiqueta de analítica permanece desactivada si no la permite.</small></span></label><div class="consent-detail-actions"><button class="consent-reject" type="button" data-consent-cancel>Cancelar</button><button class="button button-gold" type="button" data-consent-save>Guardar preferencias</button></div></div></aside>
+  <footer class="site-footer"><div class="shell footer-grid"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"><p>El siguiente capítulo de OpenFactory. Una base de ingeniería abierta y un ciclo Enterprise para decisiones de producto.</p><nav aria-label="Enlaces del pie de página"><a href="/es/#editions">Ediciones</a><a href="/es/#lifecycle">Ciclo de vida</a><a href="/es/#comparison">Comparar</a><a href="/es/architecture/" aria-current="true">Arquitectura</a><a href="https://github.com/BeeverForge/beeverforge-oss">Código Community ↗</a><button class="consent-link" type="button" data-consent-open>Configuración de cookies</button></nav></div><div class="shell footer-bottom"><span>© 2026 BeeverForge</span><span>El siguiente capítulo de OpenFactory</span></div></footer>
+  <script src="/assets/final.js" defer></script>
+  <script src="/assets/docs.js" defer></script>
+</body>
+</html>

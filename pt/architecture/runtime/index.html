@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#1F1F24">
+  <meta name="description" content="Como o núcleo do BeeverForge Community roda sobre o Temporal: workflows, atividades, agendamentos, sinais, temporizadores duráveis, efeitos colaterais idempotentes, segurança na reexecução, memória limitada e observabilidade.">
+  <title>Execução e durabilidade — BeeverForge</title>
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="BeeverForge">
+  <meta property="og:title" content="Execução e durabilidade — BeeverForge">
+  <meta property="og:description" content="Como o núcleo do BeeverForge Community roda sobre o Temporal: workflows, atividades, agendamentos, sinais, temporizadores duráveis, efeitos colaterais idempotentes, segurança na reexecução, memória limitada e observabilidade.">
+  <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://beeverforge.com/pt/architecture/runtime/">
+  <meta property="og:url" content="https://beeverforge.com/pt/architecture/runtime/">
+  <link rel="alternate" hreflang="en" href="https://beeverforge.com/architecture/runtime/">
+  <link rel="alternate" hreflang="es" href="https://beeverforge.com/es/architecture/runtime/">
+  <link rel="alternate" hreflang="pt-BR" href="https://beeverforge.com/pt/architecture/runtime/">
+  <link rel="alternate" hreflang="x-default" href="https://beeverforge.com/architecture/runtime/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/final.css">
+  <link rel="stylesheet" href="/assets/docs.css">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('beeverforge-theme')==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+</head>
+<body class="doc-body">
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/pt/" aria-label="Página inicial da BeeverForge"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"></a>
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menu">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Navegação principal">
+        <a href="/pt/#editions">Edições</a><a href="/pt/#lifecycle">Ciclo de vida</a><a href="/pt/#comparison">Comparar</a><a href="/pt/#questions">Perguntas frequentes</a><a href="/pt/architecture/" aria-current="true">Arquitetura</a><a class="nav-cta" href="/pt/#contact">Falar com a BeeverForge <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="header-tools"><label class="language-picker"><span class="sr-only">Idioma</span><select aria-label="Idioma" data-language><option value="/architecture/runtime/">English</option><option value="/es/architecture/runtime/">Español</option><option value="/pt/architecture/runtime/" selected>Português</option></select></label><button class="theme-toggle" type="button" data-theme-toggle aria-label="Mudar para o modo claro" aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Modo claro</span></button></div>
+    </div>
+  </header>
+  <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Conteúdo da arquitetura"><details class="doc-toc" open data-doc-toc><summary>Conteúdo</summary><p class="doc-toc-title">Arquitetura do BeeverForge Community</p><ol><li><a href="/pt/architecture/">Visão geral</a></li><li><a href="/pt/architecture/lifecycle/">Ciclo de vida de um ticket</a></li><li><a href="/pt/architecture/runtime/" aria-current="page">Execução e durabilidade</a></li><li><a href="/pt/architecture/box/">A caixa e o piso de qualidade</a></li><li><a href="/pt/architecture/extensions/">Modelo de extensão</a></li><li><a href="/pt/architecture/principles/">Princípios de engenharia</a></li><li><a href="/pt/architecture/repository/">Princípios do repositório</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">Arquitetura do BeeverForge Community</p>
+<h1>Execução e durabilidade</h1>
+<p class="doc-lead">O motor é o Temporal. Cada job é um workflow, cada efeito colateral é uma atividade e cada espera, de uma consulta à CI a uma aprovação de produção, é um temporizador ou uma condição durável. Por isso, reiniciar um worker retoma o job em vez de perdê-lo.</p>
+
+<h2>Workflows, atividades e a fila de tarefas</h2>
+<p>Um único processo worker registra todos os workflows e todas as atividades em uma só fila de tarefas, <code>beeverforge-jobs</code>. Os principais workflows são:</p>
+<dl>
+<dt><code>JobWorkflow</code></dt><dd>Um por ticket. O dimensionamento, a execução na caixa, o acompanhamento até o merge, a promoção e cada espera acontecem dentro dele.</dd>
+<dt><code>PollWorkflow</code></dt><dd>Uma varredura do quadro por ciclo, que inicia jobs nas vagas livres.</dd>
+<dt><code>DeployWatchWorkflow</code></dt><dd>Um filho independente que observa a implantação depois de um merge.</dd>
+<dt><code>PreviewWorkflow</code></dt><dd>Uma prévia em execução de uma mudança sem merge, quando há um ambiente de prévia configurado.</dd>
+<dt><code>ConversationWorkflow</code></dt><dd>Uma conversa com a fábrica, admitida e conduzida por sinais.</dd>
+</dl>
+<p>Outros workflows cobrem a vigilância do tech-lead, a atualização do conhecimento, o papel de produto e as varreduras listadas abaixo. O trabalho pesado, como executar o job na sua caixa, é a atividade <code>run_job</code>.</p>
+
+<h2>Agendamentos</h2>
+<p>O trabalho recorrente é um agendamento do Temporal, que o worker reconcilia ao iniciar.</p>
+<div class="doc-table">
+<table>
+<thead><tr><th>Agendamento</th><th>Intervalo</th><th>Finalidade</th></tr></thead>
+<tbody>
+<tr><td><code>beeverforge-poller</code></td><td>3 minutos</td><td>Varrer os quadros; um ciclo que se sobreporia é ignorado.</td></tr>
+<tr><td><code>beeverforge-techlead-watch-*</code></td><td>1 hora</td><td>A ronda do tech-lead sobre o trabalho em espera.</td></tr>
+<tr><td><code>beeverforge-card-questions-*</code></td><td>1 hora</td><td>Ler as respostas às perguntas feitas nos cartões.</td></tr>
+<tr><td><code>beeverforge-okf-refresh-*</code></td><td>6 horas</td><td>Atualizar o mapa de conhecimento em relação ao branch base.</td></tr>
+<tr><td><code>beeverforge-product-sweep-*</code></td><td>1 semana</td><td>A varredura do papel de produto em busca de trabalho que não pode terminar.</td></tr>
+<tr><td><code>beeverforge-preview-reaper</code></td><td>10 minutos</td><td>Encerrar as prévias cujo pull request já recebeu merge.</td></tr>
+</tbody>
+</table>
+</div>
+<p>O motor guarda o histórico dos workflows por 30 dias por padrão (<code>BEEVERFORGE_ENGINE_RETENTION_DAYS</code>).</p>
+
+<h2>Sinais e temporizadores duráveis</h2>
+<p>A resposta de uma pessoa chega a um job em andamento como um sinal: <code>approve_prod</code>, <code>not_yet</code>, <code>human_merge_gate</code>, <code>act_on_impediment</code> e <code>advise_decision</code>. As esperas são <code>workflow.sleep</code> e <code>workflow.wait_condition</code> com tempo limite, de modo que uma espera de minutos ou dias não ocupa nenhum worker e sobrevive a uma reinicialização. Exemplos são a consulta à CI (2 minutos, depois 15), a consulta da implantação (1 minuto), a aprovação de produção (3 dias), o acompanhamento do merge (14 dias) e um impedimento em espera (3 dias).</p>
+
+<h2>Efeitos colaterais idempotentes</h2>
+<p>Uma atividade pode ser executada de novo após uma falha, então cada escrita externa é feita para ser repetida com segurança ou não é repetida:</p>
+<ul>
+<li><strong>Os pull requests</strong> são buscar e depois atualizar: o pull request aberto do branch é reutilizado.</li>
+<li><strong>As tags de versão</strong> são buscar ou criar.</li>
+<li><strong>As transições e os comentários dos cartões</strong> levam o id do evento da atividade que os causou; a porta do cartão devolve a transição já registrada para esse id em vez de escrevê-la de novo.</li>
+<li><strong>Os merges</strong> são lidos de novo na plataforma Git depois da chamada de merge, em vez de confiar no resultado da chamada.</li>
+<li><strong>O próprio job</strong> só é repetido quando seu tipo de caixa declara que uma nova tentativa se reconecta ao job em andamento. Nenhum tipo de caixa deste repositório declara isso: as caixas <code>container</code> e <code>worktree</code> executam sua atividade de job uma única vez, porque uma nova tentativa seria uma segunda passada do agente que repetiria cada comentário. O executor que se reconecta é fornecido por um complemento.</li>
+</ul>
+
+<h2>Heartbeats</h2>
+<p>As atividades longas emitem heartbeats. As atividades de job rodam com tempo limite de heartbeat de 120 segundos e batem a cada 30 segundos aproximadamente; o trabalho que continua depois da última batida é limitado para caber nessa janela. Assim, um worker que morre no meio de uma atividade é detectado dentro do tempo limite, e não ao fim da duração completa da atividade.</p>
+
+<h2>Segurança na reexecução</h2>
+<p>O Temporal reexecuta o histórico de um workflow contra o código atual, então uma mudança na lógica do workflow não pode alterar os comandos que um workflow em andamento já registrou.</p>
+<ul>
+<li>Cada mudança desse tipo é protegida por <code>workflow.patched()</code> com um id que nomeia o comportamento, por exemplo <code>signed-gates</code> ou <code>a-self-merge-is-read-back</code>. Os históricos antigos seguem o caminho antigo; as novas execuções seguem o novo.</li>
+<li>Os testes de Replayer executam um workflow contra um servidor Temporal efêmero, obtêm o histórico registrado e o reexecutam com <code>Replayer</code> contra o código atual. Alguns executam antes uma cópia do workflow de antes do patch. Os históricos são registrados dentro dos testes; nenhum é versionado como arquivo.</li>
+<li>O código que precisa ficar fora do corpo do workflow é mantido em atividades. A verificação da prova da caixa no recolhimento fica na atividade de varredura do quadro exatamente por isso.</li>
+</ul>
+
+<h2>Um cliente do motor por processo</h2>
+<p>Um processo mantém um cliente do motor. <code>runtime/temporal/connection.py</code> guarda um único cliente identificado pelas configurações da conexão; os primeiros chamadores concorrentes compartilham uma única tentativa de conexão, e a reconexão espera no máximo 60 segundos. Testes de guarda verificam que as primeiras chamadas concorrentes, e as aprovações repetidas, abrem um único cliente.</p>
+
+<h2>Estruturas limitadas</h2>
+<p>O worker e o painel são processos de longa duração, então os caches em memória são limitados por construção.</p>
+<ul>
+<li><code>util/bounded.py</code> fornece <code>BoundedDict</code>: seguro entre threads, com tamanho máximo obrigatório, que remove primeiro a entrada mais antiga e conta o que removeu. De propósito, não é uma subclasse de <code>dict</code>, para que nada possa fazê-lo crescer contornando seu limite.</li>
+<li><code>util/single_flight.py</code> permite que leitores que chegam juntos compartilhem uma leitura. Cada um fica protegido do cancelamento de outro chamador, há no máximo uma leitura em andamento, e uma falha é compartilhada com quem está esperando naquele momento e não é guardada.</li>
+<li>Um teste estrutural, <code>tests/test_no_unbounded_growth.py</code>, exige que cada ponto que aloca ou memoriza dados em um processo de longa duração declare seu limite.</li>
+</ul>
+
+<h2>Diário, métricas e observabilidade</h2>
+<ul>
+<li><strong>O diário do job</strong> registra eventos tipados (<code>state</code>, <code>agent_action</code>, <code>validation</code>, <code>review</code>, <code>pr</code>, <code>note</code>, <code>warning</code>, <code>error</code>). O destino padrão é um arquivo, <code>&lt;issue&gt;-events.jsonl</code> no diretório de logs do projeto; <code>BEEVERFORGE_EVENT_SINK</code> seleciona outro.</li>
+<li><strong>As métricas</strong> registram custo e esforço por invocação do agente e por job. Os destinos incluídos são nenhum, SQLite e memória; sem configuração, nenhuma métrica é guardada. O painel as serve em <code>GET /api/metrics</code>.</li>
+<li><strong>A saúde</strong> tem rotas próprias, e a interface web do Temporal mostra o histórico de cada workflow.</li>
+<li>O núcleo não tem exportador de Prometheus nem de OpenTelemetry.</li>
+</ul>
+
+<h2>API do painel</h2>
+<p>O painel é uma aplicação FastAPI. As leituras tipadas são servidas em <code>/api/v1/</code>, e seus caminhos sem versão continuam existindo, marcados como obsoletos. A descrição OpenAPI está versionada em <code>docs/reference/openapi.json</code>; um teste verifica que o arquivo versionado é igual ao que a aplicação gera e mostra o comando que o regenera, <code>python -m beeverforge.api.openapi</code>.</p>
+
+<section class="doc-sources">
+<h2>Fontes</h2>
+<ul>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/__init__.py"><code>beeverforge/runtime/temporal/__init__.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/worker.py"><code>beeverforge/runtime/temporal/worker.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/workflow.py"><code>beeverforge/runtime/temporal/workflow.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/activities.py"><code>beeverforge/runtime/temporal/activities.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/schedule.py"><code>beeverforge/runtime/temporal/schedule.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/runtime/temporal/connection.py"><code>beeverforge/runtime/temporal/connection.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/sandbox/registry.py"><code>beeverforge/adapters/sandbox/registry.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/lifecycle/card.py"><code>beeverforge/lifecycle/card.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/util/bounded.py"><code>beeverforge/util/bounded.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/util/single_flight.py"><code>beeverforge/util/single_flight.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/observability/events.py"><code>beeverforge/observability/events.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/observability/registry.py"><code>beeverforge/observability/registry.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/api/openapi.py"><code>beeverforge/api/openapi.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/reference/openapi.json"><code>docs/reference/openapi.json</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_the_merge_gate_is_heard_on_every_path.py"><code>tests/test_the_merge_gate_is_heard_on_every_path.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_the_panel_holds_one_engine_client.py"><code>tests/test_the_panel_holds_one_engine_client.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_no_unbounded_growth.py"><code>tests/test_no_unbounded_growth.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_the_api_is_versioned.py"><code>tests/test_the_api_is_versioned.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0009-durability-and-resilience-hardening.md" translate="no">ADR-0009</a></li>
+</ul>
+</section>
+<nav class="doc-pager" aria-label="Páginas anterior e seguinte"><a class="doc-pager-prev" rel="prev" href="/pt/architecture/lifecycle/"><small>Anterior</small><span>Ciclo de vida de um ticket</span></a><a class="doc-pager-next" rel="next" href="/pt/architecture/box/"><small>Próxima</small><span>A caixa e o piso de qualidade</span></a></nav></article></div></main>
+  <aside class="consent-panel" data-consent-panel role="region" aria-live="polite" aria-labelledby="consent-title" hidden><div class="consent-copy"><p class="eyebrow">Preferências de cookies</p><h2 id="consent-title">Usamos cookies.</h2><p>Usamos cookies para entender o tráfego do site. Aceite os cookies opcionais ou recuse-os. Acesse Configurações de cookies para ver os detalhes.</p></div><div class="consent-actions"><button class="consent-reject" type="button" data-consent-reject>Recusar opcionais</button><button class="consent-settings" type="button" data-consent-details-toggle aria-expanded="false" aria-controls="consent-details">Configurações de cookies</button><button class="button button-gold" type="button" data-consent-accept>Aceitar todos</button></div><div class="consent-details" id="consent-details" data-consent-details hidden><h3>Configurações de cookies</h3><p><strong>Armazenamento essencial de preferências</strong> lembra seu tema e sua escolha de cookies. Está sempre ativo.</p><label class="consent-toggle"><input type="checkbox" data-analytics-toggle><span><strong>Cookies de análise</strong><small>Opcionais · O Google Analytics mede visitas e como o site é usado. A tag do Analytics fica desativada até você permitir.</small></span></label><div class="consent-detail-actions"><button class="consent-reject" type="button" data-consent-cancel>Cancelar</button><button class="button button-gold" type="button" data-consent-save>Salvar escolhas</button></div></div></aside>
+  <footer class="site-footer"><div class="shell footer-grid"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"><p>O próximo capítulo da OpenFactory. Uma base aberta de engenharia e um ciclo Enterprise para decisões de produto.</p><nav aria-label="Links do rodapé"><a href="/pt/#editions">Edições</a><a href="/pt/#lifecycle">Ciclo de vida</a><a href="/pt/#comparison">Comparar</a><a href="/pt/architecture/" aria-current="true">Arquitetura</a><a href="https://github.com/BeeverForge/beeverforge-oss">Código Community ↗</a><button class="consent-link" type="button" data-consent-open>Configurações de cookies</button></nav></div><div class="shell footer-bottom"><span>© 2026 BeeverForge</span><span>O próximo capítulo da OpenFactory</span></div></footer>
+  <script src="/assets/final.js" defer></script>
+  <script src="/assets/docs.js" defer></script>
+</body>
+</html>
