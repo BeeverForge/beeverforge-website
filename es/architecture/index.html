@@ -48,7 +48,7 @@
 <h2>Modelo de control</h2>
 <p>El README del proyecto enuncia el modelo como <strong>«Las políticas autorizan, las personas evalúan».</strong> El manifiesto del proyecto, <code>.beeverforge/project.yaml</code>, declara la política de merge, el piso de calidad y la cadena de promoción. Dentro de esas políticas, la fábrica actúa sin pedir aprobación en cada paso; las personas juzgan el resultado.</p>
 <ul>
-<li>Un proyecto que no declara un control <code>test</code> no se considera aprobado. Antes de cualquier llamada a un agente, el ejecutor comprueba el piso y rechaza el job, nombrando el control que falta y cómo declararlo.</li>
+<li>Un proyecto que no declara un control <code>test</code> no se considera aprobado. Antes de la pasada de implementación, después del dimensionamiento, el ejecutor comprueba el piso y rechaza el job, nombrando el control que falta y cómo declararlo.</li>
 <li>La política de merge predeterminada es <code>human</code>: una persona hace el merge del pull request. El merge automático ocurre solo cuando un proyecto define <code>merge_policy: auto</code> y se cumplen todas sus condiciones.</li>
 <li>La promoción a producción espera una aprobación humana. La aprobación llega al workflow como una respuesta sellada de un solo uso (véase La caja y el piso de calidad).</li>
 <li>Cuando un job no puede continuar, queda en espera en la tarjeta con las opciones que una persona puede tomar, en lugar de esperar en silencio.</li>
@@ -109,7 +109,7 @@
 <ul>
 <li><strong>Las máquinas del propio operador.</strong> La instalación predeterminada es <code>docker compose</code> en una sola máquina y no necesita ninguna cuenta en la nube (ADR-0040). A una nube solo se llega mediante paquetes complementarios.</li>
 <li><strong>Servicios.</strong> El archivo compose ejecuta una base de datos Postgres para el motor, un servidor Temporal, la interfaz web de Temporal, el worker y el panel. Los puertos publicados se vinculan a <code>127.0.0.1</code> de forma predeterminada.</li>
-<li><strong>El motor.</strong> Temporal guarda el estado de los jobs. Cada job es un workflow durable, de modo que un worker reiniciado reanuda el job donde se detuvo.</li>
+<li><strong>El motor.</strong> Temporal guarda el estado de los jobs. Cada job es un workflow durable: sus esperas y temporizadores sobreviven a un reinicio del worker, y un job cuyo worker se pierde durante la pasada del agente queda en espera para que una persona lo reanude u omita.</li>
 <li><strong>La caja.</strong> El worker ejecuta cada job en una caja. El tipo predeterminado es <code>container</code>: un contenedor Docker desechable que se lanza como hermano en el daemon del host, a través del socket de Docker que el archivo compose monta en el worker.</li>
 <li><strong>Un solo inquilino, varios proyectos.</strong> Una instalación sirve a un equipo con un registro de proyectos. El registro contiene cualquier cantidad de proyectos, cada uno con su propio repositorio, tablero y manifiesto (ADR-0001, D-14).</li>
 <li><strong>Un job a la vez de forma predeterminada.</strong> La cantidad de jobs en curso es <code>BEEVERFORGE_MAX_CONCURRENT_JOBS</code>, con valor predeterminado <code>1</code>.</li>

@@ -42,7 +42,7 @@
   </header>
   <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Conteúdo da arquitetura"><details class="doc-toc" open data-doc-toc><summary>Conteúdo</summary><p class="doc-toc-title">Arquitetura do BeeverForge Community</p><ol><li><a href="/pt/architecture/">Visão geral</a></li><li><a href="/pt/architecture/lifecycle/">Ciclo de vida de um ticket</a></li><li><a href="/pt/architecture/runtime/">Execução e durabilidade</a></li><li><a href="/pt/architecture/box/">A caixa e o piso de qualidade</a></li><li><a href="/pt/architecture/extensions/" aria-current="page">Modelo de extensão</a></li><li><a href="/pt/architecture/principles/">Princípios de engenharia</a></li><li><a href="/pt/architecture/repository/">Princípios do repositório</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">Arquitetura do BeeverForge Community</p>
 <h1>Modelo de extensão</h1>
-<p class="doc-lead">Cada dependência externa do núcleo fica atrás de um adaptador, e cada adaptador é escolhido por um registro a partir da configuração. Um novo provedor é adicionado instalando um pacote que declara um ponto de entrada, sem mudar o núcleo.</p>
+<p class="doc-lead">Cada dependência externa do núcleo, exceto o motor, o Temporal, fica atrás de um adaptador, e cada adaptador é escolhido por um registro a partir da configuração. Um novo provedor é adicionado instalando um pacote que declara um ponto de entrada, sem mudar o núcleo.</p>
 
 <h2>Eixos</h2>
 <p>Um eixo é um tipo de coisa com que o núcleo pode ser estendido. A lista publicada é <code>AXES</code> em <code>beeverforge/plugins.py</code>:</p>

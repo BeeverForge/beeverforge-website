@@ -2,7 +2,7 @@
 <meta name="description" content="How the BeeverForge Community core runs on Temporal: workflows, activities, schedules, signals, durable timers, idempotent side effects, replay safety, bounded memory and observability.">
 <p class="eyebrow">BeeverForge Community architecture</p>
 <h1>Runtime and durability</h1>
-<p class="doc-lead">The engine is Temporal. Every job is a workflow, every side effect is an activity, and every wait, from a CI poll to a production approval, is a durable timer or condition. A worker restart therefore resumes the job instead of losing it.</p>
+<p class="doc-lead">The engine is Temporal. Every job is a workflow, every side effect is an activity, and every wait, from a CI poll to a production approval, is a durable timer or condition. A worker restart therefore does not lose the job: its waits continue where they were, and a job whose worker is lost during the agent pass parks for a person to resume or skip, because that pass is not retried.</p>
 
 <h2>Workflows, activities and the task queue</h2>
 <p>One worker process registers every workflow and every activity on a single task queue, <code>beeverforge-jobs</code>. The main workflows are:</p>
@@ -42,7 +42,7 @@
 <li><strong>Release tags</strong> are find-or-create.</li>
 <li><strong>Card transitions and comments</strong> carry the event id of the activity that caused them; the card’s door returns the transition already recorded for that id instead of writing it again.</li>
 <li><strong>Merges</strong> are read back from the forge after the merge call, instead of trusting the call’s result.</li>
-<li><strong>The job itself</strong> is retried only when its box kind declares that a retry re-attaches to the running job. No box kind in this repository declares that: the <code>container</code> and <code>worktree</code> boxes run their job activity once, because a retry would be a second agent pass that repeats every comment. The re-attaching runner is supplied by an add-on.</li>
+<li><strong>The job itself</strong> is retried only when its box kind declares that a retry re-attaches to the running job. The <code>container</code> and <code>worktree</code> boxes do not: they run their job activity once, because a retry would be a second agent pass that repeats every comment. The <code>fargate</code> description declares it; its runner is supplied by an add-on.</li>
 </ul>
 
 <h2>Heartbeats</h2>
@@ -70,7 +70,7 @@
 <h2>Journal, metrics and observability</h2>
 <ul>
 <li><strong>The job journal</strong> records typed events (<code>state</code>, <code>agent_action</code>, <code>validation</code>, <code>review</code>, <code>pr</code>, <code>note</code>, <code>warning</code>, <code>error</code>). The default sink is a file, <code>&lt;issue&gt;-events.jsonl</code> in the project’s log directory; <code>BEEVERFORGE_EVENT_SINK</code> selects another.</li>
-<li><strong>Metrics</strong> record cost and effort per agent invocation and per job. The built-in sinks are none, SQLite and memory; without configuration no metrics are stored. The panel serves them at <code>GET /api/metrics</code>.</li>
+<li><strong>Metrics</strong> record cost and effort per agent invocation and per job. The built-in sinks are <code>null</code>, <code>sqlite</code> and <code>memory</code>. Without configuration the sink is <code>null</code> and nothing is stored, unless <code>BEEVERFORGE_METRICS_TABLE</code> names a table, which selects <code>dynamodb</code>, a kind supplied by an add-on. The panel serves them at <code>GET /api/metrics</code>.</li>
 <li><strong>Health</strong> has its own routes, and the Temporal web UI shows each workflow’s history.</li>
 <li>The core has no Prometheus or OpenTelemetry exporter.</li>
 </ul>

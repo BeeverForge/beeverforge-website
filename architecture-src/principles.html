@@ -5,14 +5,14 @@
 <p class="doc-lead">The core’s principles are written down in its vision document and its decision records. This page lists them with the code that enforces each, and says where the code falls short of the statement.</p>
 
 <h2>Vision principles</h2>
-<p>From <code>docs/core/00-vision.md</code>:</p>
+<p>From <code>docs/core/00-vision.md</code>. They are stated aims; where the code does not hold one fully, the item says how far it goes.</p>
 <ol>
-<li><strong>The core names no vendor.</strong> A vendor is reached through a port, chosen by a registry, from configuration.</li>
-<li><strong>Everything outside the core is replaceable</strong>, by someone other than the maintainers: an entry point, not a pull request.</li>
+<li><strong>The core names no vendor.</strong> A vendor is reached through a port, chosen by a registry, from configuration. The test that enforces it covers <code>beeverforge/contracts</code> and <code>beeverforge/policy</code> only; the built-in adapter rows name their vendors, and the metrics sink is inferred as <code>dynamodb</code> when <code>BEEVERFORGE_METRICS_TABLE</code> is set.</li>
+<li><strong>Everything outside the core is replaceable</strong>, by someone other than the maintainers: an entry point, not a pull request. The engine is the exception: Temporal is not behind a port.</li>
 <li><strong>An application built on the core is not the core.</strong> It uses the same surface a third party’s application would.</li>
-<li><strong>The core is useful by itself.</strong> Nothing that ships in it is removed to create an upgrade path.</li>
+<li><strong>The core is useful by itself.</strong> The document adds that nothing that ships in it is removed to manufacture an upgrade path; that is a stated commitment, which the code cannot show.</li>
 <li><strong>A contract is derived from what the core calls, never from what a provider offers.</strong></li>
-<li><strong>An axis is agnostic when it is born with two</strong> implementations, not when it declares an interface (ADR-0022).</li>
+<li><strong>An axis is agnostic when it is born with two</strong> implementations, not when it declares an interface (ADR-0022). Several axes do not meet it yet; Extension model lists them.</li>
 </ol>
 
 <h2>Decisions of ADR-0001</h2>
@@ -44,9 +44,9 @@
 <dt>Nothing lost, nothing duplicated</dt>
 <dd>Jobs are durable workflows. Pull requests are find-then-update; before rebuilding a branch the runner asks the forge for an existing pull request, and if it cannot read the answer it holds instead of guessing.</dd>
 <dt>The floor frees at merge</dt>
-<dd>The job workflow holds its slot until the pull request merges or the job parks.</dd>
+<dd>The job workflow holds its slot until the pull request merges, until promotion ends when it is enabled, or until the job is skipped. A parked job keeps its slot: a plain impediment is skipped after 3 days, and a decision park waits until it is answered.</dd>
 <dt>Quality is a floor</dt>
-<dd>The <code>test</code> and <code>security</code> roles are required before any agent call. The floor checks that the roles exist, not what they run, and the inherited <code>security</code> gate is advisory.</dd>
+<dd>The <code>test</code> and <code>security</code> roles are required before the implementation pass. The floor checks that the roles exist, not what they run, and the inherited <code>security</code> gate is advisory.</dd>
 <dt>The code is the source of truth</dt>
 <dd>The knowledge map is given to an agent only when its checksums prove it describes that job’s own checkout; otherwise nothing is given.</dd>
 <dt>Attributed to the bot</dt>
@@ -79,7 +79,7 @@
 <p>Every read on a tracker follows one rule, stated in its base class: <code>None</code> means the read failed; an empty list means the read succeeded and found nothing. Boards follow the same rule, and the adapter conformance suite checks it for trackers. Typed values such as <code>Unreadable</code> carry the same distinction elsewhere.</p>
 
 <h2>Refuse before writing</h2>
-<p>A check that can refuse runs before anything is written. A refused card transition changes nothing and says why; the floor refuses a job before any agent call; the knowledge pipeline refuses a target outside its directory before anything is cloned; a refused command-line flag says that nothing was read and nothing was written.</p>
+<p>A check that can refuse runs before anything is written. A refused card transition changes nothing and says why; the floor refuses a job before the implementation pass; the knowledge pipeline refuses a target outside its directory before anything is cloned; a refused command-line flag says that nothing was read and nothing was written.</p>
 
 <h2>One prompt budget that names what it leaves out</h2>
 <p>A job’s prompt has one budget (ADR-0056): <code>BEEVERFORGE_PROMPT_BUDGET</code>, default 160,000 bytes, shared by the card, the plan and the documents the project declares. <code>off</code> turns it off; a value that cannot be read is refused. Every document left out is named in the prompt, by the path the agent can open and its size, under a heading that tells the agent to open it before changing what it governs. A document cut at its own length limit is listed with how much of it was inlined.</p>

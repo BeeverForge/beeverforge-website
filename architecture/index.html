@@ -48,7 +48,7 @@
 <h2>Control model</h2>
 <p>The project README states the model as <strong>“Policies authorise, humans evaluate.”</strong> The project’s manifest, <code>.beeverforge/project.yaml</code>, declares the merge policy, the quality floor and the promotion chain. Within those policies the factory acts without asking for approval at each step; people judge the result.</p>
 <ul>
-<li>A project that declares no <code>test</code> gate is not treated as passing. Before any agent call, the runner checks the floor and refuses the job, naming the missing gate and how to declare it.</li>
+<li>A project that declares no <code>test</code> gate is not treated as passing. Before the implementation pass, after sizing, the runner checks the floor and refuses the job, naming the missing gate and how to declare it.</li>
 <li>The default merge policy is <code>human</code>: a person merges the pull request. Automatic merge happens only when a project sets <code>merge_policy: auto</code> and every condition for it holds.</li>
 <li>Production promotion waits for a human approval. The approval reaches the workflow as a sealed, single-use answer (see The box and the quality floor).</li>
 <li>When a job cannot continue, it parks on the card with the options a person can take, instead of waiting silently.</li>
@@ -109,7 +109,7 @@
 <ul>
 <li><strong>The operator’s own machines.</strong> The default installation is <code>docker compose</code> on one machine and needs no cloud account (ADR-0040). A cloud is reached only through add-on packages.</li>
 <li><strong>Services.</strong> The compose file runs a Postgres database for the engine, a Temporal server, the Temporal web UI, the worker and the panel. The published ports bind to <code>127.0.0.1</code> by default.</li>
-<li><strong>The engine.</strong> Temporal holds job state. Every job is a durable workflow, so a restarted worker resumes the job where it stopped.</li>
+<li><strong>The engine.</strong> Temporal holds job state. Every job is a durable workflow: its waits and timers survive a worker restart, and a job whose worker is lost during the agent pass parks for a person to resume or skip.</li>
 <li><strong>The box.</strong> The worker runs each job in a box. The default kind is <code>container</code>: a throwaway Docker container launched as a sibling on the host’s daemon, through the Docker socket that the compose file mounts into the worker.</li>
 <li><strong>Single-tenant, multi-project.</strong> One installation serves one team with one project registry. The registry holds any number of projects, each with its own repository, board and manifest (ADR-0001, D-14).</li>
 <li><strong>One job at a time by default.</strong> The number of jobs in flight is <code>BEEVERFORGE_MAX_CONCURRENT_JOBS</code>, default <code>1</code>.</li>

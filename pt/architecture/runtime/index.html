@@ -42,7 +42,7 @@
   </header>
   <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Conteúdo da arquitetura"><details class="doc-toc" open data-doc-toc><summary>Conteúdo</summary><p class="doc-toc-title">Arquitetura do BeeverForge Community</p><ol><li><a href="/pt/architecture/">Visão geral</a></li><li><a href="/pt/architecture/lifecycle/">Ciclo de vida de um ticket</a></li><li><a href="/pt/architecture/runtime/" aria-current="page">Execução e durabilidade</a></li><li><a href="/pt/architecture/box/">A caixa e o piso de qualidade</a></li><li><a href="/pt/architecture/extensions/">Modelo de extensão</a></li><li><a href="/pt/architecture/principles/">Princípios de engenharia</a></li><li><a href="/pt/architecture/repository/">Princípios do repositório</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">Arquitetura do BeeverForge Community</p>
 <h1>Execução e durabilidade</h1>
-<p class="doc-lead">O motor é o Temporal. Cada job é um workflow, cada efeito colateral é uma atividade e cada espera, de uma consulta à CI a uma aprovação de produção, é um temporizador ou uma condição durável. Por isso, reiniciar um worker retoma o job em vez de perdê-lo.</p>
+<p class="doc-lead">O motor é o Temporal. Cada job é um workflow, cada efeito colateral é uma atividade e cada espera, de uma consulta à CI a uma aprovação de produção, é um temporizador ou uma condição durável. Por isso, reiniciar um worker não perde o job: suas esperas continuam de onde estavam, e um job cujo worker se perde durante a passada do agente fica em espera para que uma pessoa o retome ou pule, porque essa passada não é repetida.</p>
 
 <h2>Workflows, atividades e a fila de tarefas</h2>
 <p>Um único processo worker registra todos os workflows e todas as atividades em uma só fila de tarefas, <code>beeverforge-jobs</code>. Os principais workflows são:</p>
@@ -82,7 +82,7 @@
 <li><strong>As tags de versão</strong> são buscar ou criar.</li>
 <li><strong>As transições e os comentários dos cartões</strong> levam o id do evento da atividade que os causou; a porta do cartão devolve a transição já registrada para esse id em vez de escrevê-la de novo.</li>
 <li><strong>Os merges</strong> são lidos de novo na plataforma Git depois da chamada de merge, em vez de confiar no resultado da chamada.</li>
-<li><strong>O próprio job</strong> só é repetido quando seu tipo de caixa declara que uma nova tentativa se reconecta ao job em andamento. Nenhum tipo de caixa deste repositório declara isso: as caixas <code>container</code> e <code>worktree</code> executam sua atividade de job uma única vez, porque uma nova tentativa seria uma segunda passada do agente que repetiria cada comentário. O executor que se reconecta é fornecido por um complemento.</li>
+<li><strong>O próprio job</strong> só é repetido quando seu tipo de caixa declara que uma nova tentativa se reconecta ao job em andamento. As caixas <code>container</code> e <code>worktree</code> não declaram isso: executam sua atividade de job uma única vez, porque uma nova tentativa seria uma segunda passada do agente que repetiria cada comentário. A descrição <code>fargate</code> declara isso; seu executor é fornecido por um complemento.</li>
 </ul>
 
 <h2>Heartbeats</h2>
@@ -110,7 +110,7 @@
 <h2>Diário, métricas e observabilidade</h2>
 <ul>
 <li><strong>O diário do job</strong> registra eventos tipados (<code>state</code>, <code>agent_action</code>, <code>validation</code>, <code>review</code>, <code>pr</code>, <code>note</code>, <code>warning</code>, <code>error</code>). O destino padrão é um arquivo, <code>&lt;issue&gt;-events.jsonl</code> no diretório de logs do projeto; <code>BEEVERFORGE_EVENT_SINK</code> seleciona outro.</li>
-<li><strong>As métricas</strong> registram custo e esforço por invocação do agente e por job. Os destinos incluídos são nenhum, SQLite e memória; sem configuração, nenhuma métrica é guardada. O painel as serve em <code>GET /api/metrics</code>.</li>
+<li><strong>As métricas</strong> registram custo e esforço por invocação do agente e por job. Os destinos incluídos são <code>null</code>, <code>sqlite</code> e <code>memory</code>. Sem configuração, o destino é <code>null</code> e nada é guardado, a menos que <code>BEEVERFORGE_METRICS_TABLE</code> nomeie uma tabela, o que seleciona <code>dynamodb</code>, um tipo fornecido por um complemento. O painel as serve em <code>GET /api/metrics</code>.</li>
 <li><strong>A saúde</strong> tem rotas próprias, e a interface web do Temporal mostra o histórico de cada workflow.</li>
 <li>O núcleo não tem exportador de Prometheus nem de OpenTelemetry.</li>
 </ul>

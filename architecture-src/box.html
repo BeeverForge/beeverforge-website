@@ -27,7 +27,7 @@
 <li>The harness is checked: its version, its credentials as seen inside the box, the trust store and whether the harness endpoint is reachable through the box’s network.</li>
 </ol>
 <p>On a box that runs the client’s image the proof asks no agent anything and spends no harness tokens. On a box with no image, where the harness login is a session on the operator’s machine, it asks the harness for a single word to confirm the login works.</p>
-<p>A proof is valid while the image digest, the toolbox and the hash of the project’s <code>setup:</code> and <code>validate:</code> commands are unchanged; a new harness version also makes it stale. Proofs do not expire by time. The board scan refuses to pick up work for a project whose box has something to prove and no valid proof, and states which of those facts moved. A <code>worktree</code> box has no image and is not gated.</p>
+<p>A proof is valid while the image digest, the toolbox and the hash of the project’s <code>setup:</code> and <code>validate:</code> commands are unchanged. On a box with an image the toolbox is identified by its operating system, architecture and C library; on a box with no image a new harness version makes the proof stale. Proofs do not expire by time. The board scan refuses to pick up work for a project whose box has something to prove and no valid proof, and states which of those facts moved. A <code>worktree</code> box has no image; it is gated only on a deployment that declares <code>BEEVERFORGE_OWN_WORK</code>, the runtime where the worker is the operator’s own machine.</p>
 <p>An advisory gate that fails during the proof does not hold pickup, unless its command could not run at all.</p>
 
 <h2>The toolbox mount</h2>
@@ -38,12 +38,12 @@
 <ul>
 <li><code>box.network</code> in the registry selects another Docker network, such as a restricted network or one behind a proxy the deployment provides. The core has no built-in allowlist or proxy.</li>
 <li>A job needs at least the harness endpoint. A project on a remote forge also needs the forge and the tracker, and whatever <code>setup:</code> installs from package registries.</li>
-<li>The proof checks that the harness endpoint is reachable and probes whether the box can reach the cloud instance-metadata address.</li>
+<li>The proof checks that the harness endpoint is reachable. When a project declares a machine identity, <code>beeverforge doctor</code> probes whether the box can reach the cloud instance-metadata address.</li>
 <li>An air-gapped environment cannot run a job, because the coding agent is a remote service.</li>
 </ul>
 
 <h2>The quality floor</h2>
-<p>The floor is in <code>policy/floor.py</code>: the validation roles <code>test</code> and <code>security</code> are required. Before any agent call the runner checks that both roles are present after the cascade of deployment defaults, stack presets, the repository-wide block and per-component blocks. A project missing one is refused with the role named and a remedy; nothing runs.</p>
+<p>The floor is in <code>policy/floor.py</code>: the validation roles <code>test</code> and <code>security</code> are required. Before the implementation pass, after sizing, the runner checks that both roles are present after the cascade of deployment defaults, stack presets, the repository-wide block and per-component blocks. A project missing one is refused with the role named and a remedy; nothing runs.</p>
 <ul>
 <li>Every project inherits a <code>security</code> gate from <code>org_defaults/floor.yaml</code>: a scan of tracked files for committed credentials. It is declared <code>advisory: true</code>.</li>
 <li>Inheritance only adds roles the project does not declare. A project that declares a role keeps it exactly as written, so it can replace a required role’s command, or make it advisory, and still satisfy the floor. The floor checks that the roles are present, not what they run.</li>

@@ -67,7 +67,7 @@
 <li>O harness é verificado: sua versão, suas credenciais como vistas dentro da caixa, o repositório de certificados confiáveis e se o endpoint do harness é acessível pela rede da caixa.</li>
 </ol>
 <p>Em uma caixa que executa a imagem do cliente, a prova não pede nada a nenhum agente e não gasta tokens do harness. Em uma caixa sem imagem, onde o login do harness é uma sessão na máquina do operador, ela pede ao harness uma única palavra para confirmar que o login funciona.</p>
-<p>Uma prova é válida enquanto o digest da imagem, a caixa de ferramentas e o hash dos comandos <code>setup:</code> e <code>validate:</code> do projeto não mudarem; uma nova versão do harness também a torna obsoleta. As provas não expiram por tempo. A varredura do quadro se recusa a recolher trabalho de um projeto cuja caixa tem algo a provar e não tem prova válida, e informa qual desses fatos mudou. Uma caixa <code>worktree</code> não tem imagem e não passa por esse controle.</p>
+<p>Uma prova é válida enquanto o digest da imagem, a caixa de ferramentas e o hash dos comandos <code>setup:</code> e <code>validate:</code> do projeto não mudarem. Em uma caixa com imagem, a caixa de ferramentas é identificada por seu sistema operacional, sua arquitetura e sua biblioteca C; em uma caixa sem imagem, uma nova versão do harness torna a prova obsoleta. As provas não expiram por tempo. A varredura do quadro se recusa a recolher trabalho de um projeto cuja caixa tem algo a provar e não tem prova válida, e informa qual desses fatos mudou. Uma caixa <code>worktree</code> não tem imagem; só passa por esse controle em uma implantação que declara <code>BEEVERFORGE_OWN_WORK</code>, o ambiente em que o worker é a própria máquina do operador.</p>
 <p>Um controle não bloqueante que falha durante a prova não impede o recolhimento, a menos que seu comando nem tenha conseguido ser executado.</p>
 
 <h2>A montagem da caixa de ferramentas</h2>
@@ -78,12 +78,12 @@
 <ul>
 <li><code>box.network</code> no registro seleciona outra rede do Docker, como uma rede restrita ou uma atrás de um proxy fornecido pela implantação. O núcleo não tem lista de permissões nem proxy embutidos.</li>
 <li>Um job precisa, no mínimo, do endpoint do harness. Um projeto em uma plataforma Git remota também precisa da plataforma Git e do tracker, e de tudo o que <code>setup:</code> instalar a partir de registros de pacotes.</li>
-<li>A prova verifica se o endpoint do harness é acessível e testa se a caixa consegue alcançar o endereço de metadados de instância da nuvem.</li>
+<li>A prova verifica se o endpoint do harness é acessível. Quando um projeto declara uma identidade de máquina, <code>beeverforge doctor</code> testa se a caixa consegue alcançar o endereço de metadados de instância da nuvem.</li>
 <li>Um ambiente isolado da rede não consegue executar um job, porque o agente de programação é um serviço remoto.</li>
 </ul>
 
 <h2>O piso de qualidade</h2>
-<p>O piso está em <code>policy/floor.py</code>: os papéis de validação <code>test</code> e <code>security</code> são obrigatórios. Antes de qualquer chamada a um agente, o executor verifica que os dois papéis estão presentes depois da cascata de padrões da implantação, presets do stack, do bloco de todo o repositório e dos blocos por componente. Um projeto em que falta um deles é recusado com o papel nomeado e uma solução; nada é executado.</p>
+<p>O piso está em <code>policy/floor.py</code>: os papéis de validação <code>test</code> e <code>security</code> são obrigatórios. Antes da passada de implementação, depois do dimensionamento, o executor verifica que os dois papéis estão presentes depois da cascata de padrões da implantação, presets do stack, do bloco de todo o repositório e dos blocos por componente. Um projeto em que falta um deles é recusado com o papel nomeado e uma solução; nada é executado.</p>
 <ul>
 <li>Todo projeto herda um controle <code>security</code> de <code>org_defaults/floor.yaml</code>: uma varredura dos arquivos versionados em busca de credenciais incluídas em commits. Ele é declarado como <code>advisory: true</code>.</li>
 <li>A herança só adiciona os papéis que o projeto não declara. Um projeto que declara um papel o mantém exatamente como escrito, então pode substituir o comando de um papel obrigatório, ou torná-lo não bloqueante, e ainda assim cumprir o piso. O piso verifica que os papéis existem, não o que eles executam.</li>

@@ -42,7 +42,7 @@
   </header>
   <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Contenido de la arquitectura"><details class="doc-toc" open data-doc-toc><summary>Contenido</summary><p class="doc-toc-title">Arquitectura de BeeverForge Community</p><ol><li><a href="/es/architecture/">Visión general</a></li><li><a href="/es/architecture/lifecycle/">Ciclo de vida de un ticket</a></li><li><a href="/es/architecture/runtime/">Ejecución y durabilidad</a></li><li><a href="/es/architecture/box/">La caja y el piso de calidad</a></li><li><a href="/es/architecture/extensions/" aria-current="page">Modelo de extensión</a></li><li><a href="/es/architecture/principles/">Principios de ingeniería</a></li><li><a href="/es/architecture/repository/">Principios del repositorio</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">Arquitectura de BeeverForge Community</p>
 <h1>Modelo de extensión</h1>
-<p class="doc-lead">Cada dependencia externa del núcleo está detrás de un adaptador, y cada adaptador lo elige un registro a partir de la configuración. Un proveedor nuevo se añade instalando un paquete que declara un punto de entrada, sin cambiar el núcleo.</p>
+<p class="doc-lead">Cada dependencia externa del núcleo, salvo el motor, Temporal, está detrás de un adaptador, y cada adaptador lo elige un registro a partir de la configuración. Un proveedor nuevo se añade instalando un paquete que declara un punto de entrada, sin cambiar el núcleo.</p>
 
 <h2>Ejes</h2>
 <p>Un eje es un tipo de cosa con la que se puede extender el núcleo. La lista publicada es <code>AXES</code> en <code>beeverforge/plugins.py</code>:</p>

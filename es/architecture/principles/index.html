@@ -45,14 +45,14 @@
 <p class="doc-lead">Los principios del núcleo están escritos en su documento de visión y en sus registros de decisión. Esta página los enumera con el código que hace cumplir cada uno, e indica dónde el código no llega a lo que dice el enunciado.</p>
 
 <h2>Principios de la visión</h2>
-<p>De <code>docs/core/00-vision.md</code>:</p>
+<p>De <code>docs/core/00-vision.md</code>. Son objetivos declarados; cuando el código no cumple uno por completo, el elemento indica hasta dónde llega.</p>
 <ol>
-<li><strong>El núcleo no nombra a ningún fabricante.</strong> A un fabricante se llega mediante un puerto, elegido por un registro, a partir de la configuración.</li>
-<li><strong>Todo lo que está fuera del núcleo es reemplazable</strong>, por alguien que no sean los mantenedores: un punto de entrada, no un pull request.</li>
+<li><strong>El núcleo no nombra a ningún fabricante.</strong> A un fabricante se llega mediante un puerto, elegido por un registro, a partir de la configuración. La prueba que lo hace cumplir solo cubre <code>beeverforge/contracts</code> y <code>beeverforge/policy</code>; las filas de adaptadores incluidos nombran a sus fabricantes, y el destino de métricas se infiere como <code>dynamodb</code> cuando <code>BEEVERFORGE_METRICS_TABLE</code> está definida.</li>
+<li><strong>Todo lo que está fuera del núcleo es reemplazable</strong>, por alguien que no sean los mantenedores: un punto de entrada, no un pull request. El motor es la excepción: Temporal no está detrás de un puerto.</li>
 <li><strong>Una aplicación construida sobre el núcleo no es el núcleo.</strong> Usa la misma superficie que usaría la aplicación de un tercero.</li>
-<li><strong>El núcleo es útil por sí mismo.</strong> Nada de lo que incluye se retira para crear una vía de actualización.</li>
+<li><strong>El núcleo es útil por sí mismo.</strong> El documento añade que nada de lo que incluye se retira para fabricar una vía de actualización; es un compromiso declarado, que el código no puede demostrar.</li>
 <li><strong>Un contrato se deriva de lo que el núcleo llama, nunca de lo que ofrece un proveedor.</strong></li>
-<li><strong>Un eje es agnóstico cuando nace con dos</strong> implementaciones, no cuando declara una interfaz (ADR-0022).</li>
+<li><strong>Un eje es agnóstico cuando nace con dos</strong> implementaciones, no cuando declara una interfaz (ADR-0022). Varios ejes todavía no lo cumplen; Modelo de extensión los enumera.</li>
 </ol>
 
 <h2>Decisiones de ADR-0001</h2>
@@ -84,9 +84,9 @@
 <dt>Nada se pierde, nada se duplica</dt>
 <dd>Los jobs son workflows durables. Los pull requests son buscar y luego actualizar; antes de reconstruir una rama, el ejecutor pregunta a la plataforma Git si existe un pull request, y si no puede leer la respuesta se detiene en lugar de suponer.</dd>
 <dt>El cupo se libera con el merge</dt>
-<dd>El workflow del job conserva su cupo hasta que el pull request recibe el merge o el job queda en espera.</dd>
+<dd>El workflow del job conserva su cupo hasta que el pull request recibe el merge, hasta que termina la promoción cuando está habilitada, o hasta que el job se omite. Un job en espera conserva su cupo: un impedimento simple se omite tras 3 días, y una espera por decisión aguarda hasta que se responde.</dd>
 <dt>La calidad es un piso</dt>
-<dd>Los roles <code>test</code> y <code>security</code> son obligatorios antes de cualquier llamada a un agente. El piso comprueba que los roles existen, no lo que ejecutan, y el control <code>security</code> heredado es no bloqueante.</dd>
+<dd>Los roles <code>test</code> y <code>security</code> son obligatorios antes de la pasada de implementación. El piso comprueba que los roles existen, no lo que ejecutan, y el control <code>security</code> heredado es no bloqueante.</dd>
 <dt>El código es la fuente de verdad</dt>
 <dd>El mapa de conocimiento se entrega a un agente solo cuando sus sumas de comprobación prueban que describe la copia de trabajo de ese mismo job; si no, no se entrega nada.</dd>
 <dt>Atribuido al bot</dt>
@@ -119,7 +119,7 @@
 <p>Toda lectura de un tracker sigue una regla, enunciada en su clase base: <code>None</code> significa que la lectura falló; una lista vacía significa que la lectura tuvo éxito y no encontró nada. Los tableros siguen la misma regla, y la suite de conformidad de adaptadores la comprueba para los trackers. Valores tipados como <code>Unreadable</code> mantienen la misma distinción en otras partes.</p>
 
 <h2>Rechazar antes de escribir</h2>
-<p>Una comprobación que puede rechazar se ejecuta antes de escribir nada. Una transición de tarjeta rechazada no cambia nada y explica por qué; el piso rechaza un job antes de cualquier llamada a un agente; el pipeline de conocimiento rechaza un destino fuera de su directorio antes de clonar nada; una opción de línea de comandos rechazada indica que no se leyó ni se escribió nada.</p>
+<p>Una comprobación que puede rechazar se ejecuta antes de escribir nada. Una transición de tarjeta rechazada no cambia nada y explica por qué; el piso rechaza un job antes de la pasada de implementación; el pipeline de conocimiento rechaza un destino fuera de su directorio antes de clonar nada; una opción de línea de comandos rechazada indica que no se leyó ni se escribió nada.</p>
 
 <h2>Un presupuesto de prompt que nombra lo que deja fuera</h2>
 <p>El prompt de un job tiene un único presupuesto (ADR-0056): <code>BEEVERFORGE_PROMPT_BUDGET</code>, predeterminado 160.000 bytes, compartido por la tarjeta, el plan y los documentos que declara el proyecto. <code>off</code> lo desactiva; un valor que no puede leerse se rechaza. Cada documento que queda fuera se nombra en el prompt, con la ruta que el agente puede abrir y su tamaño, bajo un encabezado que indica al agente que lo abra antes de cambiar lo que regula. Un documento recortado por su propio límite de longitud se lista con cuánto de él se incluyó.</p>

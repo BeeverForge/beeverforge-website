@@ -95,7 +95,7 @@
 <line class="d-edge" x1="480" y1="334" x2="480" y2="400" marker-end="url(#states-arrow)"/>
 <rect class="d-box" x="780" y="402" width="160" height="34" rx="5"/><text class="d-mono" x="860" y="423" text-anchor="middle" translate="no">skipped</text>
 <line class="d-edge" x1="760" y1="419" x2="778" y2="419" marker-end="url(#states-arrow)"/>
-<text class="d-small" x="780" y="458">Pulo feito por uma pessoa</text>
+<text class="d-small" x="780" y="458">Pulo de uma pessoa, uma</text><text class="d-small" x="780" y="472">pergunta prévia ou cartão retirado</text>
 <rect class="d-box d-dash" x="20" y="482" width="160" height="34" rx="5"/><text class="d-mono" x="100" y="503" text-anchor="middle" translate="no">ready</text>
 <rect class="d-box d-dash" x="210" y="482" width="160" height="34" rx="5"/><text class="d-mono" x="290" y="503" text-anchor="middle" translate="no">ci_waiting</text>
 <rect class="d-box d-dash" x="400" y="482" width="160" height="34" rx="5"/><text class="d-mono" x="480" y="503" text-anchor="middle" translate="no">staging_deploying</text>
@@ -147,16 +147,16 @@
 <p>Enquanto o pull request está aberto, o workflow o acompanha, qualquer que seja a política de merge (ADR-0004). Ele consulta a cada 2 minutos na primeira hora e a cada 15 minutos depois disso. Uma CI vermelha dispara até 2 passadas de reparo; um branch que ficou atrás da sua base é atualizado até 6 vezes; quando nenhum check informou nada após 10 minutos, o job diz isso em vez de interpretar o silêncio como verde. Após 14 dias sem merge, o job fica em espera.</p>
 
 <h3>11. Merge sobre a base atual</h3>
-<p>Com o <code>merge_policy: human</code> padrão, uma pessoa faz o merge. Com <code>merge_policy: auto</code>, o job faz o merge só quando os controles estão verdes, nenhuma revisão bloqueante o rejeitou, não resta nenhuma supressão grave, a mudança não é avaliada como de alto risco, não toca nenhum caminho protegido e o piso pôde ser lido. Antes, ele leva o branch para a base atual e executa os controles de novo se a base mudou (ADR-0003).</p>
+<p>Com o <code>merge_policy: human</code> padrão, uma pessoa faz o merge. Com <code>merge_policy: auto</code>, o job faz o merge só quando os controles estão verdes, nenhuma revisão bloqueante o rejeitou, não resta nenhuma supressão grave, a mudança não é avaliada como de alto risco, não toca nenhum caminho protegido, o piso e o diff puderam ser lidos e a contagem de testes não diminuiu, entre as condições de <code>orchestrator/merge_policy.py</code>. Antes, ele leva o branch para a base atual e executa os controles de novo se a base mudou (ADR-0003).</p>
 
 <h3>12. A vaga é liberada no merge</h3>
-<p>O job mantém sua vaga até o merge do seu pull request ou até ficar em espera, não quando o agente termina (ADR-0007, ADR-0010). Por isso, o próximo ticket parte de uma base que inclui este.</p>
+<p>O job mantém sua vaga até o merge do seu pull request ou, quando a promoção está habilitada, até a promoção terminar; um pulo também a libera. Terminar a passada do agente não libera a vaga, e um job em espera a mantém (ADR-0007, ADR-0010). Por isso, o próximo ticket parte de uma base que inclui este.</p>
 
 <h3>13. Observação da implantação e promoção</h3>
 <p>Quando o manifesto configura <code>post_merge_deploy</code>, um workflow filho independente observa a cada minuto a implantação do próprio projeto e informa o resultado; ele não ocupa uma vaga e não bloqueia (ADR-0005). Quando a promoção está habilitada, o job verifica o staging e depois espera em <code>awaiting_prod_approval</code> por uma pessoa, por até 3 dias antes de ficar em espera. A aprovação chega ao workflow como uma resposta selada que é verificada antes de qualquer ação e só pode ser usada uma vez. Após a aprovação, o job cria a tag da versão, verifica a produção e termina em <code>done</code>, ou reverte e fica em espera.</p>
 
 <h3>14. Em espera com opções</h3>
-<p>Um job que não pode continuar fica em espera e move seu cartão para a coluna de atenção do quadro com um comentário que explica o motivo. As opções oferecidas são retomar, que continua o trabalho preservado, e pular, que libera a vaga, além das opções de decisão que o job tenha levantado. Um impedimento simples que ninguém responde em 3 dias é pulado automaticamente para que a fila não trave; uma espera por decisão se mantém até ser respondida. Só o pulo feito por uma pessoa registra o job como <code>skipped</code>. Um job que atinge um limite de uso passa a <code>paused</code> e retoma sozinho com um intervalo que cresce de 30 minutos a 2 horas, no máximo 48 vezes, e depois fica em espera.</p>
+<p>Um job que não pode continuar fica em espera e move seu cartão para a coluna de atenção do quadro com um comentário que explica o motivo. As opções oferecidas são retomar, que continua o trabalho preservado, e pular, que libera a vaga, além das opções de decisão que o job tenha levantado. Um job em espera mantém sua vaga. Um impedimento simples que ninguém responde em 3 dias é pulado automaticamente, o que libera a vaga para que a fila não trave; uma espera por decisão se mantém até ser respondida. Um job é registrado como <code>skipped</code> quando uma pessoa o pula, quando perguntou antes de começar (estação 3) ou quando seu cartão foi retirado, por exemplo fechado como não planejado, enquanto esperava na fila; o pulo automático o deixa em <code>on_hold</code>. Um job que atinge um limite de uso passa a <code>paused</code> e retoma sozinho com um intervalo que cresce de 30 minutos a 2 horas, no máximo 48 vezes, e depois fica em espera.</p>
 
 <section class="doc-sources">
 <h2>Fontes</h2>

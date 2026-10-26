@@ -42,7 +42,7 @@
   </header>
   <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Architecture contents"><details class="doc-toc" open data-doc-toc><summary>Contents</summary><p class="doc-toc-title">BeeverForge Community architecture</p><ol><li><a href="/architecture/">Overview</a></li><li><a href="/architecture/lifecycle/">Lifecycle of a ticket</a></li><li><a href="/architecture/runtime/">Runtime and durability</a></li><li><a href="/architecture/box/">The box and the quality floor</a></li><li><a href="/architecture/extensions/" aria-current="page">Extension model</a></li><li><a href="/architecture/principles/">Engineering principles</a></li><li><a href="/architecture/repository/">Repository principles</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">BeeverForge Community architecture</p>
 <h1>Extension model</h1>
-<p class="doc-lead">Every external dependency of the core sits behind an adapter, and every adapter is chosen by a registry from configuration. A new provider is added by installing a package that declares an entry point, without changing the core.</p>
+<p class="doc-lead">Every external dependency of the core except the engine, Temporal, sits behind an adapter, and every adapter is chosen by a registry from configuration. A new provider is added by installing a package that declares an entry point, without changing the core.</p>
 
 <h2>Axes</h2>
 <p>An axis is one kind of thing the core can be extended with. The published list is <code>AXES</code> in <code>beeverforge/plugins.py</code>:</p>

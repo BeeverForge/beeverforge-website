@@ -68,7 +68,7 @@
 <p>A falta de uma ferramenta opcional, como Docker ou <code>node</code>, faz um teste ser pulado ao rodar; isso nunca muda o que é coletado. A CI define <code>TEST_REQUIRE_DOCKER</code>, que lá transforma o pulo por falta de Docker em falha. O servidor de testes do Temporal é um pré-requisito obrigatório, não um pulo.</p>
 <h3>A CI segue o Makefile e cada teste roda uma vez</h3>
 <ul>
-<li>Cada etapa da CI executa um alvo do <code>make</code> (<code>install</code>, <code>lint</code>, <code>test-collect</code>, <code>test-unit</code> em quatro partes, <code>test-integration</code>, <code>test-alone</code>, <code>test-ran-once</code>), exceto a etapa final, que informa se todos os jobs passaram.</li>
+<li>Cada etapa da CI que testa ou analisa executa um alvo do <code>make</code> (<code>install</code>, <code>lint</code>, <code>test-collect</code>, <code>test-unit</code> em quatro partes, <code>test-integration</code>, <code>test-alone</code>, <code>test-ran-once</code>). As demais etapas obtêm o código, preparam as ferramentas, movem artefatos entre jobs ou informam se todos os jobs passaram.</li>
 <li>Uma guarda expande com <code>make -n</code> os alvos que a CI nomeia e verifica que eles continuam rodando a suíte e analisando cada raiz que a suíte cobre. Nenhuma guarda proíbe uma etapa de CI que não seja um alvo do <code>make</code>.</li>
 <li>A suíte é coletada uma vez; cada parte registra os ids dos testes que executou; <code>scripts/every_test_ran_once.py</code> falha diante de um teste ausente, duplicado ou desconhecido. Uma coleta vazia é uma falha, não um sucesso.</li>
 </ul>
@@ -76,6 +76,7 @@
 <p><code>make lint</code> executa <code>ruff</code> e <code>shellcheck</code>. <code>mypy</code> e <code>bandit</code> estão configurados em <code>pyproject.toml</code> e são instalados com o extra de desenvolvimento, mas nenhum deles roda no Makefile nem na CI; eles não são obrigatórios.</p>
 
 <h2>Código e documentação</h2>
+<p>Dessas três regras, só o fragmento do changelog é verificado, por um workflow. As outras duas são convenções documentadas, em <code>CONTRIBUTING.md</code> e <code>docs/adr/README.md</code>.</p>
 <ul>
 <li><strong>Os comentários dizem por quê</strong>, com a medição: a data, o código de saída ou o incidente que tornou a linha necessária.</li>
 <li><strong>Fragmentos do changelog.</strong> Um pull request que muda comportamento adiciona <code>changes/&lt;issue&gt;.&lt;type&gt;.md</code>, onde o tipo é um entre <code>highlight</code>, <code>behaviour</code>, <code>fix</code>, <code>security</code>, <code>upgrade</code> ou <code>limitation</code>. Um workflow verifica cada pull request; um que só muda documentação ou testes leva, em vez disso, o rótulo <code>no-release-note</code>.</li>
@@ -83,12 +84,13 @@
 </ul>
 
 <h2>Lançamentos e versões</h2>
+<p>Estas regras são convenções documentadas, escritas em <code>docs/RELEASING.md</code>. O workflow de publicação roda com qualquer tag que comece com <code>v</code> e não as verifica, e o ensaio de instalação roda depois da publicação, não antes. O que é verificado está em Guardas de publicação.</p>
 <ul>
 <li>As versões são versões semânticas anteriores à 1.0. Uma versão menor traz funcionalidades e mudanças de comportamento; um patch traz só correções e recebe a tag no seu branch <code>release/x.y</code>, nunca no <code>main</code>.</li>
 <li>Uma versão candidata recebe a tag <code>vx.y.z-rc.N</code> e é publicada como pré-lançamento; as instalações continuam resolvendo a última versão final, a menos que a candidata seja nomeada. Uma versão menor sempre passa por pelo menos uma candidata.</li>
-<li>O pacote declara exatamente a tag sem o <code>v</code>, e o workflow de publicação recusa uma tag que o pacote não declara. Cada mudança de versão regenera a descrição OpenAPI versionada no mesmo commit.</li>
+<li>O pacote declara exatamente a tag sem o <code>v</code>, e, quando a publicação no PyPI está habilitada, o workflow de publicação recusa uma tag que o pacote não declara. Cada mudança de versão regenera a descrição OpenAPI versionada no mesmo commit.</li>
 <li>A versão final recebe a tag no commit em que a última candidata foi verificada, mais o commit que declara a versão e suas notas.</li>
-<li>Uma versão publicada fica congelada: nenhuma tag é movida, apagada ou enviada de novo. O upgrade é ensaiado antes de cada tag. Defeitos de segurança seguem um caminho de aviso privado. Só o responsável pelas versões cria um branch de versão ou uma tag.</li>
+<li>Uma versão publicada fica congelada: nenhuma tag é movida, apagada ou enviada de novo. O upgrade deve ser ensaiado antes de cada tag. Defeitos de segurança seguem um caminho de aviso privado. Só o responsável pelas versões cria um branch de versão ou uma tag.</li>
 </ul>
 <h3>Guardas de publicação</h3>
 <ul>
@@ -161,7 +163,7 @@
 <tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0054-a-card-is-judged-before-the-yes.md" translate="no">ADR-0054</a></td><td translate="no">A card the product role opens is drafted, judged against a rubric, and shown whole before the yes</td><td>Aceito</td></tr>
 <tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0055-a-card-has-one-lifecycle.md" translate="no">ADR-0055</a></td><td translate="no">A card has one lifecycle: one door for every change of its state, one table of what follows, one record of what happened</td><td>Implementado; o registro diz Proposed</td></tr>
 <tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0056-a-prompt-has-one-budget-and-names-what-it-leaves-out.md" translate="no">ADR-0056</a></td><td translate="no">A job's prompt has one budget, and every document it leaves out is named in it</td><td>Aceito</td></tr>
-<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0057-who-may-act-is-one-decision-and-a-production-approval-is-a-person.md" translate="no">ADR-0057</a></td><td translate="no">Who may act is one decision the core's policy makes, and a production approval is a person, not a password</td><td>Proposto</td></tr>
+<tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0057-who-may-act-is-one-decision-and-a-production-approval-is-a-person.md" translate="no">ADR-0057</a></td><td translate="no">Who may act is one decision the core's policy makes, and a production approval is a person, not a password</td><td>Proposto, implementado em parte</td></tr>
 <tr><td><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0058-a-product-owns-its-requirement-template.md" translate="no">ADR-0058</a></td><td translate="no">A product owns its requirement template</td><td>Aceito</td></tr>
 
 </tbody>

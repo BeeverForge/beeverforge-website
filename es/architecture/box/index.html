@@ -67,7 +67,7 @@
 <li>Se comprueba el harness: su versión, sus credenciales tal como se ven dentro de la caja, el almacén de confianza y si el endpoint del harness es accesible a través de la red de la caja.</li>
 </ol>
 <p>En una caja que ejecuta la imagen del cliente, la certificación no pide nada a ningún agente y no gasta tokens del harness. En una caja sin imagen, donde el inicio de sesión del harness es una sesión en la máquina del operador, pide al harness una sola palabra para confirmar que el inicio de sesión funciona.</p>
-<p>Una certificación es válida mientras no cambien el digest de la imagen, la caja de herramientas ni el hash de los comandos <code>setup:</code> y <code>validate:</code> del proyecto; una nueva versión del harness también la deja obsoleta. Las certificaciones no caducan por tiempo. La exploración del tablero se niega a recoger trabajo de un proyecto cuya caja tiene algo que certificar y no tiene una certificación válida, e indica cuál de esos hechos cambió. Una caja <code>worktree</code> no tiene imagen y no está sujeta a este control.</p>
+<p>Una certificación es válida mientras no cambien el digest de la imagen, la caja de herramientas ni el hash de los comandos <code>setup:</code> y <code>validate:</code> del proyecto. En una caja con imagen, la caja de herramientas se identifica por su sistema operativo, su arquitectura y su biblioteca C; en una caja sin imagen, una nueva versión del harness deja obsoleta la certificación. Las certificaciones no caducan por tiempo. La exploración del tablero se niega a recoger trabajo de un proyecto cuya caja tiene algo que certificar y no tiene una certificación válida, e indica cuál de esos hechos cambió. Una caja <code>worktree</code> no tiene imagen; solo está sujeta a este control en un despliegue que declara <code>BEEVERFORGE_OWN_WORK</code>, el entorno donde el worker es la propia máquina del operador.</p>
 <p>Un control no bloqueante que falla durante la certificación no detiene la recogida, salvo que su comando no haya podido ejecutarse en absoluto.</p>
 
 <h2>El montaje de la caja de herramientas</h2>
@@ -78,12 +78,12 @@
 <ul>
 <li><code>box.network</code> en el registro selecciona otra red de Docker, como una red restringida o una detrás de un proxy que proporcione el despliegue. El núcleo no tiene una lista de permitidos ni un proxy integrados.</li>
 <li>Un job necesita como mínimo el endpoint del harness. Un proyecto en una plataforma Git remota necesita además la plataforma Git y el tracker, y todo lo que <code>setup:</code> instale desde registros de paquetes.</li>
-<li>La certificación comprueba que el endpoint del harness es accesible y verifica si la caja puede llegar a la dirección de metadatos de instancia de la nube.</li>
+<li>La certificación comprueba que el endpoint del harness es accesible. Cuando un proyecto declara una identidad de máquina, <code>beeverforge doctor</code> verifica si la caja puede llegar a la dirección de metadatos de instancia de la nube.</li>
 <li>Un entorno aislado de la red no puede ejecutar un job, porque el agente de programación es un servicio remoto.</li>
 </ul>
 
 <h2>El piso de calidad</h2>
-<p>El piso está en <code>policy/floor.py</code>: los roles de validación <code>test</code> y <code>security</code> son obligatorios. Antes de cualquier llamada a un agente, el ejecutor comprueba que ambos roles están presentes después de la cascada de valores predeterminados del despliegue, presets del stack, el bloque de todo el repositorio y los bloques por componente. Un proyecto al que le falta uno se rechaza nombrando el rol y una solución; no se ejecuta nada.</p>
+<p>El piso está en <code>policy/floor.py</code>: los roles de validación <code>test</code> y <code>security</code> son obligatorios. Antes de la pasada de implementación, después del dimensionamiento, el ejecutor comprueba que ambos roles están presentes después de la cascada de valores predeterminados del despliegue, presets del stack, el bloque de todo el repositorio y los bloques por componente. Un proyecto al que le falta uno se rechaza nombrando el rol y una solución; no se ejecuta nada.</p>
 <ul>
 <li>Todo proyecto hereda un control <code>security</code> de <code>org_defaults/floor.yaml</code>: un análisis de los archivos versionados en busca de credenciales incluidas en commits. Está declarado como <code>advisory: true</code>.</li>
 <li>La herencia solo añade los roles que el proyecto no declara. Un proyecto que declara un rol lo conserva tal como está escrito, así que puede sustituir el comando de un rol obligatorio, o hacerlo no bloqueante, y seguir cumpliendo el piso. El piso comprueba que los roles existen, no lo que ejecutan.</li>

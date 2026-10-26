@@ -95,7 +95,7 @@
 <line class="d-edge" x1="480" y1="334" x2="480" y2="400" marker-end="url(#states-arrow)"/>
 <rect class="d-box" x="780" y="402" width="160" height="34" rx="5"/><text class="d-mono" x="860" y="423" text-anchor="middle" translate="no">skipped</text>
 <line class="d-edge" x1="760" y1="419" x2="778" y2="419" marker-end="url(#states-arrow)"/>
-<text class="d-small" x="780" y="458">A person’s skip</text>
+<text class="d-small" x="780" y="458">A person’s skip, an ask</text><text class="d-small" x="780" y="472">first, or a withdrawn card</text>
 <rect class="d-box d-dash" x="20" y="482" width="160" height="34" rx="5"/><text class="d-mono" x="100" y="503" text-anchor="middle" translate="no">ready</text>
 <rect class="d-box d-dash" x="210" y="482" width="160" height="34" rx="5"/><text class="d-mono" x="290" y="503" text-anchor="middle" translate="no">ci_waiting</text>
 <rect class="d-box d-dash" x="400" y="482" width="160" height="34" rx="5"/><text class="d-mono" x="480" y="503" text-anchor="middle" translate="no">staging_deploying</text>
@@ -147,16 +147,16 @@
 <p>While the pull request is open, the workflow watches it, whichever merge policy applies (ADR-0004). It polls every 2 minutes for the first hour and every 15 minutes after that. A red CI triggers up to 2 repair passes; a branch that has fallen behind its base is updated up to 6 times; when no check has reported after 10 minutes, the job says so instead of reading silence as green. After 14 days without a merge the job parks.</p>
 
 <h3>11. Merge on the current base</h3>
-<p>With the default <code>merge_policy: human</code>, a person merges. With <code>merge_policy: auto</code>, the job merges only when the gates are green, no blocking review rejected it, no hard suppression remains, the change is not assessed high-risk, it touches no protected path and the floor could be read. It first brings the branch onto the current base and re-runs the gates if the base moved (ADR-0003).</p>
+<p>With the default <code>merge_policy: human</code>, a person merges. With <code>merge_policy: auto</code>, the job merges only when the gates are green, no blocking review rejected it, no hard suppression remains, the change is not assessed high-risk, it touches no protected path, the floor and the diff could be read and the test count did not shrink, among the conditions in <code>orchestrator/merge_policy.py</code>. It first brings the branch onto the current base and re-runs the gates if the base moved (ADR-0003).</p>
 
 <h3>12. The floor frees at merge</h3>
-<p>The job keeps its slot until its pull request merges or the job parks, not when the agent finishes (ADR-0007, ADR-0010). The next ticket therefore starts from a base that includes this one.</p>
+<p>The job keeps its slot until its pull request merges or, when promotion is enabled, until promotion ends; a skip also frees it. Finishing the agent pass does not free the slot, and a parked job keeps it (ADR-0007, ADR-0010). The next ticket therefore starts from a base that includes this one.</p>
 
 <h3>13. Deploy watch and promotion</h3>
 <p>When the manifest configures <code>post_merge_deploy</code>, a detached child workflow observes the project’s own deployment every minute and reports the outcome; it does not take a slot and does not block (ADR-0005). When promotion is enabled, the job verifies staging, then waits in <code>awaiting_prod_approval</code> for a person, for up to 3 days before parking. The approval reaches the workflow as a sealed answer that is verified before it is acted on and can be spent once. After approval the job tags the release, verifies production and ends <code>done</code>, or rolls back and parks.</p>
 
 <h3>14. Park with options</h3>
-<p>A job that cannot continue parks and moves its card to the board’s attention column with a comment that says why. The options offered are resume, which continues the preserved work, and skip, which frees the slot, plus any decision options the job asked about. A plain impediment that nobody answers within 3 days is skipped automatically so the queue cannot jam; a decision park holds until it is answered. Only a person’s skip records the job as <code>skipped</code>. A job that hits a rate limit is <code>paused</code> and resumes itself with a backoff that grows from 30 minutes to 2 hours, at most 48 times, then parks.</p>
+<p>A job that cannot continue parks and moves its card to the board’s attention column with a comment that says why. The options offered are resume, which continues the preserved work, and skip, which frees the slot, plus any decision options the job asked about. A parked job keeps its slot. A plain impediment that nobody answers within 3 days is skipped automatically, which frees the slot so the queue cannot jam; a decision park holds until it is answered. A job is recorded as <code>skipped</code> when a person skips it, when it asked before starting (station 3), or when its card was withdrawn, for example closed as not planned, while it waited in the queue; the automatic skip leaves it <code>on_hold</code>. A job that hits a rate limit is <code>paused</code> and resumes itself with a backoff that grows from 30 minutes to 2 hours, at most 48 times, then parks.</p>
 
 <section class="doc-sources">
 <h2>Sources</h2>
