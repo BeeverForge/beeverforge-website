@@ -1,6 +1,6 @@
 <title>Runtime and durability</title>
-<meta name="description" content="How the BeeverForge Community core runs on Temporal: workflows, activities, schedules, signals, durable timers, idempotent side effects, replay safety, bounded memory and observability.">
-<p class="eyebrow">BeeverForge Community architecture</p>
+<meta name="description" content="How the BeeverForge core runs on Temporal: workflows, activities, schedules, signals, durable timers, idempotent side effects, replay safety, bounded memory and observability.">
+<p class="eyebrow">BeeverForge core architecture</p>
 <h1>Runtime and durability</h1>
 <p class="doc-lead">The engine is Temporal. Every job is a workflow, every side effect is an activity, and every wait, from a CI poll to a production approval, is a durable timer or condition. A worker restart therefore does not lose the job: its waits continue where they were, and a job whose worker is lost during the agent pass parks for a person to resume or skip, because that pass is not retried.</p>
 

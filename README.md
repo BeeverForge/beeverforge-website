@@ -16,6 +16,6 @@ Google Analytics 4 uses measurement ID `G-JH25XRDJHG`. The tag loads only after 
 
 ## Hosting
 
-GitHub holds the code and GitHub Pages serves the static website through `.github/workflows/deploy-pages.yml` on `main`. Hostinger administers the domain; no DNS change is needed for this release. The retired `/v1/` and `/v2/` routes redirect to `/` with `noindex`. The original OpenFactory domain has not been changed.
+GitHub holds the code and GitHub Pages serves the static website through `.github/workflows/deploy-pages.yml` on `main`. Hostinger administers the domain; no DNS change is needed for this release. The retired `/v1/` and `/v2/` routes redirect to `/` with `noindex`.
 
 See [RELEASE.md](RELEASE.md) for verification and product-claim notes.

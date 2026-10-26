@@ -1,4 +1,4 @@
-// Builds the "BeeverForge Community architecture" section from architecture-src/*.html.
+// Builds the "BeeverForge core architecture" section from architecture-src/*.html.
 // Each source holds a <title>, a <meta name="description"> and the article body (English).
 // Spanish and Portuguese come from scripts/translations.tsv, one row per translation unit:
 // the whole content of a heading, paragraph, list item, table cell, caption or SVG label.
@@ -15,7 +15,7 @@ export const pages = [
   { slug: 'principles/', file: 'principles.html', nav: 'Engineering principles' },
   { slug: 'repository/', file: 'repository.html', nav: 'Repository principles' },
 ];
-const SECTION = 'BeeverForge Community architecture';
+const SECTION = 'BeeverForge core architecture';
 // Every source link is pinned to one commit of the core, written in the sources as @core/<path>
 // (a file) or @tree/<path> (a directory). No release tag existed when the section was written.
 const CORE = 'https://github.com/BeeverForge/beeverforge-oss';
@@ -105,7 +105,7 @@ export async function buildArchitecture({ root, source, translations, locales, l
         part = part.replace('href="/final-preview/" aria-label="BeeverForge preview home"', `href="${l.path}" aria-label="BeeverForge home"`)
           .replace(/href="#(editions|lifecycle|comparison|questions|contact)"/g, `href="${l.path}#$1"`)
           .replaceAll('href="/architecture/">', `href="${l.path}architecture/" aria-current="true">`)
-          .replace('Final design preview · not indexed', 'The next chapter of OpenFactory')
+          .replace('Final design preview · not indexed', 'From idea to engineered software')
           .replace(/<option value="\/(es\/|pt\/)?"( selected)?>/g, (m, prefix) => {
             const code = prefix ? prefix.slice(0, 2) : 'en';
             return `<option value="${urlOf(code, locales, page)}"${code === locale ? ' selected' : ''}>`;
