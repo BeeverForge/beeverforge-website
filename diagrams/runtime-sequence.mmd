@@ -1,0 +1,27 @@
+sequenceDiagram
+  accTitle: From a poll tick to a release
+  accDescr: The schedule starts the poll workflow, whose activities read the boards, count the free slots and start one job workflow per free slot. The job workflow runs sizing and the job as activities, the job runs in its box, and the workflow then waits on durable timers until the merge, and on signals for a person’s answers.
+  participant P as `PollWorkflow`
+  participant J as `JobWorkflow`
+  participant A as Activities
+  participant B as Box
+  actor H as A person
+  Note over P: Started by the schedule<br>every 3 minutes
+  P->>A: `scan_projects`, `available_slots`
+  P->>A: `scan_todo`<br>checks the box proof
+  P->>A: `start_jobs`
+  A-->>J: Start, one per free slot
+  J->>A: `preflight_check`<br>sizing
+  J->>A: `run_job`<br>heartbeat about every 30 s
+  A->>B: `setup:`, agent pass,<br>`validate:` gates, review
+  A-->>J: The pull request is open
+  loop Until it merges, at most 14 days
+    J->>J: Durable timer: 2 minutes, then 15
+    J->>A: `check_pr_status`, CI checks,<br>`repair_ci` when red
+  end
+  H-)J: `human_merge_gate`<br>sealed, from the panel
+  opt Promotion enabled
+    J->>A: `promote_staging`
+    H-)J: `approve_prod`<br>sealed, within 3 days
+    J->>A: `verify_gate_seal`,<br>then `release_prod`
+  end

@@ -15,6 +15,10 @@
 </dl>
 <p>Other workflows cover the tech-lead watch, the knowledge refresh, the product role and the sweeps listed below. The heavy work, such as running the job in its box, is the <code>run_job</code> activity.</p>
 
+<figure class="doc-figure">
+<div class="doc-diagram" data-diagram="runtime-sequence"></div>
+<figcaption>One job from the poll to a release. Calls to Activities run on the worker; a person’s answers arrive as signals. Every wait is a durable timer or condition, so none of them holds a worker.</figcaption>
+</figure>
 <h2>Schedules</h2>
 <p>Recurring work is a Temporal schedule, reconciled by the worker when it starts.</p>
 <div class="doc-table">

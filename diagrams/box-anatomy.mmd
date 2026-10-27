@@ -1,0 +1,17 @@
+flowchart TB
+  accTitle: Inside a container box
+  accDescr: The worker starts the box from the project’s image through the Docker socket, with CPU and memory limits, and passes the job’s secrets as environment variables. The box mounts the job’s clone, the read-only toolbox and guidelines, and a cache. Its network is Docker’s `bridge` by default.
+  runner["Worker: the job runner"]
+  subgraph box["Box: a container from the project’s image"]
+    direction TB
+    ws["`/workspace`<br>the job’s clone"]
+    tb["`/opt/beeverforge-toolbox`<br>harness binaries, read-only"]
+    gl["`/opt/beeverforge-guidelines`<br>guidelines, read-only"]
+    cache["`/cache`<br>dependency cache"]
+    ws ~~~ tb
+    gl ~~~ cache
+  end
+  net["Network reachable from the box"]
+  runner -->|"`docker run` with CPU and memory limits,<br>then `docker exec`, through the Docker socket"| box
+  runner -.->|"secrets as environment variables"| box
+  box -->|"`bridge` by default"| net

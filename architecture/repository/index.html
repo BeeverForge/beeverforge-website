@@ -44,38 +44,38 @@
 <h1>Repository principles</h1>
 <p class="doc-lead">The rules the core repository holds itself to, from how a test is named to how a release is cut. Most are written in <code>CONTRIBUTING.md</code> and <code>docs/RELEASING.md</code> and enforced by a test or a workflow; where a rule is a convention rather than a check, this page says so.</p>
 
-<h2>Tests</h2>
-<h3>Named as sentences</h3>
+<h2 id="tests">Tests<a class="doc-anchor" href="#tests" aria-label="Link to this section">#</a></h2>
+<h3 id="named-as-sentences">Named as sentences<a class="doc-anchor" href="#named-as-sentences" aria-label="Link to this section">#</a></h3>
 <p>A test file states what it proves, for example <code>test_a_card_is_closed_only_when_its_work_merges.py</code>, so that searching the suite for a behaviour finds the test that holds it.</p>
-<h3>Both orders and in parallel</h3>
+<h3 id="both-orders-and-in-parallel">Both orders and in parallel<a class="doc-anchor" href="#both-orders-and-in-parallel" aria-label="Link to this section">#</a></h3>
 <p>The suite runs in random order by default (<code>pytest-randomly</code>) and in parallel (<code>pytest-xdist</code>). Contributors are asked to run it in parallel in both random and fixed order (<code>-p no:randomly</code>). A failure that depends on order is treated as a state leak, not as flakiness. CI runs the random order, sharded; it does not run the fixed order. The conftest records each run’s seed so an order can be replayed.</p>
-<h3>Mutation-proven guards</h3>
+<h3 id="mutation-proven-guards">Mutation-proven guards<a class="doc-anchor" href="#mutation-proven-guards" aria-label="Link to this section">#</a></h3>
 <p><code>tools/mutate.py</code> runs a mutation plan: each plan names a test and a list of exact source edits, and every edit must turn that test red. It refuses to start unless each edit’s anchor matches exactly once and the baseline is green.</p>
 <ul>
 <li>The runner is crash-safe. Before it mutates a file it backs the file up outside the tree and writes an in-flight note at the repository root; it restores the file and checks the restored text in a <code>finally</code> block. Because a killed process skips <code>finally</code>, the next run refuses to start while a note exists and prints the commands that restore the file.</li>
 <li>Mutation plans are run by contributors, not in CI. A test checks that every plan can run.</li>
 </ul>
-<h3>A guard reads the thing, not text about the thing</h3>
+<h3 id="a-guard-reads-the-thing-not-text-about-the-thing">A guard reads the thing, not text about the thing<a class="doc-anchor" href="#a-guard-reads-the-thing-not-text-about-the-thing" aria-label="Link to this section">#</a></h3>
 <p>A test that guards a configuration executes it or parses it: it runs the script and reads its arguments, or loads the YAML and reads the key. Where text must be searched, comments are stripped first.</p>
-<h3>A hermetic suite</h3>
+<h3 id="a-hermetic-suite">A hermetic suite<a class="doc-anchor" href="#a-hermetic-suite" aria-label="Link to this section">#</a></h3>
 <ul>
 <li>Live credentials are removed from the environment before collection and again before every test: forge, chat, engine, harness and cloud variables, and the operator’s own <code>BEEVERFORGE_*</code> settings.</li>
 <li>The suite runs under its own <code>HOME</code>, with each test given a fresh one, and the <code>gh</code> login hidden. The project registry is a temporary directory, fresh for every test.</li>
 <li>No test reaches a live engine: connecting to Temporal raises, except in tests marked <code>owns_its_engine</code>, which start and dispose of their own ephemeral server.</li>
 <li>The suite commits under its own git identity.</li>
 </ul>
-<h3>Optional externals skip at run time</h3>
+<h3 id="optional-externals-skip-at-run-time">Optional externals skip at run time<a class="doc-anchor" href="#optional-externals-skip-at-run-time" aria-label="Link to this section">#</a></h3>
 <p>A missing optional tool, such as Docker or <code>node</code>, makes a test skip when it runs; it never changes what is collected. CI sets <code>TEST_REQUIRE_DOCKER</code>, which turns the Docker skip into a failure there. The Temporal test server is a hard prerequisite, not a skip.</p>
-<h3>CI is held to the Makefile, and every test runs once</h3>
+<h3 id="ci-is-held-to-the-makefile-and-every-test-runs-once">CI is held to the Makefile, and every test runs once<a class="doc-anchor" href="#ci-is-held-to-the-makefile-and-every-test-runs-once" aria-label="Link to this section">#</a></h3>
 <ul>
 <li>Each CI step that tests or lints runs a <code>make</code> target (<code>install</code>, <code>lint</code>, <code>test-collect</code>, <code>test-unit</code> in four shards, <code>test-integration</code>, <code>test-alone</code>, <code>test-ran-once</code>). The other steps check out the code, set up the tools, move artifacts between jobs or report whether every job passed.</li>
 <li>A guard expands the targets CI names with <code>make -n</code> and checks that they still run the suite and lint every root the suite covers. No guard forbids a CI step that is not a <code>make</code> target.</li>
 <li>The suite is collected once; every shard records the test ids it ran; <code>scripts/every_test_ran_once.py</code> fails on a test that is missing, doubled or unknown. An empty collection is a failure, not a pass.</li>
 </ul>
-<h3>Linters and type checking</h3>
+<h3 id="linters-and-type-checking">Linters and type checking<a class="doc-anchor" href="#linters-and-type-checking" aria-label="Link to this section">#</a></h3>
 <p><code>make lint</code> runs <code>ruff</code> and <code>shellcheck</code>. <code>mypy</code> and <code>bandit</code> are configured in <code>pyproject.toml</code> and installed with the development extra, but neither runs in the Makefile or in CI; they are not enforced.</p>
 
-<h2>Code and documentation</h2>
+<h2 id="code-and-documentation">Code and documentation<a class="doc-anchor" href="#code-and-documentation" aria-label="Link to this section">#</a></h2>
 <p>Of these three rules only the changelog fragment is checked, by a workflow. The other two are documented conventions, in <code>CONTRIBUTING.md</code> and <code>docs/adr/README.md</code>.</p>
 <ul>
 <li><strong>Comments say why</strong>, with the measurement: the date, the exit code or the incident that made the line necessary.</li>
@@ -83,7 +83,7 @@
 <li><strong>Decision records are amended in place.</strong> When a decision moves, the ADR is edited with a dated note that names the pull request. A new ADR supersedes an old one only when the decision is reversed, not refined.</li>
 </ul>
 
-<h2>Releases and versions</h2>
+<h2 id="releases-and-versions">Releases and versions<a class="doc-anchor" href="#releases-and-versions" aria-label="Link to this section">#</a></h2>
 <p>These rules are documented conventions, written in <code>docs/RELEASING.md</code>. The release workflow runs on any tag that starts with <code>v</code> and does not check them, and the install rehearsal runs after the release, not before it. What is checked is listed under Release guards.</p>
 <ul>
 <li>Versions are pre-1.0 semantic versions. A minor release carries features and changes of behaviour; a patch carries fixes only and is tagged on its <code>release/x.y</code> branch, never on <code>main</code>.</li>
@@ -92,16 +92,16 @@
 <li>The final release is tagged on the commit the last candidate was verified on, plus the commit that declares the version and its notes.</li>
 <li>A published release is frozen: no tag is moved, deleted or re-pushed. The upgrade is to be rehearsed before every tag. Security defects follow a private advisory path. Only the release manager creates a release branch or a tag.</li>
 </ul>
-<h3>Release guards</h3>
+<h3 id="release-guards">Release guards<a class="doc-anchor" href="#release-guards" aria-label="Link to this section">#</a></h3>
 <ul>
 <li><strong>The wheel.</strong> A test builds a real wheel from a pristine copy of the tree and checks that it ships <code>LICENSE</code> and <code>NOTICE</code>, that its only console script is <code>beeverforge</code>, that its long description is the declared page, and that every runtime data file the platform needs is inside it.</li>
 <li><strong>The API description.</strong> <code>docs/reference/openapi.json</code> must equal what the application generates.</li>
 </ul>
 
-<h2>Licence and name</h2>
+<h2 id="licence-and-name">Licence and name<a class="doc-anchor" href="#licence-and-name" aria-label="Link to this section">#</a></h2>
 <p>The core is licensed under Apache-2.0. There is no contributor licence agreement: the licence already settles what happens to a contribution, and copyright stays with its author. The <code>NOTICE</code> file separates the code from the name: the licence grants no right to the BeeverForge name, logo or marks, and only builds that pass the published conformance suite (<code>beeverforge conformance</code>, <code>beeverforge conformance-adapter</code>) may be called BeeverForge.</p>
 
-<h2>Architecture decision records</h2>
+<h2 id="architecture-decision-records">Architecture decision records<a class="doc-anchor" href="#architecture-decision-records" aria-label="Link to this section">#</a></h2>
 <p>The status column reflects the code at the pinned commit. Where a record’s own status line and the code disagree, the code is used: “partly implemented” means some of the decision is in the code and some is not.</p>
 <div class="doc-table doc-adr">
 <table>
@@ -171,7 +171,7 @@
 </div>
 
 <section class="doc-sources">
-<h2>Sources</h2>
+<h2 id="sources">Sources<a class="doc-anchor" href="#sources" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a></li>
 <li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/Makefile"><code>Makefile</code></a></li>

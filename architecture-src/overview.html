@@ -74,6 +74,10 @@
 <li><strong>Single-tenant, multi-project.</strong> One installation serves one team with one project registry. The registry holds any number of projects, each with its own repository, board and manifest (ADR-0001, D-14).</li>
 <li><strong>One job at a time by default.</strong> The number of jobs in flight is <code>BEEVERFORGE_MAX_CONCURRENT_JOBS</code>, default <code>1</code>.</li>
 </ul>
+<figure class="doc-figure">
+<div class="doc-diagram" data-diagram="deployment"></div>
+<figcaption>The default installation. The published ports bind to <code>127.0.0.1</code>; the box’s network is described on The box and the quality floor.</figcaption>
+</figure>
 <div class="doc-note">
 <p>The worker holds the host’s Docker socket, which gives it control of the host’s Docker daemon. The default box has full outbound network access. Both are described with their limits on The box and the quality floor.</p>
 </div>

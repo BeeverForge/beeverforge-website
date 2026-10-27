@@ -77,14 +77,50 @@ function translateString(text, locale, translations, missing) {
   return entry[locale];
 }
 
+// Every h2 and h3 of the article gets an id from its English text, so a link to a section is the
+// same in every language, and a visible anchor link after the heading text.
+const slugOf = (html) => html.replace(/<[^>]+>/g, '').replace(/&[a-z]+;/g, '').toLowerCase()
+  .normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+function slugsOf(body) {
+  const seen = new Set();
+  return [...body.matchAll(/<(h2|h3)>([\s\S]*?)<\/\1>/g)].map(([, , inner]) => {
+    let slug = slugOf(inner) || 'section';
+    for (let n = 2; seen.has(slug); n += 1) slug = `${slugOf(inner)}-${n}`;
+    seen.add(slug);
+    return slug;
+  });
+}
+function anchorHeadings(html, slugs, label) {
+  let index = 0;
+  const article = html.indexOf('<article');
+  return html.slice(0, article) + html.slice(article).replace(/<(h2|h3)>([\s\S]*?)<\/\1>/g, (m, tag, inner) => {
+    const slug = slugs[index++];
+    return `<${tag} id="${slug}">${inner}<a class="doc-anchor" href="#${slug}" aria-label="${label}">#</a></${tag}>`;
+  });
+}
+
+// A diagram is written in a page as <div class="doc-diagram" data-diagram="name"></div> and filled,
+// after translation, with diagrams/svg/<name>.<locale>.svg (rendered by scripts/diagrams.mjs). The
+// SVG is inlined so the page's stylesheet, and with it the theme, colours it.
+let diagramRoot = '';
+async function inlineDiagrams(html, locale) {
+  const found = [...html.matchAll(/<div class="doc-diagram" data-diagram="([a-z0-9-]+)"><\/div>/g)];
+  for (const [tag, name] of found) {
+    const svg = (await readFile(`${diagramRoot}diagrams/svg/${name}.${locale}.svg`, 'utf8')).trim();
+    html = html.replace(tag, `<div class="doc-diagram doc-diagram-mermaid">${svg}</div>`);
+  }
+  return html;
+}
+
 export async function buildArchitecture({ root, source, translations, locales, localizeText, localizeLabels }) {
+  diagramRoot = root;
   const sources = await Promise.all(pages.map(async (page) => {
     const raw = await readFile(`${root}architecture-src/${page.file}`, 'utf8');
     const title = raw.match(/<title>([^<]+)<\/title>/)?.[1];
     const description = raw.match(/<meta name="description" content="([^"]+)">/)?.[1];
     if (!title || !description) throw new Error(`${page.file} needs a <title> and a meta description`);
     const body = raw.replaceAll('href="@core/', `href="${CORE}/blob/${CORE_REF}/`).replaceAll('href="@tree/', `href="${CORE}/tree/${CORE_REF}/`).replace(/<title>[^<]+<\/title>\s*/, '').replace(/<meta name="description" content="[^"]+">\s*/, '');
-    return { ...page, title, description, body };
+    return { ...page, title, description, body, slugs: slugsOf(body) };
   }));
   const header = source.match(/<header class="site-header">[\s\S]*?<\/header>/)[0];
   const consent = source.match(/<aside class="consent-panel"[\s\S]*?<\/aside>/)[0];
@@ -100,7 +136,8 @@ export async function buildArchitecture({ root, source, translations, locales, l
       const next = sources[index + 1];
       const sidebar = `<nav class="doc-sidebar" aria-label="${t('Architecture contents')}"><details class="doc-toc" open data-doc-toc><summary>Contents</summary><p class="doc-toc-title">${SECTION}</p><ol>${sources.map((p) => `<li><a href="${urlOf(locale, locales, p)}"${p === page ? ' aria-current="page"' : ''}>${p.nav}</a></li>`).join('')}</ol></details></nav>`;
       const pager = `<nav class="doc-pager" aria-label="${t('Previous and next pages')}">${prev ? `<a class="doc-pager-prev" rel="prev" href="${urlOf(locale, locales, prev)}"><small>Previous</small><span>${prev.nav}</span></a>` : '<span class="doc-pager-gap"></span>'}${next ? `<a class="doc-pager-next" rel="next" href="${urlOf(locale, locales, next)}"><small>Next</small><span>${next.nav}</span></a>` : ''}</nav>`;
-      const main = localizeDoc(`<main id="main" class="doc-main"><div class="shell doc-layout">${sidebar}<article class="doc-article">${page.body}${pager}</article></div></main>`, locale, translations, missing);
+      const localized = localizeDoc(`<main id="main" class="doc-main"><div class="shell doc-layout">${sidebar}<article class="doc-article">${page.body}${pager}</article></div></main>`, locale, translations, missing);
+      const main = anchorHeadings(await inlineDiagrams(localized, locale), page.slugs, t('Link to this section'));
       const chrome = (part) => {
         part = part.replace('href="/final-preview/" aria-label="BeeverForge preview home"', `href="${l.path}" aria-label="BeeverForge home"`)
           .replace(/href="#(editions|lifecycle|comparison|questions|contact)"/g, `href="${l.path}#$1"`)

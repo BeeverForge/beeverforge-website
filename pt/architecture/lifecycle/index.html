@@ -44,7 +44,7 @@
 <h1>Ciclo de vida de um ticket</h1>
 <p class="doc-lead">Um ticket na coluna de entrada do quadro se torna um job: um workflow durável que o dimensiona, prepara uma caixa, faz um agente implementá-lo, executa os controles do próprio projeto, faz outro agente revisá-lo, abre um pull request e o acompanha até o merge e, onde configurado, pela promoção.</p>
 
-<h2>Estados do job</h2>
+<h2 id="job-states">Estados do job<a class="doc-anchor" href="#job-states" aria-label="Link para esta seção">#</a></h2>
 <p>Os estados são a enumeração <code>JobState</code> em <code>beeverforge/contracts/state.py</code>. Esse módulo só declara os estados; não contém nenhuma tabela de transições. As transições são feitas pelo executor de jobs (<code>orchestrator/machine.py</code>), pelo workflow do job (<code>runtime/temporal/workflow.py</code>) e pelo caminho de promoção (<code>orchestrator/promotion.py</code>). O diagrama mostra as transições que esses módulos fazem.</p>
 <figure class="doc-figure">
 <div class="doc-diagram">
@@ -113,53 +113,53 @@
 </ul>
 <p>O cartão no quadro tem seu próprio ciclo de vida, menor, com uma tabela de transições explícita; ele é descrito em Princípios de engenharia.</p>
 
-<h2>Estações, de ponta a ponta</h2>
+<h2 id="stations-end-to-end">Estações, de ponta a ponta<a class="doc-anchor" href="#stations-end-to-end" aria-label="Link para esta seção">#</a></h2>
 
-<h3>1. Consulta e vagas</h3>
+<h3 id="1-poll-and-slots">1. Consulta e vagas<a class="doc-anchor" href="#1-poll-and-slots" aria-label="Link para esta seção">#</a></h3>
 <p>Um agendamento do Temporal inicia o workflow de consulta a cada 3 minutos por padrão; um ciclo que se sobreporia a outro em andamento é ignorado. Cada ciclo inicia no máximo tantos jobs quantas vagas livres houver: <code>BEEVERFORGE_MAX_CONCURRENT_JOBS</code> (padrão <code>1</code>) menos os jobs já em andamento, na ordem do quadro. Um projeto cuja caixa precisa de uma prova e não tem uma válida não é recolhido; a consulta informa o motivo.</p>
 
-<h3>2. Dimensionamento e divisão automática</h3>
+<h3 id="2-sizing-and-automatic-split">2. Dimensionamento e divisão automática<a class="doc-anchor" href="#2-sizing-and-automatic-split" aria-label="Link para esta seção">#</a></h3>
 <p>Antes de o job ser executado, uma passada de dimensionamento lê o ticket e o código (ADR-0013). Ela vem ativada por padrão. Seu veredito é um entre: cabe, pouco claro ou dividir. Pouco claro deixa o ticket em espera em <code>needs_refinement</code>. Dividir registra os filhos na coluna de entrada e fecha o pai; se a própria divisão falhar, o ticket fica em espera com a proposta para uma pessoa dividir manualmente. Uma passada de dimensionamento que não consegue julgar não interrompe o job: o job é executado sem dimensionamento e o cartão informa que o dimensionamento não foi executado.</p>
 
-<h3>3. Perguntar antes de gastar</h3>
+<h3 id="3-ask-before-spending">3. Perguntar antes de gastar<a class="doc-anchor" href="#3-ask-before-spending" aria-label="Link para esta seção">#</a></h3>
 <p>Um projeto pode fazer o job reunir contexto antes de gastar uma passada de implementação e perguntar no cartão quando o contexto reunido deixa uma pergunta em aberto (ADR-0048). Isso vem desativado por padrão: exige <code>preflight.gather: true</code> e <code>okf_gate: enforce</code>. Quando pergunta, o job termina como <code>skipped</code> com a nota de que perguntou antes de começar, e uma pergunta sem resposta é lembrada uma vez após 48 horas.</p>
 
-<h3>4. Controle da especificação</h3>
+<h3 id="4-spec-gate">4. Controle da especificação<a class="doc-anchor" href="#4-spec-gate" aria-label="Link para esta seção">#</a></h3>
 <p>O controle da especificação é determinístico. Exige um objetivo e critérios de aceitação, e recusa um ticket cujas listas de escopo incluído e excluído se sobrepõem. Uma recusa deixa o ticket em espera em <code>needs_refinement</code> com o motivo. Ele é executado depois do dimensionamento.</p>
 
-<h3>5. Preparação e configuração</h3>
+<h3 id="5-preparation-and-setup">5. Preparação e configuração<a class="doc-anchor" href="#5-preparation-and-setup" aria-label="Link para esta seção">#</a></h3>
 <p>Em <code>preparing</code>, o job prepara seu espaço de trabalho na caixa e executa os comandos <code>setup:</code> do manifesto, com tempo limite de 1.800 segundos. Uma falha de configuração encerra o job como <code>failed</code>, porque é o ambiente, não o ticket, que precisa de atenção.</p>
 
-<h3>6. Plano e um único executor</h3>
+<h3 id="6-plan-and-a-single-executor">6. Plano e um único executor<a class="doc-anchor" href="#6-plan-and-a-single-executor" aria-label="Link para esta seção">#</a></h3>
 <p>Um único agente executor planeja e implementa o ticket (ADR-0014). Uma passada de planejamento separada só é executada quando o projeto define <code>planner_stage: true</code>; por padrão ela fica desativada.</p>
 
-<h3>7. Controles de validação e reparo limitado</h3>
+<h3 id="7-validation-gates-and-bounded-repair">7. Controles de validação e reparo limitado<a class="doc-anchor" href="#7-validation-gates-and-bounded-repair" aria-label="Link para esta seção">#</a></h3>
 <p>O job executa na caixa os controles <code>validate:</code> declarados pelo projeto. Enquanto um controle bloqueante está vermelho, o agente faz reparos, até <code>repair_max_attempts</code> (padrão <code>2</code>, no máximo <code>10</code>) e dentro do teto de custo e do orçamento de esforço do ticket (<code>effort_budget_turns</code>, padrão <code>400</code>). Um job que continua vermelho depois disso fica em espera em <code>on_hold</code> com o trabalho parcial no branch.</p>
 <p><strong>Reparo de supressões</strong> (ADR-0011). Quando o diff adiciona uma supressão como <code>noqa</code>, <code>type: ignore</code>, <code>pragma: no cover</code> ou <code>nosec</code>, o job executa até <code>suppression_repair_max_attempts</code> passadas (padrão <code>1</code>) para corrigir a causa. Uma passada que quebra um controle deixa o job em espera; as supressões que restam são mostradas ao revisor.</p>
 
-<h3>8. Revisão independente</h3>
+<h3 id="8-independent-review">8. Revisão independente<a class="doc-anchor" href="#8-independent-review" aria-label="Link para esta seção">#</a></h3>
 <p>Um agente revisor, em sua própria sessão, recebe o ticket, o diff, os resultados dos controles e as restrições, e nunca o relato do executor sobre o próprio trabalho. <code>review_mode</code> é <code>advisory</code> por padrão: os achados são publicados e não bloqueiam. Só com <code>review_mode: blocking</code> uma rejeição com achados acionáveis dispara uma passada de reparo (<code>review_repair_max_attempts</code>, padrão <code>1</code>) seguida de uma nova revisão (ADR-0006).</p>
 
-<h3>9. Pull request</h3>
+<h3 id="9-pull-request">9. Pull request<a class="doc-anchor" href="#9-pull-request" aria-label="Link para esta seção">#</a></h3>
 <p>O job publica o branch e abre o pull request. A abertura é buscar e depois atualizar: se já existe um pull request aberto para o branch, ele é reutilizado e seu título e corpo são atualizados, de modo que uma nova tentativa não cria um segundo. O resumo do próprio agente vai para o pull request, marcado como uma afirmação que nenhum controle verifica.</p>
 
-<h3>10. Reparo guiado pela CI</h3>
+<h3 id="10-ci-aware-repair">10. Reparo guiado pela CI<a class="doc-anchor" href="#10-ci-aware-repair" aria-label="Link para esta seção">#</a></h3>
 <p>Enquanto o pull request está aberto, o workflow o acompanha, qualquer que seja a política de merge (ADR-0004). Ele consulta a cada 2 minutos na primeira hora e a cada 15 minutos depois disso. Uma CI vermelha dispara até 2 passadas de reparo; um branch que ficou atrás da sua base é atualizado até 6 vezes; quando nenhum check informou nada após 10 minutos, o job diz isso em vez de interpretar o silêncio como verde. Após 14 dias sem merge, o job fica em espera.</p>
 
-<h3>11. Merge sobre a base atual</h3>
+<h3 id="11-merge-on-the-current-base">11. Merge sobre a base atual<a class="doc-anchor" href="#11-merge-on-the-current-base" aria-label="Link para esta seção">#</a></h3>
 <p>Com o <code>merge_policy: human</code> padrão, uma pessoa faz o merge. Com <code>merge_policy: auto</code>, o job faz o merge só quando os controles estão verdes, nenhuma revisão bloqueante o rejeitou, não resta nenhuma supressão grave, a mudança não é avaliada como de alto risco, não toca nenhum caminho protegido, o piso e o diff puderam ser lidos e a contagem de testes não diminuiu, entre as condições de <code>orchestrator/merge_policy.py</code>. Antes, ele leva o branch para a base atual e executa os controles de novo se a base mudou (ADR-0003).</p>
 
-<h3>12. A vaga é liberada no merge</h3>
+<h3 id="12-the-floor-frees-at-merge">12. A vaga é liberada no merge<a class="doc-anchor" href="#12-the-floor-frees-at-merge" aria-label="Link para esta seção">#</a></h3>
 <p>O job mantém sua vaga até o merge do seu pull request ou, quando a promoção está habilitada, até a promoção terminar; um pulo também a libera. Terminar a passada do agente não libera a vaga, e um job em espera a mantém (ADR-0007, ADR-0010). Por isso, o próximo ticket parte de uma base que inclui este.</p>
 
-<h3>13. Observação da implantação e promoção</h3>
+<h3 id="13-deploy-watch-and-promotion">13. Observação da implantação e promoção<a class="doc-anchor" href="#13-deploy-watch-and-promotion" aria-label="Link para esta seção">#</a></h3>
 <p>Quando o manifesto configura <code>post_merge_deploy</code>, um workflow filho independente observa a cada minuto a implantação do próprio projeto e informa o resultado; ele não ocupa uma vaga e não bloqueia (ADR-0005). Quando a promoção está habilitada, o job verifica o staging e depois espera em <code>awaiting_prod_approval</code> por uma pessoa, por até 3 dias antes de ficar em espera. A aprovação chega ao workflow como uma resposta selada que é verificada antes de qualquer ação e só pode ser usada uma vez. Após a aprovação, o job cria a tag da versão, verifica a produção e termina em <code>done</code>, ou reverte e fica em espera.</p>
 
-<h3>14. Em espera com opções</h3>
+<h3 id="14-park-with-options">14. Em espera com opções<a class="doc-anchor" href="#14-park-with-options" aria-label="Link para esta seção">#</a></h3>
 <p>Um job que não pode continuar fica em espera e move seu cartão para a coluna de atenção do quadro com um comentário que explica o motivo. As opções oferecidas são retomar, que continua o trabalho preservado, e pular, que libera a vaga, além das opções de decisão que o job tenha levantado. Um job em espera mantém sua vaga. Um impedimento simples que ninguém responde em 3 dias é pulado automaticamente, o que libera a vaga para que a fila não trave; uma espera por decisão se mantém até ser respondida. Um job é registrado como <code>skipped</code> quando uma pessoa o pula, quando perguntou antes de começar (estação 3) ou quando seu cartão foi retirado, por exemplo fechado como não planejado, enquanto esperava na fila; o pulo automático o deixa em <code>on_hold</code>. Um job que atinge um limite de uso passa a <code>paused</code> e retoma sozinho com um intervalo que cresce de 30 minutos a 2 horas, no máximo 48 vezes, e depois fica em espera.</p>
 
 <section class="doc-sources">
-<h2>Fontes</h2>
+<h2 id="sources">Fontes<a class="doc-anchor" href="#sources" aria-label="Link para esta seção">#</a></h2>
 <ul>
 <li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/contracts/state.py"><code>beeverforge/contracts/state.py</code></a></li>
 <li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/orchestrator/machine.py"><code>beeverforge/orchestrator/machine.py</code></a></li>

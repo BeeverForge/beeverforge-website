@@ -44,7 +44,7 @@
 <h1>Princípios de engenharia</h1>
 <p class="doc-lead">Os princípios do núcleo estão escritos no seu documento de visão e nos seus registros de decisão. Esta página os lista com o código que faz cumprir cada um e indica onde o código fica aquém do enunciado.</p>
 
-<h2>Princípios da visão</h2>
+<h2 id="vision-principles">Princípios da visão<a class="doc-anchor" href="#vision-principles" aria-label="Link para esta seção">#</a></h2>
 <p>De <code>docs/core/00-vision.md</code>. São objetivos declarados; quando o código não cumpre um deles por completo, o item diz até onde vai.</p>
 <ol>
 <li><strong>O núcleo não nomeia nenhum fornecedor.</strong> Um fornecedor é alcançado por uma porta, escolhida por um registro, a partir da configuração. O teste que garante isso cobre só <code>beeverforge/contracts</code> e <code>beeverforge/policy</code>; as linhas de adaptadores incluídos nomeiam seus fornecedores, e o destino de métricas é inferido como <code>dynamodb</code> quando <code>BEEVERFORGE_METRICS_TABLE</code> está definida.</li>
@@ -55,7 +55,7 @@
 <li><strong>Um eixo é agnóstico quando nasce com duas</strong> implementações, não quando declara uma interface (ADR-0022). Vários eixos ainda não o cumprem; Modelo de extensão os lista.</li>
 </ol>
 
-<h2>Decisões do ADR-0001</h2>
+<h2 id="decisions-of-adr-0001">Decisões do ADR-0001<a class="doc-anchor" href="#decisions-of-adr-0001" aria-label="Link para esta seção">#</a></h2>
 <p>O ADR-0001 fixa o modelo conceitual. Suas decisões, por título:</p>
 <ul>
 <li><strong>D-1</strong> O framework e o projeto são separados por um manifesto declarativo.</li>
@@ -77,7 +77,7 @@
 <li><strong>D-17</strong> Uma caixa de tarefas remota que executa o job inteiro. Neste repositório essa caixa é apenas uma descrição; seu executor é um complemento.</li>
 </ul>
 
-<h2>Invariantes, verificados contra o código</h2>
+<h2 id="invariants-checked-against-the-code">Invariantes, verificados contra o código<a class="doc-anchor" href="#invariants-checked-against-the-code" aria-label="Link para esta seção">#</a></h2>
 <dl>
 <dt>Nunca um travamento silencioso</dt>
 <dd>Toda espera no workflow do job tem um prazo ou uma pessoa no fim: o acompanhamento do merge, a aprovação de produção e um impedimento sem resposta têm prazos, e uma espera por decisão se mantém até ser respondida. As esperas trazem as opções que uma pessoa pode escolher. Um pull request em que nenhum check informa nada é sinalizado, não interpretado como verde.</dd>
@@ -95,7 +95,7 @@
 <dd>Em parte. O campo <code>permissions</code> do manifesto é aceito e marcado como inerte: nenhum código o lê, e a restrição de permissões por projeto não está implementada. O que limita uma execução é o isolamento da caixa e seu <code>box.env</code>.</dd>
 </dl>
 
-<h2>Uma camada de ações para todos os transportes</h2>
+<h2 id="one-action-layer-for-every-transport">Uma camada de ações para todos os transportes<a class="doc-anchor" href="#one-action-layer-for-every-transport" aria-label="Link para esta seção">#</a></h2>
 <p>Tudo o que uma pessoa pode pedir à fábrica está escrito uma única vez, no catálogo de ações (ADR-0039): <code>beeverforge/actions/</code>, executado por <code>actions.perform</code>. Quem pediu é um parâmetro da chamada, não uma propriedade do transporte.</p>
 <ul>
 <li>A API do painel serve o catálogo em <code>POST /api/act/{name}</code>, e suas rotas nomeadas chamam a mesma função.</li>
@@ -103,7 +103,7 @@
 <li>À conversa do tech-lead só é oferecido o que <code>actions.proposable()</code> retorna para a credencial de quem pergunta.</li>
 </ul>
 
-<h2>Um cartão tem um ciclo de vida e uma porta</h2>
+<h2 id="a-card-has-one-lifecycle-and-one-door">Um cartão tem um ciclo de vida e uma porta<a class="doc-anchor" href="#a-card-has-one-lifecycle-and-one-door" aria-label="Link para esta seção">#</a></h2>
 <p>O estado de um cartão só muda por <code>lifecycle.card.transition()</code> (ADR-0055). A porta lê o registro do cartão e responde a um evento repetido com a linha já registrada; pergunta à tabela pura se o evento é permitido a partir de onde o cartão está; executa a parte do motor da decisão de uma pessoa, se houver; registra a transição no próximo número de sequência, a menos que outro escritor o tenha tomado; e depois aplica o que a tabela diz que vem em seguida.</p>
 <ul>
 <li>As tabelas de <code>lifecycle/table.py</code> são puras: sem relógio, sem armazenamento, sem tracker. Os estados do cartão são <code>backlog</code>, <code>todo</code>, <code>running</code>, <code>waiting_on_a_person</code>, <code>merged</code>, <code>staged</code>, <code>delivered</code>, <code>closed</code> e <code>removed</code>.</li>
@@ -112,19 +112,19 @@
 <li>Os jobs não têm uma tabela equivalente. As transições dos jobs são decididas no executor e no workflow, que é a parte do ADR-0033 que continua proposta.</li>
 </ul>
 
-<h2>As recusas nomeiam a causa e a solução</h2>
+<h2 id="refusals-name-the-cause-and-the-remedy">As recusas nomeiam a causa e a solução<a class="doc-anchor" href="#refusals-name-the-cause-and-the-remedy" aria-label="Link para esta seção">#</a></h2>
 <p>Uma recusa diz o que falhou e o que fazer. Na linha de comando, <code>cli_refusals.py</code> associa um erro do provedor a uma causa conhecida e imprime uma frase com a causa e sua solução, seguida das palavras do próprio provedor. Um erro que ele não reconhece mantém as palavras do provedor e nenhuma solução é inventada. Os testes exigem de cada causa sua própria solução e impedem que defeitos do próprio núcleo sejam apresentados como do provedor.</p>
 
-<h2>“Não foi possível ver” não é “não há nada”</h2>
+<h2 id="could-not-see-is-not-nothing-there">“Não foi possível ver” não é “não há nada”<a class="doc-anchor" href="#could-not-see-is-not-nothing-there" aria-label="Link para esta seção">#</a></h2>
 <p>Toda leitura de um tracker segue uma regra, enunciada em sua classe base: <code>None</code> significa que a leitura falhou; uma lista vazia significa que a leitura deu certo e não encontrou nada. Os quadros seguem a mesma regra, e a suíte de conformidade de adaptadores a verifica para os trackers. Valores tipados como <code>Unreadable</code> mantêm a mesma distinção em outros pontos.</p>
 
-<h2>Recusar antes de escrever</h2>
+<h2 id="refuse-before-writing">Recusar antes de escrever<a class="doc-anchor" href="#refuse-before-writing" aria-label="Link para esta seção">#</a></h2>
 <p>Uma verificação que pode recusar roda antes de qualquer escrita. Uma transição de cartão recusada não muda nada e diz por quê; o piso recusa um job antes da passada de implementação; o pipeline de conhecimento recusa um destino fora do seu diretório antes de clonar qualquer coisa; uma opção de linha de comando recusada informa que nada foi lido e nada foi escrito.</p>
 
-<h2>Um orçamento de prompt que nomeia o que deixa de fora</h2>
+<h2 id="one-prompt-budget-that-names-what-it-leaves-out">Um orçamento de prompt que nomeia o que deixa de fora<a class="doc-anchor" href="#one-prompt-budget-that-names-what-it-leaves-out" aria-label="Link para esta seção">#</a></h2>
 <p>O prompt de um job tem um único orçamento (ADR-0056): <code>BEEVERFORGE_PROMPT_BUDGET</code>, padrão de 160.000 bytes, compartilhado pelo cartão, pelo plano e pelos documentos que o projeto declara. <code>off</code> o desativa; um valor que não pode ser lido é recusado. Cada documento deixado de fora é nomeado no prompt, pelo caminho que o agente pode abrir e pelo tamanho, sob um título que diz ao agente para abri-lo antes de mudar o que ele rege. Um documento cortado pelo seu próprio limite de tamanho é listado com quanto dele foi incluído.</p>
 
-<h2>Neutralidade de fornecedores, garantida por testes</h2>
+<h2 id="vendor-neutrality-enforced-by-tests">Neutralidade de fornecedores, garantida por testes<a class="doc-anchor" href="#vendor-neutrality-enforced-by-tests" aria-label="Link para esta seção">#</a></h2>
 <ul>
 <li><code>tests/test_kernel_names_no_vendor.py</code> analisa <code>beeverforge/contracts</code> e <code>beeverforge/policy</code> e falha diante de qualquer nome de fornecedor.</li>
 <li><code>tests/test_the_core_names_no_vendor.py</code> falha se um fornecedor de chat é nomeado fora dos comentários do núcleo.</li>
@@ -132,7 +132,7 @@
 <li><code>tests/test_the_core_is_a_core.py</code> carrega o núcleo em um subprocesso onde todo SDK de fornecedor se recusa a ser importado, e verifica que o catálogo de ações é resolvido e que o painel inicia.</li>
 </ul>
 
-<h2>A camada de conhecimento</h2>
+<h2 id="the-knowledge-layer">A camada de conhecimento<a class="doc-anchor" href="#the-knowledge-layer" aria-label="Link para esta seção">#</a></h2>
 <p>A camada de conhecimento é um mapa de módulos de cada repositório, gerado de forma determinística a partir da estrutura de diretórios, das árvores sintáticas do Python e da busca de padrões em fontes TypeScript, JavaScript e C#, sem chamadas a um LLM. O mesmo estado do repositório produz uma saída idêntica byte a byte.</p>
 <ul>
 <li>Ela vem ativada por padrão (<code>knowledge_map: true</code>; ADR-0035) e pode ser desativada por projeto.</li>
@@ -140,11 +140,11 @@
 <li>Um agente recebe o mapa só quando se prova que ele está atualizado em relação à sua própria cópia de trabalho. Ele acelera encontrar código e não substitui lê-lo.</li>
 </ul>
 
-<h2>O papel de produto</h2>
+<h2 id="the-product-role">O papel de produto<a class="doc-anchor" href="#the-product-role" aria-label="Link para esta seção">#</a></h2>
 <p>O papel de produto é opcional. Ele é habilitado por uma seção <code>product:</code> na entrada do projeto no registro, que precisa nomear o repositório de documentação que guarda os requisitos do produto (ADR-0019).</p>
 
 <section class="doc-sources">
-<h2>Fontes</h2>
+<h2 id="sources">Fontes<a class="doc-anchor" href="#sources" aria-label="Link para esta seção">#</a></h2>
 <ul>
 <li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/core/00-vision.md"><code>docs/core/00-vision.md</code></a></li>
 <li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/architecture.md"><code>docs/architecture.md</code></a></li>

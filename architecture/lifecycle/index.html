@@ -44,7 +44,7 @@
 <h1>Lifecycle of a ticket</h1>
 <p class="doc-lead">A ticket in the board’s pickup column becomes a job: a durable workflow that sizes it, prepares a box, has one agent implement it, runs the project’s own gates, has a separate agent review it, opens a pull request and follows it to the merge and, where configured, through promotion.</p>
 
-<h2>Job states</h2>
+<h2 id="job-states">Job states<a class="doc-anchor" href="#job-states" aria-label="Link to this section">#</a></h2>
 <p>The states are the <code>JobState</code> enumeration in <code>beeverforge/contracts/state.py</code>. That module declares the states only; it holds no transition table. The transitions are made by the job runner (<code>orchestrator/machine.py</code>), the job workflow (<code>runtime/temporal/workflow.py</code>) and the promotion path (<code>orchestrator/promotion.py</code>). The diagram shows the transitions those modules make.</p>
 <figure class="doc-figure">
 <div class="doc-diagram">
@@ -113,53 +113,53 @@
 </ul>
 <p>The card on the board has its own, smaller lifecycle with an explicit transition table; it is described on Engineering principles.</p>
 
-<h2>Stations, end to end</h2>
+<h2 id="stations-end-to-end">Stations, end to end<a class="doc-anchor" href="#stations-end-to-end" aria-label="Link to this section">#</a></h2>
 
-<h3>1. Poll and slots</h3>
+<h3 id="1-poll-and-slots">1. Poll and slots<a class="doc-anchor" href="#1-poll-and-slots" aria-label="Link to this section">#</a></h3>
 <p>A Temporal schedule starts the poll workflow every 3 minutes by default; a tick that would overlap a running one is skipped. Each tick starts at most the free slots: <code>BEEVERFORGE_MAX_CONCURRENT_JOBS</code> (default <code>1</code>) minus the jobs already in flight, taken in board order. A project whose box needs a proof and has no valid one is not picked up; the poll states the reason.</p>
 
-<h3>2. Sizing and automatic split</h3>
+<h3 id="2-sizing-and-automatic-split">2. Sizing and automatic split<a class="doc-anchor" href="#2-sizing-and-automatic-split" aria-label="Link to this section">#</a></h3>
 <p>Before the job runs, a sizing pass reads the ticket and the code (ADR-0013). It is on by default. Its verdict is one of fit, unclear or split. Unclear parks the ticket in <code>needs_refinement</code>. Split files the children in the pickup column and closes the parent; if the split itself fails, the ticket parks with the proposal for a person to split by hand. A sizing pass that cannot judge does not stop the job: the job runs unsized and the card says that sizing did not run.</p>
 
-<h3>3. Ask before spending</h3>
+<h3 id="3-ask-before-spending">3. Ask before spending<a class="doc-anchor" href="#3-ask-before-spending" aria-label="Link to this section">#</a></h3>
 <p>A project can have the job gather context before it spends an implementation pass and ask on the card when the gathered context leaves a question open (ADR-0048). This is off by default: it needs <code>preflight.gather: true</code> and <code>okf_gate: enforce</code>. When it asks, the job ends as <code>skipped</code> with the note that it asked before starting, and an unanswered question is chased once after 48 hours.</p>
 
-<h3>4. Spec gate</h3>
+<h3 id="4-spec-gate">4. Spec gate<a class="doc-anchor" href="#4-spec-gate" aria-label="Link to this section">#</a></h3>
 <p>The spec gate is deterministic. It requires an objective and acceptance criteria, and refuses a ticket whose in-scope and out-of-scope lists overlap. A refusal parks the ticket in <code>needs_refinement</code> with the reason. It runs after sizing.</p>
 
-<h3>5. Preparation and setup</h3>
+<h3 id="5-preparation-and-setup">5. Preparation and setup<a class="doc-anchor" href="#5-preparation-and-setup" aria-label="Link to this section">#</a></h3>
 <p>In <code>preparing</code>, the job prepares its workspace in the box and runs the manifest’s <code>setup:</code> commands, with a timeout of 1,800 seconds. A setup failure ends the job as <code>failed</code>, because the environment, not the ticket, needs attention.</p>
 
-<h3>6. Plan and a single executor</h3>
+<h3 id="6-plan-and-a-single-executor">6. Plan and a single executor<a class="doc-anchor" href="#6-plan-and-a-single-executor" aria-label="Link to this section">#</a></h3>
 <p>One executor agent plans and implements the ticket (ADR-0014). A separate planner pass runs only when the project sets <code>planner_stage: true</code>; its default is off.</p>
 
-<h3>7. Validation gates and bounded repair</h3>
+<h3 id="7-validation-gates-and-bounded-repair">7. Validation gates and bounded repair<a class="doc-anchor" href="#7-validation-gates-and-bounded-repair" aria-label="Link to this section">#</a></h3>
 <p>The job runs the project’s declared <code>validate:</code> gates in the box. While a blocking gate is red, the agent repairs, up to <code>repair_max_attempts</code> (default <code>2</code>, at most <code>10</code>) and within the cost ceiling and the ticket’s effort budget (<code>effort_budget_turns</code>, default <code>400</code>). A job still red after that parks in <code>on_hold</code> with its partial work on the branch.</p>
 <p><strong>Suppression repair</strong> (ADR-0011). When the diff adds a suppression such as <code>noqa</code>, <code>type: ignore</code>, <code>pragma: no cover</code> or <code>nosec</code>, the job runs up to <code>suppression_repair_max_attempts</code> passes (default <code>1</code>) to fix the cause instead. A pass that breaks a gate parks the job; suppressions that remain are shown to the reviewer.</p>
 
-<h3>8. Independent review</h3>
+<h3 id="8-independent-review">8. Independent review<a class="doc-anchor" href="#8-independent-review" aria-label="Link to this section">#</a></h3>
 <p>A reviewer agent, in its own session, receives the ticket, the diff, the gate results and the constraints, and never the executor’s account of its work. <code>review_mode</code> is <code>advisory</code> by default: findings are posted and do not block. Only with <code>review_mode: blocking</code> does a rejection with actionable findings trigger one repair pass (<code>review_repair_max_attempts</code>, default <code>1</code>) followed by a fresh review (ADR-0006).</p>
 
-<h3>9. Pull request</h3>
+<h3 id="9-pull-request">9. Pull request<a class="doc-anchor" href="#9-pull-request" aria-label="Link to this section">#</a></h3>
 <p>The job publishes the branch and opens the pull request. Opening is find-then-update: if an open pull request already exists for the branch, it is reused and its title and body updated, so a retry does not create a second one. The agent’s own summary goes into the pull request labelled as a claim that no gate checks.</p>
 
-<h3>10. CI-aware repair</h3>
+<h3 id="10-ci-aware-repair">10. CI-aware repair<a class="doc-anchor" href="#10-ci-aware-repair" aria-label="Link to this section">#</a></h3>
 <p>While the pull request is open, the workflow watches it, whichever merge policy applies (ADR-0004). It polls every 2 minutes for the first hour and every 15 minutes after that. A red CI triggers up to 2 repair passes; a branch that has fallen behind its base is updated up to 6 times; when no check has reported after 10 minutes, the job says so instead of reading silence as green. After 14 days without a merge the job parks.</p>
 
-<h3>11. Merge on the current base</h3>
+<h3 id="11-merge-on-the-current-base">11. Merge on the current base<a class="doc-anchor" href="#11-merge-on-the-current-base" aria-label="Link to this section">#</a></h3>
 <p>With the default <code>merge_policy: human</code>, a person merges. With <code>merge_policy: auto</code>, the job merges only when the gates are green, no blocking review rejected it, no hard suppression remains, the change is not assessed high-risk, it touches no protected path, the floor and the diff could be read and the test count did not shrink, among the conditions in <code>orchestrator/merge_policy.py</code>. It first brings the branch onto the current base and re-runs the gates if the base moved (ADR-0003).</p>
 
-<h3>12. The floor frees at merge</h3>
+<h3 id="12-the-floor-frees-at-merge">12. The floor frees at merge<a class="doc-anchor" href="#12-the-floor-frees-at-merge" aria-label="Link to this section">#</a></h3>
 <p>The job keeps its slot until its pull request merges or, when promotion is enabled, until promotion ends; a skip also frees it. Finishing the agent pass does not free the slot, and a parked job keeps it (ADR-0007, ADR-0010). The next ticket therefore starts from a base that includes this one.</p>
 
-<h3>13. Deploy watch and promotion</h3>
+<h3 id="13-deploy-watch-and-promotion">13. Deploy watch and promotion<a class="doc-anchor" href="#13-deploy-watch-and-promotion" aria-label="Link to this section">#</a></h3>
 <p>When the manifest configures <code>post_merge_deploy</code>, a detached child workflow observes the project’s own deployment every minute and reports the outcome; it does not take a slot and does not block (ADR-0005). When promotion is enabled, the job verifies staging, then waits in <code>awaiting_prod_approval</code> for a person, for up to 3 days before parking. The approval reaches the workflow as a sealed answer that is verified before it is acted on and can be spent once. After approval the job tags the release, verifies production and ends <code>done</code>, or rolls back and parks.</p>
 
-<h3>14. Park with options</h3>
+<h3 id="14-park-with-options">14. Park with options<a class="doc-anchor" href="#14-park-with-options" aria-label="Link to this section">#</a></h3>
 <p>A job that cannot continue parks and moves its card to the board’s attention column with a comment that says why. The options offered are resume, which continues the preserved work, and skip, which frees the slot, plus any decision options the job asked about. A parked job keeps its slot. A plain impediment that nobody answers within 3 days is skipped automatically, which frees the slot so the queue cannot jam; a decision park holds until it is answered. A job is recorded as <code>skipped</code> when a person skips it, when it asked before starting (station 3), or when its card was withdrawn, for example closed as not planned, while it waited in the queue; the automatic skip leaves it <code>on_hold</code>. A job that hits a rate limit is <code>paused</code> and resumes itself with a backoff that grows from 30 minutes to 2 hours, at most 48 times, then parks.</p>
 
 <section class="doc-sources">
-<h2>Sources</h2>
+<h2 id="sources">Sources<a class="doc-anchor" href="#sources" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/contracts/state.py"><code>beeverforge/contracts/state.py</code></a></li>
 <li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/orchestrator/machine.py"><code>beeverforge/orchestrator/machine.py</code></a></li>

@@ -44,38 +44,38 @@
 <h1>Principios del repositorio</h1>
 <p class="doc-lead">Las reglas que se impone el repositorio del núcleo, desde cómo se nombra una prueba hasta cómo se publica una versión. La mayoría están escritas en <code>CONTRIBUTING.md</code> y <code>docs/RELEASING.md</code> y las hace cumplir una prueba o un workflow; cuando una regla es una convención y no una comprobación, esta página lo indica.</p>
 
-<h2>Pruebas</h2>
-<h3>Nombradas como frases</h3>
+<h2 id="tests">Pruebas<a class="doc-anchor" href="#tests" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="named-as-sentences">Nombradas como frases<a class="doc-anchor" href="#named-as-sentences" aria-label="Enlace a esta sección">#</a></h3>
 <p>Un archivo de prueba dice lo que prueba, por ejemplo <code>test_a_card_is_closed_only_when_its_work_merges.py</code>, para que buscar un comportamiento en la suite encuentre la prueba que lo sostiene.</p>
-<h3>En ambos órdenes y en paralelo</h3>
+<h3 id="both-orders-and-in-parallel">En ambos órdenes y en paralelo<a class="doc-anchor" href="#both-orders-and-in-parallel" aria-label="Enlace a esta sección">#</a></h3>
 <p>La suite se ejecuta en orden aleatorio de forma predeterminada (<code>pytest-randomly</code>) y en paralelo (<code>pytest-xdist</code>). A quienes contribuyen se les pide ejecutarla en paralelo tanto en orden aleatorio como en orden fijo (<code>-p no:randomly</code>). Un fallo que depende del orden se trata como una fuga de estado, no como inestabilidad. La CI ejecuta el orden aleatorio, dividida en fragmentos; no ejecuta el orden fijo. El conftest registra la semilla de cada ejecución para poder reproducir un orden.</p>
-<h3>Guardas probadas por mutación</h3>
+<h3 id="mutation-proven-guards">Guardas probadas por mutación<a class="doc-anchor" href="#mutation-proven-guards" aria-label="Enlace a esta sección">#</a></h3>
 <p><code>tools/mutate.py</code> ejecuta un plan de mutación: cada plan nombra una prueba y una lista de ediciones exactas del código, y cada edición debe poner esa prueba en rojo. Se niega a empezar salvo que el ancla de cada edición coincida exactamente una vez y la línea base esté en verde.</p>
 <ul>
 <li>El ejecutor es seguro ante caídas. Antes de mutar un archivo, guarda una copia fuera del árbol y escribe una nota de operación en curso en la raíz del repositorio; restaura el archivo y comprueba el texto restaurado en un bloque <code>finally</code>. Como un proceso terminado a la fuerza se salta <code>finally</code>, la siguiente ejecución se niega a empezar mientras exista una nota e imprime los comandos que restauran el archivo.</li>
 <li>Los planes de mutación los ejecutan quienes contribuyen, no la CI. Una prueba comprueba que cada plan puede ejecutarse.</li>
 </ul>
-<h3>Una guarda lee la cosa, no un texto sobre la cosa</h3>
+<h3 id="a-guard-reads-the-thing-not-text-about-the-thing">Una guarda lee la cosa, no un texto sobre la cosa<a class="doc-anchor" href="#a-guard-reads-the-thing-not-text-about-the-thing" aria-label="Enlace a esta sección">#</a></h3>
 <p>Una prueba que protege una configuración la ejecuta o la analiza: ejecuta el script y lee sus argumentos, o carga el YAML y lee la clave. Cuando hay que buscar en texto, primero se eliminan los comentarios.</p>
-<h3>Una suite hermética</h3>
+<h3 id="a-hermetic-suite">Una suite hermética<a class="doc-anchor" href="#a-hermetic-suite" aria-label="Enlace a esta sección">#</a></h3>
 <ul>
 <li>Las credenciales reales se eliminan del entorno antes de la recolección y de nuevo antes de cada prueba: variables de la plataforma Git, del chat, del motor, del harness y de la nube, y la configuración <code>BEEVERFORGE_*</code> del propio operador.</li>
 <li>La suite se ejecuta con su propio <code>HOME</code>, con uno nuevo para cada prueba, y con la sesión de <code>gh</code> oculta. El registro de proyectos es un directorio temporal, nuevo para cada prueba.</li>
 <li>Ninguna prueba llega a un motor real: conectarse a Temporal lanza un error, salvo en las pruebas marcadas <code>owns_its_engine</code>, que inician y eliminan su propio servidor efímero.</li>
 <li>La suite hace commits con su propia identidad de git.</li>
 </ul>
-<h3>Las dependencias externas opcionales se omiten en tiempo de ejecución</h3>
+<h3 id="optional-externals-skip-at-run-time">Las dependencias externas opcionales se omiten en tiempo de ejecución<a class="doc-anchor" href="#optional-externals-skip-at-run-time" aria-label="Enlace a esta sección">#</a></h3>
 <p>La falta de una herramienta opcional, como Docker o <code>node</code>, hace que una prueba se omita al ejecutarse; nunca cambia lo que se recolecta. La CI define <code>TEST_REQUIRE_DOCKER</code>, que allí convierte la omisión por Docker en un fallo. El servidor de pruebas de Temporal es un requisito obligatorio, no una omisión.</p>
-<h3>La CI se atiene al Makefile y cada prueba se ejecuta una vez</h3>
+<h3 id="ci-is-held-to-the-makefile-and-every-test-runs-once">La CI se atiene al Makefile y cada prueba se ejecuta una vez<a class="doc-anchor" href="#ci-is-held-to-the-makefile-and-every-test-runs-once" aria-label="Enlace a esta sección">#</a></h3>
 <ul>
 <li>Cada paso de la CI que prueba o analiza ejecuta un objetivo de <code>make</code> (<code>install</code>, <code>lint</code>, <code>test-collect</code>, <code>test-unit</code> en cuatro fragmentos, <code>test-integration</code>, <code>test-alone</code>, <code>test-ran-once</code>). Los demás pasos obtienen el código, preparan las herramientas, mueven artefactos entre jobs o informan de si todos los jobs pasaron.</li>
 <li>Una guarda expande con <code>make -n</code> los objetivos que nombra la CI y comprueba que siguen ejecutando la suite y analizando cada raíz que cubre la suite. Ninguna guarda prohíbe un paso de CI que no sea un objetivo de <code>make</code>.</li>
 <li>La suite se recolecta una vez; cada fragmento registra los ids de las pruebas que ejecutó; <code>scripts/every_test_ran_once.py</code> falla ante una prueba que falta, se duplica o es desconocida. Una recolección vacía es un fallo, no un éxito.</li>
 </ul>
-<h3>Linters y comprobación de tipos</h3>
+<h3 id="linters-and-type-checking">Linters y comprobación de tipos<a class="doc-anchor" href="#linters-and-type-checking" aria-label="Enlace a esta sección">#</a></h3>
 <p><code>make lint</code> ejecuta <code>ruff</code> y <code>shellcheck</code>. <code>mypy</code> y <code>bandit</code> están configurados en <code>pyproject.toml</code> e instalados con el extra de desarrollo, pero ninguno se ejecuta en el Makefile ni en la CI; no se hacen cumplir.</p>
 
-<h2>Código y documentación</h2>
+<h2 id="code-and-documentation">Código y documentación<a class="doc-anchor" href="#code-and-documentation" aria-label="Enlace a esta sección">#</a></h2>
 <p>De estas tres reglas solo el fragmento del registro de cambios se comprueba, mediante un workflow. Las otras dos son convenciones documentadas, en <code>CONTRIBUTING.md</code> y <code>docs/adr/README.md</code>.</p>
 <ul>
 <li><strong>Los comentarios dicen por qué</strong>, con la medición: la fecha, el código de salida o el incidente que hizo necesaria la línea.</li>
@@ -83,7 +83,7 @@
 <li><strong>Los registros de decisión se modifican en el mismo archivo.</strong> Cuando una decisión cambia, se edita el ADR con una nota fechada que nombra el pull request. Un ADR nuevo sustituye a uno antiguo solo cuando la decisión se revierte, no cuando se precisa.</li>
 </ul>
 
-<h2>Publicaciones y versiones</h2>
+<h2 id="releases-and-versions">Publicaciones y versiones<a class="doc-anchor" href="#releases-and-versions" aria-label="Enlace a esta sección">#</a></h2>
 <p>Estas reglas son convenciones documentadas, escritas en <code>docs/RELEASING.md</code>. El workflow de publicación se ejecuta con cualquier etiqueta que empiece por <code>v</code> y no las comprueba, y el ensayo de instalación se ejecuta después de la publicación, no antes. Lo que sí se comprueba aparece en Guardas de publicación.</p>
 <ul>
 <li>Las versiones son versiones semánticas anteriores a 1.0. Una versión menor incluye funcionalidades y cambios de comportamiento; un parche incluye solo correcciones y se etiqueta en su rama <code>release/x.y</code>, nunca en <code>main</code>.</li>
@@ -92,16 +92,16 @@
 <li>La versión final se etiqueta en el commit sobre el que se verificó la última candidata, más el commit que declara la versión y sus notas.</li>
 <li>Una versión publicada queda congelada: ninguna etiqueta se mueve, se borra ni se vuelve a subir. La actualización debe ensayarse antes de cada etiqueta. Los defectos de seguridad siguen una vía de aviso privado. Solo el responsable de versiones crea una rama de versión o una etiqueta.</li>
 </ul>
-<h3>Guardas de publicación</h3>
+<h3 id="release-guards">Guardas de publicación<a class="doc-anchor" href="#release-guards" aria-label="Enlace a esta sección">#</a></h3>
 <ul>
 <li><strong>El wheel.</strong> Una prueba construye un wheel real a partir de una copia limpia del árbol y comprueba que incluye <code>LICENSE</code> y <code>NOTICE</code>, que su único script de consola es <code>beeverforge</code>, que su descripción larga es la página declarada y que contiene todos los archivos de datos que la plataforma necesita en tiempo de ejecución.</li>
 <li><strong>La descripción de la API.</strong> <code>docs/reference/openapi.json</code> debe ser igual a lo que genera la aplicación.</li>
 </ul>
 
-<h2>Licencia y nombre</h2>
+<h2 id="licence-and-name">Licencia y nombre<a class="doc-anchor" href="#licence-and-name" aria-label="Enlace a esta sección">#</a></h2>
 <p>El núcleo tiene licencia Apache-2.0. No hay acuerdo de licencia para contribuyentes: la licencia ya establece qué ocurre con una contribución, y los derechos de autor siguen siendo de quien la escribe. El archivo <code>NOTICE</code> separa el código del nombre: la licencia no concede ningún derecho sobre el nombre, el logotipo ni las marcas BeeverForge, y solo las compilaciones que superan la suite de conformidad publicada (<code>beeverforge conformance</code>, <code>beeverforge conformance-adapter</code>) pueden llamarse BeeverForge.</p>
 
-<h2>Registros de decisión de arquitectura</h2>
+<h2 id="architecture-decision-records">Registros de decisión de arquitectura<a class="doc-anchor" href="#architecture-decision-records" aria-label="Enlace a esta sección">#</a></h2>
 <p>La columna de estado refleja el código en el commit fijado. Cuando la línea de estado del propio registro y el código no coinciden, se usa el código: «implementado en parte» significa que una parte de la decisión está en el código y otra no.</p>
 <div class="doc-table doc-adr">
 <table>
@@ -171,7 +171,7 @@
 </div>
 
 <section class="doc-sources">
-<h2>Fuentes</h2>
+<h2 id="sources">Fuentes<a class="doc-anchor" href="#sources" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
 <li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a></li>
 <li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/Makefile"><code>Makefile</code></a></li>

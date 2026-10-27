@@ -15,6 +15,10 @@
 </tbody>
 </table>
 </div>
+<figure class="doc-figure">
+<div class="doc-diagram" data-diagram="box-anatomy"></div>
+<figcaption>A <code>container</code> box as the worker starts it. Secrets are passed for the job’s duration; the network is not isolated.</figcaption>
+</figure>
 <p>A durable job is refused in a box that bounds nothing, unless the project declares that the work is the operator’s own. Further kinds can be added as <code>box.&lt;kind&gt;</code> entry points.</p>
 
 <h2>Proving the box</h2>
@@ -26,6 +30,10 @@
 <li>The box starts, the project’s <code>setup:</code> runs, then its <code>validate:</code> gates run on an untouched checkout of <code>main</code>, inside the box.</li>
 <li>The harness is checked: its version, its credentials as seen inside the box, the trust store and whether the harness endpoint is reachable through the box’s network.</li>
 </ol>
+<figure class="doc-figure">
+<div class="doc-diagram" data-diagram="box-prove"></div>
+<figcaption>The checks of <code>beeverforge box prove</code>, in the order they run.</figcaption>
+</figure>
 <p>On a box that runs the client’s image the proof asks no agent anything and spends no harness tokens. On a box with no image, where the harness login is a session on the operator’s machine, it asks the harness for a single word to confirm the login works.</p>
 <p>A proof is valid while the image digest, the toolbox and the hash of the project’s <code>setup:</code> and <code>validate:</code> commands are unchanged. On a box with an image the toolbox is identified by its operating system, architecture and C library; on a box with no image a new harness version makes the proof stale. Proofs do not expire by time. The board scan refuses to pick up work for a project whose box has something to prove and no valid proof, and states which of those facts moved. A <code>worktree</code> box has no image; it is gated only on a deployment that declares <code>BEEVERFORGE_OWN_WORK</code>, the runtime where the worker is the operator’s own machine.</p>
 <p>An advisory gate that fails during the proof does not hold pickup, unless its command could not run at all.</p>

@@ -44,7 +44,7 @@
 <h1>Engineering principles</h1>
 <p class="doc-lead">The core’s principles are written down in its vision document and its decision records. This page lists them with the code that enforces each, and says where the code falls short of the statement.</p>
 
-<h2>Vision principles</h2>
+<h2 id="vision-principles">Vision principles<a class="doc-anchor" href="#vision-principles" aria-label="Link to this section">#</a></h2>
 <p>From <code>docs/core/00-vision.md</code>. They are stated aims; where the code does not hold one fully, the item says how far it goes.</p>
 <ol>
 <li><strong>The core names no vendor.</strong> A vendor is reached through a port, chosen by a registry, from configuration. The test that enforces it covers <code>beeverforge/contracts</code> and <code>beeverforge/policy</code> only; the built-in adapter rows name their vendors, and the metrics sink is inferred as <code>dynamodb</code> when <code>BEEVERFORGE_METRICS_TABLE</code> is set.</li>
@@ -55,7 +55,7 @@
 <li><strong>An axis is agnostic when it is born with two</strong> implementations, not when it declares an interface (ADR-0022). Several axes do not meet it yet; Extension model lists them.</li>
 </ol>
 
-<h2>Decisions of ADR-0001</h2>
+<h2 id="decisions-of-adr-0001">Decisions of ADR-0001<a class="doc-anchor" href="#decisions-of-adr-0001" aria-label="Link to this section">#</a></h2>
 <p>ADR-0001 fixes the conceptual model. Its decisions, by heading:</p>
 <ul>
 <li><strong>D-1</strong> The framework and the project are separated by a declarative manifest.</li>
@@ -77,7 +77,7 @@
 <li><strong>D-17</strong> A remote task box that runs the whole job. In this repository that box is a description only; its runner is an add-on.</li>
 </ul>
 
-<h2>Invariants, checked against the code</h2>
+<h2 id="invariants-checked-against-the-code">Invariants, checked against the code<a class="doc-anchor" href="#invariants-checked-against-the-code" aria-label="Link to this section">#</a></h2>
 <dl>
 <dt>Never a silent hang</dt>
 <dd>Every wait in the job workflow has a deadline or a person at the end of it: the merge watch, the production approval and an unanswered impediment have deadlines, and a decision park holds until it is answered. Parks carry the options a person can take. A pull request on which no check reports is called out, not read as green.</dd>
@@ -95,7 +95,7 @@
 <dd>Partly. The manifest’s <code>permissions</code> field is accepted and marked inert: no code reads it, and per-project permission tightening is not implemented. The box’s isolation and its <code>box.env</code> are what bound a run.</dd>
 </dl>
 
-<h2>One action layer for every transport</h2>
+<h2 id="one-action-layer-for-every-transport">One action layer for every transport<a class="doc-anchor" href="#one-action-layer-for-every-transport" aria-label="Link to this section">#</a></h2>
 <p>Everything a person can ask the factory to do is written once, in the action catalogue (ADR-0039): <code>beeverforge/actions/</code>, executed through <code>actions.perform</code>. Who asked is a parameter of the call, not a property of the transport.</p>
 <ul>
 <li>The panel API serves the catalogue at <code>POST /api/act/{name}</code>, and its named routes call the same function.</li>
@@ -103,7 +103,7 @@
 <li>The tech-lead’s conversation is offered only what <code>actions.proposable()</code> returns for the asker’s credential.</li>
 </ul>
 
-<h2>A card has one lifecycle and one door</h2>
+<h2 id="a-card-has-one-lifecycle-and-one-door">A card has one lifecycle and one door<a class="doc-anchor" href="#a-card-has-one-lifecycle-and-one-door" aria-label="Link to this section">#</a></h2>
 <p>A card’s state changes only through <code>lifecycle.card.transition()</code> (ADR-0055). The door reads the card’s record and answers a repeated event from the row already recorded; asks the pure table whether the event is allowed from where the card is; runs the engine’s part of a person’s decision, if any; records the transition at the next sequence number unless another writer took it; and then applies what the table says follows.</p>
 <ul>
 <li>The tables in <code>lifecycle/table.py</code> are pure: no clock, no store, no tracker. The card states are <code>backlog</code>, <code>todo</code>, <code>running</code>, <code>waiting_on_a_person</code>, <code>merged</code>, <code>staged</code>, <code>delivered</code>, <code>closed</code> and <code>removed</code>.</li>
@@ -112,19 +112,19 @@
 <li>Jobs have no equivalent table. Job transitions are decided in the runner and the workflow, which is the part of ADR-0033 that remains proposed.</li>
 </ul>
 
-<h2>Refusals name the cause and the remedy</h2>
+<h2 id="refusals-name-the-cause-and-the-remedy">Refusals name the cause and the remedy<a class="doc-anchor" href="#refusals-name-the-cause-and-the-remedy" aria-label="Link to this section">#</a></h2>
 <p>A refusal says what failed and what to do. On the command line, <code>cli_refusals.py</code> matches a provider error to a known cause and prints a sentence with the cause and its remedy, followed by the provider’s own words. An error it does not recognise keeps the provider’s words and no remedy is guessed. Tests hold each cause to its own remedy and keep the core’s own bugs from being presented as a provider’s.</p>
 
-<h2>“Could not see” is not “nothing there”</h2>
+<h2 id="could-not-see-is-not-nothing-there">“Could not see” is not “nothing there”<a class="doc-anchor" href="#could-not-see-is-not-nothing-there" aria-label="Link to this section">#</a></h2>
 <p>Every read on a tracker follows one rule, stated in its base class: <code>None</code> means the read failed; an empty list means the read succeeded and found nothing. Boards follow the same rule, and the adapter conformance suite checks it for trackers. Typed values such as <code>Unreadable</code> carry the same distinction elsewhere.</p>
 
-<h2>Refuse before writing</h2>
+<h2 id="refuse-before-writing">Refuse before writing<a class="doc-anchor" href="#refuse-before-writing" aria-label="Link to this section">#</a></h2>
 <p>A check that can refuse runs before anything is written. A refused card transition changes nothing and says why; the floor refuses a job before the implementation pass; the knowledge pipeline refuses a target outside its directory before anything is cloned; a refused command-line flag says that nothing was read and nothing was written.</p>
 
-<h2>One prompt budget that names what it leaves out</h2>
+<h2 id="one-prompt-budget-that-names-what-it-leaves-out">One prompt budget that names what it leaves out<a class="doc-anchor" href="#one-prompt-budget-that-names-what-it-leaves-out" aria-label="Link to this section">#</a></h2>
 <p>A job’s prompt has one budget (ADR-0056): <code>BEEVERFORGE_PROMPT_BUDGET</code>, default 160,000 bytes, shared by the card, the plan and the documents the project declares. <code>off</code> turns it off; a value that cannot be read is refused. Every document left out is named in the prompt, by the path the agent can open and its size, under a heading that tells the agent to open it before changing what it governs. A document cut at its own length limit is listed with how much of it was inlined.</p>
 
-<h2>Vendor neutrality, enforced by tests</h2>
+<h2 id="vendor-neutrality-enforced-by-tests">Vendor neutrality, enforced by tests<a class="doc-anchor" href="#vendor-neutrality-enforced-by-tests" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><code>tests/test_kernel_names_no_vendor.py</code> parses <code>beeverforge/contracts</code> and <code>beeverforge/policy</code> and fails on any vendor name.</li>
 <li><code>tests/test_the_core_names_no_vendor.py</code> fails on a chat vendor named outside comments in the core.</li>
@@ -132,7 +132,7 @@
 <li><code>tests/test_the_core_is_a_core.py</code> loads the core in a subprocess where every vendor SDK refuses to import, and checks that the action catalogue resolves and the panel starts.</li>
 </ul>
 
-<h2>The knowledge layer</h2>
+<h2 id="the-knowledge-layer">The knowledge layer<a class="doc-anchor" href="#the-knowledge-layer" aria-label="Link to this section">#</a></h2>
 <p>The knowledge layer is a module map of each repository, generated deterministically from directory structure, Python syntax trees and pattern matching over TypeScript, JavaScript and C# sources, with no LLM calls. The same repository state produces byte-identical output.</p>
 <ul>
 <li>It is on by default (<code>knowledge_map: true</code>; ADR-0035) and can be turned off per project.</li>
@@ -140,11 +140,11 @@
 <li>An agent receives the map only when it is proven fresh against the agent’s own checkout. It speeds up finding code and does not replace reading it.</li>
 </ul>
 
-<h2>The product role</h2>
+<h2 id="the-product-role">The product role<a class="doc-anchor" href="#the-product-role" aria-label="Link to this section">#</a></h2>
 <p>The product role is opt-in. It is enabled by a <code>product:</code> section in the project’s registry entry, which must name the documentation repository that holds the product’s requirements (ADR-0019).</p>
 
 <section class="doc-sources">
-<h2>Sources</h2>
+<h2 id="sources">Sources<a class="doc-anchor" href="#sources" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/core/00-vision.md"><code>docs/core/00-vision.md</code></a></li>
 <li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/architecture.md"><code>docs/architecture.md</code></a></li>

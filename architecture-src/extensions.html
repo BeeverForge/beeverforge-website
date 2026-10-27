@@ -41,6 +41,10 @@ credential  board_setup  extract  embed  preview  credential_store</code></pre>
 <li><strong>An unknown kind refuses by name.</strong> The registry raises with the kind, the known kinds and, where the kind belongs to a known add-on package, which package ships it. It never falls back to a default provider.</li>
 </ul>
 
+<figure class="doc-figure">
+<div class="doc-diagram" data-diagram="extensions-resolve"></div>
+<figcaption>How a registry resolves a kind. Its own table is read first, so a deployment that uses only built-in kinds never loads an entry point.</figcaption>
+</figure>
 <h2>Born with two</h2>
 <p>ADR-0022 sets the bar: an axis is agnostic not because it declares an interface, but when it is born with more than one implementation and a seam that dispatches between them. Protocols are <code>@runtime_checkable</code> and tests check them with <code>isinstance</code>.</p>
 <p>The rule is not met on every axis today. The <code>channel</code>, <code>notifier</code>, <code>session_store</code> and <code>token_pool</code> axes have one built-in kind each, and <code>box_runner</code> has none. No test requires two built-ins per axis; per-axis tests exist for the <code>preview</code> and <code>credential_store</code> axes.</p>

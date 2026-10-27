@@ -564,3 +564,78 @@ Accepted; refined by ADR-0047	Aceptado; precisado por ADR-0047	Aceito; refinado 
 Proposed	Propuesto	Proposto
 Implemented; the record reads Proposed	Implementado; el registro dice Proposed	Implementado; o registro diz Proposed
 How the BeeverForge core repository is tested, guarded, documented and released, with an index of its architecture decision records.	Cómo se prueba, se protege, se documenta y se publica el repositorio del núcleo de BeeverForge, con un índice de sus registros de decisión de arquitectura.	Como o repositório do núcleo do BeeverForge é testado, protegido, documentado e publicado, com um índice dos seus registros de decisão de arquitetura.
+The default installation. The published ports bind to {0}; the box’s network is described on The box and the quality floor.	La instalación predeterminada. Los puertos publicados se vinculan a {0}; la red de la caja se describe en La caja y el piso de calidad.	A instalação padrão. As portas publicadas ficam vinculadas a {0}; a rede da caixa é descrita em A caixa e o piso de qualidade.
+One job from the poll to a release. Calls to Activities run on the worker; a person’s answers arrive as signals. Every wait is a durable timer or condition, so none of them holds a worker.	Un job desde el sondeo hasta una versión. Las llamadas a Actividades se ejecutan en el worker; las respuestas de una persona llegan como señales. Cada espera es un temporizador o una condición durable, así que ninguna ocupa un worker.	Um job da consulta até uma versão. As chamadas a Atividades rodam no worker; as respostas de uma pessoa chegam como sinais. Cada espera é um temporizador ou uma condição durável, então nenhuma ocupa um worker.
+A {0} box as the worker starts it. Secrets are passed for the job’s duration; the network is not isolated.	Una caja {0} tal como la inicia el worker. Los secretos se pasan durante el job; la red no está aislada.	Uma caixa {0} como o worker a inicia. Os segredos são passados durante o job; a rede não é isolada.
+The checks of {0}, in the order they run.	Las comprobaciones de {0}, en el orden en que se ejecutan.	As verificações de {0}, na ordem em que rodam.
+How a registry resolves a kind. Its own table is read first, so a deployment that uses only built-in kinds never loads an entry point.	Cómo resuelve un registro un tipo. Primero lee su propia tabla, así que un despliegue que solo usa tipos incluidos nunca carga un punto de entrada.	Como um registro resolve um tipo. Ele lê primeiro a própria tabela, então uma implantação que usa só tipos incluídos nunca carrega um ponto de entrada.
+Inside a container box	Dentro de una caja de contenedor	Dentro de uma caixa de contêiner
+The worker starts the box from the project’s image through the Docker socket, with CPU and memory limits, and passes the job’s secrets as environment variables. The box mounts the job’s clone, the read-only toolbox and guidelines, and a cache. Its network is Docker’s {0} by default.	El worker inicia la caja a partir de la imagen del proyecto mediante el socket de Docker, con límites de CPU y memoria, y le pasa los secretos del job como variables de entorno. La caja monta el clon del job, la caja de herramientas y las directrices en solo lectura, y una caché. Su red es la {0} de Docker de forma predeterminada.	O worker inicia a caixa a partir da imagem do projeto pelo socket do Docker, com limites de CPU e memória, e passa os segredos do job como variáveis de ambiente. A caixa monta o clone do job, a caixa de ferramentas e as diretrizes como somente leitura, e um cache. Sua rede é a {0} do Docker por padrão.
+Worker: the job runner	Worker: el ejecutor de jobs	Worker: o executor de jobs
+Box: a container from the project’s image	Caja: un contenedor de la imagen del proyecto	Caixa: um contêiner da imagem do projeto
+{0}<br>the job’s clone	{0}<br>el clon del job	{0}<br>o clone do job
+{0}<br>harness binaries, read-only	{0}<br>binarios del harness, solo lectura	{0}<br>binários do harness, somente leitura
+{0}<br>guidelines, read-only	{0}<br>directrices, solo lectura	{0}<br>diretrizes, somente leitura
+{0}<br>dependency cache	{0}<br>caché de dependencias	{0}<br>cache de dependências
+Network reachable from the box	Red accesible desde la caja	Rede acessível a partir da caixa
+{0} with CPU and memory limits,<br>then {1}, through the Docker socket	{0} con límites de CPU y memoria,<br>luego {1}, mediante el socket de Docker	{0} com limites de CPU e memória,<br>depois {1}, pelo socket do Docker
+secrets as environment variables	secretos como variables de entorno	segredos como variáveis de ambiente
+{0} by default	{0} de forma predeterminada	{0} por padrão
+What {0} checks	Qué comprueba {0}	O que {0} verifica
+The proof runs five checks in a fixed order and stops at the first fault that later checks depend on. When every check passes, the proof is recorded, and the board scan picks up work while the recorded facts hold.	La certificación ejecuta cinco comprobaciones en un orden fijo y se detiene en el primer fallo del que dependen las comprobaciones posteriores. Cuando todas pasan, la certificación se registra, y la exploración del tablero recoge trabajo mientras se mantengan los hechos registrados.	A prova executa cinco verificações em uma ordem fixa e para na primeira falha de que as verificações seguintes dependem. Quando todas passam, a prova é registrada, e a varredura do quadro recolhe trabalho enquanto os fatos registrados se mantiverem.
+1. The image tag resolves to a digest	1. La etiqueta de la imagen se resuelve a un digest	1. A tag da imagem é resolvida para um digest
+2. The toolbox matches the image’s C library	2. La caja de herramientas coincide con la biblioteca C de la imagen	2. A caixa de ferramentas corresponde à biblioteca C da imagem
+3. The image contract: {0},<br>keep-alive, {1}, writable<br>{2} and {3}	3. El contrato de la imagen: {0},<br>keep-alive, {1}, {2} y {3}<br>con permiso de escritura	3. O contrato da imagem: {0},<br>keep-alive, {1}, {2} e {3}<br>graváveis
+4. The box starts, {0} runs,<br>then {1} on an<br>untouched checkout of {2}	4. La caja arranca, se ejecuta {0}<br>y luego {1} sobre una<br>copia intacta de {2}	4. A caixa inicia, {0} roda<br>e depois {1} em um<br>checkout intacto de {2}
+5. The harness: version, credentials,<br>trust store, endpoint reachable	5. El harness: versión, credenciales,<br>almacén de confianza, endpoint accesible	5. O harness: versão, credenciais,<br>repositório de confiança, endpoint acessível
+Proof recorded	Certificación registrada	Prova registrada
+The board scan picks up work<br>while the recorded facts hold	La exploración del tablero recoge trabajo<br>mientras se mantengan los hechos registrados	A varredura do quadro recolhe trabalho<br>enquanto os fatos registrados se mantiverem
+Deployment of the default installation	Despliegue de la instalación predeterminada	Implantação da instalação padrão
+On the operator’s machine, {0} runs the panel, the worker, the Temporal server with its web UI, and the Postgres database Temporal stores its state in. The worker starts one box per job through the Docker socket. The box calls the coding agent service; the worker reaches a remote forge, tracker and board through adapters.	En la máquina del operador, {0} ejecuta el panel, el worker, el servidor Temporal con su interfaz web y la base de datos Postgres en la que Temporal guarda su estado. El worker inicia una caja por job mediante el socket de Docker. La caja llama al servicio del agente de programación; el worker llega a una plataforma Git, un tracker y un tablero remotos mediante adaptadores.	Na máquina do operador, {0} executa o painel, o worker, o servidor Temporal com sua interface web e o banco Postgres em que o Temporal guarda seu estado. O worker inicia uma caixa por job pelo socket do Docker. A caixa chama o serviço do agente de programação; o worker alcança uma plataforma Git, um tracker e um quadro remotos por meio de adaptadores.
+A person	Una persona	Uma pessoa
+The operator’s machine: {0}	La máquina del operador: {0}	A máquina do operador: {0}
+State volume<br>registry, local<br>board, metrics	Volumen de estado<br>registro, tablero<br>local, métricas	Volume de estado<br>registro, quadro<br>local, métricas
+Box<br>one container per job	Caja<br>un contenedor por job	Caixa<br>um contêiner por job
+{0}<br>Postgres 16	{0}<br>Postgres 16	{0}<br>Postgres 16
+Coding agent<br>service	Servicio del agente<br>de programación	Serviço do agente<br>de programação
+Remote forge,<br>tracker and board	Plataforma Git, tracker<br>y tablero remotos	Plataforma Git, tracker<br>e quadro remotos
+browser	navegador	navegador
+signals and reads	señales y lecturas	sinais e leituras
+task queue {0}	cola de tareas {0}	fila de tarefas {0}
+Docker socket	socket de Docker	socket do Docker
+harness calls	llamadas del harness	chamadas do harness
+adapters	adaptadores	adaptadores
+How a registry resolves a kind	Cómo resuelve un registro un tipo	Como um registro resolve um tipo
+A registry first looks in its own table, and a built-in row always answers. Only for a kind that is not built in are the entry points loaded, once. An add-on row named after the axis and the kind answers; otherwise the registry refuses, naming the kind.	Un registro busca primero en su propia tabla, y una fila incluida siempre responde. Solo para un tipo que no está incluido se cargan los puntos de entrada, una vez. Responde una fila complementaria con el nombre del eje y del tipo; si no existe, el registro rechaza y nombra el tipo.	Um registro procura primeiro na própria tabela, e uma linha incluída sempre responde. Só para um tipo que não está incluído os pontos de entrada são carregados, uma vez. Responde uma linha complementar com o nome do eixo e do tipo; se não existir, o registro recusa e nomeia o tipo.
+A registry looks up<br>a kind on its axis	Un registro busca<br>un tipo en su eje	Um registro procura<br>um tipo no seu eixo
+Built in?	¿Incluido?	Incluído?
+The built-in row answers	Responde la fila incluida	A linha incluída responde
+An add-on row with<br>the same name is<br>ignored and reported	Una fila complementaria<br>con el mismo nombre se<br>ignora y se informa	Uma linha complementar<br>com o mesmo nome é<br>ignorada e informada
+The {0}<br>entry points are loaded<br>once and cached	Los puntos de entrada<br>{0} se cargan<br>una vez y se guardan	Os pontos de entrada<br>{0} são carregados<br>uma vez e guardados
+A malformed name is skipped<br>with a warning; a broken<br>add-on is logged and ignored	Un nombre mal formado se omite<br>con una advertencia; un complemento<br>roto se registra y se ignora	Um nome malformado é ignorado<br>com um aviso; um complemento<br>quebrado é registrado e ignorado
+A row named<br>{0}?	¿Una fila llamada<br>{0}?	Uma linha chamada<br>{0}?
+The add-on’s builder answers	Responde el constructor del complemento	O construtor do complemento responde
+Refusal: the kind, the<br>known kinds and the package<br>that ships it, if known.<br>No default provider.	Rechazo: el tipo, los<br>tipos conocidos y el paquete<br>que lo incluye, si se conoce.<br>Ningún proveedor predeterminado.	Recusa: o tipo, os<br>tipos conhecidos e o pacote<br>que o inclui, se conhecido.<br>Nenhum provedor padrão.
+yes	sí	sim
+no	no	não
+From a poll tick to a release	De un ciclo de sondeo a una versión	De um ciclo de consulta a uma versão
+The schedule starts the poll workflow, whose activities read the boards, count the free slots and start one job workflow per free slot. The job workflow runs sizing and the job as activities, the job runs in its box, and the workflow then waits on durable timers until the merge, and on signals for a person’s answers.	La programación inicia el workflow de sondeo, cuyas actividades leen los tableros, cuentan los cupos libres e inician un workflow de job por cupo libre. El workflow del job ejecuta el dimensionamiento y el job como actividades, el job se ejecuta en su caja, y luego el workflow espera con temporizadores durables hasta el merge, y con señales las respuestas de una persona.	O agendamento inicia o workflow de consulta, cujas atividades leem os quadros, contam as vagas livres e iniciam um workflow de job por vaga livre. O workflow do job executa o dimensionamento e o job como atividades, o job roda na sua caixa, e depois o workflow espera com temporizadores duráveis até o merge, e com sinais as respostas de uma pessoa.
+Activities	Actividades	Atividades
+Box	Caja	Caixa
+Started by the schedule<br>every 3 minutes	Lo inicia la programación<br>cada 3 minutos	Iniciado pelo agendamento<br>a cada 3 minutos
+{0}<br>checks the box proof	{0}<br>comprueba la certificación de la caja	{0}<br>verifica a prova da caixa
+Start, one per free slot	Inicio, uno por cupo libre	Início, um por vaga livre
+{0}<br>sizing	{0}<br>dimensionamiento	{0}<br>dimensionamento
+{0}<br>heartbeat about every 30 s	{0}<br>heartbeat cada 30 s aproximadamente	{0}<br>heartbeat a cada 30 s, aproximadamente
+{0}, agent pass,<br>{1} gates, review	{0}, pasada del agente,<br>controles {1}, revisión	{0}, passada do agente,<br>controles {1}, revisão
+The pull request is open	El pull request está abierto	O pull request está aberto
+Until it merges, at most 14 days	Hasta el merge, como máximo 14 días	Até o merge, no máximo 14 dias
+Durable timer: 2 minutes, then 15	Temporizador durable: 2 minutos, luego 15	Temporizador durável: 2 minutos, depois 15
+{0}, CI checks,<br>{1} when red	{0}, checks de la CI,<br>{1} si está en rojo	{0}, checks da CI,<br>{1} quando vermelho
+{0}<br>sealed, from the panel	{0}<br>sellado, desde el panel	{0}<br>selado, a partir do painel
+Promotion enabled	Promoción habilitada	Promoção habilitada
+{0}<br>sealed, within 3 days	{0}<br>sellado, en 3 días como máximo	{0}<br>selado, em até 3 dias
+{0},<br>then {1}	{0},<br>luego {1}	{0},<br>depois {1}
+Link to this section	Enlace a esta sección	Link para esta seção
+A fault that later checks<br>depend on stops the run:<br>one cause, reported once,<br>with its remedy	Un fallo del que dependen las<br>comprobaciones posteriores<br>detiene la ejecución: una causa,<br>informada una vez, con su solución	Uma falha de que dependem<br>as verificações seguintes<br>interrompe a execução: uma causa,<br>informada uma vez, com sua solução
+fault	fallo	falha
