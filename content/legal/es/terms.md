@@ -1,40 +1,44 @@
 ---
 title: Términos de uso
-description: Los términos que se aplican a la prueba del Prototype Builder de BeeverForge: quién puede usarla, qué incluye, qué conserva usted y qué prometemos.
+description: Los términos que se aplican a la prueba del Prototype Builder de BeeverForge para empresas: quién puede usarla, qué incluye, qué conserva usted y qué prometemos.
 version: 0.1
-date: 2026-10-26
+date: 2026-10-27
 status: draft
 ---
 
 ## 1. Quiénes somos y qué cubren estos términos
 
-BeeverForge ("BeeverForge", "nosotros") opera la prueba del Prototype Builder en try.beeverforge.com y este sitio web. La entidad legal que opera BeeverForge y su domicilio social son: **[razón social y domicilio — a completar por el abogado]**.
+BeeverForge ("BeeverForge", "nosotros") opera la prueba del Prototype Builder y este sitio web. La prueba se ofrece en app.beeverforge.com, donde una empresa la solicita y sus personas inician sesión, y en la dirección propia de cada empresa bajo beeverforge.com (por ejemplo, acme.beeverforge.com). La entidad legal que opera BeeverForge y su domicilio social son: **[razón social y domicilio — a completar por el abogado]**.
 
-Estos términos se aplican a la prueba: la lista de espera, su invitación, el Prototype Builder que usa durante la prueba y todo lo que crea con él. Funcionan junto con nuestra [política de privacidad](/legal/privacy/) y nuestra [política de uso aceptable](/legal/acceptable-use/). Al aceptarlos la primera vez que inicia sesión, usted acepta los tres.
+Estos términos se aplican a la prueba: la lista de espera, la solicitud de su empresa y su cuenta, su invitación, el Prototype Builder que usa durante la prueba y todo lo que crea con él. Funcionan junto con nuestra [política de privacidad](/legal/privacy/) y nuestra [política de uso aceptable](/legal/acceptable-use/). Al aceptarlos la primera vez que inicia sesión, usted acepta los tres.
 
 ## 2. Quién puede usar la prueba
 
-- Debe tener al menos 18 años y capacidad para celebrar un acuerdo vinculante.
-- Necesita una invitación personal de BeeverForge. Cada invitación es para una persona y no puede transferirse ni compartirse.
-- Si usa la prueba en nombre de una organización, confirma que está autorizado a aceptar estos términos en su nombre.
+- La prueba se ofrece a empresas: cada prueba es una cuenta de empresa. La persona que la solicita lo hace en nombre de la empresa y confirma que está autorizada a aceptar estos términos en su nombre.
+- BeeverForge revisa cada solicitud y decide si la aprueba.
+- La persona que la solicitó pasa a administrar la cuenta y puede invitar a sus colegas. Cada colega acepta estos términos la primera vez que inicia sesión.
+- Todas las personas que usan la prueba deben tener al menos 18 años y capacidad para celebrar un acuerdo vinculante.
+- Cada invitación es para una persona y no puede transferirse ni compartirse.
 
 ## 3. Qué es la prueba
 
 - La prueba le permite describir un producto en una conversación, verlo como un prototipo navegable con datos simulados y generar sus requisitos.
-- Se ofrece por invitación, a pocas personas a la vez. Cada invitación es válida por **quince días** desde la fecha en que la enviamos.
-- Es **gratuita dentro de una cuota de uso por persona**. Cuando alcanza la cuota, la prueba le indica cuándo puede continuar. También podemos limitar el uso total de la prueba en cualquier momento.
-- Cada persona hace **un prototipo**, sobre un producto. Puede cambiar tanto como la cuota lo permita, pero sigue siendo ese producto: una solicitud de otro producto se rechaza.
-- Cuando termina su invitación, todavía puede iniciar sesión para leer y descargar lo que creó hasta que se elimine (vea la [política de privacidad](/legal/privacy/)), pero no puede empezar trabajos nuevos.
+- Se ofrece a pocas empresas a la vez. Cada empresa aprobada recibe su propio espacio en su propia dirección bajo beeverforge.com, con su propio Prototype Builder. La dirección que una empresa solicita es un deseo; BeeverForge puede asignar otra.
+- La prueba de una empresa dura **quince días** desde la fecha en que se abre su cuenta.
+- Es **gratuita dentro de la cuota de uso de la cuenta de la empresa**. Cuando se alcanza la cuota, la prueba le indica cuándo puede continuar. También podemos limitar el uso total de la prueba en cualquier momento.
+- Cada persona de la cuenta hace **un prototipo**, sobre un producto. Puede cambiar tanto como la cuota lo permita, pero sigue siendo ese producto: una solicitud de otro producto se rechaza.
+- Cuando termina la prueba, las personas de la cuenta todavía pueden iniciar sesión para leer y descargar lo que crearon hasta que se elimine (vea la [política de privacidad](/legal/privacy/)), pero no pueden empezar trabajos nuevos.
+- Si la empresa pasa al plan Business, la misma cuenta continúa, en la misma dirección, con sus datos. El plan Business se rige por un acuerdo escrito separado.
 - La prueba es una versión preliminar de un servicio que sigue evolucionando. Podemos cambiarla, suspenderla o terminarla, total o parcialmente, en cualquier momento. No hay nivel de servicio, compromiso de disponibilidad ni obligación de soporte.
 
 ## 4. Su cuenta
 
-Usted inicia sesión con una cuenta de Google o de GitHub; nunca vemos su contraseña. Mantenga esa cuenta segura. Usted es responsable de lo que ocurra con su invitación. Avísenos de inmediato en contact@beeverforge.com si cree que otra persona la ha usado.
+La prueba de su empresa es una sola cuenta; quien la administra invita a los colegas que participan. Cada persona inicia sesión con una cuenta de Google o de GitHub; nunca vemos su contraseña. Mantenga esa cuenta segura. Usted es responsable de lo que ocurra con su invitación. Avísenos de inmediato en contact@beeverforge.com si cree que otra persona la ha usado.
 
 ## 5. Su contenido
 
-- "Su contenido" es lo que usted escribe, los documentos e imágenes que sube y lo que la prueba produce para usted: prototipos, notas, requisitos y el paquete descargable.
-- **Usted conserva los derechos que tiene sobre su contenido.** Usted otorga a BeeverForge una licencia limitada y no exclusiva para alojar, procesar y transmitir su contenido solo en la medida necesaria para operar la prueba para usted, mantenerla segura y —si decide entregarnos sus requisitos— preparar una propuesta.
+- "Su contenido" es lo que usted y sus colegas escriben, los documentos e imágenes que suben y lo que la prueba produce en la cuenta de su empresa: prototipos, notas, requisitos y el paquete descargable.
+- Su contenido pertenece a la cuenta de su empresa y a sus personas: **ellas conservan los derechos que tienen sobre él.** Otorgan a BeeverForge una licencia limitada y no exclusiva para alojarlo, procesarlo y transmitirlo solo en la medida necesaria para operar la prueba para la cuenta de la empresa, mantenerla segura y —si decide entregarnos sus requisitos— preparar una propuesta.
 - Usted confirma que tiene derecho a usar lo que sube y que no incluye información confidencial que no pueda compartir, datos personales de otras personas ni datos reales de clientes. Use datos ficticios en los prototipos.
 - No vendemos su contenido, no lo usamos para entrenar modelos y no leemos sus prototipos salvo que nos entregue sus requisitos o nos pida ayuda.
 

@@ -1,4 +1,5 @@
-// The trial's waitlist form (/try/): the character count, Cloudflare Turnstile and the post to the door (beeverforge-try).
+// The trial's waitlist form (/try/), where a company asks for its trial: the company's wished address and its rule, the
+// character count, Cloudflare Turnstile and the post to the door (beeverforge-try, on app.beeverforge.com).
 // The door answers 202 with the same sentence for every address, so success always goes to the confirmation page;
 // nothing here can tell whether an address was already known, and no refusal says so either. Served from this machine
 // with a local build (BUILD_LOCAL=1), the form uses the local door and Cloudflare's always-pass test key, so the build
@@ -46,6 +47,44 @@
   };
   wants?.addEventListener('input', count);
   count();
+
+  // The company's wished address (`<slug>.beeverforge.com`), by the rule the door and the infrastructure apply too:
+  // 3 to 20 characters, a letter first and a letter or digit last, no "--", not ending in "-preview" (a company's
+  // previews live there), and none of the reserved names. It is a wish; the team may set another when it sets up the
+  // space. The sentence shows under the field once the person leaves it, and goes as soon as the address is right.
+  const slug = form.querySelector('input[name="slug"]');
+  const slugError = form.querySelector('#try-slug-error');
+  const reserved = new Set(('www app api admin mail send smtp imap pop ftp autodiscover autoconfig status docs blog help '
+    + 'support static cdn assets try beta dev staging test preview hub accounts account login signin signup auth billing '
+    + 'security abuse postmaster hostmaster webmaster ns ns1 ns2 dns mx beeverforge').split(' '));
+  const slugProblem = (value) => {
+    if (!value) return ''; // `required` says it, like the other fields
+    if (!/^[a-z][a-z0-9-]{1,18}[a-z0-9]$/.test(value) || value.includes('--')) return form.dataset.slugMessage;
+    if (value.endsWith('-preview') || reserved.has(value)) return form.dataset.slugReservedMessage;
+    return '';
+  };
+  const showSlug = (problem) => {
+    if (problem) slug.setAttribute('aria-invalid', 'true');
+    else slug.removeAttribute('aria-invalid');
+    if (slugError) slugError.textContent = problem;
+  };
+  // the address is lower case; what a person types in capitals or with spaces around it is tidied, not refused
+  const tidySlug = () => { slug.value = slug.value.trim().toLowerCase(); };
+  const checkSlug = () => {
+    if (!slug) return true;
+    tidySlug();
+    const problem = slugProblem(slug.value);
+    slug.setCustomValidity(problem);
+    showSlug(problem);
+    return !problem;
+  };
+  slug?.addEventListener('change', checkSlug);
+  slug?.addEventListener('input', () => {
+    const problem = slugProblem(slug.value.trim().toLowerCase());
+    slug.setCustomValidity(problem);
+    // while the person types, a shown sentence follows the value; a new one waits until they leave the field
+    if (slug.getAttribute('aria-invalid') === 'true') showSlug(problem);
+  });
 
   const render = () => {
     if (!window.turnstile || !slot) return;
@@ -122,6 +161,7 @@
       say(form.dataset.unavailableMessage, 'unavailable');
       return;
     }
+    checkSlug();
     if (!form.reportValidity()) return;
     if (!token) {
       say(form.dataset.captchaMessage, 'error');
@@ -130,6 +170,8 @@
     const data = new FormData(form);
     const field = (name) => String(data.get(name) || '').trim();
     const payload = {
+      company: field('company'),
+      slug: field('slug'),
       email: field('email'),
       name: field('name'),
       wants: field('wants'),

@@ -1,8 +1,8 @@
 ---
 title: Política de privacidad
-description: Qué recopila BeeverForge en este sitio web y en la prueba del Prototype Builder, para qué, quién lo procesa, cuánto tiempo se conserva y cómo ejercer sus derechos.
+description: Qué recopila BeeverForge en este sitio web y en la prueba del Prototype Builder para empresas, para qué, quién lo procesa, cuánto tiempo se conserva y cómo ejercer sus derechos.
 version: 0.1
-date: 2026-10-25
+date: 2026-10-27
 status: draft
 ---
 
@@ -10,7 +10,7 @@ status: draft
 
 BeeverForge ("nosotros") es responsable de los datos personales descritos aquí. La entidad legal que opera BeeverForge, su domicilio social y, cuando corresponda, su delegado de protección de datos son: **[razón social, domicilio y delegado de protección de datos — a completar por el abogado]**. Puede escribirnos sobre privacidad a contact@beeverforge.com.
 
-Esta política cubre este sitio web (beeverforge.com), el formulario de consultas Enterprise y la prueba del Prototype Builder (try.beeverforge.com), desde la lista de espera hasta el final de su invitación.
+Esta política cubre este sitio web (beeverforge.com), el formulario de consultas Enterprise y la prueba del Prototype Builder para empresas —en app.beeverforge.com y en la dirección propia de cada empresa bajo beeverforge.com—, desde la lista de espera hasta el final de la prueba de su empresa.
 
 ## 2. Qué recopilamos y para qué
 
@@ -22,20 +22,21 @@ Esta política cubre este sitio web (beeverforge.com), el formulario de consulta
 
 ### La lista de espera
 
-- Su **nombre, correo, lo que quiere prototipar, su idioma**, y la fecha y el hecho de su **consentimiento**.
+- El **nombre de su empresa y la dirección que desea**, su **nombre, correo, lo que quiere prototipar, su idioma**, y la fecha y el hecho de su **consentimiento**.
 - Su correo se confirma con un enlace que le enviamos. Hasta que lo confirme, no le enviamos nada más.
-- Finalidad: invitarle a la prueba y escribirle sobre ella.
+- Finalidad: evaluar la solicitud de su empresa, abrir su prueba y escribirle sobre ella.
 
 ### Su cuenta en la prueba
 
 - Cuando inicia sesión con Google o GitHub recibimos su **correo verificado, su nombre y el identificador del proveedor** para su cuenta. Nunca recibimos su contraseña.
-- Registramos el **estado de su invitación** (invitada, activa, vencida) y sus fechas, y **qué versión de los términos aceptó y cuándo**.
+- Si quien administra la cuenta de su empresa le invita, recibimos de esa persona su **dirección de correo**, para enviarle la invitación.
+- Registramos **a qué cuenta de empresa pertenece y si la administra**, el **estado de su invitación** (invitada, activa, vencida) y sus fechas, y **qué versión de los términos aceptó y cuándo**.
 - Una cookie de sesión mantiene su sesión iniciada. Es estrictamente necesaria y no se usa para nada más.
 
 ### Lo que crea en la prueba
 
-- Sus **mensajes, los documentos e imágenes que sube, los prototipos, las notas del builder y los requisitos** generados a partir de ellos.
-- Finalidad: operar la prueba para usted. Cuando decide entregar sus requisitos a BeeverForge, nuestro equipo los lee para preparar una propuesta.
+- Sus **mensajes, los documentos e imágenes que sube, los prototipos, las notas del builder y los requisitos** generados a partir de ellos. Pertenecen a la cuenta de su empresa y a sus personas, como dicen los [términos de uso](/legal/terms/).
+- Finalidad: operar la prueba para la cuenta de su empresa. Cuando decide entregar sus requisitos a BeeverForge, nuestro equipo los lee para preparar una propuesta.
 - **Registros de uso** —cuántas ejecuciones hizo, cuánto duraron y cuánto costaron— sin nada del contenido. Finalidad: aplicar la cuota de forma justa y entender el costo de la prueba.
 
 ### Seguridad
@@ -75,7 +76,7 @@ Nuestros proveedores procesan datos en los **Estados Unidos** y posiblemente en 
 
 - **Inscripciones no confirmadas en la lista de espera:** 7 días.
 - **Registros de lista de espera e invitación:** 12 meses después de nuestro último contacto con usted, o hasta que nos pida eliminarlos.
-- **Prototipos, archivos subidos y requisitos:** 90 días después de su última actividad en la prueba, o antes si los elimina.
+- **Prototipos, archivos subidos y requisitos de la cuenta:** 90 días después de la última actividad en la cuenta de su empresa, o antes si se eliminan. Si la empresa pasa al plan Business, permanecen en su cuenta.
 - **Registros de los términos que aceptó:** mientras podamos necesitar demostrar lo que aceptó.
 - **Registros de auditoría y de uso** (sin contenido): 2 años.
 - **Registros de seguridad y del servidor:** 30 días.

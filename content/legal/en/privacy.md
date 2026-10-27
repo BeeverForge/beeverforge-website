@@ -1,8 +1,8 @@
 ---
 title: Privacy policy
-description: What BeeverForge collects on this website and in the Prototype Builder trial, why, who processes it, how long it is kept and how to exercise your rights.
+description: What BeeverForge collects on this website and in the Prototype Builder trial for companies, why, who processes it, how long it is kept and how to exercise your rights.
 version: 0.1
-date: 2026-10-25
+date: 2026-10-27
 status: draft
 ---
 
@@ -10,7 +10,7 @@ status: draft
 
 BeeverForge ("we") is responsible for the personal data described here. The legal entity that operates BeeverForge, its registered address and, where required, its data protection officer are: **[legal name, address and data protection officer — to be completed by counsel]**. You can reach us about privacy at contact@beeverforge.com.
 
-This policy covers this website (beeverforge.com), the Enterprise inquiry form, and the Prototype Builder trial (try.beeverforge.com), from the waitlist to the end of your invitation.
+This policy covers this website (beeverforge.com), the Enterprise inquiry form, and the Prototype Builder trial for companies — at app.beeverforge.com and at each company's own address under beeverforge.com — from the waitlist to the end of your company's trial.
 
 ## 2. What we collect, and why
 
@@ -22,20 +22,21 @@ This policy covers this website (beeverforge.com), the Enterprise inquiry form, 
 
 ### The waitlist
 
-- Your **name, email, what you want to prototype, your language**, and the date and fact of your **consent**.
+- Your **company's name and the address it would like**, your **name, email, what you want to prototype, your language**, and the date and fact of your **consent**.
 - Your email is confirmed by a link we send. Until you confirm it, we send nothing else.
-- Purpose: to invite you to the trial and to write to you about it.
+- Purpose: to consider your company's request, open its trial and write to you about it.
 
 ### Your account in the trial
 
 - When you sign in with Google or GitHub we receive your **verified email, your name and the provider's identifier** for your account. We never receive your password.
-- We record the **state of your invitation** (invited, active, expired) and its dates, and **which version of the terms you accepted and when**.
+- If your company's admin invites you, we receive your **email address** from them, to send you the invitation.
+- We record **which company account you belong to and whether you are its admin**, the **state of your invitation** (invited, active, expired) and its dates, and **which version of the terms you accepted and when**.
 - A session cookie keeps you signed in. It is strictly necessary and is not used for anything else.
 
 ### What you create in the trial
 
-- Your **messages, the documents and images you upload, the prototypes, the builder's notes and the requirements** generated from them.
-- Purpose: to run the trial for you. When you choose to hand your requirements to BeeverForge, our team reads them to prepare a proposal.
+- Your **messages, the documents and images you upload, the prototypes, the builder's notes and the requirements** generated from them. They belong to your company's account and its people, as the [terms of use](/legal/terms/) say.
+- Purpose: to run the trial for your company's account. When you choose to hand your requirements to BeeverForge, our team reads them to prepare a proposal.
 - **Usage records** — how many runs you made, how long they took and what they cost — without any of the content. Purpose: to apply the quota fairly and to understand the cost of the trial.
 
 ### Security
@@ -75,7 +76,7 @@ Our providers process data in the **United States** and possibly in other countr
 
 - **Unconfirmed waitlist entries:** 7 days.
 - **Waitlist and invitation records:** 12 months after our last contact with you, or until you ask us to delete them.
-- **Prototypes, uploads and requirements:** 90 days after your last activity in the trial, or sooner if you delete them.
+- **The account's prototypes, uploads and requirements:** 90 days after the last activity in your company's account, or sooner if they are deleted. If the company moves to the Business plan, they stay with its account.
 - **Records of the terms you accepted:** as long as we may need to show what you accepted.
 - **Audit and usage records** (no content): 2 years.
 - **Security and server logs:** 30 days.

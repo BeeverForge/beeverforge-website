@@ -12,14 +12,15 @@ const translations = new Map(lines.map((line, index) => {
   return [columns[0], { es: columns[1], pt: columns[2] }];
 }));
 
-// The trial's waitlist. The site key is public; the endpoint is the door (beeverforge-try). An empty site key keeps the
-// form in its "unavailable" state from the moment the page loads, so the live site never collects an address the door
-// cannot take. A local build (`BUILD_LOCAL=1 node scripts/build.mjs`, the laptop bed) also writes the local door and
-// Cloudflare's always-pass test key into the page, and assets/try.js uses them when the site is served from this
+// The trial's waitlist, where a company asks for its trial. The site key is public; the endpoint is the door
+// (beeverforge-try) on the hub, app.beeverforge.com, as the hosted company accounts' contract sets it. An empty site key
+// keeps the form in its "unavailable" state from the moment the page loads, so the live site never collects an address
+// the door cannot take. A local build (`BUILD_LOCAL=1 node scripts/build.mjs`, the laptop bed) also writes the local door
+// and Cloudflare's always-pass test key into the page, and assets/try.js uses them when the site is served from this
 // machine (127.0.0.1 or localhost). The default build carries neither: the published page knows only the real door.
 const buildLocal = process.env.BUILD_LOCAL === '1';
 const site = {
-  waitlistEndpoint: 'https://try.beeverforge.com/waitlist',
+  waitlistEndpoint: 'https://app.beeverforge.com/waitlist',
   turnstileSiteKey: '',
   localWaitlistEndpoint: 'http://127.0.0.1:8500/waitlist',
   localTurnstileSiteKey: '1x00000000000000000000AA',
@@ -36,7 +37,7 @@ const locales = {
 const trial = {
   en: {
     title: 'Try the Prototype Builder — BeeverForge',
-    description: 'Describe what you need in a conversation and leave with a clickable prototype and its requirements. Free by invitation, fifteen days, within a quota per person.',
+    description: 'Describe what you need in a conversation and leave with a clickable prototype and its requirements. A free trial for your company: fifteen days, within its quota.',
     whatYouGet: 'What you get', steps: 'How the trial works', scope: 'What the trial includes and what it does not',
     placeholder: 'For example: an app where our field teams log site visits and managers approve the reports.',
     pending: 'Sending…',
@@ -45,19 +46,21 @@ const trial = {
     rateLimited: 'Too many attempts from this connection. Please wait a few minutes and try again.',
     rateWait: 'Too many attempts from this connection. Please wait {minutes} minutes and try again.',
     rateWaitOne: 'Too many attempts from this connection. Please wait a minute and try again.',
-    invalid: 'Please check your name, your email and your description, then try again.',
+    invalid: 'Please check your company’s name and address, your name, your email and your description, then try again.',
+    slugInvalid: 'Use 3 to 20 characters: letters a–z, digits and single hyphens, starting with a letter and ending with a letter or digit.',
+    slugReserved: 'This address is reserved. Please choose another.',
     captcha: 'Please complete the check above the button, then try again.',
     captchaLabel: 'Human-verification check',
     unavailableCheck: 'The check is not answering; please try again in a moment.',
     thanksTitle: 'Check your inbox — BeeverForge', thanksEyebrow: 'Prototype Builder waitlist', thanksHeading: 'Check your inbox.',
-    thanksBody: 'If this address is new to us, a confirmation is on its way. Follow the link in it to confirm your place on the waitlist. We’ll write again when it’s your turn.',
+    thanksBody: 'If this e-mail address is new to us, a confirmation is on its way. Follow the link in it to confirm your company’s place on the waitlist. We’ll write again once we have reviewed the request.',
     thanksBack: 'Return to the trial page ↗',
     legal: 'Legal documents', legalEyebrow: 'Legal', version: 'Version',
     draft: 'Draft — under legal review. This text has not yet been approved by counsel and may change before the trial opens.',
   },
   es: {
     title: 'Pruebe el Prototype Builder — BeeverForge',
-    description: 'Describa lo que necesita en una conversación y llévese un prototipo navegable y sus requisitos. Gratis por invitación, quince días, dentro de una cuota por persona.',
+    description: 'Describa lo que necesita en una conversación y llévese un prototipo navegable y sus requisitos. Una prueba gratuita para su empresa: quince días, dentro de su cuota.',
     whatYouGet: 'Lo que obtiene', steps: 'Cómo funciona la prueba', scope: 'Lo que incluye la prueba y lo que no',
     placeholder: 'Por ejemplo: una aplicación donde nuestros equipos de campo registran visitas y los gerentes aprueban los informes.',
     pending: 'Enviando…',
@@ -66,19 +69,21 @@ const trial = {
     rateLimited: 'Demasiados intentos desde esta conexión. Espere unos minutos e inténtelo de nuevo.',
     rateWait: 'Demasiados intentos desde esta conexión. Espere {minutes} minutos e inténtelo de nuevo.',
     rateWaitOne: 'Demasiados intentos desde esta conexión. Espere un minuto e inténtelo de nuevo.',
-    invalid: 'Revise su nombre, su correo y su descripción, e inténtelo de nuevo.',
+    invalid: 'Revise el nombre y la dirección de su empresa, su nombre, su correo y su descripción, e inténtelo de nuevo.',
+    slugInvalid: 'Use de 3 a 20 caracteres: letras a–z, dígitos y guiones sueltos; empiece con una letra y termine con una letra o un dígito.',
+    slugReserved: 'Esta dirección está reservada. Elija otra.',
     captcha: 'Complete la verificación sobre el botón e inténtelo de nuevo.',
     captchaLabel: 'Verificación humana',
     unavailableCheck: 'La verificación no responde; inténtelo de nuevo en un momento.',
     thanksTitle: 'Revise su correo — BeeverForge', thanksEyebrow: 'Lista de espera del Prototype Builder', thanksHeading: 'Revise su correo.',
-    thanksBody: 'Si esta dirección es nueva para nosotros, le llegará una confirmación. Siga el enlace para confirmar su lugar en la lista de espera. Le escribiremos de nuevo cuando sea su turno.',
+    thanksBody: 'Si esta dirección de correo es nueva para nosotros, le llegará una confirmación. Siga el enlace para confirmar el lugar de su empresa en la lista de espera. Le escribiremos de nuevo cuando hayamos revisado la solicitud.',
     thanksBack: 'Volver a la página de la prueba ↗',
     legal: 'Documentos legales', legalEyebrow: 'Legal', version: 'Versión',
     draft: 'Borrador — en revisión legal. Este texto aún no ha sido aprobado por un abogado y puede cambiar antes de que abra la prueba.',
   },
   pt: {
     title: 'Experimente o Prototype Builder — BeeverForge',
-    description: 'Descreva o que você precisa numa conversa e saia com um protótipo clicável e os seus requisitos. Gratuito por convite, quinze dias, dentro de uma cota por pessoa.',
+    description: 'Descreva o que você precisa numa conversa e saia com um protótipo clicável e os seus requisitos. Um teste gratuito para a sua empresa: quinze dias, dentro da sua cota.',
     whatYouGet: 'O que você recebe', steps: 'Como funciona o teste', scope: 'O que o teste inclui e o que não inclui',
     placeholder: 'Por exemplo: um aplicativo em que as equipes de campo registram visitas e os gestores aprovam os relatórios.',
     pending: 'Enviando…',
@@ -87,12 +92,14 @@ const trial = {
     rateLimited: 'Muitas tentativas a partir desta conexão. Aguarde alguns minutos e tente novamente.',
     rateWait: 'Muitas tentativas a partir desta conexão. Aguarde {minutes} minutos e tente novamente.',
     rateWaitOne: 'Muitas tentativas a partir desta conexão. Aguarde um minuto e tente novamente.',
-    invalid: 'Confira seu nome, seu e-mail e sua descrição, e tente novamente.',
+    invalid: 'Confira o nome e o endereço da sua empresa, seu nome, seu e-mail e sua descrição, e tente novamente.',
+    slugInvalid: 'Use de 3 a 20 caracteres: letras de a a z, dígitos e hifens simples, começando com uma letra e terminando com uma letra ou um dígito.',
+    slugReserved: 'Este endereço é reservado. Escolha outro.',
     captcha: 'Conclua a verificação acima do botão e tente novamente.',
     captchaLabel: 'Verificação humana',
     unavailableCheck: 'A verificação não está respondendo; tente novamente em instantes.',
     thanksTitle: 'Confira seu e-mail — BeeverForge', thanksEyebrow: 'Lista de espera do Prototype Builder', thanksHeading: 'Confira seu e-mail.',
-    thanksBody: 'Se este endereço é novo para nós, uma confirmação está a caminho. Siga o link para confirmar seu lugar na lista de espera. Escreveremos de novo quando chegar a sua vez.',
+    thanksBody: 'Se este e-mail é novo para nós, uma confirmação está a caminho. Siga o link para confirmar o lugar da sua empresa na lista de espera. Escreveremos de novo quando tivermos avaliado o pedido.',
     thanksBack: 'Voltar à página do teste ↗',
     legal: 'Documentos legais', legalEyebrow: 'Jurídico', version: 'Versão',
     draft: 'Rascunho — em revisão jurídica. Este texto ainda não foi aprovado por advogados e pode mudar antes de o teste abrir.',
@@ -270,6 +277,8 @@ function tryPage(locale, home) {
     `data-rate-wait-message="${t.rateWait}"`,
     `data-rate-wait-one-message="${t.rateWaitOne}"`,
     `data-invalid-message="${t.invalid}"`,
+    `data-slug-message="${t.slugInvalid}"`,
+    `data-slug-reserved-message="${t.slugReserved}"`,
     `data-captcha-message="${t.captcha}"`,
   ].join(' '));
   main = replaceRequired(main, '<div class="turnstile-slot" data-turnstile></div>', `<div class="turnstile-slot" data-turnstile role="group" aria-label="${t.captchaLabel}"></div>`);

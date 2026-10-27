@@ -1,40 +1,44 @@
 ---
 title: Terms of use
-description: The terms that apply to the BeeverForge Prototype Builder trial: who may use it, what it includes, what you keep and what we promise.
+description: The terms that apply to the BeeverForge Prototype Builder trial for companies: who may use it, what it includes, what you keep and what we promise.
 version: 0.1
-date: 2026-10-26
+date: 2026-10-27
 status: draft
 ---
 
 ## 1. Who we are and what these terms cover
 
-BeeverForge ("BeeverForge", "we", "us") runs the Prototype Builder trial at try.beeverforge.com and this website. The legal entity that operates BeeverForge and its registered address are: **[legal name and address — to be completed by counsel]**.
+BeeverForge ("BeeverForge", "we", "us") runs the Prototype Builder trial and this website. The trial is reached at app.beeverforge.com, where a company asks for it and its people sign in, and at each company's own address under beeverforge.com (for example, acme.beeverforge.com). The legal entity that operates BeeverForge and its registered address are: **[legal name and address — to be completed by counsel]**.
 
-These terms apply to the trial: the waitlist, your invitation, the Prototype Builder you use during the trial and everything you create with it. They work together with our [privacy policy](/legal/privacy/) and our [acceptable use policy](/legal/acceptable-use/). By accepting them when you first sign in, you agree to all three.
+These terms apply to the trial: the waitlist, your company's request and its account, your invitation, the Prototype Builder you use during the trial and everything you create with it. They work together with our [privacy policy](/legal/privacy/) and our [acceptable use policy](/legal/acceptable-use/). By accepting them when you first sign in, you agree to all three.
 
 ## 2. Who may use the trial
 
-- You must be at least 18 years old and able to enter into a binding agreement.
-- You need a personal invitation from BeeverForge. An invitation is for one person and may not be transferred or shared.
-- If you use the trial on behalf of an organisation, you confirm that you are allowed to accept these terms for it.
+- The trial is offered to companies: each trial is a company account. The person who asks for it does so on the company's behalf and confirms that they are allowed to accept these terms for it.
+- BeeverForge reviews each request and decides whether to approve it.
+- The person who asked becomes the account's admin and may invite colleagues. Each colleague accepts these terms when they first sign in.
+- Everyone who uses the trial must be at least 18 years old and able to enter into a binding agreement.
+- An invitation is for one person and may not be transferred or shared.
 
 ## 3. What the trial is
 
 - The trial lets you describe a product in a conversation, see it as a clickable prototype on simulated data, and generate its requirements.
-- It is offered by invitation, a few people at a time. Each invitation is valid for **fifteen days** from the date we send it.
-- It is **free of charge within a usage quota per person**. When you reach the quota, the trial tells you when you can continue. We may also limit the total use of the trial at any time.
-- Each person makes **one prototype**, about one product. It can change as much as the quota allows, but it stays that product: a request for a different product is declined.
-- After your invitation ends, you can still sign in to read and download what you created until it is deleted (see the [privacy policy](/legal/privacy/)), but you cannot start new work.
+- It is offered to a few companies at a time. Each approved company gets its own space at its own address under beeverforge.com, with its own Prototype Builder. The address a company asks for is a wish; BeeverForge may set a different one.
+- A company's trial lasts **fifteen days** from the date its account opens.
+- It is **free of charge within the company account's usage quota**. When the quota is reached, the trial tells you when you can continue. We may also limit the total use of the trial at any time.
+- Each person in the account makes **one prototype**, about one product. It can change as much as the quota allows, but it stays that product: a request for a different product is declined.
+- When the trial ends, the account's people can still sign in to read and download what they created until it is deleted (see the [privacy policy](/legal/privacy/)), but they cannot start new work.
+- If the company moves to the Business plan, the same account continues, at the same address, with its data. The Business plan is governed by a separate written agreement.
 - The trial is a preview of a service that is still evolving. We may change, suspend or end it, or any part of it, at any time. There is no service level, uptime commitment or support obligation.
 
 ## 4. Your account
 
-You sign in with a Google or GitHub account; we never see your password. Keep that account secure. You are responsible for what happens under your invitation. Tell us at once at contact@beeverforge.com if you think someone else has used it.
+Your company's trial is one account; its admin invites the colleagues who take part. Each person signs in with a Google or GitHub account; we never see your password. Keep that account secure. You are responsible for what happens under your invitation. Tell us at once at contact@beeverforge.com if you think someone else has used it.
 
 ## 5. Your content
 
-- "Your content" is what you write, the documents and images you upload, and what the trial produces for you: prototypes, notes, requirements and the downloadable package.
-- **You keep the rights you have in your content.** You give BeeverForge a limited, non-exclusive licence to host, process and transmit your content only as needed to run the trial for you, to keep it secure, and — if you choose to hand your requirements to BeeverForge — to prepare a proposal.
+- "Your content" is what you and your colleagues write, the documents and images you upload, and what the trial produces in your company's account: prototypes, notes, requirements and the downloadable package.
+- Your content belongs to your company's account and its people: **they keep the rights they have in it.** They give BeeverForge a limited, non-exclusive licence to host, process and transmit it only as needed to run the trial for the company's account, to keep it secure, and — if you choose to hand your requirements to BeeverForge — to prepare a proposal.
 - You confirm that you have the right to use what you upload, and that it does not include confidential information you may not share, other people's personal data, or real customer data. Use fictitious data in prototypes.
 - We do not sell your content, do not use it to train models, and do not read your prototypes unless you hand your requirements over to us or you ask for our help.
 

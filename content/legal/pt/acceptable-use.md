@@ -1,21 +1,21 @@
 ---
 title: Política de uso aceitável
-description: O que você pode e não pode fazer com o teste do Prototype Builder da BeeverForge.
+description: O que você pode e não pode fazer com o teste do Prototype Builder da BeeverForge para empresas.
 version: 0.1
-date: 2026-10-25
+date: 2026-10-27
 status: draft
 ---
 
 ## 1. Para que serve o teste
 
-O teste do Prototype Builder serve para definir um produto de software: descrevê-lo, vê-lo como protótipo e gerar os seus requisitos. Use-o para isso. Esta política faz parte dos nossos [termos de uso](/legal/terms/).
+O teste do Prototype Builder serve para que as pessoas de uma empresa definam um produto de software: descrevê-lo, vê-lo como protótipo e gerar os seus requisitos. Use-o para isso. Esta política faz parte dos nossos [termos de uso](/legal/terms/) e se aplica a cada pessoa da conta de uma empresa.
 
 ## 2. O que você não deve fazer
 
 - **Violar a lei** ou ajudar outras pessoas a violá-la, incluindo as leis de privacidade, propriedade intelectual, defesa do consumidor e controle de exportação.
 - **Enviar dados pessoais de outras pessoas, dados reais de clientes ou informações confidenciais** que você não tem autorização para compartilhar. Use dados fictícios nos protótipos.
-- **Atacar ou sondar o teste**: varreduras, testes de carga, tentativas de alcançar o trabalho de outras pessoas, os nossos sistemas ou os dos nossos provedores, ou tentativas de extrair credenciais, chaves ou as instruções dadas à IA.
-- **Contornar os limites do teste**: as suas cotas, os seus limites de frequência, a sua verificação humana, os seus convites — por exemplo, criando várias contas ou compartilhando um convite.
+- **Atacar ou sondar o teste**: varreduras, testes de carga, tentativas de alcançar o trabalho de outras empresas ou de outras pessoas, os nossos sistemas ou os dos nossos provedores, ou tentativas de extrair credenciais, chaves ou as instruções dadas à IA.
+- **Contornar os limites do teste**: as suas cotas, os seus limites de frequência, a sua verificação humana, os seus convites — por exemplo, pedindo vários testes para a mesma empresa, criando várias contas ou compartilhando um convite.
 - **Usar a IA para outra coisa que não seja prototipar o seu produto**, como um assistente de uso geral, gerar conteúdo em escala ou construir ferramentas para qualquer uma das ações acima.
 - **Criar conteúdo prejudicial**: conteúdo ilícito, de assédio, de ódio, sexualmente explícito, violento ou enganoso, ou que se passe por outra pessoa; malware ou páginas de phishing; ou qualquer coisa feita para causar dano.
 - **Usar o teste para construir um serviço concorrente** ou para copiá-lo ou revendê-lo.

@@ -1,8 +1,8 @@
 ---
 title: Política de privacidade
-description: O que a BeeverForge coleta neste site e no teste do Prototype Builder, para quê, quem trata os dados, por quanto tempo eles são guardados e como exercer os seus direitos.
+description: O que a BeeverForge coleta neste site e no teste do Prototype Builder para empresas, para quê, quem trata os dados, por quanto tempo eles são guardados e como exercer os seus direitos.
 version: 0.1
-date: 2026-10-25
+date: 2026-10-27
 status: draft
 ---
 
@@ -10,7 +10,7 @@ status: draft
 
 A BeeverForge ("nós") é a controladora dos dados pessoais descritos aqui. A pessoa jurídica que opera a BeeverForge, o seu endereço e o seu encarregado pelo tratamento de dados pessoais são: **[razão social, endereço e encarregado — a completar pelo jurídico]**. Você pode nos escrever sobre privacidade em contact@beeverforge.com.
 
-Esta política cobre este site (beeverforge.com), o formulário de contato da Enterprise e o teste do Prototype Builder (try.beeverforge.com), da lista de espera ao fim do seu convite.
+Esta política cobre este site (beeverforge.com), o formulário de contato da Enterprise e o teste do Prototype Builder para empresas — em app.beeverforge.com e no endereço próprio de cada empresa sob beeverforge.com —, da lista de espera ao fim do teste da sua empresa.
 
 ## 2. O que coletamos, e para quê
 
@@ -22,20 +22,21 @@ Esta política cobre este site (beeverforge.com), o formulário de contato da En
 
 ### A lista de espera
 
-- O seu **nome, e-mail, o que você quer prototipar, o seu idioma**, e a data e o registro do seu **consentimento**.
+- O **nome da sua empresa e o endereço que ela deseja**, o seu **nome, e-mail, o que você quer prototipar, o seu idioma**, e a data e o registro do seu **consentimento**.
 - O seu e-mail é confirmado por um link que enviamos. Até você confirmar, não enviamos mais nada.
-- Finalidade: convidar você para o teste e escrever para você sobre ele.
+- Finalidade: avaliar o pedido da sua empresa, abrir o seu teste e escrever para você sobre ele.
 
 ### Sua conta no teste
 
 - Quando você entra com Google ou GitHub, recebemos o seu **e-mail verificado, o seu nome e o identificador do provedor** para a sua conta. Nunca recebemos a sua senha.
-- Registramos a **situação do seu convite** (convidado, ativo, expirado) e as suas datas, e **qual versão dos termos você aceitou e quando**.
+- Se quem administra a conta da sua empresa convidar você, recebemos dessa pessoa o seu **endereço de e-mail**, para lhe enviar o convite.
+- Registramos **a qual conta de empresa você pertence e se você a administra**, a **situação do seu convite** (convidado, ativo, expirado) e as suas datas, e **qual versão dos termos você aceitou e quando**.
 - Um cookie de sessão mantém você conectado. Ele é estritamente necessário e não é usado para mais nada.
 
 ### O que você cria no teste
 
-- As suas **mensagens, os documentos e imagens que você envia, os protótipos, as anotações do builder e os requisitos** gerados a partir deles.
-- Finalidade: operar o teste para você. Quando você decide entregar os seus requisitos à BeeverForge, a nossa equipe os lê para preparar uma proposta.
+- As suas **mensagens, os documentos e imagens que você envia, os protótipos, as anotações do builder e os requisitos** gerados a partir deles. Eles pertencem à conta da sua empresa e às suas pessoas, como dizem os [termos de uso](/legal/terms/).
+- Finalidade: operar o teste para a conta da sua empresa. Quando você decide entregar os seus requisitos à BeeverForge, a nossa equipe os lê para preparar uma proposta.
 - **Registros de uso** — quantas execuções você fez, quanto tempo levaram e quanto custaram — sem nada do conteúdo. Finalidade: aplicar a cota de forma justa e entender o custo do teste.
 
 ### Segurança
@@ -75,7 +76,7 @@ Os nossos provedores tratam dados nos **Estados Unidos** e possivelmente em outr
 
 - **Inscrições não confirmadas na lista de espera:** 7 dias.
 - **Registros da lista de espera e do convite:** 12 meses após o nosso último contato com você, ou até você pedir a exclusão.
-- **Protótipos, arquivos enviados e requisitos:** 90 dias após a sua última atividade no teste, ou antes, se você os apagar.
+- **Protótipos, arquivos enviados e requisitos da conta:** 90 dias após a última atividade na conta da sua empresa, ou antes, se forem apagados. Se a empresa passar para o plano Business, eles continuam na conta dela.
 - **Registros dos termos que você aceitou:** enquanto pudermos precisar demonstrar o que você aceitou.
 - **Registros de auditoria e de uso** (sem conteúdo): 2 anos.
 - **Registros de segurança e do servidor:** 30 dias.

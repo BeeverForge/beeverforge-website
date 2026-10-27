@@ -1,40 +1,44 @@
 ---
 title: Termos de uso
-description: Os termos que se aplicam ao teste do Prototype Builder da BeeverForge: quem pode usá-lo, o que ele inclui, o que é seu e o que prometemos.
+description: Os termos que se aplicam ao teste do Prototype Builder da BeeverForge para empresas: quem pode usá-lo, o que ele inclui, o que é seu e o que prometemos.
 version: 0.1
-date: 2026-10-26
+date: 2026-10-27
 status: draft
 ---
 
 ## 1. Quem somos e o que estes termos cobrem
 
-A BeeverForge ("BeeverForge", "nós") opera o teste do Prototype Builder em try.beeverforge.com e este site. A pessoa jurídica que opera a BeeverForge e o seu endereço são: **[razão social e endereço — a completar pelo jurídico]**.
+A BeeverForge ("BeeverForge", "nós") opera o teste do Prototype Builder e este site. O teste é acessado em app.beeverforge.com, onde uma empresa o pede e as suas pessoas entram, e no endereço próprio de cada empresa sob beeverforge.com (por exemplo, acme.beeverforge.com). A pessoa jurídica que opera a BeeverForge e o seu endereço são: **[razão social e endereço — a completar pelo jurídico]**.
 
-Estes termos se aplicam ao teste: a lista de espera, o seu convite, o Prototype Builder que você usa durante o teste e tudo o que você cria com ele. Eles funcionam junto com a nossa [política de privacidade](/legal/privacy/) e a nossa [política de uso aceitável](/legal/acceptable-use/). Ao aceitá-los na primeira vez que você entra, você concorda com os três.
+Estes termos se aplicam ao teste: a lista de espera, o pedido da sua empresa e a conta dela, o seu convite, o Prototype Builder que você usa durante o teste e tudo o que você cria com ele. Eles funcionam junto com a nossa [política de privacidade](/legal/privacy/) e a nossa [política de uso aceitável](/legal/acceptable-use/). Ao aceitá-los na primeira vez que você entra, você concorda com os três.
 
 ## 2. Quem pode usar o teste
 
-- Você precisa ter pelo menos 18 anos e capacidade para firmar um acordo vinculante.
-- Você precisa de um convite pessoal da BeeverForge. Cada convite é para uma pessoa e não pode ser transferido nem compartilhado.
-- Se você usa o teste em nome de uma organização, confirma que tem autorização para aceitar estes termos por ela.
+- O teste é oferecido a empresas: cada teste é uma conta de empresa. A pessoa que o pede o faz em nome da empresa e confirma que tem autorização para aceitar estes termos por ela.
+- A BeeverForge avalia cada pedido e decide se o aprova.
+- A pessoa que pediu passa a administrar a conta e pode convidar colegas. Cada colega aceita estes termos na primeira vez que entra.
+- Todas as pessoas que usam o teste precisam ter pelo menos 18 anos e capacidade para firmar um acordo vinculante.
+- Cada convite é para uma pessoa e não pode ser transferido nem compartilhado.
 
 ## 3. O que é o teste
 
 - O teste permite descrever um produto numa conversa, vê-lo como um protótipo clicável com dados simulados e gerar os seus requisitos.
-- Ele é oferecido por convite, para poucas pessoas de cada vez. Cada convite vale por **quinze dias** a partir da data em que o enviamos.
-- Ele é **gratuito dentro de uma cota de uso por pessoa**. Quando você atinge a cota, o teste informa quando você pode continuar. Também podemos limitar o uso total do teste a qualquer momento.
-- Cada pessoa faz **um protótipo**, sobre um produto. Ele pode mudar o quanto a cota permitir, mas continua sendo esse produto: um pedido de outro produto é recusado.
-- Quando o seu convite termina, você ainda pode entrar para ler e baixar o que criou até que seja apagado (veja a [política de privacidade](/legal/privacy/)), mas não pode começar trabalhos novos.
+- Ele é oferecido a poucas empresas de cada vez. Cada empresa aprovada recebe um espaço próprio no seu próprio endereço sob beeverforge.com, com o seu próprio Prototype Builder. O endereço que a empresa pede é um desejo; a BeeverForge pode definir outro.
+- O teste de uma empresa dura **quinze dias** a partir da data em que a sua conta é aberta.
+- Ele é **gratuito dentro da cota de uso da conta da empresa**. Quando a cota é atingida, o teste informa quando você pode continuar. Também podemos limitar o uso total do teste a qualquer momento.
+- Cada pessoa da conta faz **um protótipo**, sobre um produto. Ele pode mudar o quanto a cota permitir, mas continua sendo esse produto: um pedido de outro produto é recusado.
+- Quando o teste termina, as pessoas da conta ainda podem entrar para ler e baixar o que criaram até que seja apagado (veja a [política de privacidade](/legal/privacy/)), mas não podem começar trabalhos novos.
+- Se a empresa passar para o plano Business, a mesma conta continua, no mesmo endereço, com os seus dados. O plano Business é regido por um contrato escrito separado.
 - O teste é uma versão preliminar de um serviço que ainda está evoluindo. Podemos alterá-lo, suspendê-lo ou encerrá-lo, no todo ou em parte, a qualquer momento. Não há nível de serviço, compromisso de disponibilidade nem obrigação de suporte.
 
 ## 4. Sua conta
 
-Você entra com uma conta Google ou GitHub; nunca vemos a sua senha. Mantenha essa conta segura. Você é responsável pelo que acontece com o seu convite. Avise-nos imediatamente em contact@beeverforge.com se achar que outra pessoa o usou.
+O teste da sua empresa é uma única conta; quem a administra convida os colegas que participam. Cada pessoa entra com uma conta Google ou GitHub; nunca vemos a sua senha. Mantenha essa conta segura. Você é responsável pelo que acontece com o seu convite. Avise-nos imediatamente em contact@beeverforge.com se achar que outra pessoa o usou.
 
 ## 5. Seu conteúdo
 
-- "Seu conteúdo" é o que você escreve, os documentos e imagens que envia e o que o teste produz para você: protótipos, anotações, requisitos e o pacote para download.
-- **Você mantém os direitos que tem sobre o seu conteúdo.** Você concede à BeeverForge uma licença limitada e não exclusiva para hospedar, processar e transmitir o seu conteúdo somente na medida necessária para operar o teste para você, mantê-lo seguro e — se você decidir nos entregar os seus requisitos — preparar uma proposta.
+- "Seu conteúdo" é o que você e os seus colegas escrevem, os documentos e imagens que enviam e o que o teste produz na conta da sua empresa: protótipos, anotações, requisitos e o pacote para download.
+- O seu conteúdo pertence à conta da sua empresa e às suas pessoas: **elas mantêm os direitos que têm sobre ele.** Elas concedem à BeeverForge uma licença limitada e não exclusiva para hospedá-lo, processá-lo e transmiti-lo somente na medida necessária para operar o teste para a conta da empresa, mantê-lo seguro e — se você decidir nos entregar os seus requisitos — preparar uma proposta.
 - Você confirma que tem o direito de usar o que envia e que isso não inclui informações confidenciais que você não pode compartilhar, dados pessoais de outras pessoas nem dados reais de clientes. Use dados fictícios nos protótipos.
 - Não vendemos o seu conteúdo, não o usamos para treinar modelos e não lemos os seus protótipos, a menos que você nos entregue os seus requisitos ou peça a nossa ajuda.
 
