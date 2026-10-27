@@ -56,7 +56,7 @@
   const slugError = form.querySelector('#try-slug-error');
   const reserved = new Set(('www app api admin mail send smtp imap pop ftp autodiscover autoconfig status docs blog help '
     + 'support static cdn assets try beta dev staging test preview hub accounts account login signin signup auth billing '
-    + 'security abuse postmaster hostmaster webmaster ns ns1 ns2 dns mx beeverforge').split(' '));
+    + 'security abuse postmaster hostmaster webmaster ns ns1 ns2 dns mx beeverforge e2e').split(' '));
   const slugProblem = (value) => {
     if (!value) return ''; // `required` says it, like the other fields
     if (!/^[a-z][a-z0-9-]{1,18}[a-z0-9]$/.test(value) || value.includes('--')) return form.dataset.slugMessage;
