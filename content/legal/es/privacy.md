@@ -28,7 +28,7 @@ Esta política cubre este sitio web (beeverforge.com), el formulario de consulta
 
 ### Su cuenta en la prueba
 
-- Inicia sesión con su **dirección de correo y una contraseña** que elige, o con **GitHub**. De una contraseña guardamos solo un hash con sal, nunca la contraseña; cuando la define, la comprobamos frente a filtraciones conocidas mediante Have I Been Pwned, enviando solo los cinco primeros caracteres de su hash. Si activa el **inicio de sesión en dos pasos**, guardamos su secreto, sellado, y sus códigos de recuperación como hashes. Con GitHub, recibimos su **correo verificado, su nombre y el identificador de GitHub** para su cuenta, nunca su contraseña de GitHub.
+- Inicia sesión con su **dirección de correo y una contraseña** que elige, o con **GitHub**. De una contraseña guardamos solo un hash con sal, nunca la contraseña; cuando la define, la comprobamos frente a filtraciones conocidas mediante Have I Been Pwned, enviando solo los cinco primeros caracteres de un hash SHA-1 de ella, nunca la contraseña ni nada que le identifique. Si activa el **inicio de sesión en dos pasos**, guardamos su secreto, sellado, y sus códigos de recuperación como hashes. Con GitHub, recibimos su **correo verificado, su nombre y el identificador de GitHub** para su cuenta, nunca su contraseña de GitHub.
 - Si quien administra la cuenta de su empresa le invita, recibimos de esa persona su **dirección de correo**, para enviarle la invitación.
 - Registramos **a qué cuenta de empresa pertenece y si la administra**, el **estado de su invitación** (invitada, activa, vencida) y sus fechas, y **qué versión de los términos aceptó y cuándo**.
 - Una cookie de sesión mantiene su sesión iniciada. Es estrictamente necesaria y no se usa para nada más.
@@ -65,11 +65,12 @@ Usamos los siguientes proveedores, cada uno bajo contrato y solo para la finalid
 
 - **Nuestro proveedor de modelos de IA (actualmente Anthropic)** — recibe lo que usted escribe y sube, y los archivos del prototipo, para generar el prototipo y los requisitos.
 - **Amazon Web Services** — aloja la prueba y sus datos en los Estados Unidos.
-- **Resend** — envía nuestros correos (confirmación, invitación, avisos) y nos entrega las consultas Enterprise.
+- **Resend** — envía nuestros correos (confirmación, invitación, enlaces de contraseña, avisos) y nos entrega las consultas Enterprise.
 - **Cloudflare** — la verificación humana de nuestros formularios (ve su dirección IP y señales del navegador) y el servicio que recibe las consultas Enterprise.
 - **Google** — la analítica del sitio, solo con su consentimiento.
-- **Have I Been Pwned** — cuando define una contraseña, recibe los cinco primeros caracteres de su hash, nunca la contraseña, para decirnos si es una contraseña filtrada conocida.
 - **GitHub** — el inicio de sesión, si elige GitHub; y el alojamiento de este sitio web.
+
+Cuando define una contraseña, también preguntamos a Have I Been Pwned, un servicio público que usamos sin cuenta ni contrato, si es una contraseña filtrada conocida. Recibe los cinco primeros caracteres de un hash SHA-1 de la contraseña, desde nuestro servidor: ningún dato personal.
 
 ## 6. Transferencias internacionales
 
@@ -91,7 +92,7 @@ Puede solicitar **acceder, corregir o eliminar** sus datos, **recibirlos en un f
 
 ## 9. Seguridad
 
-La prueba funciona detrás de un cortafuegos, permite iniciar sesión con una contraseña (al menos 12 caracteres, nunca una filtrada conocida, guardada solo como hash con sal) o con GitHub, ofrece el inicio de sesión en dos pasos con una aplicación de autenticación —obligatorio para el equipo de BeeverForge—, limita los intentos repetidos, ejecuta cada uso del modelo de IA en un entorno aislado, cifra los datos en tránsito y mantiene los datos personales fuera de sus registros técnicos. Ningún sistema es perfectamente seguro; si una brecha le afecta, se lo comunicaremos a usted y a las autoridades como exige la ley.
+La prueba funciona detrás de un cortafuegos, permite iniciar sesión con una contraseña (al menos 12 caracteres, comprobada frente a filtraciones conocidas cuando se define, guardada solo como hash con sal) o con GitHub, ofrece el inicio de sesión en dos pasos con una aplicación de autenticación —obligatorio para el equipo de BeeverForge—, limita los intentos repetidos, ejecuta cada uso del modelo de IA en un entorno aislado, cifra los datos en tránsito y mantiene los datos personales fuera de sus registros técnicos. Ningún sistema es perfectamente seguro; si una brecha le afecta, se lo comunicaremos a usted y a las autoridades como exige la ley.
 
 ## 10. Menores
 

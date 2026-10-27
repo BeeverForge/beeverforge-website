@@ -28,7 +28,7 @@ Esta política cobre este site (beeverforge.com), o formulário de contato da En
 
 ### Sua conta no teste
 
-- Você entra com o seu **e-mail e uma senha** que escolhe, ou com o **GitHub**. De uma senha guardamos só um hash com sal, nunca a senha; quando você a define, verificamos se ela aparece em vazamentos conhecidos pelo Have I Been Pwned, enviando só os cinco primeiros caracteres do seu hash. Se você ativar a **entrada em duas etapas**, guardamos o seu segredo, selado, e os seus códigos de recuperação como hashes. Com o GitHub, recebemos o seu **e-mail verificado, o seu nome e o identificador do GitHub** para a sua conta, nunca a sua senha do GitHub.
+- Você entra com o seu **e-mail e uma senha** que escolhe, ou com o **GitHub**. De uma senha guardamos só um hash com sal, nunca a senha; quando você a define, verificamos se ela aparece em vazamentos conhecidos pelo Have I Been Pwned, enviando só os cinco primeiros caracteres de um hash SHA-1 dela, nunca a senha nem nada que identifique você. Se você ativar a **entrada em duas etapas**, guardamos o seu segredo, selado, e os seus códigos de recuperação como hashes. Com o GitHub, recebemos o seu **e-mail verificado, o seu nome e o identificador do GitHub** para a sua conta, nunca a sua senha do GitHub.
 - Se quem administra a conta da sua empresa convidar você, recebemos dessa pessoa o seu **endereço de e-mail**, para lhe enviar o convite.
 - Registramos **a qual conta de empresa você pertence e se você a administra**, a **situação do seu convite** (convidado, ativo, expirado) e as suas datas, e **qual versão dos termos você aceitou e quando**.
 - Um cookie de sessão mantém você conectado. Ele é estritamente necessário e não é usado para mais nada.
@@ -65,11 +65,12 @@ Usamos os seguintes provedores, cada um sob contrato e somente para a finalidade
 
 - **O nosso provedor de modelos de IA (atualmente a Anthropic)** — recebe o que você escreve e envia, e os arquivos do protótipo, para gerar o protótipo e os requisitos.
 - **Amazon Web Services** — hospeda o teste e os seus dados nos Estados Unidos.
-- **Resend** — envia os nossos e-mails (confirmação, convite, avisos) e nos entrega os contatos sobre a Enterprise.
+- **Resend** — envia os nossos e-mails (confirmação, convite, links de senha, avisos) e nos entrega os contatos sobre a Enterprise.
 - **Cloudflare** — a verificação humana dos nossos formulários (vê o seu endereço IP e sinais do navegador) e o serviço que recebe os contatos sobre a Enterprise.
 - **Google** — o analytics do site, somente com o seu consentimento.
-- **Have I Been Pwned** — quando você define uma senha, recebe os cinco primeiros caracteres do seu hash, nunca a senha, para nos dizer se ela é uma senha vazada conhecida.
 - **GitHub** — a entrada, se você escolher GitHub; e a hospedagem deste site.
+
+Quando você define uma senha, também perguntamos ao Have I Been Pwned, um serviço público que usamos sem conta nem contrato, se ela é uma senha vazada conhecida. Ele recebe os cinco primeiros caracteres de um hash SHA-1 da senha, a partir do nosso servidor: nenhum dado pessoal.
 
 ## 6. Transferências internacionais
 
@@ -91,7 +92,7 @@ Você pode pedir para **acessar, corrigir ou apagar** os seus dados, **recebê-l
 
 ## 9. Segurança
 
-O teste roda atrás de um firewall, permite entrar com uma senha (pelo menos 12 caracteres, nunca uma vazada conhecida, guardada só como hash com sal) ou com o GitHub, oferece a entrada em duas etapas com um app autenticador — obrigatória para a equipe da BeeverForge —, limita tentativas repetidas, executa cada uso do modelo de IA num ambiente isolado, criptografa os dados em trânsito e mantém dados pessoais fora dos seus registros técnicos. Nenhum sistema é perfeitamente seguro; se um incidente afetar você, comunicaremos a você e às autoridades conforme a lei exige.
+O teste roda atrás de um firewall, permite entrar com uma senha (pelo menos 12 caracteres, verificada contra vazamentos conhecidos quando é definida, guardada só como hash com sal) ou com o GitHub, oferece a entrada em duas etapas com um app autenticador — obrigatória para a equipe da BeeverForge —, limita tentativas repetidas, executa cada uso do modelo de IA num ambiente isolado, criptografa os dados em trânsito e mantém dados pessoais fora dos seus registros técnicos. Nenhum sistema é perfeitamente seguro; se um incidente afetar você, comunicaremos a você e às autoridades conforme a lei exige.
 
 ## 10. Menores de idade
 

@@ -28,7 +28,7 @@ This policy covers this website (beeverforge.com), the Enterprise inquiry form, 
 
 ### Your account in the trial
 
-- You sign in with your **email address and a password** you choose, or with **GitHub**. Of a password we keep only a salted hash, never the password itself; when you set one, we check it against known breaches through Have I Been Pwned, sending only the first five characters of its hash. If you turn on **two-step sign-in**, we keep its secret, sealed, and your recovery codes as hashes. With GitHub, we receive your **verified email, your name and GitHub's identifier** for your account, never your GitHub password.
+- You sign in with your **email address and a password** you choose, or with **GitHub**. Of a password we keep only a salted hash, never the password itself; when you set one, we check it against known breaches through Have I Been Pwned, sending only the first five characters of a SHA-1 hash of it, never the password nor anything that names you. If you turn on **two-step sign-in**, we keep its secret, sealed, and your recovery codes as hashes. With GitHub, we receive your **verified email, your name and GitHub's identifier** for your account, never your GitHub password.
 - If your company's admin invites you, we receive your **email address** from them, to send you the invitation.
 - We record **which company account you belong to and whether you are its admin**, the **state of your invitation** (invited, active, expired) and its dates, and **which version of the terms you accepted and when**.
 - A session cookie keeps you signed in. It is strictly necessary and is not used for anything else.
@@ -65,11 +65,12 @@ We use the following providers, each under contract and only for the purpose sta
 
 - **Our AI model provider (currently Anthropic)** — receives what you write and upload, and the prototype's files, to generate the prototype and the requirements.
 - **Amazon Web Services** — hosts the trial and its data in the United States.
-- **Resend** — sends our emails (confirmation, invitation, notices) and delivers Enterprise inquiries to us.
+- **Resend** — sends our emails (confirmation, invitation, password links, notices) and delivers Enterprise inquiries to us.
 - **Cloudflare** — the human-verification check on our forms (it sees your IP address and browser signals) and the service that receives Enterprise inquiries.
 - **Google** — website analytics, only if you consent.
-- **Have I Been Pwned** — when you set a password, receives the first five characters of its hash, never the password, to tell us whether it is a known breached one.
 - **GitHub** — sign-in, if you choose GitHub; and the hosting of this website.
+
+When you set a password, we also ask Have I Been Pwned, a public service we use without an account or a contract, whether it is a known breached one. It receives the first five characters of a SHA-1 hash of the password, from our server: no personal data.
 
 ## 6. International transfers
 
@@ -91,7 +92,7 @@ You can ask to **access, correct or delete** your data, to **receive it in a por
 
 ## 9. Security
 
-The trial runs behind a firewall, signs people in with a password (at least 12 characters, never a known breached one, kept only as a salted hash) or with GitHub, offers two-step sign-in with an authenticator app — required for BeeverForge's team —, limits repeated attempts, keeps every run of the AI model in an isolated environment, encrypts data in transit, and keeps personal data out of its technical logs. No system is perfectly secure; if a breach affects you, we will tell you and the authorities as the law requires.
+The trial runs behind a firewall, signs people in with a password (at least 12 characters, checked against known breaches when it is set, kept only as a salted hash) or with GitHub, offers two-step sign-in with an authenticator app — required for BeeverForge's team —, limits repeated attempts, keeps every run of the AI model in an isolated environment, encrypts data in transit, and keeps personal data out of its technical logs. No system is perfectly secure; if a breach affects you, we will tell you and the authorities as the law requires.
 
 ## 10. Children
 
