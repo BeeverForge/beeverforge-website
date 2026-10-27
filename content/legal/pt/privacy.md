@@ -1,14 +1,14 @@
 ---
 title: Política de privacidade
 description: O que a BeeverForge coleta neste site e no teste do Prototype Builder para empresas, para quê, quem trata os dados, por quanto tempo eles são guardados e como exercer os seus direitos.
-version: 0.1
+version: 1.0
 date: 2026-10-27
-status: draft
+status: final
 ---
 
 ## 1. Quem é o controlador
 
-A BeeverForge ("nós") é a controladora dos dados pessoais descritos aqui. A pessoa jurídica que opera a BeeverForge, o seu endereço e o seu encarregado pelo tratamento de dados pessoais são: **[razão social, endereço e encarregado — a completar pelo jurídico]**. Você pode nos escrever sobre privacidade em contact@beeverforge.com.
+A BeeverForge ("nós") é a controladora dos dados pessoais descritos aqui. A BeeverForge tem sede em Portugal e é administrada por Hermes Alves, que responde pelo tratamento descrito aqui. Você pode nos escrever sobre privacidade em contact@beeverforge.com.
 
 Esta política cobre este site (beeverforge.com), o formulário de contato da Enterprise e o teste do Prototype Builder para empresas — em app.beeverforge.com e no endereço próprio de cada empresa sob beeverforge.com —, da lista de espera ao fim do teste da sua empresa.
 
@@ -46,7 +46,7 @@ Esta política cobre este site (beeverforge.com), o formulário de contato da En
 
 ## 3. Bases legais
 
-Conforme o dado e o lugar onde você vive (incluindo a LGPD e o GDPR da União Europeia e do Reino Unido), nos baseamos em:
+Estamos estabelecidos em Portugal, por isso se aplicam o Regulamento Geral sobre a Proteção de Dados da União Europeia (RGPD) e a lei portuguesa que o executa; se você vive em outro país, a lei local pode lhe dar outros direitos (por exemplo, a LGPD no Brasil). Nos baseamos em:
 
 - **o seu consentimento** — para o contato da lista de espera e para o analytics; você pode retirá-lo a qualquer momento;
 - **a execução dos termos que você aceita**, ou de procedimentos preliminares que você nos pede — para operar o teste e preparar a proposta que você solicitar;
@@ -70,7 +70,7 @@ Usamos os seguintes provedores, cada um sob contrato e somente para a finalidade
 
 ## 6. Transferências internacionais
 
-Os nossos provedores tratam dados nos **Estados Unidos** e possivelmente em outros países. Quando a lei exige, as transferências são cobertas por garantias adequadas: **[mecanismos de transferência — a confirmar pelo jurídico]**.
+Os nossos provedores tratam dados nos **Estados Unidos** e possivelmente em outros países, fora do Espaço Econômico Europeu. Cada transferência se apoia na decisão de adequação da Comissão Europeia para o EU-U.S. Data Privacy Framework, quando o provedor é certificado nele, ou, caso contrário, nas cláusulas contratuais-tipo da Comissão incluídas nos termos de tratamento de dados do provedor (artigo 46 do RGPD).
 
 ## 7. Por quanto tempo guardamos
 
@@ -84,7 +84,7 @@ Os nossos provedores tratam dados nos **Estados Unidos** e possivelmente em outr
 
 ## 8. Seus direitos
 
-Você pode pedir para **acessar, corrigir, apagar ou receber uma cópia** dos seus dados, **saber com quem os compartilhamos**, **retirar o seu consentimento** e **se opor** ao tratamento baseado no nosso legítimo interesse. Você pode apagar a sua conta e tudo o que há nela a qualquer momento pela página da sua conta no teste, ou escrevendo para contact@beeverforge.com. Você também pode reclamar à autoridade de proteção de dados — no Brasil, a ANPD.
+Você pode pedir para **acessar, corrigir, apagar ou receber uma cópia** dos seus dados, **saber com quem os compartilhamos**, **retirar o seu consentimento**, **se opor** ao tratamento baseado no nosso legítimo interesse e pedir que o **limitemos**. Você pode apagar a sua conta e tudo o que há nela a qualquer momento pela página da sua conta no teste, ou escrevendo para contact@beeverforge.com. Você também pode reclamar a uma autoridade de proteção de dados — em Portugal, a Comissão Nacional de Proteção de Dados (CNPD), ou a autoridade do país onde você vive.
 
 ## 9. Segurança
 

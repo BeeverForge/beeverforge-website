@@ -1,14 +1,14 @@
 ---
 title: Terms of use
 description: The terms that apply to the BeeverForge Prototype Builder trial for companies: who may use it, what it includes, what you keep and what we promise.
-version: 0.1
+version: 1.0
 date: 2026-10-27
-status: draft
+status: final
 ---
 
 ## 1. Who we are and what these terms cover
 
-BeeverForge ("BeeverForge", "we", "us") runs the Prototype Builder trial and this website. The trial is reached at app.beeverforge.com, where a company asks for it and its people sign in, and at each company's own address under beeverforge.com (for example, acme.beeverforge.com). The legal entity that operates BeeverForge and its registered address are: **[legal name and address — to be completed by counsel]**.
+BeeverForge ("BeeverForge", "we", "us") runs the Prototype Builder trial and this website. The trial is reached at app.beeverforge.com, where a company asks for it and its people sign in, and at each company's own address under beeverforge.com (for example, acme.beeverforge.com). BeeverForge is based in Portugal and administered by Hermes Alves; you can reach us at contact@beeverforge.com.
 
 These terms apply to the trial: the waitlist, your company's request and its account, your invitation, the Prototype Builder you use during the trial and everything you create with it. They work together with our [privacy policy](/legal/privacy/) and our [acceptable use policy](/legal/acceptable-use/). By accepting them when you first sign in, you agree to all three.
 
@@ -70,7 +70,7 @@ The trial is provided free of charge, **"as is" and "as available"**, without an
 
 ## 12. Limitation of liability
 
-To the extent the law allows, BeeverForge is not liable for indirect or consequential losses, lost profits or lost data arising from the trial, and its total liability for anything related to the trial is limited to **[amount — to be completed by counsel]**. Nothing in these terms limits liability that cannot be limited by law, or the rights you have as a consumer where consumer law applies.
+To the extent the law allows, BeeverForge is not liable for indirect or consequential losses, lost profits or lost data arising from the trial, and its total liability for anything related to the trial is limited to **EUR 100 (one hundred euros)**. Nothing in these terms limits liability that cannot be limited by law, or the rights you have as a consumer where consumer law applies.
 
 ## 13. Changes to these terms
 
@@ -78,7 +78,7 @@ We may update these terms. Each version has a number and a date. When we change 
 
 ## 14. Law and disputes
 
-**[Governing law and competent courts — to be completed by counsel.]**
+These terms are governed by Portuguese law. Any dispute is settled by the competent courts in Portugal, without prejudice to the mandatory rules that protect you as a consumer, including the right to go to the courts of your own domicile where the law grants it.
 
 ## 15. Contact
 

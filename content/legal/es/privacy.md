@@ -1,14 +1,14 @@
 ---
 title: Política de privacidad
 description: Qué recopila BeeverForge en este sitio web y en la prueba del Prototype Builder para empresas, para qué, quién lo procesa, cuánto tiempo se conserva y cómo ejercer sus derechos.
-version: 0.1
+version: 1.0
 date: 2026-10-27
-status: draft
+status: final
 ---
 
 ## 1. Quién es responsable
 
-BeeverForge ("nosotros") es responsable de los datos personales descritos aquí. La entidad legal que opera BeeverForge, su domicilio social y, cuando corresponda, su delegado de protección de datos son: **[razón social, domicilio y delegado de protección de datos — a completar por el abogado]**. Puede escribirnos sobre privacidad a contact@beeverforge.com.
+BeeverForge ("nosotros") es responsable de los datos personales descritos aquí. BeeverForge tiene su sede en Portugal y está administrada por Hermes Alves, que responde del tratamiento descrito aquí. Puede escribirnos sobre privacidad a contact@beeverforge.com.
 
 Esta política cubre este sitio web (beeverforge.com), el formulario de consultas Enterprise y la prueba del Prototype Builder para empresas —en app.beeverforge.com y en la dirección propia de cada empresa bajo beeverforge.com—, desde la lista de espera hasta el final de la prueba de su empresa.
 
@@ -46,7 +46,7 @@ Esta política cubre este sitio web (beeverforge.com), el formulario de consulta
 
 ## 3. Bases legales
 
-Según los datos y el lugar donde vive (incluidos la LGPD de Brasil y el RGPD de la UE y del Reino Unido), nos basamos en:
+Estamos establecidos en Portugal, por lo que se aplican el Reglamento General de Protección de Datos de la UE (RGPD) y la ley portuguesa que lo ejecuta; si vive en otro país, su ley local puede darle otros derechos (por ejemplo, la LGPD en Brasil). Nos basamos en:
 
 - **su consentimiento** — para el contacto de la lista de espera y para la analítica; puede retirarlo en cualquier momento;
 - **la ejecución de los términos que acepta**, o las medidas que nos pide antes de ellos — para operar la prueba y preparar la propuesta que solicite;
@@ -70,7 +70,7 @@ Usamos los siguientes proveedores, cada uno bajo contrato y solo para la finalid
 
 ## 6. Transferencias internacionales
 
-Nuestros proveedores procesan datos en los **Estados Unidos** y posiblemente en otros países. Cuando la ley lo exige, las transferencias están cubiertas por garantías adecuadas: **[mecanismos de transferencia — a confirmar por el abogado]**.
+Nuestros proveedores procesan datos en los **Estados Unidos** y posiblemente en otros países, fuera del Espacio Económico Europeo. Cada transferencia se basa en la decisión de adecuación de la Comisión Europea para el EU-U.S. Data Privacy Framework, cuando el proveedor está certificado en él, o, en su defecto, en las cláusulas contractuales tipo de la Comisión incluidas en las condiciones de tratamiento de datos del proveedor (artículo 46 del RGPD).
 
 ## 7. Cuánto tiempo los conservamos
 
@@ -84,7 +84,7 @@ Nuestros proveedores procesan datos en los **Estados Unidos** y posiblemente en 
 
 ## 8. Sus derechos
 
-Puede solicitar **acceder, corregir, eliminar o recibir una copia** de sus datos, **saber con quién los compartimos**, **retirar su consentimiento** y **oponerse** al tratamiento basado en nuestro interés legítimo. Puede eliminar su cuenta y todo su contenido en cualquier momento desde la página de su cuenta en la prueba, o escribiendo a contact@beeverforge.com. También puede presentar una reclamación ante su autoridad de protección de datos — en Brasil, la ANPD.
+Puede solicitar **acceder, corregir, eliminar o recibir una copia** de sus datos, **saber con quién los compartimos**, **retirar su consentimiento**, **oponerse** al tratamiento basado en nuestro interés legítimo y pedir que lo **limitemos**. Puede eliminar su cuenta y todo su contenido en cualquier momento desde la página de su cuenta en la prueba, o escribiendo a contact@beeverforge.com. También puede presentar una reclamación ante una autoridad de protección de datos — en Portugal, la Comissão Nacional de Proteção de Dados (CNPD), o la autoridad del país donde vive.
 
 ## 9. Seguridad
 

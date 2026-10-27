@@ -1,14 +1,14 @@
 ---
 title: Privacy policy
 description: What BeeverForge collects on this website and in the Prototype Builder trial for companies, why, who processes it, how long it is kept and how to exercise your rights.
-version: 0.1
+version: 1.0
 date: 2026-10-27
-status: draft
+status: final
 ---
 
 ## 1. Who is responsible
 
-BeeverForge ("we") is responsible for the personal data described here. The legal entity that operates BeeverForge, its registered address and, where required, its data protection officer are: **[legal name, address and data protection officer — to be completed by counsel]**. You can reach us about privacy at contact@beeverforge.com.
+BeeverForge ("we") is responsible for the personal data described here. BeeverForge is based in Portugal and administered by Hermes Alves, who answers for the processing described here. You can reach us about privacy at contact@beeverforge.com.
 
 This policy covers this website (beeverforge.com), the Enterprise inquiry form, and the Prototype Builder trial for companies — at app.beeverforge.com and at each company's own address under beeverforge.com — from the waitlist to the end of your company's trial.
 
@@ -46,7 +46,7 @@ This policy covers this website (beeverforge.com), the Enterprise inquiry form, 
 
 ## 3. Legal bases
 
-Depending on the data and on where you live (including the Brazilian LGPD and the EU and UK GDPR), we rely on:
+We are established in Portugal, so the EU General Data Protection Regulation (GDPR) and the Portuguese law that implements it apply; if you live elsewhere, your local law may give you further rights (for example, the LGPD in Brazil). We rely on:
 
 - **your consent** — for the waitlist contact and for analytics; you can withdraw it at any time;
 - **the performance of the terms you accept**, or steps you ask us to take before them — to run the trial and prepare a proposal you ask for;
@@ -70,7 +70,7 @@ We use the following providers, each under contract and only for the purpose sta
 
 ## 6. International transfers
 
-Our providers process data in the **United States** and possibly in other countries. Where the law requires it, transfers are covered by appropriate safeguards: **[transfer mechanisms — to be confirmed by counsel]**.
+Our providers process data in the **United States** and possibly in other countries, outside the European Economic Area. Each transfer relies on the European Commission's adequacy decision for the EU-U.S. Data Privacy Framework, where the provider is certified under it, or otherwise on the Commission's standard contractual clauses in the provider's data processing terms (GDPR article 46).
 
 ## 7. How long we keep it
 
@@ -84,7 +84,7 @@ Our providers process data in the **United States** and possibly in other countr
 
 ## 8. Your rights
 
-You can ask to **access, correct, delete or receive a copy of** your data, to **know who we share it with**, to **withdraw your consent** and to **object** to processing based on our legitimate interest. You can delete your account and everything in it at any time from your account page in the trial, or by writing to contact@beeverforge.com. You may also complain to your data protection authority — in Brazil, the ANPD.
+You can ask to **access, correct, delete or receive a copy of** your data, to **know who we share it with**, to **withdraw your consent**, to **object** to processing based on our legitimate interest and to ask us to **restrict** it. You can delete your account and everything in it at any time from your account page in the trial, or by writing to contact@beeverforge.com. You may also complain to a data protection authority — in Portugal, the Comissão Nacional de Proteção de Dados (CNPD), or the authority where you live.
 
 ## 9. Security
 

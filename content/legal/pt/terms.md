@@ -1,14 +1,14 @@
 ---
 title: Termos de uso
 description: Os termos que se aplicam ao teste do Prototype Builder da BeeverForge para empresas: quem pode usá-lo, o que ele inclui, o que é seu e o que prometemos.
-version: 0.1
+version: 1.0
 date: 2026-10-27
-status: draft
+status: final
 ---
 
 ## 1. Quem somos e o que estes termos cobrem
 
-A BeeverForge ("BeeverForge", "nós") opera o teste do Prototype Builder e este site. O teste é acessado em app.beeverforge.com, onde uma empresa o pede e as suas pessoas entram, e no endereço próprio de cada empresa sob beeverforge.com (por exemplo, acme.beeverforge.com). A pessoa jurídica que opera a BeeverForge e o seu endereço são: **[razão social e endereço — a completar pelo jurídico]**.
+A BeeverForge ("BeeverForge", "nós") opera o teste do Prototype Builder e este site. O teste é acessado em app.beeverforge.com, onde uma empresa o pede e as suas pessoas entram, e no endereço próprio de cada empresa sob beeverforge.com (por exemplo, acme.beeverforge.com). A BeeverForge tem sede em Portugal e é administrada por Hermes Alves; você pode nos escrever em contact@beeverforge.com.
 
 Estes termos se aplicam ao teste: a lista de espera, o pedido da sua empresa e a conta dela, o seu convite, o Prototype Builder que você usa durante o teste e tudo o que você cria com ele. Eles funcionam junto com a nossa [política de privacidade](/legal/privacy/) e a nossa [política de uso aceitável](/legal/acceptable-use/). Ao aceitá-los na primeira vez que você entra, você concorda com os três.
 
@@ -70,7 +70,7 @@ O teste é oferecido gratuitamente, **"no estado em que se encontra" e "conforme
 
 ## 12. Limitação de responsabilidade
 
-Na medida permitida pela lei, a BeeverForge não é responsável por perdas indiretas ou consequentes, lucros cessantes ou perda de dados decorrentes do teste, e a sua responsabilidade total por qualquer assunto relacionado ao teste fica limitada a **[valor — a completar pelo jurídico]**. Nada nestes termos limita a responsabilidade que a lei não permite limitar, nem os seus direitos como consumidor quando a legislação de consumo se aplicar.
+Na medida permitida pela lei, a BeeverForge não é responsável por perdas indiretas ou consequentes, lucros cessantes ou perda de dados decorrentes do teste, e a sua responsabilidade total por qualquer assunto relacionado ao teste fica limitada a **100 euros (cem euros)**. Nada nestes termos limita a responsabilidade que a lei não permite limitar, nem os seus direitos como consumidor quando a legislação de consumo se aplicar.
 
 ## 13. Alterações nestes termos
 
@@ -78,7 +78,7 @@ Podemos atualizar estes termos. Cada versão tem um número e uma data. Quando o
 
 ## 14. Lei aplicável e foro
 
-**[Lei aplicável e foro competente — a completar pelo jurídico.]**
+Estes termos são regidos pela lei portuguesa. Qualquer litígio será resolvido pelos tribunais competentes em Portugal, sem prejuízo das normas imperativas que protegem você como consumidor, incluindo o direito de recorrer aos tribunais do seu domicílio quando a lei o garantir.
 
 ## 15. Contato
 

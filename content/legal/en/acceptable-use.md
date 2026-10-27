@@ -1,9 +1,9 @@
 ---
 title: Acceptable use policy
 description: What you may and may not do with the BeeverForge Prototype Builder trial for companies.
-version: 0.1
+version: 1.0
 date: 2026-10-27
-status: draft
+status: final
 ---
 
 ## 1. What the trial is for

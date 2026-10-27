@@ -1,9 +1,9 @@
 ---
 title: Política de uso aceptable
 description: Lo que puede y no puede hacer con la prueba del Prototype Builder de BeeverForge para empresas.
-version: 0.1
+version: 1.0
 date: 2026-10-27
-status: draft
+status: final
 ---
 
 ## 1. Para qué sirve la prueba

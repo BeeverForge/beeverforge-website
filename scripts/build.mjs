@@ -22,7 +22,7 @@ const translations = new Map(lines.map((line, index) => {
 const buildLocal = process.env.BUILD_LOCAL === '1';
 const site = {
   waitlistEndpoint: 'https://app.beeverforge.com/waitlist',
-  turnstileSiteKey: '',
+  turnstileSiteKey: '0x4AAAAAAFnZC3yRsTsptozm',
   localWaitlistEndpoint: 'http://127.0.0.1:8500/waitlist',
   localTurnstileSiteKey: '1x00000000000000000000AA',
 };
