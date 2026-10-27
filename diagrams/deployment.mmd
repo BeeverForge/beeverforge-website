@@ -1,0 +1,24 @@
+flowchart TB
+  accTitle: Deployment of the default installation
+  accDescr: On the operator’s machine, `docker compose` runs the panel, the worker, the Temporal server with its web UI, and the Postgres database Temporal stores its state in. The worker starts one box per job through the Docker socket. The box calls the coding agent service; the worker reaches a remote forge, tracker and board through adapters.
+  person("A person")
+  subgraph host["The operator’s machine: `docker compose`"]
+    panel["`panel`<br>127.0.0.1:8787"]
+    worker["`worker`"]
+    temporal["`temporal`, 127.0.0.1:7233<br>`temporal-ui`, 127.0.0.1:8080"]
+    state[("State volume<br>registry, local<br>board, metrics")]
+    box["Box<br>one container per job"]
+    db[("`temporal-db`<br>Postgres 16")]
+  end
+  vendor["Coding agent<br>service"]
+  forge["Remote forge,<br>tracker and board"]
+  person -->|"browser"| panel
+  person ~~~ worker
+  panel -->|"signals and reads"| temporal
+  worker -->|"task queue `beeverforge-jobs`"| temporal
+  temporal --> db
+  panel --- state
+  worker --- state
+  worker -->|"Docker socket"| box
+  box -->|"harness calls"| vendor
+  worker -->|"adapters"| forge

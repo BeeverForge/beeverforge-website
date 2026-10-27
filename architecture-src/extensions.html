@@ -1,0 +1,96 @@
+<title>Extension model</title>
+<meta name="description" content="How adapters are added to the BeeverForge core: the axes, the entry-point group, lazy loading, collisions, refusals by name and the adapter conformance suite.">
+<p class="eyebrow">BeeverForge core architecture</p>
+<h1>Extension model</h1>
+<p class="doc-lead">Every external dependency of the core except the engine, Temporal, sits behind an adapter, and every adapter is chosen by a registry from configuration. A new provider is added by installing a package that declares an entry point, without changing the core.</p>
+
+<h2>Axes</h2>
+<p>An axis is one kind of thing the core can be extended with. The published list is <code>AXES</code> in <code>beeverforge/plugins.py</code>:</p>
+<pre><code>tracker  board  forge  ci  harness  box  event  metrics  channel
+notifier  identity  role  session_store  token_pool  box_runner
+credential  board_setup  extract  embed  preview  credential_store</code></pre>
+<p>A test holds this list to exactly what the registries ask for, and another checks that every registry consults the entry-point loader.</p>
+<div class="doc-table">
+<table>
+<caption>Built-in kinds on the main axes</caption>
+<thead><tr><th>Axis</th><th>Built-in kinds</th></tr></thead>
+<tbody>
+<tr><td><code>harness</code></td><td><code>claude_code</code>, <code>codex</code>, <code>kimi</code>, <code>opencode</code></td></tr>
+<tr><td><code>tracker</code></td><td><code>local</code>, <code>github</code>, <code>jira</code>, <code>azure_devops</code></td></tr>
+<tr><td><code>board</code></td><td><code>local</code>, <code>github</code>, <code>jira</code>, <code>azure_devops</code></td></tr>
+<tr><td><code>forge</code></td><td><code>local</code>, <code>github</code>, <code>azure_devops</code></td></tr>
+<tr><td><code>ci</code></td><td><code>none</code> and <code>local</code>, <code>github</code> and <code>github_actions</code>, <code>azure_devops</code> and <code>azure_pipelines</code>; each pair names one observer</td></tr>
+<tr><td><code>box</code></td><td><code>container</code>, <code>worktree</code>, <code>fargate</code> (description only; its runner is an add-on)</td></tr>
+<tr><td><code>box_runner</code></td><td>None</td></tr>
+<tr><td><code>channel</code></td><td><code>panel</code></td></tr>
+<tr><td><code>notifier</code></td><td><code>panel</code></td></tr>
+<tr><td><code>identity</code></td><td><code>local</code>, <code>oidc</code></td></tr>
+<tr><td><code>metrics</code></td><td><code>null</code>, <code>sqlite</code>, <code>memory</code></td></tr>
+<tr><td><code>preview</code></td><td><code>compose</code>, <code>none</code></td></tr>
+<tr><td><code>credential_store</code></td><td><code>env</code>, <code>file</code></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>The entry-point group</h2>
+<ul>
+<li>A package declares its adapters in one entry-point group, <code>beeverforge.adapters</code>. Each name is <code>&lt;axis&gt;.&lt;kind&gt;</code>, for example <code>forge.gitlab</code>. A name of any other shape is skipped with a warning that shows the expected form.</li>
+<li><strong>Lazy.</strong> Registries look in their own table first. Entry points are loaded once, on the first lookup of a kind that is not built in, and cached; a deployment that uses only built-in kinds never loads one. Listing installed add-ons reads package metadata without importing them.</li>
+<li><strong>A broken add-on</strong> is logged and ignored; the others still load.</li>
+<li><strong>Built-ins win a collision.</strong> Declaring <code>forge.github</code> does not replace the shipped row: the built-in answers and the collision is logged. An add-on cannot change what an existing kind means for every project on a deployment.</li>
+<li><strong>An unknown kind refuses by name.</strong> The registry raises with the kind, the known kinds and, where the kind belongs to a known add-on package, which package ships it. It never falls back to a default provider.</li>
+</ul>
+
+<figure class="doc-figure">
+<div class="doc-diagram" data-diagram="extensions-resolve"></div>
+<figcaption>How a registry resolves a kind. Its own table is read first, so a deployment that uses only built-in kinds never loads an entry point.</figcaption>
+</figure>
+<h2>Born with two</h2>
+<p>ADR-0022 sets the bar: an axis is agnostic not because it declares an interface, but when it is born with more than one implementation and a seam that dispatches between them. Protocols are <code>@runtime_checkable</code> and tests check them with <code>isinstance</code>.</p>
+<p>The rule is not met on every axis today. The <code>channel</code>, <code>notifier</code>, <code>session_store</code> and <code>token_pool</code> axes have one built-in kind each, and <code>box_runner</code> has none. No test requires two built-ins per axis; per-axis tests exist for the <code>preview</code> and <code>credential_store</code> axes.</p>
+
+<h2>Adapter conformance</h2>
+<p><code>beeverforge conformance-adapter &lt;kind&gt; &lt;factory&gt;</code> runs an adapter against the platform’s conformance suite, <code>beeverforge/conformance/adapters.py</code>. The factory is an import path, <code>pkg.module:attr</code>, naming an instance, a class or a function that returns one.</p>
+<ul>
+<li>The checks are plain functions that return findings. They construct nothing remote and change nothing remote; they exercise the local contract: signatures, degradation rules and the shape of refusals.</li>
+<li>There are checks for channels, notifiers, identity, boards, trackers, forges, harnesses, CI observers, boxes and previews.</li>
+<li>Examples: a tracker read must return <code>None</code> when it could not read and an empty list when there is nothing; a forge must send a credential only to the host that issued it; an observer’s health check returns a boolean and never raises.</li>
+</ul>
+<p><code>beeverforge conformance &lt;project&gt;</code> is a different command: it checks a project’s manifest, not an adapter.</p>
+
+<h2>The stack needs no adapter</h2>
+<p>The core names no build tool. The manifest’s <code>setup:</code> and <code>validate:</code> entries are shell commands, and the box runs each one as written: <code>sh -c</code> in a container, a shell in a worktree. A project in any language is supported by declaring its own commands, with no adapter.</p>
+
+<h2>Example: a notifier add-on</h2>
+<p>From <code>docs/writing-an-addon.md</code>. The package declares one entry point:</p>
+<pre><code>[project.entry-points."beeverforge.adapters"]
+"notifier.acme" = "beeverforge_acme:build_notifier"</code></pre>
+<p>and implements what the core calls:</p>
+<pre><code>class AcmeNotifier:
+    def notify(self, *, message: str, level: str = "info",
+               about: str = "") -&gt; str | None:
+        ...                      # your provider
+        return None              # or the provider's own handle for the message
+
+
+def build_notifier(project=None, **_kw):
+    return AcmeNotifier()</code></pre>
+<p>Each axis calls its builder with its own arguments; the guide lists them per axis, and covers how a row declares its display name and the remedies the core shows for that provider.</p>
+
+<section class="doc-sources">
+<h2>Sources</h2>
+<ul>
+<li><a href="@core/beeverforge/plugins.py"><code>beeverforge/plugins.py</code></a></li>
+<li><a href="@core/beeverforge/adapters/forge/registry.py"><code>beeverforge/adapters/forge/registry.py</code></a></li>
+<li><a href="@core/beeverforge/adapters/agent/registry.py"><code>beeverforge/adapters/agent/registry.py</code></a></li>
+<li><a href="@core/beeverforge/adapters/sandbox/registry.py"><code>beeverforge/adapters/sandbox/registry.py</code></a></li>
+<li><a href="@core/beeverforge/adapters/environment/registry.py"><code>beeverforge/adapters/environment/registry.py</code></a></li>
+<li><a href="@core/beeverforge/conformance/adapters.py"><code>beeverforge/conformance/adapters.py</code></a></li>
+<li><a href="@core/beeverforge/cli.py"><code>beeverforge/cli.py</code></a></li>
+<li><a href="@core/beeverforge/orchestrator/validation.py"><code>beeverforge/orchestrator/validation.py</code></a></li>
+<li><a href="@core/docs/writing-an-addon.md"><code>docs/writing-an-addon.md</code></a></li>
+<li><a href="@core/docs/core/07-extensibility.md"><code>docs/core/07-extensibility.md</code></a></li>
+<li><a href="@core/tests/test_a_stranger_can_add_an_adapter.py"><code>tests/test_a_stranger_can_add_an_adapter.py</code></a></li>
+<li><a href="@core/docs/adr/0022-provider-seams.md" translate="no">ADR-0022</a>, <a href="@core/docs/adr/0034-extension-model.md" translate="no">ADR-0034</a></li>
+</ul>
+</section>

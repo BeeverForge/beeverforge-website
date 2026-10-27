@@ -1,0 +1,20 @@
+flowchart TB
+  accTitle: How a registry resolves a kind
+  accDescr: A registry first looks in its own table, and a built-in row always answers. Only for a kind that is not built in are the entry points loaded, once. An add-on row named after the axis and the kind answers; otherwise the registry refuses, naming the kind.
+  look("A registry looks up<br>a kind on its axis")
+  built{"Built in?"}
+  row["The built-in row answers"]
+  shadow["An add-on row with<br>the same name is<br>ignored and reported"]
+  load["The `beeverforge.adapters`<br>entry points are loaded<br>once and cached"]
+  bad["A malformed name is skipped<br>with a warning; a broken<br>add-on is logged and ignored"]
+  found{"A row named<br>`<axis>.<kind>`?"}
+  addon["The add-on’s builder answers"]
+  refuse["Refusal: the kind, the<br>known kinds and the package<br>that ships it, if known.<br>No default provider."]
+  look --> built
+  built -->|"yes"| row
+  row -.- shadow
+  built -->|"no"| load
+  load -.- bad
+  load --> found
+  found -->|"yes"| addon
+  found -->|"no"| refuse

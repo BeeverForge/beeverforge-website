@@ -1,0 +1,129 @@
+<title>Engineering principles</title>
+<meta name="description" content="The principles the BeeverForge core is built on, and where the code enforces them: vendor neutrality, one action layer, one door for card changes, refusals, prompt budgets and the knowledge layer.">
+<p class="eyebrow">BeeverForge core architecture</p>
+<h1>Engineering principles</h1>
+<p class="doc-lead">The core’s principles are written down in its vision document and its decision records. This page lists them with the code that enforces each, and says where the code falls short of the statement.</p>
+
+<h2>Vision principles</h2>
+<p>From <code>docs/core/00-vision.md</code>. They are stated aims; where the code does not hold one fully, the item says how far it goes.</p>
+<ol>
+<li><strong>The core names no vendor.</strong> A vendor is reached through a port, chosen by a registry, from configuration. The test that enforces it covers <code>beeverforge/contracts</code> and <code>beeverforge/policy</code> only; the built-in adapter rows name their vendors, and the metrics sink is inferred as <code>dynamodb</code> when <code>BEEVERFORGE_METRICS_TABLE</code> is set.</li>
+<li><strong>Everything outside the core is replaceable</strong>, by someone other than the maintainers: an entry point, not a pull request. The engine is the exception: Temporal is not behind a port.</li>
+<li><strong>An application built on the core is not the core.</strong> It uses the same surface a third party’s application would.</li>
+<li><strong>The core is useful by itself.</strong> The document adds that nothing that ships in it is removed to manufacture an upgrade path; that is a stated commitment, which the code cannot show.</li>
+<li><strong>A contract is derived from what the core calls, never from what a provider offers.</strong></li>
+<li><strong>An axis is agnostic when it is born with two</strong> implementations, not when it declares an interface (ADR-0022). Several axes do not meet it yet; Extension model lists them.</li>
+</ol>
+
+<h2>Decisions of ADR-0001</h2>
+<p>ADR-0001 fixes the conceptual model. Its decisions, by heading:</p>
+<ul>
+<li><strong>D-1</strong> The framework and the project are separated by a declarative manifest.</li>
+<li><strong>D-2</strong> Project knowledge is a cascade of authority: tighten, never loosen.</li>
+<li><strong>D-3</strong> The framework owns the slots; conformance enforces them.</li>
+<li><strong>D-4</strong> An ephemeral environment with a persistent dependency cache.</li>
+<li><strong>D-5</strong> One generic worker per ticket; executor and reviewer are separate contexts.</li>
+<li><strong>D-6</strong> The label is a guess; the diff is the truth. Components resolve stacks.</li>
+<li><strong>D-7</strong> Declared dependencies are the truth; inferred ones are advisory.</li>
+<li><strong>D-8</strong> A spec-quality gate: trust to start, verify to finish.</li>
+<li><strong>D-9</strong> Documentation has standard roles, not standard locations; ADRs are the constitution.</li>
+<li><strong>D-10</strong> Derive, do not maintain.</li>
+<li><strong>D-11</strong> Deterministic first.</li>
+<li><strong>D-12</strong> The platform is a lifecycle operator, not a pull-request opener.</li>
+<li><strong>D-13</strong> Judges are structured calls on deterministic gates; agent behaviour is measured, not assumed.</li>
+<li><strong>D-14</strong> Single-tenant, multi-project.</li>
+<li><strong>D-15</strong> Pickup, ownership and impediment handling.</li>
+<li><strong>D-16</strong> Temporal as the durable-execution engine.</li>
+<li><strong>D-17</strong> A remote task box that runs the whole job. In this repository that box is a description only; its runner is an add-on.</li>
+</ul>
+
+<h2>Invariants, checked against the code</h2>
+<dl>
+<dt>Never a silent hang</dt>
+<dd>Every wait in the job workflow has a deadline or a person at the end of it: the merge watch, the production approval and an unanswered impediment have deadlines, and a decision park holds until it is answered. Parks carry the options a person can take. A pull request on which no check reports is called out, not read as green.</dd>
+<dt>Nothing lost, nothing duplicated</dt>
+<dd>Jobs are durable workflows. Pull requests are find-then-update; before rebuilding a branch the runner asks the forge for an existing pull request, and if it cannot read the answer it holds instead of guessing.</dd>
+<dt>The floor frees at merge</dt>
+<dd>The job workflow holds its slot until the pull request merges, until promotion ends when it is enabled, or until the job is skipped. A parked job keeps its slot: a plain impediment is skipped after 3 days, and a decision park waits until it is answered.</dd>
+<dt>Quality is a floor</dt>
+<dd>The <code>test</code> and <code>security</code> roles are required before the implementation pass. The floor checks that the roles exist, not what they run, and the inherited <code>security</code> gate is advisory.</dd>
+<dt>The code is the source of truth</dt>
+<dd>The knowledge map is given to an agent only when its checksums prove it describes that job’s own checkout; otherwise nothing is given.</dd>
+<dt>Attributed to the bot</dt>
+<dd>The factory commits and acts under the bot identity the deployment sets (<code>BEEVERFORGE_BOT_NAME</code>, <code>BEEVERFORGE_BOT_EMAIL</code>).</dd>
+<dt>Least privilege</dt>
+<dd>Partly. The manifest’s <code>permissions</code> field is accepted and marked inert: no code reads it, and per-project permission tightening is not implemented. The box’s isolation and its <code>box.env</code> are what bound a run.</dd>
+</dl>
+
+<h2>One action layer for every transport</h2>
+<p>Everything a person can ask the factory to do is written once, in the action catalogue (ADR-0039): <code>beeverforge/actions/</code>, executed through <code>actions.perform</code>. Who asked is a parameter of the call, not a property of the transport.</p>
+<ul>
+<li>The panel API serves the catalogue at <code>POST /api/act/{name}</code>, and its named routes call the same function.</li>
+<li>The command line serves it as <code>beeverforge act</code>, and several of its other commands, such as adding or removing a project and pausing pickup, call the same function.</li>
+<li>The tech-lead’s conversation is offered only what <code>actions.proposable()</code> returns for the asker’s credential.</li>
+</ul>
+
+<h2>A card has one lifecycle and one door</h2>
+<p>A card’s state changes only through <code>lifecycle.card.transition()</code> (ADR-0055). The door reads the card’s record and answers a repeated event from the row already recorded; asks the pure table whether the event is allowed from where the card is; runs the engine’s part of a person’s decision, if any; records the transition at the next sequence number unless another writer took it; and then applies what the table says follows.</p>
+<ul>
+<li>The tables in <code>lifecycle/table.py</code> are pure: no clock, no store, no tracker. The card states are <code>backlog</code>, <code>todo</code>, <code>running</code>, <code>waiting_on_a_person</code>, <code>merged</code>, <code>staged</code>, <code>delivered</code>, <code>closed</code> and <code>removed</code>.</li>
+<li>A guard test allows no card writer outside the door; the only exception, by rule, is the box writing its progress marks.</li>
+<li>ADR-0055 is implemented although its record still reads Proposed. One event, <code>picked_up</code>, is still undecided and refused from every state.</li>
+<li>Jobs have no equivalent table. Job transitions are decided in the runner and the workflow, which is the part of ADR-0033 that remains proposed.</li>
+</ul>
+
+<h2>Refusals name the cause and the remedy</h2>
+<p>A refusal says what failed and what to do. On the command line, <code>cli_refusals.py</code> matches a provider error to a known cause and prints a sentence with the cause and its remedy, followed by the provider’s own words. An error it does not recognise keeps the provider’s words and no remedy is guessed. Tests hold each cause to its own remedy and keep the core’s own bugs from being presented as a provider’s.</p>
+
+<h2>“Could not see” is not “nothing there”</h2>
+<p>Every read on a tracker follows one rule, stated in its base class: <code>None</code> means the read failed; an empty list means the read succeeded and found nothing. Boards follow the same rule, and the adapter conformance suite checks it for trackers. Typed values such as <code>Unreadable</code> carry the same distinction elsewhere.</p>
+
+<h2>Refuse before writing</h2>
+<p>A check that can refuse runs before anything is written. A refused card transition changes nothing and says why; the floor refuses a job before the implementation pass; the knowledge pipeline refuses a target outside its directory before anything is cloned; a refused command-line flag says that nothing was read and nothing was written.</p>
+
+<h2>One prompt budget that names what it leaves out</h2>
+<p>A job’s prompt has one budget (ADR-0056): <code>BEEVERFORGE_PROMPT_BUDGET</code>, default 160,000 bytes, shared by the card, the plan and the documents the project declares. <code>off</code> turns it off; a value that cannot be read is refused. Every document left out is named in the prompt, by the path the agent can open and its size, under a heading that tells the agent to open it before changing what it governs. A document cut at its own length limit is listed with how much of it was inlined.</p>
+
+<h2>Vendor neutrality, enforced by tests</h2>
+<ul>
+<li><code>tests/test_kernel_names_no_vendor.py</code> parses <code>beeverforge/contracts</code> and <code>beeverforge/policy</code> and fails on any vendor name.</li>
+<li><code>tests/test_the_core_names_no_vendor.py</code> fails on a chat vendor named outside comments in the core.</li>
+<li><code>tests/test_the_core_addon_ledger.py</code> derives every import of a vendor SDK and holds the list to the ledger in <code>docs/core/07-extensibility.md</code>.</li>
+<li><code>tests/test_the_core_is_a_core.py</code> loads the core in a subprocess where every vendor SDK refuses to import, and checks that the action catalogue resolves and the panel starts.</li>
+</ul>
+
+<h2>The knowledge layer</h2>
+<p>The knowledge layer is a module map of each repository, generated deterministically from directory structure, Python syntax trees and pattern matching over TypeScript, JavaScript and C# sources, with no LLM calls. The same repository state produces byte-identical output.</p>
+<ul>
+<li>It is on by default (<code>knowledge_map: true</code>; ADR-0035) and can be turned off per project.</li>
+<li>It is published to the project’s context repository under <code>.okf/repos/&lt;owner&gt;--&lt;name&gt;/</code>, never to the repository being worked on. Publishing requires <code>product.docs_repo</code>; without it the refresh does nothing.</li>
+<li>An agent receives the map only when it is proven fresh against the agent’s own checkout. It speeds up finding code and does not replace reading it.</li>
+</ul>
+
+<h2>The product role</h2>
+<p>The product role is opt-in. It is enabled by a <code>product:</code> section in the project’s registry entry, which must name the documentation repository that holds the product’s requirements (ADR-0019).</p>
+
+<section class="doc-sources">
+<h2>Sources</h2>
+<ul>
+<li><a href="@core/docs/core/00-vision.md"><code>docs/core/00-vision.md</code></a></li>
+<li><a href="@core/docs/architecture.md"><code>docs/architecture.md</code></a></li>
+<li><a href="@core/beeverforge/actions/__init__.py"><code>beeverforge/actions/__init__.py</code></a></li>
+<li><a href="@core/beeverforge/api/app.py"><code>beeverforge/api/app.py</code></a></li>
+<li><a href="@core/beeverforge/lifecycle/card.py"><code>beeverforge/lifecycle/card.py</code></a></li>
+<li><a href="@core/beeverforge/lifecycle/table.py"><code>beeverforge/lifecycle/table.py</code></a></li>
+<li><a href="@core/beeverforge/cli_refusals.py"><code>beeverforge/cli_refusals.py</code></a></li>
+<li><a href="@core/beeverforge/adapters/tracker/base.py"><code>beeverforge/adapters/tracker/base.py</code></a></li>
+<li><a href="@core/beeverforge/loader.py"><code>beeverforge/loader.py</code></a></li>
+<li><a href="@core/beeverforge/credentials.py"><code>beeverforge/credentials.py</code></a></li>
+<li><a href="@core/beeverforge/orchestrator/context.py"><code>beeverforge/orchestrator/context.py</code></a></li>
+<li><a href="@core/beeverforge/adapters/agent/base.py"><code>beeverforge/adapters/agent/base.py</code></a></li>
+<li><a href="@core/beeverforge/knowledge/generator.py"><code>beeverforge/knowledge/generator.py</code></a></li>
+<li><a href="@core/beeverforge/knowledge/pipeline.py"><code>beeverforge/knowledge/pipeline.py</code></a></li>
+<li><a href="@core/beeverforge/contracts/product.py"><code>beeverforge/contracts/product.py</code></a></li>
+<li><a href="@core/tests/test_the_card_lifecycle_has_one_door.py"><code>tests/test_the_card_lifecycle_has_one_door.py</code></a></li>
+<li><a href="@core/tests/test_kernel_names_no_vendor.py"><code>tests/test_kernel_names_no_vendor.py</code></a></li>
+<li><a href="@core/tests/test_the_core_is_a_core.py"><code>tests/test_the_core_is_a_core.py</code></a></li>
+<li><a href="@core/docs/adr/0001-foundational-conceptual-model.md" translate="no">ADR-0001</a>, <a href="@core/docs/adr/0019-product-role-and-requirements-repo.md" translate="no">ADR-0019</a>, <a href="@core/docs/adr/0033-decision-kernel.md" translate="no">ADR-0033</a>, <a href="@core/docs/adr/0035-knowledge-layer-on-by-default.md" translate="no">ADR-0035</a>, <a href="@core/docs/adr/0039-the-action-layer.md" translate="no">ADR-0039</a>, <a href="@core/docs/adr/0055-a-card-has-one-lifecycle.md" translate="no">ADR-0055</a>, <a href="@core/docs/adr/0056-a-prompt-has-one-budget-and-names-what-it-leaves-out.md" translate="no">ADR-0056</a></li>
+</ul>
+</section>

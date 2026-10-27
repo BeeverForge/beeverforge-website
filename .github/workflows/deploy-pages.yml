@@ -30,7 +30,7 @@ jobs:
       - name: Prepare public files
         run: |
           mkdir -p _site
-          cp -R assets thank-you es pt v1 v2 _site/
+          cp -R assets thank-you es pt v1 v2 architecture _site/
           cp CNAME index.html install.sh robots.txt sitemap.xml site.webmanifest _site/
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
