@@ -142,6 +142,8 @@ export async function buildArchitecture({ root, source, translations, locales, l
         part = part.replace('href="/final-preview/" aria-label="BeeverForge preview home"', `href="${l.path}" aria-label="BeeverForge home"`)
           .replace(/href="#(editions|lifecycle|comparison|questions|contact)"/g, `href="${l.path}#$1"`)
           .replaceAll('href="/architecture/">', `href="${l.path}architecture/" aria-current="true">`)
+          // the trial and the legal pages are English-rooted in the source and follow the page's language
+          .replace(/href="\/(try|legal)\//g, (match, folder) => `href="${l.path}${folder}/`)
           .replace('Final design preview · not indexed', 'From idea to engineered software')
           .replace(/<option value="\/(es\/|pt\/)?"( selected)?>/g, (m, prefix) => {
             const code = prefix ? prefix.slice(0, 2) : 'en';
