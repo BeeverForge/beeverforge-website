@@ -70,7 +70,7 @@ O teste é oferecido gratuitamente, **"no estado em que se encontra" e "conforme
 
 ## 12. Limitação de responsabilidade
 
-Na medida permitida pela lei, a BeeverForge não é responsável por perdas indiretas ou consequentes, lucros cessantes ou perda de dados decorrentes do teste, e a sua responsabilidade total por qualquer assunto relacionado ao teste fica limitada a **100 euros (cem euros)**. Nada nestes termos limita a responsabilidade que a lei não permite limitar, nem os seus direitos como consumidor quando a legislação de consumo se aplicar.
+Na medida permitida pela lei, a BeeverForge não é responsável por perdas indiretas ou consequentes, lucros cessantes ou perda de dados decorrentes do teste, e a sua responsabilidade total por qualquer assunto relacionado ao teste fica limitada a **100 euros (cem euros)**. O limite não se aplica a dolo ou culpa grave, nem a morte ou danos pessoais. Nada nestes termos limita a responsabilidade que a lei não permite limitar, nem os seus direitos como consumidor quando a legislação de consumo se aplicar.
 
 ## 13. Alterações nestes termos
 

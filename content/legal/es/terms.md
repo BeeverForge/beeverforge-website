@@ -70,7 +70,7 @@ La prueba se ofrece gratuitamente, **"tal cual" y "según disponibilidad"**, sin
 
 ## 12. Limitación de responsabilidad
 
-En la medida que permita la ley, BeeverForge no es responsable de pérdidas indirectas o consecuentes, lucro cesante ni pérdida de datos derivados de la prueba, y su responsabilidad total por cualquier asunto relacionado con la prueba se limita a **100 euros (cien euros)**. Nada en estos términos limita la responsabilidad que la ley no permite limitar, ni sus derechos como consumidor cuando se aplique la ley de consumo.
+En la medida que permita la ley, BeeverForge no es responsable de pérdidas indirectas o consecuentes, lucro cesante ni pérdida de datos derivados de la prueba, y su responsabilidad total por cualquier asunto relacionado con la prueba se limita a **100 euros (cien euros)**. El límite no se aplica al dolo ni a la culpa grave, ni a la muerte o los daños personales. Nada en estos términos limita la responsabilidad que la ley no permite limitar, ni sus derechos como consumidor cuando se aplique la ley de consumo.
 
 ## 13. Cambios en estos términos
 

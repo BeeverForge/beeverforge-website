@@ -6,9 +6,9 @@ date: 2026-10-27
 status: final
 ---
 
-## 1. Quem é o controlador
+## 1. Quem é o responsável pelo tratamento
 
-A BeeverForge ("nós") é a controladora dos dados pessoais descritos aqui. A BeeverForge tem sede em Portugal e é administrada por Hermes Alves, que responde pelo tratamento descrito aqui. Você pode nos escrever sobre privacidade em contact@beeverforge.com.
+A BeeverForge ("nós") é a responsável pelo tratamento dos dados pessoais descritos aqui. A BeeverForge tem sede em Portugal e é administrada por Hermes Alves, que responde pelo tratamento descrito aqui. Você pode nos escrever sobre privacidade em contact@beeverforge.com.
 
 Esta política cobre este site (beeverforge.com), o formulário de contato da Enterprise e o teste do Prototype Builder para empresas — em app.beeverforge.com e no endereço próprio de cada empresa sob beeverforge.com —, da lista de espera ao fim do teste da sua empresa.
 
@@ -48,10 +48,12 @@ Esta política cobre este site (beeverforge.com), o formulário de contato da En
 
 Estamos estabelecidos em Portugal, por isso se aplicam o Regulamento Geral sobre a Proteção de Dados da União Europeia (RGPD) e a lei portuguesa que o executa; se você vive em outro país, a lei local pode lhe dar outros direitos (por exemplo, a LGPD no Brasil). Nos baseamos em:
 
-- **o seu consentimento** — para o contato da lista de espera e para o analytics; você pode retirá-lo a qualquer momento;
+- **o seu consentimento** — para o contato da lista de espera e para o analytics; você pode retirá-lo a qualquer momento, sem que isso afete o que foi feito antes de o retirar;
 - **a execução dos termos que você aceita**, ou de procedimentos preliminares que você nos pede — para operar o teste e preparar a proposta que você solicitar;
-- **o nosso legítimo interesse** — para manter o teste e os seus usuários seguros e prevenir abusos;
+- **os nossos interesses legítimos** — para manter o teste e os seus usuários seguros e prevenir abusos;
 - **obrigações legais** — quando a lei exige que guardemos ou informemos dados.
+
+Para pedir o teste precisamos do seu e-mail, do nome da sua empresa e do endereço que ela deseja; sem eles não podemos considerar o pedido. O seu nome e o que você quer prototipar são opcionais. Para usar o teste, você entra com Google ou GitHub, que nos dão o seu e-mail verificado.
 
 ## 4. O que nunca fazemos
 
@@ -70,7 +72,7 @@ Usamos os seguintes provedores, cada um sob contrato e somente para a finalidade
 
 ## 6. Transferências internacionais
 
-Os nossos provedores tratam dados nos **Estados Unidos** e possivelmente em outros países, fora do Espaço Econômico Europeu. Cada transferência se apoia na decisão de adequação da Comissão Europeia para o EU-U.S. Data Privacy Framework, quando o provedor é certificado nele, ou, caso contrário, nas cláusulas contratuais-tipo da Comissão incluídas nos termos de tratamento de dados do provedor (artigo 46 do RGPD).
+Os nossos provedores tratam dados nos **Estados Unidos** e possivelmente em outros países, fora do Espaço Econômico Europeu. Só usamos provedores certificados no EU-U.S. Data Privacy Framework, que a Comissão Europeia considerou adequado (artigo 45 do RGPD), ou vinculados às cláusulas contratuais-tipo da Comissão nos seus termos de tratamento de dados (artigo 46 do RGPD). Você pode pedir uma cópia dessas garantias em contact@beeverforge.com.
 
 ## 7. Por quanto tempo guardamos
 
@@ -84,7 +86,7 @@ Os nossos provedores tratam dados nos **Estados Unidos** e possivelmente em outr
 
 ## 8. Seus direitos
 
-Você pode pedir para **acessar, corrigir, apagar ou receber uma cópia** dos seus dados, **saber com quem os compartilhamos**, **retirar o seu consentimento**, **se opor** ao tratamento baseado no nosso legítimo interesse e pedir que o **limitemos**. Você pode apagar a sua conta e tudo o que há nela a qualquer momento pela página da sua conta no teste, ou escrevendo para contact@beeverforge.com. Você também pode reclamar a uma autoridade de proteção de dados — em Portugal, a Comissão Nacional de Proteção de Dados (CNPD), ou a autoridade do país onde você vive.
+Você pode pedir para **acessar, corrigir ou apagar** os seus dados, **recebê-los num formato portável**, **saber com quem os compartilhamos**, **retirar o seu consentimento**, **se opor** ao tratamento baseado nos nossos interesses legítimos e pedir que o **limitemos**. Você pode apagar a sua conta e tudo o que há nela a qualquer momento pela página da sua conta no teste, ou escrevendo para contact@beeverforge.com. Você também pode reclamar a uma autoridade de proteção de dados — em Portugal, a Comissão Nacional de Proteção de Dados (CNPD), ou a autoridade do país onde você vive.
 
 ## 9. Segurança
 

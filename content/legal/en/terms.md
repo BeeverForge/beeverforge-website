@@ -70,7 +70,7 @@ The trial is provided free of charge, **"as is" and "as available"**, without an
 
 ## 12. Limitation of liability
 
-To the extent the law allows, BeeverForge is not liable for indirect or consequential losses, lost profits or lost data arising from the trial, and its total liability for anything related to the trial is limited to **EUR 100 (one hundred euros)**. Nothing in these terms limits liability that cannot be limited by law, or the rights you have as a consumer where consumer law applies.
+To the extent the law allows, BeeverForge is not liable for indirect or consequential losses, lost profits or lost data arising from the trial, and its total liability for anything related to the trial is limited to **EUR 100 (one hundred euros)**. The limit does not apply to wilful misconduct or gross negligence, nor to death or personal injury. Nothing in these terms limits liability that cannot be limited by law, or the rights you have as a consumer where consumer law applies.
 
 ## 13. Changes to these terms
 

@@ -48,10 +48,12 @@ This policy covers this website (beeverforge.com), the Enterprise inquiry form, 
 
 We are established in Portugal, so the EU General Data Protection Regulation (GDPR) and the Portuguese law that implements it apply; if you live elsewhere, your local law may give you further rights (for example, the LGPD in Brazil). We rely on:
 
-- **your consent** — for the waitlist contact and for analytics; you can withdraw it at any time;
+- **your consent** — for the waitlist contact and for analytics; you can withdraw it at any time, which does not affect what was done before you withdrew it;
 - **the performance of the terms you accept**, or steps you ask us to take before them — to run the trial and prepare a proposal you ask for;
 - **our legitimate interest** — to keep the trial and its users secure and to prevent abuse;
 - **legal obligations** — where the law requires us to keep or disclose data.
+
+To ask for the trial we need your e-mail address, your company's name and the address it wishes for; without them we cannot consider the request. Your name and what you want to prototype are optional. To use the trial, you sign in with Google or GitHub, which gives us your verified e-mail address.
 
 ## 4. What we never do
 
@@ -70,7 +72,7 @@ We use the following providers, each under contract and only for the purpose sta
 
 ## 6. International transfers
 
-Our providers process data in the **United States** and possibly in other countries, outside the European Economic Area. Each transfer relies on the European Commission's adequacy decision for the EU-U.S. Data Privacy Framework, where the provider is certified under it, or otherwise on the Commission's standard contractual clauses in the provider's data processing terms (GDPR article 46).
+Our providers process data in the **United States** and possibly in other countries, outside the European Economic Area. We use only providers that are certified under the EU-U.S. Data Privacy Framework, which the European Commission has found adequate (GDPR article 45), or that are bound by the Commission's standard contractual clauses in their data processing terms (GDPR article 46). You can ask for a copy of these safeguards at contact@beeverforge.com.
 
 ## 7. How long we keep it
 
@@ -84,7 +86,7 @@ Our providers process data in the **United States** and possibly in other countr
 
 ## 8. Your rights
 
-You can ask to **access, correct, delete or receive a copy of** your data, to **know who we share it with**, to **withdraw your consent**, to **object** to processing based on our legitimate interest and to ask us to **restrict** it. You can delete your account and everything in it at any time from your account page in the trial, or by writing to contact@beeverforge.com. You may also complain to a data protection authority — in Portugal, the Comissão Nacional de Proteção de Dados (CNPD), or the authority where you live.
+You can ask to **access, correct or delete** your data, to **receive it in a portable format**, to **know who we share it with**, to **withdraw your consent**, to **object** to processing based on our legitimate interest and to ask us to **restrict** it. You can delete your account and everything in it at any time from your account page in the trial, or by writing to contact@beeverforge.com. You may also complain to a data protection authority — in Portugal, the Comissão Nacional de Proteção de Dados (CNPD), or the authority where you live.
 
 ## 9. Security
 

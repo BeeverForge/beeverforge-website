@@ -48,10 +48,12 @@ Esta política cubre este sitio web (beeverforge.com), el formulario de consulta
 
 Estamos establecidos en Portugal, por lo que se aplican el Reglamento General de Protección de Datos de la UE (RGPD) y la ley portuguesa que lo ejecuta; si vive en otro país, su ley local puede darle otros derechos (por ejemplo, la LGPD en Brasil). Nos basamos en:
 
-- **su consentimiento** — para el contacto de la lista de espera y para la analítica; puede retirarlo en cualquier momento;
+- **su consentimiento** — para el contacto de la lista de espera y para la analítica; puede retirarlo en cualquier momento, sin que ello afecte a lo hecho antes de retirarlo;
 - **la ejecución de los términos que acepta**, o las medidas que nos pide antes de ellos — para operar la prueba y preparar la propuesta que solicite;
 - **nuestro interés legítimo** — para mantener seguros la prueba y a sus usuarios y prevenir abusos;
 - **obligaciones legales** — cuando la ley nos exige conservar o comunicar datos.
+
+Para solicitar la prueba necesitamos su dirección de correo, el nombre de su empresa y la dirección que desea; sin ellos no podemos considerar la solicitud. Su nombre y lo que quiere prototipar son opcionales. Para usar la prueba, inicia sesión con Google o GitHub, que nos dan su dirección de correo verificada.
 
 ## 4. Lo que nunca hacemos
 
@@ -70,7 +72,7 @@ Usamos los siguientes proveedores, cada uno bajo contrato y solo para la finalid
 
 ## 6. Transferencias internacionales
 
-Nuestros proveedores procesan datos en los **Estados Unidos** y posiblemente en otros países, fuera del Espacio Económico Europeo. Cada transferencia se basa en la decisión de adecuación de la Comisión Europea para el EU-U.S. Data Privacy Framework, cuando el proveedor está certificado en él, o, en su defecto, en las cláusulas contractuales tipo de la Comisión incluidas en las condiciones de tratamiento de datos del proveedor (artículo 46 del RGPD).
+Nuestros proveedores procesan datos en los **Estados Unidos** y posiblemente en otros países, fuera del Espacio Económico Europeo. Solo usamos proveedores certificados en el EU-U.S. Data Privacy Framework, que la Comisión Europea ha declarado adecuado (artículo 45 del RGPD), o vinculados por las cláusulas contractuales tipo de la Comisión en sus condiciones de tratamiento de datos (artículo 46 del RGPD). Puede pedir una copia de estas garantías a contact@beeverforge.com.
 
 ## 7. Cuánto tiempo los conservamos
 
@@ -84,7 +86,7 @@ Nuestros proveedores procesan datos en los **Estados Unidos** y posiblemente en 
 
 ## 8. Sus derechos
 
-Puede solicitar **acceder, corregir, eliminar o recibir una copia** de sus datos, **saber con quién los compartimos**, **retirar su consentimiento**, **oponerse** al tratamiento basado en nuestro interés legítimo y pedir que lo **limitemos**. Puede eliminar su cuenta y todo su contenido en cualquier momento desde la página de su cuenta en la prueba, o escribiendo a contact@beeverforge.com. También puede presentar una reclamación ante una autoridad de protección de datos — en Portugal, la Comissão Nacional de Proteção de Dados (CNPD), o la autoridad del país donde vive.
+Puede solicitar **acceder, corregir o eliminar** sus datos, **recibirlos en un formato portable**, **saber con quién los compartimos**, **retirar su consentimiento**, **oponerse** al tratamiento basado en nuestro interés legítimo y pedir que lo **limitemos**. Puede eliminar su cuenta y todo su contenido en cualquier momento desde la página de su cuenta en la prueba, o escribiendo a contact@beeverforge.com. También puede presentar una reclamación ante una autoridad de protección de datos — en Portugal, la Comissão Nacional de Proteção de Dados (CNPD), o la autoridad del país donde vive.
 
 ## 9. Seguridad
 
