@@ -1,6 +1,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { buildArchitecture, urlOf } from './architecture.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const source = await readFile(`${root}final-preview/index.html`, 'utf8');
@@ -143,15 +144,19 @@ function buildPage(locale) {
   html = html.replace(/<meta property="og:description" content="[^"]+">/, `<meta property="og:description" content="${l.description}">`);
   html = replaceRequired(html, '<meta name="twitter:card" content="summary_large_image">', `<meta name="twitter:card" content="summary_large_image">\n  <link rel="canonical" href="https://beeverforge.com${l.path}">\n  <meta property="og:url" content="https://beeverforge.com${l.path}">\n  <link rel="alternate" hreflang="en" href="https://beeverforge.com/">\n  <link rel="alternate" hreflang="es" href="https://beeverforge.com/es/">\n  <link rel="alternate" hreflang="pt-BR" href="https://beeverforge.com/pt/">\n  <link rel="alternate" hreflang="x-default" href="https://beeverforge.com/">`);
   html = replaceRequired(html, 'href="/final-preview/" aria-label="BeeverForge preview home"', `href="${l.path}" aria-label="BeeverForge home"`);
-  html = replaceRequired(html, 'Final design preview · not indexed', 'The next chapter of OpenFactory');
+  html = replaceRequired(html, 'Final design preview · not indexed', 'From idea to engineered software');
   html = replaceRequired(html, 'data-success-url="/thank-you/"', `data-success-url="${l.path}thank-you/" data-pending-message="${l.formPending}" data-error-message="${l.formError}" data-unavailable-message="${l.formUnavailable}"`);
   html = replaceRequired(html, 'placeholder="What do you want to build, and how does your team work today?"', `placeholder="${locale === 'es' ? '¿Qué quiere construir y cómo trabaja hoy su equipo?' : locale === 'pt' ? 'O que você quer construir e como sua equipe trabalha hoje?' : 'What do you want to build, and how does your team work today?'}"`);
   // links to the trial and the legal pages are written English-rooted in the source and follow the page's language
   html = html.replace(/href="\/(try|legal)\//g, (match, folder) => `href="${l.path}${folder}/`);
   html = html.replace(/(<option value="\/(?:es\/|pt\/)?") selected>/g, '$1>');
   html = replaceRequired(html, `<option value="${l.path}">`, `<option value="${l.path}" selected>`);
+  html = html.replaceAll('href="/architecture/"', `href="${l.path}architecture/"`);
   if (locale !== 'en') html = localizeText(html, locale);
-  html = html.replace('aria-label="Main navigation"', `aria-label="${locale === 'es' ? 'Navegación principal' : locale === 'pt' ? 'Navegação principal' : 'Main navigation'}"`)
+  return localizeLabels(html, locale);
+}
+function localizeLabels(html, locale) {
+  return html.replace('aria-label="Main navigation"', `aria-label="${locale === 'es' ? 'Navegación principal' : locale === 'pt' ? 'Navegação principal' : 'Main navigation'}"`)
     .replace('aria-label="Footer links"', `aria-label="${locale === 'es' ? 'Enlaces del pie de página' : locale === 'pt' ? 'Links do rodapé' : 'Footer links'}"`)
     .replace('aria-label="The four connected decisions"', `aria-label="${locale === 'es' ? 'Cuatro decisiones conectadas' : locale === 'pt' ? 'Quatro decisões conectadas' : 'The four connected decisions'}"`)
     .replace('aria-label="Enterprise product lifecycle"', `aria-label="${locale === 'es' ? 'Ciclo de vida del producto Enterprise' : locale === 'pt' ? 'Ciclo de vida do produto Enterprise' : 'Enterprise product lifecycle'}"`)
@@ -160,7 +165,6 @@ function buildPage(locale) {
     .replace('aria-label="Language"', `aria-label="${locale === 'es' ? 'Idioma' : locale === 'pt' ? 'Idioma' : 'Language'}"`)
     .replace('aria-label="Open menu"', `aria-label="${locale === 'es' ? 'Abrir menú' : locale === 'pt' ? 'Abrir menu' : 'Open menu'}"`)
     .replace('aria-label="Switch to light mode"', `aria-label="${locale === 'es' ? 'Cambiar al modo claro' : locale === 'pt' ? 'Mudar para o modo claro' : 'Switch to light mode'}"`);
-  return html;
 }
 function thanksPage(locale) {
   const l = locales[locale];
@@ -412,11 +416,17 @@ for (const [locale, l] of Object.entries(locales)) {
 }
 const retiredConcept = (version) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><meta http-equiv="refresh" content="0;url=/"><link rel="canonical" href="https://beeverforge.com/"><title>BeeverForge — website</title><script>location.replace('/')</script></head><body><main><h1>BeeverForge has a new home.</h1><p>The ${version.toUpperCase()} concept has been replaced by the website.</p><p><a href="/">Visit BeeverForge</a></p></main></body></html>`;
 await Promise.all(['v1', 'v2'].map((version) => writeFile(`${root}${version}/index.html`, retiredConcept(version))));
+const architecture = await buildArchitecture({ root, source, translations, locales, localizeText, localizeLabels });
 // a legal page enters the sitemap once it is final in every language, so no entry points at a draft
 const finalEverywhere = (name) => Object.keys(locales).every((locale) => legal[locale][name].meta.status === 'final');
 const indexed = ['', 'try/', ...legalPages.filter(finalEverywhere).map((name) => `legal/${name}/`)];
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${indexed.flatMap((sub) => Object.values(locales).map(l => `  <url><loc>https://beeverforge.com${l.path}${sub}</loc>${Object.values(locales).map((alt) => `<xhtml:link rel="alternate" hreflang="${alt.lang}" href="https://beeverforge.com${alt.path}${sub}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="https://beeverforge.com/${sub}"/></url>`)).join('\n')}\n</urlset>\n`;
+const alternatesFor = (pathOf) => `${Object.entries(locales).map(([code, alt]) => `<xhtml:link rel="alternate" hreflang="${alt.lang}" href="https://beeverforge.com${pathOf(code)}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="https://beeverforge.com${pathOf('en')}"/>`;
+const sitemapUrls = [
+  ...indexed.flatMap((sub) => Object.keys(locales).map((code) => `  <url><loc>https://beeverforge.com${locales[code].path}${sub}</loc>${alternatesFor((alt) => `${locales[alt].path}${sub}`)}</url>`)),
+  ...architecture.flatMap(({ page }) => Object.keys(locales).map((code) => `  <url><loc>https://beeverforge.com${urlOf(code, locales, page)}</loc>${alternatesFor((alt) => urlOf(alt, locales, page))}</url>`)),
+];
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapUrls.join('\n')}\n</urlset>\n`;
 await writeFile(`${root}sitemap.xml`, sitemap);
 const drafts = legalPages.filter((name) => !finalEverywhere(name));
-console.log(`Built English, Spanish and Portuguese static pages, the trial’s waitlist page, the legal pages and localized confirmation pages${buildLocal ? ' — a local build: the waitlist page knows the local door' : ''}.`);
+console.log(`Built English, Spanish and Portuguese static pages, the trial’s waitlist page, the legal pages, the architecture section and localized confirmation pages${buildLocal ? ' — a local build: the waitlist page knows the local door' : ''}.`);
 if (drafts.length) console.log(`Legal drafts, noindex and out of the sitemap: ${drafts.join(', ')}.`);

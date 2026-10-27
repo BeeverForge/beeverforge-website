@@ -1,0 +1,106 @@
+<title>Architecture overview</title>
+<meta name="description" content="What the BeeverForge core is, its control model, its layers, how it is deployed and what lies outside it.">
+<p class="eyebrow">BeeverForge core architecture</p>
+<h1>Architecture overview</h1>
+<p class="doc-lead">The BeeverForge core takes tickets from a board and drives existing coding agents through planning, implementation, validation, review, pull request, merge and deployment observation. It is an orchestrator: it does not contain a coding agent of its own.</p>
+<p>This section describes the core as it exists in the repository at the commit linked under each page’s sources. Where a design record describes something the code does not yet do, the page says so.</p>
+
+<h2>Control model</h2>
+<p>The project README states the model as <strong>“Policies authorise, humans evaluate.”</strong> The project’s manifest, <code>.beeverforge/project.yaml</code>, declares the merge policy, the quality floor and the promotion chain. Within those policies the factory acts without asking for approval at each step; people judge the result.</p>
+<ul>
+<li>A project that declares no <code>test</code> gate is not treated as passing. Before the implementation pass, after sizing, the runner checks the floor and refuses the job, naming the missing gate and how to declare it.</li>
+<li>The default merge policy is <code>human</code>: a person merges the pull request. Automatic merge happens only when a project sets <code>merge_policy: auto</code> and every condition for it holds.</li>
+<li>Production promotion waits for a human approval. The approval reaches the workflow as a sealed, single-use answer (see The box and the quality floor).</li>
+<li>When a job cannot continue, it parks on the card with the options a person can take, instead of waiting silently.</li>
+</ul>
+
+<h2>Layer model</h2>
+<p>The core’s vision document draws the system as applications on top of an action layer, a core that decides, an engine that drives it, and providers reached through ports. Capabilities are drawn as a boundary, not as a layer: the core and the engine both reach providers through the same kind of port.</p>
+<figure class="doc-figure">
+<div class="doc-diagram">
+<svg viewBox="0 0 720 470" role="img" aria-labelledby="layers-title layers-desc">
+<title id="layers-title">Layer model of the core</title>
+<desc id="layers-desc">Applications consume the action layer. The engine drives the core. The core and the engine reach providers through capability ports.</desc>
+<defs><marker id="layers-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-head" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="d-box" x="20" y="16" width="680" height="64" rx="6"/>
+<text class="d-label" x="40" y="42">APPLICATIONS</text>
+<text x="40" y="64">Product role, tech-lead, panel</text>
+<text class="d-small" x="520" y="42">Realised</text>
+<line class="d-edge" x1="360" y1="80" x2="360" y2="106" marker-end="url(#layers-arrow)"/>
+<rect class="d-box d-hot" x="20" y="108" width="680" height="64" rx="6"/>
+<text class="d-label" x="40" y="134">ACTION LAYER</text>
+<text x="40" y="156">One catalogue of what a person may ask for</text>
+<text class="d-small" x="520" y="134">Realised</text>
+<rect class="d-box" x="20" y="198" width="680" height="64" rx="6"/>
+<text class="d-label" x="40" y="224">CORE</text>
+<text x="40" y="246">Contracts, policy, card lifecycle tables</text>
+<text class="d-small" x="520" y="224">Partly realised</text>
+<line class="d-edge" x1="360" y1="288" x2="360" y2="264" marker-end="url(#layers-arrow)"/>
+<text class="d-small" x="372" y="281">drives</text>
+<rect class="d-box" x="20" y="290" width="680" height="64" rx="6"/>
+<text class="d-label" x="40" y="316">ENGINE</text>
+<text x="40" y="338">Durability, schedules, retries, timers</text>
+<text class="d-small" x="520" y="316">Realised</text>
+<line class="d-edge d-dash" x1="20" y1="378" x2="700" y2="378"/>
+<text class="d-small" x="40" y="372">Capabilities: ports</text>
+<rect class="d-box" x="20" y="392" width="680" height="64" rx="6"/>
+<text class="d-label" x="40" y="418">PROVIDERS</text>
+<text x="40" y="440">Coding agents, forges, trackers, boards, boxes</text>
+<text class="d-small" x="520" y="418">Realised</text>
+</svg>
+</div>
+<figcaption>Layers as drawn in the vision document, marked with how far the code realises each.</figcaption>
+</figure>
+<div class="doc-table doc-wrap">
+<table>
+<thead><tr><th>Layer</th><th>Where it is in the code</th><th>State</th></tr></thead>
+<tbody>
+<tr><th>Applications</th><td><code>beeverforge/product/</code>, <code>beeverforge/techlead/</code>, <code>beeverforge/api/</code></td><td>Realised. The panel, the tech-lead and the opt-in product role.</td></tr>
+<tr><th>Action layer</th><td><code>beeverforge/actions/</code></td><td>Realised. One catalogue that the panel API and the CLI both execute through.</td></tr>
+<tr><th>Core</th><td><code>beeverforge/contracts/</code>, <code>beeverforge/policy/</code>, <code>beeverforge/lifecycle/</code></td><td>Partly realised. The card lifecycle is decided by pure tables. The pure decision kernel for jobs proposed in ADR-0033 does not exist; job transitions are still decided inside the runner and the workflow.</td></tr>
+<tr><th>Engine</th><td><code>beeverforge/runtime/temporal/</code></td><td>Realised on Temporal. The engine is not behind a port of its own.</td></tr>
+<tr><th>Capabilities and providers</th><td><code>beeverforge/adapters/</code></td><td>Realised. Each provider is chosen by a registry from configuration.</td></tr>
+</tbody>
+</table>
+</div>
+<p>The core’s own boundary document describes <code>orchestrator/machine.py</code> as core policy and engine execution that are currently fused. The vision of a core that only decides and an engine that only executes is the direction of ADR-0033, which is recorded as proposed.</p>
+
+<h2>Deployment shape</h2>
+<ul>
+<li><strong>The operator’s own machines.</strong> The default installation is <code>docker compose</code> on one machine and needs no cloud account (ADR-0040). A cloud is reached only through add-on packages.</li>
+<li><strong>Services.</strong> The compose file runs a Postgres database for the engine, a Temporal server, the Temporal web UI, the worker and the panel. The published ports bind to <code>127.0.0.1</code> by default.</li>
+<li><strong>The engine.</strong> Temporal holds job state. Every job is a durable workflow: its waits and timers survive a worker restart, and a job whose worker is lost during the agent pass parks for a person to resume or skip.</li>
+<li><strong>The box.</strong> The worker runs each job in a box. The default kind is <code>container</code>: a throwaway Docker container launched as a sibling on the host’s daemon, through the Docker socket that the compose file mounts into the worker.</li>
+<li><strong>Single-tenant, multi-project.</strong> One installation serves one team with one project registry. The registry holds any number of projects, each with its own repository, board and manifest (ADR-0001, D-14).</li>
+<li><strong>One job at a time by default.</strong> The number of jobs in flight is <code>BEEVERFORGE_MAX_CONCURRENT_JOBS</code>, default <code>1</code>.</li>
+</ul>
+<figure class="doc-figure">
+<div class="doc-diagram" data-diagram="deployment"></div>
+<figcaption>The default installation. The published ports bind to <code>127.0.0.1</code>; the box’s network is described on The box and the quality floor.</figcaption>
+</figure>
+<div class="doc-note">
+<p>The worker holds the host’s Docker socket, which gives it control of the host’s Docker daemon. The default box has full outbound network access. Both are described with their limits on The box and the quality floor.</p>
+</div>
+
+<h2>Outside the core</h2>
+<ul>
+<li><strong>The coding agents.</strong> The core drives existing agent command-line tools through one adapter contract. The harness kinds in the tree are <code>claude_code</code> (the default), <code>codex</code>, <code>kimi</code> and <code>opencode</code>. Each one calls its vendor’s service; that endpoint is a network destination every installation needs.</li>
+<li><strong>Chat channels.</strong> The core is complete without a chat connector (ADR-0038). The only channel and notifier in the tree is the panel. Slack and Telegram adapters ship in a separate add-on package and register through the same extension mechanism as any other adapter.</li>
+<li><strong>Cloud runners and stores.</strong> The core ships no remote box runner. The remote task runner, the cloud metrics table, the remote session store and the cloud token pool are declared as add-on kinds.</li>
+</ul>
+
+<section class="doc-sources">
+<h2>Sources</h2>
+<ul>
+<li><a href="@core/README.md"><code>README.md</code></a></li>
+<li><a href="@core/docs/core/00-vision.md"><code>docs/core/00-vision.md</code></a></li>
+<li><a href="@core/docs/core/02-boundary.md"><code>docs/core/02-boundary.md</code></a></li>
+<li><a href="@core/docker-compose.yml"><code>docker-compose.yml</code></a></li>
+<li><a href="@core/beeverforge/policy/conformance.py"><code>beeverforge/policy/conformance.py</code></a></li>
+<li><a href="@core/beeverforge/contracts/manifest.py"><code>beeverforge/contracts/manifest.py</code></a></li>
+<li><a href="@core/beeverforge/runtime/temporal/__init__.py"><code>beeverforge/runtime/temporal/__init__.py</code></a></li>
+<li><a href="@core/beeverforge/adapters/agent/registry.py"><code>beeverforge/adapters/agent/registry.py</code></a></li>
+<li><a href="@core/beeverforge/plugins.py"><code>beeverforge/plugins.py</code></a></li>
+<li><a href="@core/docs/adr/0001-foundational-conceptual-model.md" translate="no">ADR-0001</a>, <a href="@core/docs/adr/0033-decision-kernel.md" translate="no">ADR-0033</a>, <a href="@core/docs/adr/0038-the-platform-is-complete-channels-are-add-ons.md" translate="no">ADR-0038</a>, <a href="@core/docs/adr/0040-the-core-runs-on-the-clients-own-machines.md" translate="no">ADR-0040</a></li>
+</ul>
+</section>

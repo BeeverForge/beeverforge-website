@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#1F1F24">
+  <meta name="description" content="Os princípios sobre os quais o núcleo do BeeverForge é construído e onde o código os faz cumprir: neutralidade de fornecedores, uma camada de ações, uma porta para as mudanças de cartão, recusas, orçamentos de prompt e a camada de conhecimento.">
+  <title>Princípios de engenharia — BeeverForge</title>
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="BeeverForge">
+  <meta property="og:title" content="Princípios de engenharia — BeeverForge">
+  <meta property="og:description" content="Os princípios sobre os quais o núcleo do BeeverForge é construído e onde o código os faz cumprir: neutralidade de fornecedores, uma camada de ações, uma porta para as mudanças de cartão, recusas, orçamentos de prompt e a camada de conhecimento.">
+  <meta property="og:image" content="https://beeverforge.com/assets/og-beeverforge.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://beeverforge.com/pt/architecture/principles/">
+  <meta property="og:url" content="https://beeverforge.com/pt/architecture/principles/">
+  <link rel="alternate" hreflang="en" href="https://beeverforge.com/architecture/principles/">
+  <link rel="alternate" hreflang="es" href="https://beeverforge.com/es/architecture/principles/">
+  <link rel="alternate" hreflang="pt-BR" href="https://beeverforge.com/pt/architecture/principles/">
+  <link rel="alternate" hreflang="x-default" href="https://beeverforge.com/architecture/principles/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/final.css">
+  <link rel="stylesheet" href="/assets/docs.css">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('beeverforge-theme')==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+</head>
+<body class="doc-body">
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/pt/" aria-label="Página inicial da BeeverForge"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"></a>
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menu">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Navegação principal">
+        <a href="/pt/#editions">Edições</a><a href="/pt/#lifecycle">Ciclo de vida</a><a href="/pt/#comparison">Comparar</a><a href="/pt/#questions">Perguntas frequentes</a><a href="/pt/architecture/" aria-current="true">Arquitetura</a><a href="/try/">Experimente</a><a class="nav-cta" href="/pt/#contact">Falar com a BeeverForge <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="header-tools"><label class="language-picker"><span class="sr-only">Idioma</span><select aria-label="Idioma" data-language><option value="/architecture/principles/">English</option><option value="/es/architecture/principles/">Español</option><option value="/pt/architecture/principles/" selected>Português</option></select></label><button class="theme-toggle" type="button" data-theme-toggle aria-label="Mudar para o modo claro" aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Modo claro</span></button></div>
+    </div>
+  </header>
+  <main id="main" class="doc-main"><div class="shell doc-layout"><nav class="doc-sidebar" aria-label="Conteúdo da arquitetura"><details class="doc-toc" open data-doc-toc><summary>Conteúdo</summary><p class="doc-toc-title">Arquitetura do núcleo do BeeverForge</p><ol><li><a href="/pt/architecture/">Visão geral</a></li><li><a href="/pt/architecture/lifecycle/">Ciclo de vida de um ticket</a></li><li><a href="/pt/architecture/runtime/">Execução e durabilidade</a></li><li><a href="/pt/architecture/box/">A caixa e o piso de qualidade</a></li><li><a href="/pt/architecture/extensions/">Modelo de extensão</a></li><li><a href="/pt/architecture/principles/" aria-current="page">Princípios de engenharia</a></li><li><a href="/pt/architecture/repository/">Princípios do repositório</a></li></ol></details></nav><article class="doc-article"><p class="eyebrow">Arquitetura do núcleo do BeeverForge</p>
+<h1>Princípios de engenharia</h1>
+<p class="doc-lead">Os princípios do núcleo estão escritos no seu documento de visão e nos seus registros de decisão. Esta página os lista com o código que faz cumprir cada um e indica onde o código fica aquém do enunciado.</p>
+
+<h2 id="vision-principles">Princípios da visão<a class="doc-anchor" href="#vision-principles" aria-label="Link para esta seção">#</a></h2>
+<p>De <code>docs/core/00-vision.md</code>. São objetivos declarados; quando o código não cumpre um deles por completo, o item diz até onde vai.</p>
+<ol>
+<li><strong>O núcleo não nomeia nenhum fornecedor.</strong> Um fornecedor é alcançado por uma porta, escolhida por um registro, a partir da configuração. O teste que garante isso cobre só <code>beeverforge/contracts</code> e <code>beeverforge/policy</code>; as linhas de adaptadores incluídos nomeiam seus fornecedores, e o destino de métricas é inferido como <code>dynamodb</code> quando <code>BEEVERFORGE_METRICS_TABLE</code> está definida.</li>
+<li><strong>Tudo o que está fora do núcleo é substituível</strong>, por alguém que não sejam os mantenedores: um ponto de entrada, não um pull request. O motor é a exceção: o Temporal não está atrás de uma porta.</li>
+<li><strong>Uma aplicação construída sobre o núcleo não é o núcleo.</strong> Ela usa a mesma superfície que a aplicação de um terceiro usaria.</li>
+<li><strong>O núcleo é útil por si só.</strong> O documento acrescenta que nada do que ele inclui é retirado para fabricar um caminho de upgrade; é um compromisso declarado, que o código não pode demonstrar.</li>
+<li><strong>Um contrato é derivado do que o núcleo chama, nunca do que um provedor oferece.</strong></li>
+<li><strong>Um eixo é agnóstico quando nasce com duas</strong> implementações, não quando declara uma interface (ADR-0022). Vários eixos ainda não o cumprem; Modelo de extensão os lista.</li>
+</ol>
+
+<h2 id="decisions-of-adr-0001">Decisões do ADR-0001<a class="doc-anchor" href="#decisions-of-adr-0001" aria-label="Link para esta seção">#</a></h2>
+<p>O ADR-0001 fixa o modelo conceitual. Suas decisões, por título:</p>
+<ul>
+<li><strong>D-1</strong> O framework e o projeto são separados por um manifesto declarativo.</li>
+<li><strong>D-2</strong> O conhecimento do projeto é uma cascata de autoridade: restringir, nunca afrouxar.</li>
+<li><strong>D-3</strong> O framework é dono dos espaços; a conformidade os faz cumprir.</li>
+<li><strong>D-4</strong> Um ambiente efêmero com um cache de dependências persistente.</li>
+<li><strong>D-5</strong> Um worker genérico por ticket; executor e revisor são contextos separados.</li>
+<li><strong>D-6</strong> O rótulo é um palpite; o diff é a verdade. Os componentes resolvem os stacks.</li>
+<li><strong>D-7</strong> As dependências declaradas são a verdade; as inferidas são indicativas.</li>
+<li><strong>D-8</strong> Um controle de qualidade da especificação: confiar para começar, verificar para terminar.</li>
+<li><strong>D-9</strong> A documentação tem papéis padrão, não locais padrão; os ADRs são a constituição.</li>
+<li><strong>D-10</strong> Derivar, não manter.</li>
+<li><strong>D-11</strong> Determinístico primeiro.</li>
+<li><strong>D-12</strong> A plataforma é um operador do ciclo de vida, não um simples abridor de pull requests.</li>
+<li><strong>D-13</strong> Os avaliadores são chamadas estruturadas sobre controles determinísticos; o comportamento do agente é medido, não presumido.</li>
+<li><strong>D-14</strong> Um único tenant, vários projetos.</li>
+<li><strong>D-15</strong> Recolhimento, responsabilidade e tratamento de impedimentos.</li>
+<li><strong>D-16</strong> Temporal como motor de execução durável.</li>
+<li><strong>D-17</strong> Uma caixa de tarefas remota que executa o job inteiro. Neste repositório essa caixa é apenas uma descrição; seu executor é um complemento.</li>
+</ul>
+
+<h2 id="invariants-checked-against-the-code">Invariantes, verificados contra o código<a class="doc-anchor" href="#invariants-checked-against-the-code" aria-label="Link para esta seção">#</a></h2>
+<dl>
+<dt>Nunca um travamento silencioso</dt>
+<dd>Toda espera no workflow do job tem um prazo ou uma pessoa no fim: o acompanhamento do merge, a aprovação de produção e um impedimento sem resposta têm prazos, e uma espera por decisão se mantém até ser respondida. As esperas trazem as opções que uma pessoa pode escolher. Um pull request em que nenhum check informa nada é sinalizado, não interpretado como verde.</dd>
+<dt>Nada se perde, nada se duplica</dt>
+<dd>Os jobs são workflows duráveis. Os pull requests são buscar e depois atualizar; antes de reconstruir um branch, o executor pergunta à plataforma Git se há um pull request, e se não consegue ler a resposta ele para em vez de adivinhar.</dd>
+<dt>A vaga é liberada no merge</dt>
+<dd>O workflow do job mantém sua vaga até o merge do pull request, até o fim da promoção quando ela está habilitada, ou até o job ser pulado. Um job em espera mantém sua vaga: um impedimento simples é pulado após 3 dias, e uma espera por decisão aguarda até ser respondida.</dd>
+<dt>A qualidade é um piso</dt>
+<dd>Os papéis <code>test</code> e <code>security</code> são obrigatórios antes da passada de implementação. O piso verifica que os papéis existem, não o que executam, e o controle <code>security</code> herdado é não bloqueante.</dd>
+<dt>O código é a fonte da verdade</dt>
+<dd>O mapa de conhecimento é entregue a um agente só quando suas somas de verificação provam que ele descreve a cópia de trabalho do próprio job; caso contrário, nada é entregue.</dd>
+<dt>Atribuído ao bot</dt>
+<dd>A fábrica faz commits e age com a identidade de bot definida pela implantação (<code>BEEVERFORGE_BOT_NAME</code>, <code>BEEVERFORGE_BOT_EMAIL</code>).</dd>
+<dt>Privilégio mínimo</dt>
+<dd>Em parte. O campo <code>permissions</code> do manifesto é aceito e marcado como inerte: nenhum código o lê, e a restrição de permissões por projeto não está implementada. O que limita uma execução é o isolamento da caixa e seu <code>box.env</code>.</dd>
+</dl>
+
+<h2 id="one-action-layer-for-every-transport">Uma camada de ações para todos os transportes<a class="doc-anchor" href="#one-action-layer-for-every-transport" aria-label="Link para esta seção">#</a></h2>
+<p>Tudo o que uma pessoa pode pedir à fábrica está escrito uma única vez, no catálogo de ações (ADR-0039): <code>beeverforge/actions/</code>, executado por <code>actions.perform</code>. Quem pediu é um parâmetro da chamada, não uma propriedade do transporte.</p>
+<ul>
+<li>A API do painel serve o catálogo em <code>POST /api/act/{name}</code>, e suas rotas nomeadas chamam a mesma função.</li>
+<li>A linha de comando o serve como <code>beeverforge act</code>, e vários de seus outros comandos, como adicionar ou remover um projeto e pausar o recolhimento, chamam a mesma função.</li>
+<li>À conversa do tech-lead só é oferecido o que <code>actions.proposable()</code> retorna para a credencial de quem pergunta.</li>
+</ul>
+
+<h2 id="a-card-has-one-lifecycle-and-one-door">Um cartão tem um ciclo de vida e uma porta<a class="doc-anchor" href="#a-card-has-one-lifecycle-and-one-door" aria-label="Link para esta seção">#</a></h2>
+<p>O estado de um cartão só muda por <code>lifecycle.card.transition()</code> (ADR-0055). A porta lê o registro do cartão e responde a um evento repetido com a linha já registrada; pergunta à tabela pura se o evento é permitido a partir de onde o cartão está; executa a parte do motor da decisão de uma pessoa, se houver; registra a transição no próximo número de sequência, a menos que outro escritor o tenha tomado; e depois aplica o que a tabela diz que vem em seguida.</p>
+<ul>
+<li>As tabelas de <code>lifecycle/table.py</code> são puras: sem relógio, sem armazenamento, sem tracker. Os estados do cartão são <code>backlog</code>, <code>todo</code>, <code>running</code>, <code>waiting_on_a_person</code>, <code>merged</code>, <code>staged</code>, <code>delivered</code>, <code>closed</code> e <code>removed</code>.</li>
+<li>Um teste de guarda não permite nenhum escritor de cartões fora da porta; a única exceção, por regra, é a caixa escrevendo suas marcas de progresso.</li>
+<li>O ADR-0055 está implementado, embora seu registro ainda diga Proposed. Um evento, <code>picked_up</code>, continua indefinido e é recusado a partir de qualquer estado.</li>
+<li>Os jobs não têm uma tabela equivalente. As transições dos jobs são decididas no executor e no workflow, que é a parte do ADR-0033 que continua proposta.</li>
+</ul>
+
+<h2 id="refusals-name-the-cause-and-the-remedy">As recusas nomeiam a causa e a solução<a class="doc-anchor" href="#refusals-name-the-cause-and-the-remedy" aria-label="Link para esta seção">#</a></h2>
+<p>Uma recusa diz o que falhou e o que fazer. Na linha de comando, <code>cli_refusals.py</code> associa um erro do provedor a uma causa conhecida e imprime uma frase com a causa e sua solução, seguida das palavras do próprio provedor. Um erro que ele não reconhece mantém as palavras do provedor e nenhuma solução é inventada. Os testes exigem de cada causa sua própria solução e impedem que defeitos do próprio núcleo sejam apresentados como do provedor.</p>
+
+<h2 id="could-not-see-is-not-nothing-there">“Não foi possível ver” não é “não há nada”<a class="doc-anchor" href="#could-not-see-is-not-nothing-there" aria-label="Link para esta seção">#</a></h2>
+<p>Toda leitura de um tracker segue uma regra, enunciada em sua classe base: <code>None</code> significa que a leitura falhou; uma lista vazia significa que a leitura deu certo e não encontrou nada. Os quadros seguem a mesma regra, e a suíte de conformidade de adaptadores a verifica para os trackers. Valores tipados como <code>Unreadable</code> mantêm a mesma distinção em outros pontos.</p>
+
+<h2 id="refuse-before-writing">Recusar antes de escrever<a class="doc-anchor" href="#refuse-before-writing" aria-label="Link para esta seção">#</a></h2>
+<p>Uma verificação que pode recusar roda antes de qualquer escrita. Uma transição de cartão recusada não muda nada e diz por quê; o piso recusa um job antes da passada de implementação; o pipeline de conhecimento recusa um destino fora do seu diretório antes de clonar qualquer coisa; uma opção de linha de comando recusada informa que nada foi lido e nada foi escrito.</p>
+
+<h2 id="one-prompt-budget-that-names-what-it-leaves-out">Um orçamento de prompt que nomeia o que deixa de fora<a class="doc-anchor" href="#one-prompt-budget-that-names-what-it-leaves-out" aria-label="Link para esta seção">#</a></h2>
+<p>O prompt de um job tem um único orçamento (ADR-0056): <code>BEEVERFORGE_PROMPT_BUDGET</code>, padrão de 160.000 bytes, compartilhado pelo cartão, pelo plano e pelos documentos que o projeto declara. <code>off</code> o desativa; um valor que não pode ser lido é recusado. Cada documento deixado de fora é nomeado no prompt, pelo caminho que o agente pode abrir e pelo tamanho, sob um título que diz ao agente para abri-lo antes de mudar o que ele rege. Um documento cortado pelo seu próprio limite de tamanho é listado com quanto dele foi incluído.</p>
+
+<h2 id="vendor-neutrality-enforced-by-tests">Neutralidade de fornecedores, garantida por testes<a class="doc-anchor" href="#vendor-neutrality-enforced-by-tests" aria-label="Link para esta seção">#</a></h2>
+<ul>
+<li><code>tests/test_kernel_names_no_vendor.py</code> analisa <code>beeverforge/contracts</code> e <code>beeverforge/policy</code> e falha diante de qualquer nome de fornecedor.</li>
+<li><code>tests/test_the_core_names_no_vendor.py</code> falha se um fornecedor de chat é nomeado fora dos comentários do núcleo.</li>
+<li><code>tests/test_the_core_addon_ledger.py</code> deriva cada importação de um SDK de fornecedor e mantém a lista igual ao registro em <code>docs/core/07-extensibility.md</code>.</li>
+<li><code>tests/test_the_core_is_a_core.py</code> carrega o núcleo em um subprocesso onde todo SDK de fornecedor se recusa a ser importado, e verifica que o catálogo de ações é resolvido e que o painel inicia.</li>
+</ul>
+
+<h2 id="the-knowledge-layer">A camada de conhecimento<a class="doc-anchor" href="#the-knowledge-layer" aria-label="Link para esta seção">#</a></h2>
+<p>A camada de conhecimento é um mapa de módulos de cada repositório, gerado de forma determinística a partir da estrutura de diretórios, das árvores sintáticas do Python e da busca de padrões em fontes TypeScript, JavaScript e C#, sem chamadas a um LLM. O mesmo estado do repositório produz uma saída idêntica byte a byte.</p>
+<ul>
+<li>Ela vem ativada por padrão (<code>knowledge_map: true</code>; ADR-0035) e pode ser desativada por projeto.</li>
+<li>Ela é publicada no repositório de contexto do projeto em <code>.okf/repos/&lt;owner&gt;--&lt;name&gt;/</code>, nunca no repositório em que se trabalha. Publicar exige <code>product.docs_repo</code>; sem isso, a atualização não faz nada.</li>
+<li>Um agente recebe o mapa só quando se prova que ele está atualizado em relação à sua própria cópia de trabalho. Ele acelera encontrar código e não substitui lê-lo.</li>
+</ul>
+
+<h2 id="the-product-role">O papel de produto<a class="doc-anchor" href="#the-product-role" aria-label="Link para esta seção">#</a></h2>
+<p>O papel de produto é opcional. Ele é habilitado por uma seção <code>product:</code> na entrada do projeto no registro, que precisa nomear o repositório de documentação que guarda os requisitos do produto (ADR-0019).</p>
+
+<section class="doc-sources">
+<h2 id="sources">Fontes<a class="doc-anchor" href="#sources" aria-label="Link para esta seção">#</a></h2>
+<ul>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/core/00-vision.md"><code>docs/core/00-vision.md</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/architecture.md"><code>docs/architecture.md</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/actions/__init__.py"><code>beeverforge/actions/__init__.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/api/app.py"><code>beeverforge/api/app.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/lifecycle/card.py"><code>beeverforge/lifecycle/card.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/lifecycle/table.py"><code>beeverforge/lifecycle/table.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/cli_refusals.py"><code>beeverforge/cli_refusals.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/tracker/base.py"><code>beeverforge/adapters/tracker/base.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/loader.py"><code>beeverforge/loader.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/credentials.py"><code>beeverforge/credentials.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/orchestrator/context.py"><code>beeverforge/orchestrator/context.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/adapters/agent/base.py"><code>beeverforge/adapters/agent/base.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/knowledge/generator.py"><code>beeverforge/knowledge/generator.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/knowledge/pipeline.py"><code>beeverforge/knowledge/pipeline.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/beeverforge/contracts/product.py"><code>beeverforge/contracts/product.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_the_card_lifecycle_has_one_door.py"><code>tests/test_the_card_lifecycle_has_one_door.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_kernel_names_no_vendor.py"><code>tests/test_kernel_names_no_vendor.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/tests/test_the_core_is_a_core.py"><code>tests/test_the_core_is_a_core.py</code></a></li>
+<li><a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0001-foundational-conceptual-model.md" translate="no">ADR-0001</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0019-product-role-and-requirements-repo.md" translate="no">ADR-0019</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0033-decision-kernel.md" translate="no">ADR-0033</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0035-knowledge-layer-on-by-default.md" translate="no">ADR-0035</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0039-the-action-layer.md" translate="no">ADR-0039</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0055-a-card-has-one-lifecycle.md" translate="no">ADR-0055</a>, <a href="https://github.com/BeeverForge/beeverforge-oss/blob/171de5f2537d916c479cc07b593d212f41e1fae2/docs/adr/0056-a-prompt-has-one-budget-and-names-what-it-leaves-out.md" translate="no">ADR-0056</a></li>
+</ul>
+</section>
+<nav class="doc-pager" aria-label="Páginas anterior e seguinte"><a class="doc-pager-prev" rel="prev" href="/pt/architecture/extensions/"><small>Anterior</small><span>Modelo de extensão</span></a><a class="doc-pager-next" rel="next" href="/pt/architecture/repository/"><small>Próxima</small><span>Princípios do repositório</span></a></nav></article></div></main>
+  <aside class="consent-panel" data-consent-panel role="region" aria-live="polite" aria-labelledby="consent-title" hidden><div class="consent-copy"><p class="eyebrow">Preferências de cookies</p><h2 id="consent-title">Usamos cookies.</h2><p>Usamos cookies para entender o tráfego do site. Aceite os cookies opcionais ou recuse-os. Acesse Configurações de cookies para ver os detalhes.</p></div><div class="consent-actions"><button class="consent-reject" type="button" data-consent-reject>Recusar opcionais</button><button class="consent-settings" type="button" data-consent-details-toggle aria-expanded="false" aria-controls="consent-details">Configurações de cookies</button><button class="button button-gold" type="button" data-consent-accept>Aceitar todos</button></div><div class="consent-details" id="consent-details" data-consent-details hidden><h3>Configurações de cookies</h3><p><strong>Armazenamento essencial de preferências</strong> lembra seu tema e sua escolha de cookies. Está sempre ativo.</p><label class="consent-toggle"><input type="checkbox" data-analytics-toggle><span><strong>Cookies de análise</strong><small>Opcionais · O Google Analytics mede visitas e como o site é usado. A tag do Analytics fica desativada até você permitir.</small></span></label><div class="consent-detail-actions"><button class="consent-reject" type="button" data-consent-cancel>Cancelar</button><button class="button button-gold" type="button" data-consent-save>Salvar escolhas</button></div></div></aside>
+  <footer class="site-footer"><div class="shell footer-grid"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"><p>Uma base aberta de engenharia e um ciclo Enterprise para decisões de produto.</p><nav aria-label="Links do rodapé"><a href="/pt/#editions">Edições</a><a href="/pt/#lifecycle">Ciclo de vida</a><a href="/pt/#comparison">Comparar</a><a href="/pt/architecture/" aria-current="true">Arquitetura</a><a href="https://github.com/BeeverForge/beeverforge-oss">Código Community ↗</a><a href="/try/">Experimente</a><a href="/legal/terms/">Termos de uso</a><a href="/legal/privacy/">Política de privacidade</a><a href="/legal/acceptable-use/">Uso aceitável</a><button class="consent-link" type="button" data-consent-open>Configurações de cookies</button></nav></div><div class="shell footer-bottom"><span>© 2026 BeeverForge</span><span>Da ideia ao software desenvolvido</span></div></footer>
+  <script src="/assets/final.js" defer></script>
+  <script src="/assets/docs.js" defer></script>
+</body>
+</html>

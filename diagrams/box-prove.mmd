@@ -1,0 +1,19 @@
+flowchart TB
+  accTitle: What `beeverforge box prove` checks
+  accDescr: The proof runs five checks in a fixed order and stops at the first fault that later checks depend on. When every check passes, the proof is recorded, and the board scan picks up work while the recorded facts hold.
+  start("`beeverforge box prove`")
+  subgraph seq[" "]
+    direction TB
+    d["1. The image tag resolves to a digest"]
+    t["2. The toolbox matches the image’s C library"]
+    c["3. The image contract: `/bin/sh`,<br>keep-alive, `git`, writable<br>`HOME` and `/workspace`"]
+    g["4. The box starts, `setup:` runs,<br>then `validate:` on an<br>untouched checkout of `main`"]
+    h["5. The harness: version, credentials,<br>trust store, endpoint reachable"]
+    d --> t --> c --> g --> h
+  end
+  stop["A fault that later checks<br>depend on stops the run:<br>one cause, reported once,<br>with its remedy"]
+  rec[("Proof recorded")]
+  pick["The board scan picks up work<br>while the recorded facts hold"]
+  start --> d
+  seq -.->|"fault"| stop
+  h --> rec --> pick

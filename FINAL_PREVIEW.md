@@ -1,11 +1,11 @@
 # Final BeeverForge website — release record
 
-The final dark website was published at `https://beeverforge.com/` through pull request #4 and GitHub Pages deployment run `39079362850` on October 18, 2026. The root is indexable with a self canonical and Open Graph URL. The sitemap lists only `/`. V1 and V2 are `noindex` client-side redirects to the root; GitHub Pages does not provide HTTP 301 redirects through this static artifact. The old OpenFactory domain was not changed.
+The final dark website was published at `https://beeverforge.com/` through pull request #4 and GitHub Pages deployment run `39079362850` on October 18, 2026. The root is indexable with a self canonical and Open Graph URL. The sitemap lists only `/`. V1 and V2 are `noindex` client-side redirects to the root; GitHub Pages does not provide HTTP 301 redirects through this static artifact.
 
 ## Product sources and availability
 
 - V1 supplied the editorial content, comparison, FAQ and conversion foundation. The previous homepage supplied the connected product lifecycle narrative and stage outputs.
-- Community claims derive from the open `openfactory-core` README and `docs/STATUS.md` reviewed during the preceding versions. Adapters, checks and policies still depend on each installation's configuration.
+- Community claims derive from the open core README and `docs/STATUS.md` reviewed during the preceding versions. Adapters, checks and policies still depend on each installation's configuration.
 - On October 18, 2026, the product owner confirmed that Enterprise is commercially available and that SSO, RBAC, Prototype Builder, Portfolio Manager, Virtual Architect and BeeverForge support are all available. This is an owner confirmation; this website review did not independently test the private Enterprise implementation. No protocol, hosting mode or SLA is claimed.
 - The existing Cloudflare Worker endpoint and `assets/site.js` submission logic are reused. No new live inquiry was sent during this release review.
 
