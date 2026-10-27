@@ -33,7 +33,7 @@ Estes termos se aplicam ao teste: a lista de espera, o pedido da sua empresa e a
 
 ## 4. Sua conta
 
-O teste da sua empresa é uma única conta; quem a administra convida os colegas que participam. Cada pessoa entra com uma conta Google ou GitHub; nunca vemos a sua senha. Mantenha essa conta segura. Você é responsável pelo que acontece com o seu convite. Avise-nos imediatamente em contact@beeverforge.com se achar que outra pessoa o usou.
+O teste da sua empresa é uma única conta; quem a administra convida os colegas que participam. Cada pessoa entra com o seu e-mail e uma senha, ou com uma conta GitHub; nunca vemos a sua senha do GitHub e guardamos só um hash da senha que você define aqui. Mantenha a sua senha e o seu acesso seguros, e ative a entrada em duas etapas se puder. Você é responsável pelo que acontece com o seu convite. Avise-nos imediatamente em contact@beeverforge.com se achar que outra pessoa o usou.
 
 ## 5. Seu conteúdo
 
@@ -70,7 +70,7 @@ O teste é oferecido gratuitamente, **"no estado em que se encontra" e "conforme
 
 ## 12. Limitação de responsabilidade
 
-Na medida permitida pela lei, a BeeverForge não é responsável por perdas indiretas ou consequentes, lucros cessantes ou perda de dados decorrentes do teste, e a sua responsabilidade total por qualquer assunto relacionado ao teste fica limitada a **100 euros (cem euros)**. O limite não se aplica a dolo ou culpa grave, nem a morte ou danos pessoais. Nada nestes termos limita a responsabilidade que a lei não permite limitar, nem os seus direitos como consumidor quando a legislação de consumo se aplicar.
+Na medida permitida pela lei, a BeeverForge não é responsável por perdas indiretas ou consequentes, lucros cessantes ou perda de dados decorrentes do teste, e a sua responsabilidade total por qualquer assunto relacionado ao teste fica limitada a **100 euros (cem euros)**. Nem estas exclusões nem o limite se aplicam a dolo ou culpa grave, nem a morte, danos pessoais ou danos à saúde. Nada nestes termos limita a responsabilidade que a lei não permite limitar, nem os seus direitos como consumidor quando a legislação de consumo se aplicar.
 
 ## 13. Alterações nestes termos
 

@@ -28,7 +28,7 @@ This policy covers this website (beeverforge.com), the Enterprise inquiry form, 
 
 ### Your account in the trial
 
-- When you sign in with Google or GitHub we receive your **verified email, your name and the provider's identifier** for your account. We never receive your password.
+- You sign in with your **email address and a password** you choose, or with **GitHub**. Of a password we keep only a salted hash, never the password itself; when you set one, we check it against known breaches through Have I Been Pwned, sending only the first five characters of its hash. If you turn on **two-step sign-in**, we keep its secret, sealed, and your recovery codes as hashes. With GitHub, we receive your **verified email, your name and GitHub's identifier** for your account, never your GitHub password.
 - If your company's admin invites you, we receive your **email address** from them, to send you the invitation.
 - We record **which company account you belong to and whether you are its admin**, the **state of your invitation** (invited, active, expired) and its dates, and **which version of the terms you accepted and when**.
 - A session cookie keeps you signed in. It is strictly necessary and is not used for anything else.
@@ -48,12 +48,12 @@ This policy covers this website (beeverforge.com), the Enterprise inquiry form, 
 
 We are established in Portugal, so the EU General Data Protection Regulation (GDPR) and the Portuguese law that implements it apply; if you live elsewhere, your local law may give you further rights (for example, the LGPD in Brazil). We rely on:
 
-- **your consent** — for the waitlist contact and for analytics; you can withdraw it at any time, which does not affect what was done before you withdrew it;
+- **your consent** — for the waitlist contact and for analytics; you can withdraw it at any time, which does not affect the lawfulness of what was done before you withdrew it;
 - **the performance of the terms you accept**, or steps you ask us to take before them — to run the trial and prepare a proposal you ask for;
 - **our legitimate interest** — to keep the trial and its users secure and to prevent abuse;
 - **legal obligations** — where the law requires us to keep or disclose data.
 
-To ask for the trial we need your e-mail address, your company's name and the address it wishes for; without them we cannot consider the request. Your name and what you want to prototype are optional. To use the trial, you sign in with Google or GitHub, which gives us your verified e-mail address.
+To ask for the trial we need your name, your email address, your company's name, the address it wishes for and a few words (at least 10 characters) about what you want to prototype; without them we cannot consider the request. To use the trial, you sign in with your email address and a password, or with GitHub.
 
 ## 4. What we never do
 
@@ -67,7 +67,8 @@ We use the following providers, each under contract and only for the purpose sta
 - **Amazon Web Services** — hosts the trial and its data in the United States.
 - **Resend** — sends our emails (confirmation, invitation, notices) and delivers Enterprise inquiries to us.
 - **Cloudflare** — the human-verification check on our forms (it sees your IP address and browser signals) and the service that receives Enterprise inquiries.
-- **Google** — sign-in, if you choose Google; and website analytics, only if you consent.
+- **Google** — website analytics, only if you consent.
+- **Have I Been Pwned** — when you set a password, receives the first five characters of its hash, never the password, to tell us whether it is a known breached one.
 - **GitHub** — sign-in, if you choose GitHub; and the hosting of this website.
 
 ## 6. International transfers
@@ -86,11 +87,11 @@ Our providers process data in the **United States** and possibly in other countr
 
 ## 8. Your rights
 
-You can ask to **access, correct or delete** your data, to **receive it in a portable format**, to **know who we share it with**, to **withdraw your consent**, to **object** to processing based on our legitimate interest and to ask us to **restrict** it. You can delete your account and everything in it at any time from your account page in the trial, or by writing to contact@beeverforge.com. You may also complain to a data protection authority — in Portugal, the Comissão Nacional de Proteção de Dados (CNPD), or the authority where you live.
+You can ask to **access, correct or delete** your data, to **receive it in a portable format or have it sent to another provider**, to **know who we share it with**, to **withdraw your consent**, to **object** to processing based on our legitimate interest and to ask us to **restrict** it. You can delete your account and everything in it at any time from your account page in the trial, or by writing to contact@beeverforge.com. You may also complain to a data protection authority — in Portugal, the Comissão Nacional de Proteção de Dados (CNPD), or the authority where you live.
 
 ## 9. Security
 
-The trial runs behind a firewall, signs people in only through Google or GitHub, limits repeated attempts, keeps every run of the AI model in an isolated environment, encrypts data in transit, and keeps personal data out of its technical logs. No system is perfectly secure; if a breach affects you, we will tell you and the authorities as the law requires.
+The trial runs behind a firewall, signs people in with a password (at least 12 characters, never a known breached one, kept only as a salted hash) or with GitHub, offers two-step sign-in with an authenticator app — required for BeeverForge's team —, limits repeated attempts, keeps every run of the AI model in an isolated environment, encrypts data in transit, and keeps personal data out of its technical logs. No system is perfectly secure; if a breach affects you, we will tell you and the authorities as the law requires.
 
 ## 10. Children
 

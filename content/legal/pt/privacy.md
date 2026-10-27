@@ -28,7 +28,7 @@ Esta política cobre este site (beeverforge.com), o formulário de contato da En
 
 ### Sua conta no teste
 
-- Quando você entra com Google ou GitHub, recebemos o seu **e-mail verificado, o seu nome e o identificador do provedor** para a sua conta. Nunca recebemos a sua senha.
+- Você entra com o seu **e-mail e uma senha** que escolhe, ou com o **GitHub**. De uma senha guardamos só um hash com sal, nunca a senha; quando você a define, verificamos se ela aparece em vazamentos conhecidos pelo Have I Been Pwned, enviando só os cinco primeiros caracteres do seu hash. Se você ativar a **entrada em duas etapas**, guardamos o seu segredo, selado, e os seus códigos de recuperação como hashes. Com o GitHub, recebemos o seu **e-mail verificado, o seu nome e o identificador do GitHub** para a sua conta, nunca a sua senha do GitHub.
 - Se quem administra a conta da sua empresa convidar você, recebemos dessa pessoa o seu **endereço de e-mail**, para lhe enviar o convite.
 - Registramos **a qual conta de empresa você pertence e se você a administra**, a **situação do seu convite** (convidado, ativo, expirado) e as suas datas, e **qual versão dos termos você aceitou e quando**.
 - Um cookie de sessão mantém você conectado. Ele é estritamente necessário e não é usado para mais nada.
@@ -48,12 +48,12 @@ Esta política cobre este site (beeverforge.com), o formulário de contato da En
 
 Estamos estabelecidos em Portugal, por isso se aplicam o Regulamento Geral sobre a Proteção de Dados da União Europeia (RGPD) e a lei portuguesa que o executa; se você vive em outro país, a lei local pode lhe dar outros direitos (por exemplo, a LGPD no Brasil). Nos baseamos em:
 
-- **o seu consentimento** — para o contato da lista de espera e para o analytics; você pode retirá-lo a qualquer momento, sem que isso afete o que foi feito antes de o retirar;
+- **o seu consentimento** — para o contato da lista de espera e para o analytics; você pode retirá-lo a qualquer momento, sem que isso afete a licitude do que foi feito antes de o retirar;
 - **a execução dos termos que você aceita**, ou de procedimentos preliminares que você nos pede — para operar o teste e preparar a proposta que você solicitar;
 - **os nossos interesses legítimos** — para manter o teste e os seus usuários seguros e prevenir abusos;
 - **obrigações legais** — quando a lei exige que guardemos ou informemos dados.
 
-Para pedir o teste precisamos do seu e-mail, do nome da sua empresa e do endereço que ela deseja; sem eles não podemos considerar o pedido. O seu nome e o que você quer prototipar são opcionais. Para usar o teste, você entra com Google ou GitHub, que nos dão o seu e-mail verificado.
+Para pedir o teste precisamos do seu nome, do seu e-mail, do nome da sua empresa, do endereço que ela deseja e de algumas palavras (pelo menos 10 caracteres) sobre o que você quer prototipar; sem eles não podemos considerar o pedido. Para usar o teste, você entra com o seu e-mail e uma senha, ou com o GitHub.
 
 ## 4. O que nunca fazemos
 
@@ -67,7 +67,8 @@ Usamos os seguintes provedores, cada um sob contrato e somente para a finalidade
 - **Amazon Web Services** — hospeda o teste e os seus dados nos Estados Unidos.
 - **Resend** — envia os nossos e-mails (confirmação, convite, avisos) e nos entrega os contatos sobre a Enterprise.
 - **Cloudflare** — a verificação humana dos nossos formulários (vê o seu endereço IP e sinais do navegador) e o serviço que recebe os contatos sobre a Enterprise.
-- **Google** — a entrada, se você escolher Google; e o analytics do site, somente com o seu consentimento.
+- **Google** — o analytics do site, somente com o seu consentimento.
+- **Have I Been Pwned** — quando você define uma senha, recebe os cinco primeiros caracteres do seu hash, nunca a senha, para nos dizer se ela é uma senha vazada conhecida.
 - **GitHub** — a entrada, se você escolher GitHub; e a hospedagem deste site.
 
 ## 6. Transferências internacionais
@@ -86,11 +87,11 @@ Os nossos provedores tratam dados nos **Estados Unidos** e possivelmente em outr
 
 ## 8. Seus direitos
 
-Você pode pedir para **acessar, corrigir ou apagar** os seus dados, **recebê-los num formato portável**, **saber com quem os compartilhamos**, **retirar o seu consentimento**, **se opor** ao tratamento baseado nos nossos interesses legítimos e pedir que o **limitemos**. Você pode apagar a sua conta e tudo o que há nela a qualquer momento pela página da sua conta no teste, ou escrevendo para contact@beeverforge.com. Você também pode reclamar a uma autoridade de proteção de dados — em Portugal, a Comissão Nacional de Proteção de Dados (CNPD), ou a autoridade do país onde você vive.
+Você pode pedir para **acessar, corrigir ou apagar** os seus dados, **recebê-los num formato portável ou que os enviemos a outro provedor**, **saber com quem os compartilhamos**, **retirar o seu consentimento**, **se opor** ao tratamento baseado nos nossos interesses legítimos e pedir que o **limitemos**. Você pode apagar a sua conta e tudo o que há nela a qualquer momento pela página da sua conta no teste, ou escrevendo para contact@beeverforge.com. Você também pode reclamar a uma autoridade de proteção de dados — em Portugal, a Comissão Nacional de Proteção de Dados (CNPD), ou a autoridade do país onde você vive.
 
 ## 9. Segurança
 
-O teste roda atrás de um firewall, só permite entrar com Google ou GitHub, limita tentativas repetidas, executa cada uso do modelo de IA num ambiente isolado, criptografa os dados em trânsito e mantém dados pessoais fora dos seus registros técnicos. Nenhum sistema é perfeitamente seguro; se um incidente afetar você, comunicaremos a você e às autoridades conforme a lei exige.
+O teste roda atrás de um firewall, permite entrar com uma senha (pelo menos 12 caracteres, nunca uma vazada conhecida, guardada só como hash com sal) ou com o GitHub, oferece a entrada em duas etapas com um app autenticador — obrigatória para a equipe da BeeverForge —, limita tentativas repetidas, executa cada uso do modelo de IA num ambiente isolado, criptografa os dados em trânsito e mantém dados pessoais fora dos seus registros técnicos. Nenhum sistema é perfeitamente seguro; se um incidente afetar você, comunicaremos a você e às autoridades conforme a lei exige.
 
 ## 10. Menores de idade
 

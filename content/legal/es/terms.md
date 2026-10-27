@@ -33,7 +33,7 @@ Estos términos se aplican a la prueba: la lista de espera, la solicitud de su e
 
 ## 4. Su cuenta
 
-La prueba de su empresa es una sola cuenta; quien la administra invita a los colegas que participan. Cada persona inicia sesión con una cuenta de Google o de GitHub; nunca vemos su contraseña. Mantenga esa cuenta segura. Usted es responsable de lo que ocurra con su invitación. Avísenos de inmediato en contact@beeverforge.com si cree que otra persona la ha usado.
+La prueba de su empresa es una sola cuenta; quien la administra invita a los colegas que participan. Cada persona inicia sesión con su dirección de correo y una contraseña, o con una cuenta de GitHub; nunca vemos su contraseña de GitHub y solo guardamos un hash de la contraseña que define aquí. Mantenga segura su contraseña y su acceso, y active el inicio de sesión en dos pasos si puede. Usted es responsable de lo que ocurra con su invitación. Avísenos de inmediato en contact@beeverforge.com si cree que otra persona la ha usado.
 
 ## 5. Su contenido
 
@@ -70,7 +70,7 @@ La prueba se ofrece gratuitamente, **"tal cual" y "según disponibilidad"**, sin
 
 ## 12. Limitación de responsabilidad
 
-En la medida que permita la ley, BeeverForge no es responsable de pérdidas indirectas o consecuentes, lucro cesante ni pérdida de datos derivados de la prueba, y su responsabilidad total por cualquier asunto relacionado con la prueba se limita a **100 euros (cien euros)**. El límite no se aplica al dolo ni a la culpa grave, ni a la muerte o los daños personales. Nada en estos términos limita la responsabilidad que la ley no permite limitar, ni sus derechos como consumidor cuando se aplique la ley de consumo.
+En la medida que permita la ley, BeeverForge no es responsable de pérdidas indirectas o consecuentes, lucro cesante ni pérdida de datos derivados de la prueba, y su responsabilidad total por cualquier asunto relacionado con la prueba se limita a **100 euros (cien euros)**. Ni estas exclusiones ni el límite se aplican al dolo ni a la culpa grave, ni a la muerte, los daños personales o los daños a la salud. Nada en estos términos limita la responsabilidad que la ley no permite limitar, ni sus derechos como consumidor cuando se aplique la ley de consumo.
 
 ## 13. Cambios en estos términos
 

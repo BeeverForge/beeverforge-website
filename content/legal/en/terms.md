@@ -33,7 +33,7 @@ These terms apply to the trial: the waitlist, your company's request and its acc
 
 ## 4. Your account
 
-Your company's trial is one account; its admin invites the colleagues who take part. Each person signs in with a Google or GitHub account; we never see your password. Keep that account secure. You are responsible for what happens under your invitation. Tell us at once at contact@beeverforge.com if you think someone else has used it.
+Your company's trial is one account; its admin invites the colleagues who take part. Each person signs in with their email address and a password, or with a GitHub account; we never see your GitHub password and keep only a hash of a password you set here. Keep your password and your sign-in secure, and turn on two-step sign-in if you can. You are responsible for what happens under your invitation. Tell us at once at contact@beeverforge.com if you think someone else has used it.
 
 ## 5. Your content
 
@@ -70,7 +70,7 @@ The trial is provided free of charge, **"as is" and "as available"**, without an
 
 ## 12. Limitation of liability
 
-To the extent the law allows, BeeverForge is not liable for indirect or consequential losses, lost profits or lost data arising from the trial, and its total liability for anything related to the trial is limited to **EUR 100 (one hundred euros)**. The limit does not apply to wilful misconduct or gross negligence, nor to death or personal injury. Nothing in these terms limits liability that cannot be limited by law, or the rights you have as a consumer where consumer law applies.
+To the extent the law allows, BeeverForge is not liable for indirect or consequential losses, lost profits or lost data arising from the trial, and its total liability for anything related to the trial is limited to **EUR 100 (one hundred euros)**. Neither these exclusions nor the limit apply to wilful misconduct or gross negligence, nor to death, personal injury or harm to health. Nothing in these terms limits liability that cannot be limited by law, or the rights you have as a consumer where consumer law applies.
 
 ## 13. Changes to these terms
 

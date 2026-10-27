@@ -28,7 +28,7 @@ Esta política cubre este sitio web (beeverforge.com), el formulario de consulta
 
 ### Su cuenta en la prueba
 
-- Cuando inicia sesión con Google o GitHub recibimos su **correo verificado, su nombre y el identificador del proveedor** para su cuenta. Nunca recibimos su contraseña.
+- Inicia sesión con su **dirección de correo y una contraseña** que elige, o con **GitHub**. De una contraseña guardamos solo un hash con sal, nunca la contraseña; cuando la define, la comprobamos frente a filtraciones conocidas mediante Have I Been Pwned, enviando solo los cinco primeros caracteres de su hash. Si activa el **inicio de sesión en dos pasos**, guardamos su secreto, sellado, y sus códigos de recuperación como hashes. Con GitHub, recibimos su **correo verificado, su nombre y el identificador de GitHub** para su cuenta, nunca su contraseña de GitHub.
 - Si quien administra la cuenta de su empresa le invita, recibimos de esa persona su **dirección de correo**, para enviarle la invitación.
 - Registramos **a qué cuenta de empresa pertenece y si la administra**, el **estado de su invitación** (invitada, activa, vencida) y sus fechas, y **qué versión de los términos aceptó y cuándo**.
 - Una cookie de sesión mantiene su sesión iniciada. Es estrictamente necesaria y no se usa para nada más.
@@ -48,12 +48,12 @@ Esta política cubre este sitio web (beeverforge.com), el formulario de consulta
 
 Estamos establecidos en Portugal, por lo que se aplican el Reglamento General de Protección de Datos de la UE (RGPD) y la ley portuguesa que lo ejecuta; si vive en otro país, su ley local puede darle otros derechos (por ejemplo, la LGPD en Brasil). Nos basamos en:
 
-- **su consentimiento** — para el contacto de la lista de espera y para la analítica; puede retirarlo en cualquier momento, sin que ello afecte a lo hecho antes de retirarlo;
+- **su consentimiento** — para el contacto de la lista de espera y para la analítica; puede retirarlo en cualquier momento, sin que ello afecte a la licitud de lo hecho antes de retirarlo;
 - **la ejecución de los términos que acepta**, o las medidas que nos pide antes de ellos — para operar la prueba y preparar la propuesta que solicite;
 - **nuestro interés legítimo** — para mantener seguros la prueba y a sus usuarios y prevenir abusos;
 - **obligaciones legales** — cuando la ley nos exige conservar o comunicar datos.
 
-Para solicitar la prueba necesitamos su dirección de correo, el nombre de su empresa y la dirección que desea; sin ellos no podemos considerar la solicitud. Su nombre y lo que quiere prototipar son opcionales. Para usar la prueba, inicia sesión con Google o GitHub, que nos dan su dirección de correo verificada.
+Para solicitar la prueba necesitamos su nombre, su dirección de correo, el nombre de su empresa, la dirección que desea y unas palabras (al menos 10 caracteres) sobre lo que quiere prototipar; sin ellos no podemos considerar la solicitud. Para usar la prueba, inicia sesión con su dirección de correo y una contraseña, o con GitHub.
 
 ## 4. Lo que nunca hacemos
 
@@ -67,7 +67,8 @@ Usamos los siguientes proveedores, cada uno bajo contrato y solo para la finalid
 - **Amazon Web Services** — aloja la prueba y sus datos en los Estados Unidos.
 - **Resend** — envía nuestros correos (confirmación, invitación, avisos) y nos entrega las consultas Enterprise.
 - **Cloudflare** — la verificación humana de nuestros formularios (ve su dirección IP y señales del navegador) y el servicio que recibe las consultas Enterprise.
-- **Google** — el inicio de sesión, si elige Google; y la analítica del sitio, solo con su consentimiento.
+- **Google** — la analítica del sitio, solo con su consentimiento.
+- **Have I Been Pwned** — cuando define una contraseña, recibe los cinco primeros caracteres de su hash, nunca la contraseña, para decirnos si es una contraseña filtrada conocida.
 - **GitHub** — el inicio de sesión, si elige GitHub; y el alojamiento de este sitio web.
 
 ## 6. Transferencias internacionales
@@ -86,11 +87,11 @@ Nuestros proveedores procesan datos en los **Estados Unidos** y posiblemente en 
 
 ## 8. Sus derechos
 
-Puede solicitar **acceder, corregir o eliminar** sus datos, **recibirlos en un formato portable**, **saber con quién los compartimos**, **retirar su consentimiento**, **oponerse** al tratamiento basado en nuestro interés legítimo y pedir que lo **limitemos**. Puede eliminar su cuenta y todo su contenido en cualquier momento desde la página de su cuenta en la prueba, o escribiendo a contact@beeverforge.com. También puede presentar una reclamación ante una autoridad de protección de datos — en Portugal, la Comissão Nacional de Proteção de Dados (CNPD), o la autoridad del país donde vive.
+Puede solicitar **acceder, corregir o eliminar** sus datos, **recibirlos en un formato portable o que los enviemos a otro proveedor**, **saber con quién los compartimos**, **retirar su consentimiento**, **oponerse** al tratamiento basado en nuestro interés legítimo y pedir que lo **limitemos**. Puede eliminar su cuenta y todo su contenido en cualquier momento desde la página de su cuenta en la prueba, o escribiendo a contact@beeverforge.com. También puede presentar una reclamación ante una autoridad de protección de datos — en Portugal, la Comissão Nacional de Proteção de Dados (CNPD), o la autoridad del país donde vive.
 
 ## 9. Seguridad
 
-La prueba funciona detrás de un cortafuegos, solo permite iniciar sesión con Google o GitHub, limita los intentos repetidos, ejecuta cada uso del modelo de IA en un entorno aislado, cifra los datos en tránsito y mantiene los datos personales fuera de sus registros técnicos. Ningún sistema es perfectamente seguro; si una brecha le afecta, se lo comunicaremos a usted y a las autoridades como exige la ley.
+La prueba funciona detrás de un cortafuegos, permite iniciar sesión con una contraseña (al menos 12 caracteres, nunca una filtrada conocida, guardada solo como hash con sal) o con GitHub, ofrece el inicio de sesión en dos pasos con una aplicación de autenticación —obligatorio para el equipo de BeeverForge—, limita los intentos repetidos, ejecuta cada uso del modelo de IA en un entorno aislado, cifra los datos en tránsito y mantiene los datos personales fuera de sus registros técnicos. Ningún sistema es perfectamente seguro; si una brecha le afecta, se lo comunicaremos a usted y a las autoridades como exige la ley.
 
 ## 10. Menores
 

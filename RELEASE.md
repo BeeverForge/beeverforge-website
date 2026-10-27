@@ -19,7 +19,7 @@
 
 Merge the review branch into `main`. The GitHub Pages workflow builds and publishes the three languages and shared assets. After the workflow succeeds, verify the public URLs, direct reloads, TLS, theme switch, language switch, and Worker response path. Keep the existing domain DNS configuration.
 
-# The trial page and the legal drafts (branch `try-page`; published on 2026-10-27, see Publishing)
+# The trial page and the legal drafts (branch `try-page`; published when it merges, see Publishing)
 
 The tag `v1.0.0` marks the site before this change.
 
@@ -48,8 +48,9 @@ The trial became a hosted company account in its trial plan, by the contract dec
 - The terms of use, the privacy policy and the acceptable use policy are version 1.0, `status: final`, in the three languages, with no note for counsel left.
   - BeeverForge is based in Portugal and administered by Hermes Alves, at contact@beeverforge.com.
   - The terms are governed by Portuguese law and settled by the competent courts in Portugal, without prejudice to a consumer's mandatory protections. Liability is capped at EUR 100.
-  - The privacy policy names the GDPR and the Portuguese law that implements it, with the LGPD only as a further right for people in Brazil. Transfers outside the EEA rely on the EU-U.S. Data Privacy Framework where the provider is certified, otherwise on the Commission's standard contractual clauses (GDPR article 46). The rights include restriction, and the authority is Portugal's CNPD or the one where the person lives.
-  - The privacy policy also says that withdrawing consent leaves earlier processing lawful, which data is needed to ask for the trial and what is optional, portability by its name, and that a copy of the transfer safeguards can be asked for. The Portuguese text uses the GDPR's own words ("responsável pelo tratamento", "interesses legítimos"). The terms' liability cap excludes wilful misconduct, gross negligence, death and personal injury.
-  - The texts are BeeverForge's own, written without counsel. The operator's geographic address and registration number are still to come from the product owner.
+  - The privacy policy names the GDPR and the Portuguese law that implements it, with the LGPD only as a further right for people in Brazil. Transfers outside the EEA go only to providers certified under the EU-U.S. Data Privacy Framework (GDPR article 45) or bound by the Commission's standard contractual clauses (article 46); which provider relies on which is not yet recorded here. The rights include restriction, and the authority is Portugal's CNPD or the one where the person lives.
+  - The privacy policy also says that withdrawing consent leaves the lawfulness of earlier processing intact, that every field of the form is needed to ask for the trial (name, email, the company and its wished address, at least 10 characters about the prototype), portability whole (a portable format, or sent to another provider), and that a copy of the transfer safeguards can be asked for. The Portuguese text uses the GDPR's own words ("responsável pelo tratamento", "interesses legítimos"). Neither the terms' exclusions of liability nor their cap apply to wilful misconduct, gross negligence, death, personal injury or harm to health.
+  - How people sign in, as the door does since beeverforge-try #17: an email address and a password (at least 12 characters, not a known breached one, kept as a salted hash; the breach check sends five characters of its hash to Have I Been Pwned), or GitHub; two-step sign-in with an authenticator app, optional, required for BeeverForge's team. Google is named for analytics alone.
+  - The texts are BeeverForge's own, written without counsel. Publishing them without the operator's geographic address and registration number is the product owner's decision (2026-10-27); adding them later is a new version of the texts, which everyone accepts again, and the door's `TRY_TERMS_VERSION` moves with it.
   - The door's `TRY_TERMS_VERSION` is set to `1.0`, the same number, in the trial's values (beeverforge-infra `envs/trial/terraform.tfvars`, gitignored), applied on 2026-10-27. The door is live at `app.beeverforge.com`.
 - The Spanish and Portuguese architecture pages link to their own language's Try it and legal pages (`scripts/architecture.mjs`, as `scripts/build.mjs` does for the home).
