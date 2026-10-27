@@ -28,7 +28,7 @@ This policy covers this website (beeverforge.com), the Enterprise inquiry form, 
 
 ### Your account in the trial
 
-- You sign in with your **email address and a password** you choose, or with **GitHub**. Of a password we keep only a salted hash, never the password itself; when you set one, we check it against known breaches through Have I Been Pwned, sending only the first five characters of a SHA-1 hash of it, never the password nor anything that names you. If you turn on **two-step sign-in**, we keep its secret, sealed, and your recovery codes as hashes. With GitHub, we receive your **verified email, your name and GitHub's identifier** for your account, never your GitHub password.
+- You sign in with your **email address and a password** you choose, or with **GitHub**. Of a password we keep only a salted hash, never the password itself; when you set one, we check it against known breaches through Have I Been Pwned, sending only the first five characters of a SHA-1 hash of it, never the password nor anything that names you. If you turn on **two-step sign-in**, we keep its secret, sealed, and your recovery codes as hashes. With GitHub, we keep only your **verified email, your name and GitHub's identifier** for your account, never your GitHub password.
 - If your company's admin invites you, we receive your **email address** from them, to send you the invitation.
 - We record **which company account you belong to and whether you are its admin**, the **state of your invitation** (invited, active, expired) and its dates, and **which version of the terms you accepted and when**.
 - A session cookie keeps you signed in. It is strictly necessary and is not used for anything else.
