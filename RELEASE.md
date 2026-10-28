@@ -67,13 +67,13 @@ The trial became a hosted company account in its trial plan, by the contract dec
 - The door never tells another request's wish. It stores nothing for a check, and its access log records only the route's template, never the address. A page on another site cannot read the answer (CORS, the site's origins only); a program can ask, within the door's limit (30 a minute, 300 a day per client IP address).
 - An empty sentence under the field stays in the accessibility tree (`margin:0`, not `display:none`), for the error and the new note alike, so each live region exists before its first words.
 - The two new sentences are in the `trial` table of `scripts/build.mjs`, in the three languages. The note's green (`#1d6b3c` on the form's white card) has a contrast of 6.5:1.
-- **Verified** in Chrome (headless) against the real door of beeverforge-try #20, served locally in account mode with three records: an opened company (acme), a closed one (globex) and a confirmed request wishing initech. The site was a local build pointed at that door. The run had 54 checks over `/try/`, `/pt/try/` and `/es/try/`, all of which passed:
+- **Verified** in Chrome (headless) against the real door of beeverforge-try #20, served locally in account mode with three records: an opened company (acme), a closed one (globex) and a confirmed request wishing initech. The site was a local build pointed at that door. The run had 55 checks over `/try/`, `/pt/try/` and `/es/try/`, all of which passed:
   - acme and globex are taken, and the sentence appears at once;
   - an unknown address and initech are free;
   - a reserved name is never asked, an answered address is not asked again, and no prefix typed on the way at a steady pace is asked;
   - a door cut off says nothing and holds nothing;
   - a taken address never posts, typed and sent at once too, edited into a taken one during the wait, or edited and undone during it: the button waits for the door's answer;
-  - an address edited during the wait is asked once, not again by the pause;
+  - an address edited during the wait is asked by the wait alone, never again by the pause, even when the door failed to answer it; one typed back after its question was stopped is asked again;
   - there is no console error, apart from the cut-off question's own failed request;
   - at 390×844 there is no horizontal overflow.
 - **Publishing order:** publish after beeverforge-try #20 is deployed. Before that, the published form asks a door without the check, gets a 404 and says nothing, which is harmless.

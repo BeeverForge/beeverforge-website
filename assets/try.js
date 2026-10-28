@@ -162,6 +162,7 @@
     const deadline = Date.now() + 1500;
     const tried = new Set();
     for (;;) {
+      clearTimeout(pause); // an edit during the wait is the wait's to ask, not the pause's
       const value = slug ? slug.value.trim().toLowerCase() : '';
       const left = deadline - Date.now();
       if (!addresses || !value || slugProblem(value) || told.has(value) || left <= 0) return;
