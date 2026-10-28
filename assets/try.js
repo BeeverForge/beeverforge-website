@@ -116,7 +116,7 @@
     const question = { value, controller, done: null };
     question.done = answered(value, question);
     asking = question;
-    return question.done;
+    return question;
   };
   const answered = async (value, question) => {
     try {
@@ -151,7 +151,7 @@
       return;
     }
     if (!told.has(value) && asking?.value !== value) {
-      pause = setTimeout(() => { if (asking?.value !== value) ask(value); }, 400);
+      pause = setTimeout(() => { if (asking?.value !== value && !told.has(value)) ask(value); }, 400);
     }
   });
   // The button pressed before the door answered: the address is asked now, and its answer awaited a moment, so a taken
@@ -167,8 +167,10 @@
       if (!addresses || !value || slugProblem(value) || told.has(value) || left <= 0) return;
       if (tried.has(value) && asking?.value !== value) return; // asked, and the door did not answer
       tried.add(value);
-      const question = asking?.value === value ? asking.done : ask(value);
-      await Promise.race([question, new Promise((done) => { setTimeout(done, left); })]);
+      const question = asking?.value === value ? asking : ask(value);
+      await Promise.race([question.done, new Promise((done) => { setTimeout(done, left); })]);
+      // stopped by an edit, not unanswered: should the person come back to it, it is asked again
+      if (question.controller.signal.aborted) tried.delete(value);
     }
   };
 
