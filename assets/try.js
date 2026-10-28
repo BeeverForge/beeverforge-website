@@ -1,5 +1,6 @@
-// The trial's waitlist form (/try/), where a company asks for its trial: the company's wished address and its rule, the
-// character count, Cloudflare Turnstile and the post to the door (beeverforge-try, on app.beeverforge.com).
+// The trial's waitlist form (/try/), where a company asks for its trial: the company's wished address, its rule and
+// whether it is free, the character count, Cloudflare Turnstile and the post to the door (beeverforge-try, on
+// app.beeverforge.com).
 // The door answers 202 with the same sentence for every address, so success always goes to the confirmation page;
 // nothing here can tell whether an address was already known, and no refusal says so either. Served from this machine
 // with a local build (BUILD_LOCAL=1), the form uses the local door and Cloudflare's always-pass test key, so the build
@@ -57,10 +58,17 @@
   const reserved = new Set(('www app api admin mail send smtp imap pop ftp autodiscover autoconfig status docs blog help '
     + 'support static cdn assets try beta dev staging test preview hub accounts account login signin signup auth billing '
     + 'security abuse postmaster hostmaster webmaster ns ns1 ns2 dns mx beeverforge e2e').split(' '));
+  // what the door said of an address it was asked about (free, taken, reserved, invalid): each address is asked once
+  const told = new Map();
   const slugProblem = (value) => {
     if (!value) return ''; // `required` says it, like the other fields
     if (!/^[a-z][a-z0-9-]{1,18}[a-z0-9]$/.test(value) || value.includes('--')) return form.dataset.slugMessage;
     if (value.endsWith('-preview') || reserved.has(value)) return form.dataset.slugReservedMessage;
+    // the door's word, when it differs from the rule here: a company opened there, or a list newer than this one
+    const door = told.get(value);
+    if (door === 'taken') return form.dataset.slugTakenMessage;
+    if (door === 'reserved') return form.dataset.slugReservedMessage;
+    if (door === 'invalid') return form.dataset.slugMessage;
     return '';
   };
   const showSlug = (problem) => {
@@ -84,6 +92,57 @@
     slug.setCustomValidity(problem);
     // while the person types, a shown sentence follows the value; a new one waits until they leave the field
     if (slug.getAttribute('aria-invalid') === 'true') showSlug(problem);
+  });
+
+  // Whether the wished address is free, asked of the door once the person pauses on an address the rule takes: taken
+  // has its own sentence and holds the form, as a wrong address does; free says so under the field. The door tells
+  // only the addresses of companies already opened, never another request's wish, and the team may still change a
+  // free one. When the door does not answer (offline, a limit, a door without the check), nothing is said and the form
+  // posts as before. Without a door to post to, nothing is asked.
+  const slugFree = form.querySelector('#try-slug-free');
+  const suffix = form.querySelector('.slug-suffix')?.textContent.trim() || '';
+  const addresses = available ? `${endpoint.replace(/\/+$/, '')}/address/` : '';
+  let asking = null;
+  let pause = 0;
+  const showFree = (value) => {
+    if (!slugFree) return;
+    const free = value && told.get(value) === 'free' && !slugProblem(value);
+    slugFree.textContent = free ? form.dataset.slugFreeMessage.replace('{address}', `${value}${suffix}`) : '';
+  };
+  const ask = async (value) => {
+    const question = new AbortController();
+    asking = question;
+    try {
+      const response = await fetch(addresses + encodeURIComponent(value), {
+        mode: 'cors',
+        credentials: 'omit',
+        signal: question.signal,
+      });
+      if (!response.ok) return;
+      const answer = await response.json();
+      if (answer?.slug !== value || !['free', 'taken', 'reserved', 'invalid'].includes(answer.state)) return;
+      told.set(value, answer.state);
+      if (slug.value.trim().toLowerCase() !== value) return; // the person typed on: the answer waits in `told`
+      const problem = slugProblem(value);
+      slug.setCustomValidity(problem);
+      showSlug(problem);
+      showFree(value);
+    } catch {
+      // stopped by a newer question, offline, or not the door's answer: nothing is said
+    } finally {
+      if (asking === question) asking = null;
+    }
+  };
+  slug?.addEventListener('input', () => {
+    clearTimeout(pause);
+    asking?.abort();
+    const value = slug.value.trim().toLowerCase();
+    showFree(value);
+    if (!addresses || !value || slugProblem(value)) {
+      if (told.get(value) === 'taken') showSlug(slugProblem(value)); // known taken: said at once, as when it came
+      return;
+    }
+    if (!told.has(value)) pause = setTimeout(() => ask(value), 400);
   });
 
   const render = () => {

@@ -56,3 +56,22 @@ The trial became a hosted company account in its trial plan, by the contract dec
   - The texts are BeeverForge's own, written without counsel. Publishing them without the operator's geographic address and registration number is the product owner's decision (2026-10-27); adding them later is a new version of the texts, which everyone accepts again, and the door's `TRY_TERMS_VERSION` moves with it.
   - The door's `TRY_TERMS_VERSION` is set to `1.0`, the same number, in the trial's values (beeverforge-infra `envs/trial/terraform.tfvars`, gitignored), applied on 2026-10-27. The door is live at `app.beeverforge.com`.
 - The Spanish and Portuguese architecture pages link to their own language's Try it and legal pages (`scripts/architecture.mjs`, as `scripts/build.mjs` does for the home).
+
+## The wished address, checked while the person types (2026-10-28)
+
+- The Try it form asks the door whether the wished address is free, once the person pauses on an address the rule takes (400 ms). It sends `GET https://app.beeverforge.com/waitlist/address/<address>` (beeverforge-try #20) and asks each address once.
+  - **Taken:** a company was opened there, open or closed since. The sentence under the field is "This address is already taken. Please choose another.", the field is `aria-invalid` and the form does not post.
+  - **Free:** "`<address>.beeverforge.com` is available." appears under the field, in a polite live region that the field's `aria-describedby` names.
+  - **Reserved or invalid:** the door's answer gets the form's own sentences. This only matters if the door's list is newer than the one in `assets/try.js`.
+  - **No answer** (offline, a limit, a door without the check): nothing is said and the form posts as before.
+- The door never tells another request's wish. It stores nothing for a check, and its access log records only the route's template, never the address. The answer goes to the site's origins only.
+- The two new sentences are in the `trial` table of `scripts/build.mjs`, in the three languages. The note's green (`#1d6b3c` on the form's white card) has a contrast of 6.5:1.
+- **Verified** in Chrome (headless) against the real door of beeverforge-try #20, served locally in account mode with three records: an opened company (acme), a closed one (globex) and a confirmed request wishing initech. The site was a local build pointed at that door. The run had 49 checks over `/try/`, `/pt/try/` and `/es/try/`, all of which passed:
+  - acme and globex are taken, and the sentence appears at once;
+  - an unknown address and initech are free;
+  - a reserved name is never asked, an address is asked once, and no prefix typed on the way is asked;
+  - a door cut off says nothing and holds nothing;
+  - a taken address never posts;
+  - there is no console error, apart from the cut-off question's own failed request;
+  - at 390×844 there is no horizontal overflow.
+- **Publishing order:** publish after beeverforge-try #20 is deployed. Before that, the published form asks a door without the check, gets a 404 and says nothing, which is harmless.
