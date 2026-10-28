@@ -56,3 +56,24 @@ The trial became a hosted company account in its trial plan, by the contract dec
   - The texts are BeeverForge's own, written without counsel. Publishing them without the operator's geographic address and registration number is the product owner's decision (2026-10-27); adding them later is a new version of the texts, which everyone accepts again, and the door's `TRY_TERMS_VERSION` moves with it.
   - The door's `TRY_TERMS_VERSION` is set to `1.0`, the same number, in the trial's values (beeverforge-infra `envs/trial/terraform.tfvars`, gitignored), applied on 2026-10-27. The door is live at `app.beeverforge.com`.
 - The Spanish and Portuguese architecture pages link to their own language's Try it and legal pages (`scripts/architecture.mjs`, as `scripts/build.mjs` does for the home).
+
+## The wished address, checked while the person types (2026-10-28)
+
+- The Try it form asks the door whether the wished address is free, once the person pauses on an address the rule takes (400 ms). It sends `GET https://app.beeverforge.com/waitlist/address/<address>` (beeverforge-try #20). An address the door answered is not asked again; one asked when the person paused mid-word is asked like any other. The button pressed before the door answered asks at once and waits up to 1.5 s for the answer; an address edited during that wait is asked in turn, within the same 1.5 s.
+  - **Taken:** a company was opened there, open or closed since. The sentence under the field is "This address is already taken. Please choose another.", the field is `aria-invalid` and the form does not post.
+  - **Free:** "`<address>.beeverforge.com` is available." appears under the field, in a polite live region that the field's `aria-describedby` names.
+  - **Reserved or invalid:** the door's answer gets the form's own sentences. This only matters if the door's list is newer than the one in `assets/try.js`.
+  - **No answer** (offline, a limit, a door without the check): nothing is said and the form posts as before.
+- The door never tells another request's wish. It stores nothing for a check, and its access log records only the route's template, never the address. A page on another site cannot read the answer (CORS, the site's origins only); a program can ask, within the door's limit (30 a minute, 300 a day per client IP address).
+- An empty sentence under the field stays in the accessibility tree (`margin:0`, not `display:none`), for the error and the new note alike, so each live region exists before its first words.
+- The two new sentences are in the `trial` table of `scripts/build.mjs`, in the three languages. The note's green (`#1d6b3c` on the form's white card) has a contrast of 6.5:1.
+- **Verified** in Chrome (headless) against the real door of beeverforge-try #20, served locally in account mode with three records: an opened company (acme), a closed one (globex) and a confirmed request wishing initech. The site was a local build pointed at that door. The run had 55 checks over `/try/`, `/pt/try/` and `/es/try/`, all of which passed:
+  - acme and globex are taken, and the sentence appears at once;
+  - an unknown address and initech are free;
+  - a reserved name is never asked, an answered address is not asked again, and no prefix typed on the way at a steady pace is asked;
+  - a door cut off says nothing and holds nothing;
+  - a taken address never posts, typed and sent at once too, edited into a taken one during the wait, or edited and undone during it: the button waits for the door's answer;
+  - within the wait, an address edited during it is asked by the wait alone, never again by the pause, even when the door failed to answer it, and one typed back after its question was stopped is asked again; an edit past the wait's end is asked by the pause, as any other;
+  - there is no console error, apart from the cut-off question's own failed request;
+  - at 390×844 there is no horizontal overflow.
+- **Publishing order:** publish after beeverforge-try #20 is deployed. Before that, the published form asks a door without the check, gets a 404 and says nothing, which is harmless.

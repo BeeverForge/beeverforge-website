@@ -50,6 +50,8 @@ const trial = {
     invalid: 'Please check your company’s name and address, your name, your email and your description, then try again.',
     slugInvalid: 'Use 3 to 20 characters: letters a–z, digits and single hyphens, starting with a letter and ending with a letter or digit.',
     slugReserved: 'This address is reserved. Please choose another.',
+    slugTaken: 'This address is already taken. Please choose another.',
+    slugFree: '{address} is available.',
     captcha: 'Please complete the check above the button, then try again.',
     captchaLabel: 'Human-verification check',
     unavailableCheck: 'The check is not answering; please try again in a moment.',
@@ -73,6 +75,8 @@ const trial = {
     invalid: 'Revise el nombre y la dirección de su empresa, su nombre, su correo y su descripción, e inténtelo de nuevo.',
     slugInvalid: 'Use de 3 a 20 caracteres: letras a–z, dígitos y guiones sueltos; empiece con una letra y termine con una letra o un dígito.',
     slugReserved: 'Esta dirección está reservada. Elija otra.',
+    slugTaken: 'Esta dirección ya está en uso. Elija otra.',
+    slugFree: '{address} está disponible.',
     captcha: 'Complete la verificación sobre el botón e inténtelo de nuevo.',
     captchaLabel: 'Verificación humana',
     unavailableCheck: 'La verificación no responde; inténtelo de nuevo en un momento.',
@@ -96,6 +100,8 @@ const trial = {
     invalid: 'Confira o nome e o endereço da sua empresa, seu nome, seu e-mail e sua descrição, e tente novamente.',
     slugInvalid: 'Use de 3 a 20 caracteres: letras de a a z, dígitos e hifens simples, começando com uma letra e terminando com uma letra ou um dígito.',
     slugReserved: 'Este endereço é reservado. Escolha outro.',
+    slugTaken: 'Este endereço já está em uso. Escolha outro.',
+    slugFree: '{address} está disponível.',
     captcha: 'Conclua a verificação acima do botão e tente novamente.',
     captchaLabel: 'Verificação humana',
     unavailableCheck: 'A verificação não está respondendo; tente novamente em instantes.',
@@ -107,9 +113,10 @@ const trial = {
   },
 };
 const legalPages = ['terms', 'privacy', 'acceptable-use'];
-// The three languages stay in step: every sentence the form can say exists in each of them.
+// The three languages stay in step: every sentence the form can say exists in each of them, English included.
+const trialKeys = new Set(Object.values(trial).flatMap((texts) => Object.keys(texts)));
 for (const [locale, texts] of Object.entries(trial)) {
-  for (const key of Object.keys(trial.en)) if (!texts[key]) throw new Error(`Missing ${locale} trial text: ${key}`);
+  for (const key of trialKeys) if (!texts[key]) throw new Error(`Missing ${locale} trial text: ${key}`);
 }
 
 function replaceRequired(html, oldText, newText) {
@@ -283,6 +290,8 @@ function tryPage(locale, home) {
     `data-invalid-message="${t.invalid}"`,
     `data-slug-message="${t.slugInvalid}"`,
     `data-slug-reserved-message="${t.slugReserved}"`,
+    `data-slug-taken-message="${t.slugTaken}"`,
+    `data-slug-free-message="${t.slugFree}"`,
     `data-captcha-message="${t.captcha}"`,
   ].join(' '));
   main = replaceRequired(main, '<div class="turnstile-slot" data-turnstile></div>', `<div class="turnstile-slot" data-turnstile role="group" aria-label="${t.captchaLabel}"></div>`);
