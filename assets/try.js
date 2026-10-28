@@ -58,7 +58,8 @@
   const reserved = new Set(('www app api admin mail send smtp imap pop ftp autodiscover autoconfig status docs blog help '
     + 'support static cdn assets try beta dev staging test preview hub accounts account login signin signup auth billing '
     + 'security abuse postmaster hostmaster webmaster ns ns1 ns2 dns mx beeverforge e2e').split(' '));
-  // what the door said of an address it was asked about (free, taken, reserved, invalid): each address is asked once
+  // what the door said of an address it was asked about (free, taken, reserved, invalid): one it answered is not
+  // asked again
   const told = new Map();
   const slugProblem = (value) => {
     if (!value) return ''; // `required` says it, like the other fields
@@ -149,16 +150,26 @@
       if (told.has(value)) showSlug(slugProblem(value));
       return;
     }
-    if (!told.has(value) && asking?.value !== value) pause = setTimeout(() => ask(value), 400);
+    if (!told.has(value) && asking?.value !== value) {
+      pause = setTimeout(() => { if (asking?.value !== value) ask(value); }, 400);
+    }
   });
   // The button pressed before the door answered: the address is asked now, and its answer awaited a moment, so a taken
-  // one is held like a wrong one; a door slower than that is a door that does not answer.
+  // one is held like a wrong one; an address edited meanwhile is asked in turn, within the same moment. A door slower
+  // than that, or one that did not answer, is a door that does not answer.
   const settled = async () => {
     clearTimeout(pause);
-    const value = slug ? slug.value.trim().toLowerCase() : '';
-    if (!addresses || !value || slugProblem(value) || told.has(value)) return;
-    const question = asking?.value === value ? asking.done : ask(value);
-    await Promise.race([question, new Promise((done) => { setTimeout(done, 1500); })]);
+    const deadline = Date.now() + 1500;
+    const tried = new Set();
+    for (;;) {
+      const value = slug ? slug.value.trim().toLowerCase() : '';
+      const left = deadline - Date.now();
+      if (!addresses || !value || slugProblem(value) || told.has(value) || left <= 0) return;
+      if (tried.has(value) && asking?.value !== value) return; // asked, and the door did not answer
+      tried.add(value);
+      const question = asking?.value === value ? asking.done : ask(value);
+      await Promise.race([question, new Promise((done) => { setTimeout(done, left); })]);
+    }
   };
 
   const render = () => {
@@ -218,7 +229,7 @@
     if (minutes === 1) return form.dataset.rateWaitOneMessage;
     return form.dataset.rateWaitMessage.replace('{minutes}', String(minutes));
   };
-  // The door's refusals, each with its own sentence, none of which tells whether the address was known: 403 is the
+  // The door's refusals, each with its own sentence, none of which tells whether the e-mail address was known: 403 is the
   // check that did not pass (the widget is reset below), 503 the check that could not be asked, 429 too many attempts,
   // 400 and 422 a field the door would not take; anything else is the generic sentence.
   const refusal = (response) => {
