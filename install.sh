@@ -694,7 +694,7 @@ run_init() {
 start_the_stack() {
     step "Starting the factory"
     # THE `cd` IS OUTSIDE `run`, so a dry run must not attempt it. It did, and the dry run ended
-    # with `cd: can't cd to /tmp/of-probe` followed by our own "the stack did not start" — a
+    # with `cd: can't cd to /tmp/bf-probe` followed by our own "the stack did not start" — a
     # refusal about a directory the dry run had correctly declined to create (measured while
     # writing this, 2026-08-31). A --dry-run that reports a failure it invented is worse than one
     # that reports nothing.
