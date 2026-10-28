@@ -2,7 +2,7 @@
 // whether it is free, the character count, Cloudflare Turnstile and the post to the door (beeverforge-try, on
 // app.beeverforge.com).
 // The door answers 202 with the same sentence for every address, so success always goes to the confirmation page;
-// nothing here can tell whether an address was already known, and no refusal says so either. Served from this machine
+// nothing here can tell whether an e-mail address was already known, and no refusal says so either. Served from this machine
 // with a local build (BUILD_LOCAL=1), the form uses the local door and Cloudflare's always-pass test key, so the build
 // in the laptop bed is the one that is tested. Without a door and a site key for this host, the form is read-only from
 // the start and says so; the e-mail address in that sentence stays the way to ask.
@@ -95,28 +95,34 @@
   });
 
   // Whether the wished address is free, asked of the door once the person pauses on an address the rule takes: taken
-  // has its own sentence and holds the form, as a wrong address does; free says so under the field. The door tells
-  // only the addresses of companies already opened, never another request's wish, and the team may still change a
-  // free one. When the door does not answer (offline, a limit, a door without the check), nothing is said and the form
-  // posts as before. Without a door to post to, nothing is asked.
+  // has its own sentence and holds the form, as a wrong address does; free says so under the field. An address the
+  // door answered is not asked again. The door tells only the addresses of companies already opened, never another
+  // request's wish, and the team may still change a free one. When the door does not answer (offline, a limit, a door
+  // without the check), nothing is said and the form posts as before. Without a door to post to, nothing is asked.
   const slugFree = form.querySelector('#try-slug-free');
   const suffix = form.querySelector('.slug-suffix')?.textContent.trim() || '';
   const addresses = available ? `${endpoint.replace(/\/+$/, '')}/address/` : '';
-  let asking = null;
+  let asking = null; // the question in flight: its address, its controller and its end
   let pause = 0;
   const showFree = (value) => {
     if (!slugFree) return;
     const free = value && told.get(value) === 'free' && !slugProblem(value);
     slugFree.textContent = free ? form.dataset.slugFreeMessage.replace('{address}', `${value}${suffix}`) : '';
   };
-  const ask = async (value) => {
-    const question = new AbortController();
+  const ask = (value) => {
+    asking?.controller.abort();
+    const controller = new AbortController();
+    const question = { value, controller, done: null };
+    question.done = answered(value, question);
     asking = question;
+    return question.done;
+  };
+  const answered = async (value, question) => {
     try {
       const response = await fetch(addresses + encodeURIComponent(value), {
         mode: 'cors',
         credentials: 'omit',
-        signal: question.signal,
+        signal: question.controller.signal,
       });
       if (!response.ok) return;
       const answer = await response.json();
@@ -135,15 +141,25 @@
   };
   slug?.addEventListener('input', () => {
     clearTimeout(pause);
-    asking?.abort();
     const value = slug.value.trim().toLowerCase();
+    if (asking && asking.value !== value) asking.controller.abort();
     showFree(value);
     if (!addresses || !value || slugProblem(value)) {
-      if (told.get(value) === 'taken') showSlug(slugProblem(value)); // known taken: said at once, as when it came
+      // the door's word on an address it answered (taken, or a list newer than this one's): said at once, as it came
+      if (told.has(value)) showSlug(slugProblem(value));
       return;
     }
-    if (!told.has(value)) pause = setTimeout(() => ask(value), 400);
+    if (!told.has(value) && asking?.value !== value) pause = setTimeout(() => ask(value), 400);
   });
+  // The button pressed before the door answered: the address is asked now, and its answer awaited a moment, so a taken
+  // one is held like a wrong one; a door slower than that is a door that does not answer.
+  const settled = async () => {
+    clearTimeout(pause);
+    const value = slug ? slug.value.trim().toLowerCase() : '';
+    if (!addresses || !value || slugProblem(value) || told.has(value)) return;
+    const question = asking?.value === value ? asking.done : ask(value);
+    await Promise.race([question, new Promise((done) => { setTimeout(done, 1500); })]);
+  };
 
   const render = () => {
     if (!window.turnstile || !slot) return;
@@ -220,6 +236,9 @@
       say(form.dataset.unavailableMessage, 'unavailable');
       return;
     }
+    pending = true;
+    await settled();
+    pending = false;
     checkSlug();
     if (!form.reportValidity()) return;
     if (!token) {

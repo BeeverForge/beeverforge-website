@@ -113,9 +113,10 @@ const trial = {
   },
 };
 const legalPages = ['terms', 'privacy', 'acceptable-use'];
-// The three languages stay in step: every sentence the form can say exists in each of them.
+// The three languages stay in step: every sentence the form can say exists in each of them, English included.
+const trialKeys = new Set(Object.values(trial).flatMap((texts) => Object.keys(texts)));
 for (const [locale, texts] of Object.entries(trial)) {
-  for (const key of Object.keys(trial.en)) if (!texts[key]) throw new Error(`Missing ${locale} trial text: ${key}`);
+  for (const key of trialKeys) if (!texts[key]) throw new Error(`Missing ${locale} trial text: ${key}`);
 }
 
 function replaceRequired(html, oldText, newText) {
