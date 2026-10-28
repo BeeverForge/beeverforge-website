@@ -73,7 +73,7 @@ The trial became a hosted company account in its trial plan, by the contract dec
   - a reserved name is never asked, an answered address is not asked again, and no prefix typed on the way at a steady pace is asked;
   - a door cut off says nothing and holds nothing;
   - a taken address never posts, typed and sent at once too, edited into a taken one during the wait, or edited and undone during it: the button waits for the door's answer;
-  - an address edited during the wait is asked by the wait alone, never again by the pause, even when the door failed to answer it; one typed back after its question was stopped is asked again;
+  - within the wait, an address edited during it is asked by the wait alone, never again by the pause, even when the door failed to answer it, and one typed back after its question was stopped is asked again; an edit past the wait's end is asked by the pause, as any other;
   - there is no console error, apart from the cut-off question's own failed request;
   - at 390×844 there is no horizontal overflow.
 - **Publishing order:** publish after beeverforge-try #20 is deployed. Before that, the published form asks a door without the check, gets a 404 and says nothing, which is harmless.
