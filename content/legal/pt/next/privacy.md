@@ -1,6 +1,6 @@
 ---
 title: Política de privacidade
-description: Rascunho da próxima versão da política de privacidade da BeeverForge: o teste, os planos pagos, os pagamentos pela Stripe, o provedor de IA próprio da sua empresa e o início assistido.
+description: Rascunho da próxima versão da política de privacidade da BeeverForge: o teste, os planos pagos, os pagamentos pela Stripe, o provedor de IA próprio da sua empresa e o arranque assistido.
 version: 1.1
 date: 2026-10-29
 status: draft
@@ -10,7 +10,7 @@ status: draft
 
 A **HERMES ALVES & ROBERTO PEREIRA, LDA**, uma sociedade estabelecida em Portugal, NIPC 518786749, cuja marca é BeeverForge ("nós"), é a responsável pelo tratamento dos dados pessoais descritos aqui. Ela é administrada por Hermes Alves, que responde pelo tratamento descrito aqui. Você pode nos escrever sobre privacidade em contact@beeverforge.com. **[Advogado: acrescentar a sede se a lei a exigir aqui. Num plano pago, a BeeverForge pode tratar o conteúdo que uma empresa coloca na sua conta por conta dessa empresa, como seu operador e não como responsável pelo tratamento; confirmar o papel para cada tipo de dado e se um acordo de tratamento de dados (artigo 28 do RGPD) precisa ser oferecido às empresas que pagam.]**
 
-Esta política cobre este site (beeverforge.com), o formulário de contato da Enterprise e a plataforma BeeverForge para empresas — o teste, os planos pagos e o início assistido — em app.beeverforge.com e no endereço próprio de cada empresa sob beeverforge.com.
+Esta política cobre este site (beeverforge.com), o formulário de contato da Enterprise e a plataforma BeeverForge para empresas — o teste, os planos pagos e o arranque assistido — em app.beeverforge.com e no endereço próprio de cada empresa sob beeverforge.com.
 
 ## 2. O que coletamos, e para quê
 
@@ -36,7 +36,7 @@ Esta política cobre este site (beeverforge.com), o formulário de contato da En
 ### O que você cria
 
 - As suas **mensagens, os documentos e imagens que você envia, os protótipos, as anotações do builder e os requisitos** gerados a partir deles. Eles pertencem à conta da sua empresa e às suas pessoas, como dizem os [termos de uso](/legal/terms/).
-- Finalidade: operar a conta da sua empresa e o seu plano. Quando a sua empresa pede o início assistido, a nossa equipe lê o protótipo e os seus requisitos para escrever um escopo e fazer o trabalho que o escopo aceito descreve.
+- Finalidade: operar a conta da sua empresa e o seu plano. Quando a sua empresa pede o arranque assistido, a nossa equipe lê o protótipo e os seus requisitos para escrever um escopo e fazer o trabalho que o escopo aceito descreve.
 - **Registros de uso** — quantas execuções você fez, quanto tempo levaram e quanto custaram — sem nada do conteúdo. Finalidade: aplicar de forma justa o orçamento do teste e os limites de cada plano, e entender o custo da plataforma.
 
 ### Planos pagos e pagamentos
@@ -45,7 +45,7 @@ Esta política cobre este site (beeverforge.com), o formulário de contato da En
 - A Stripe, o nosso provedor de pagamentos, coleta os **dados de cobrança da empresa** (o seu nome, e-mail e endereço de cobrança, e o seu número fiscal, se ela o informar), o seu **meio de pagamento** e as suas **faturas**. Os dados do cartão são digitados nas páginas da própria Stripe e nunca chegam até nós.
 - Finalidade: vender e cobrar os planos, dar à sua empresa o acesso pelo qual ela pagou e guardar os registros contábeis que a lei exige.
 
-### O início assistido
+### O arranque assistido
 
 - Para cada pedido registramos **o protótipo e a empresa a que ele está vinculado, cada versão do escopo que escrevemos, quem aceitou qual versão e quando, a situação do pagamento, e quem autorizou a produção e quando**.
 - Finalidade: acordar o trabalho com a sua empresa, fazê-lo e mostrar depois o que foi acordado e autorizado.
@@ -65,7 +65,7 @@ Esta política cobre este site (beeverforge.com), o formulário de contato da En
 Estamos estabelecidos em Portugal, por isso se aplicam o Regulamento Geral sobre a Proteção de Dados da União Europeia (RGPD) e a lei portuguesa que o executa; se você vive em outro país, a lei local pode lhe dar outros direitos (por exemplo, a LGPD no Brasil). Nos baseamos em:
 
 - **o seu consentimento** — para o contato da lista de espera e para o analytics; você pode retirá-lo a qualquer momento, sem que isso afete a licitude do que foi feito antes de o retirar;
-- **a execução dos termos que a sua empresa aceita**, ou de procedimentos preliminares que você nos pede — para operar o teste e os planos pagos, cobrá-los, e delimitar e realizar um início assistido;
+- **a execução dos termos que a sua empresa aceita**, ou de procedimentos preliminares que você nos pede — para operar o teste e os planos pagos, cobrá-los, e delimitar e realizar um arranque assistido;
 - **os nossos interesses legítimos** — para manter a plataforma e os seus usuários seguros e prevenir abusos;
 - **obrigações legais** — para guardar faturas e registros contábeis, e quando a lei de outro modo exige que guardemos ou informemos dados.
 
@@ -73,7 +73,7 @@ Para pedir o teste precisamos do seu nome, do seu e-mail, do nome da sua empresa
 
 ## 4. O que nunca fazemos
 
-Não vendemos os seus dados. Não usamos o seu conteúdo para treinar modelos de IA. Não o usamos para publicidade. Não lemos os seus protótipos, a menos que a sua empresa peça o início assistido ou você peça a nossa ajuda. Nunca lemos de volta a chave da sua empresa no provedor de IA para mostrá-la a alguém.
+Não vendemos os seus dados. Não usamos o seu conteúdo para treinar modelos de IA. Não o usamos para publicidade. Não lemos os seus protótipos, a menos que a sua empresa peça o arranque assistido ou você peça a nossa ajuda. Nunca lemos de volta a chave da sua empresa no provedor de IA para mostrá-la a alguém.
 
 ## 5. Quem trata os seus dados por nós
 
@@ -81,7 +81,7 @@ Usamos os seguintes provedores, cada um sob contrato e somente para a finalidade
 
 - **Durante o teste, o nosso provedor de modelos de IA (atualmente a Anthropic)** — recebe o que você escreve e envia, e os arquivos do protótipo, para gerar o protótipo e os requisitos.
 - **Amazon Web Services** — hospeda a plataforma e os seus dados nos Estados Unidos, e guarda a chave de cada empresa no provedor de IA no seu cofre de segredos.
-- **Stripe** — processa os pagamentos dos planos e do início assistido, e guarda os dados de cobrança da empresa, os seus meios de pagamento e as suas faturas. **[Advogado: a Stripe também atua como responsável pelo tratamento independente em parte do tratamento que faz (por exemplo, prevenção de fraudes e as suas próprias obrigações legais); confirmar como descrevê-la aqui e nomear a entidade da Stripe com que a BeeverForge contrata.]**
+- **Stripe** — processa os pagamentos dos planos e do arranque assistido, e guarda os dados de cobrança da empresa, os seus meios de pagamento e as suas faturas. **[Advogado: a Stripe também atua como responsável pelo tratamento independente em parte do tratamento que faz (por exemplo, prevenção de fraudes e as suas próprias obrigações legais); confirmar como descrevê-la aqui e nomear a entidade da Stripe com que a BeeverForge contrata.]**
 - **Resend** — envia os nossos e-mails (confirmação, convite, links de senha, avisos) e nos entrega os contatos sobre a Enterprise.
 - **Cloudflare** — a verificação humana dos nossos formulários (vê o seu endereço IP e sinais do navegador) e o serviço que recebe os contatos sobre a Enterprise.
 - **Google** — o analytics do site, somente com o seu consentimento.
@@ -102,7 +102,7 @@ Os nossos provedores tratam dados nos **Estados Unidos** e possivelmente em outr
 - **Protótipos, arquivos enviados e requisitos da conta:** 90 dias após a última atividade na conta da sua empresa, ou antes, se forem apagados. Enquanto a empresa tiver um plano pago, eles continuam na conta dela. A situação de um pagamento nunca os apaga. **[Product owner e advogado: o período para uma conta que pagou e agora está em somente leitura.]**
 - **Registros dos termos que você aceitou:** enquanto pudermos precisar demonstrar o que você aceitou.
 - **Registros de assinatura, faturas e demais registros de cobrança:** pelo tempo que a legislação fiscal e contábil portuguesa exigir. **[Contador: o período.]**
-- **Pedidos de início assistido, os seus escopos, aceites e autorizações:** enquanto o pedido, o trabalho e qualquer reclamação sobre eles precisarem deles. **[Advogado: o período.]**
+- **Pedidos de arranque assistido, os seus escopos, aceites e autorizações:** enquanto o pedido, o trabalho e qualquer reclamação sobre eles precisarem deles. **[Advogado: o período.]**
 - **A chave da sua empresa no provedor de IA:** enquanto a sua empresa a usar; ela é substituída quando quem administra a conta informa uma nova. **[Product owner: por quanto tempo uma chave que deixou de ser usada, e os seus quatro últimos caracteres e datas, são guardados depois que o plano termina ou a conta é apagada.]**
 - **Registros de auditoria e de uso** (sem conteúdo): 2 anos.
 - **Registros de segurança e do servidor:** 30 dias.

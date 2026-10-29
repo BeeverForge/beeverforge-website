@@ -1,6 +1,6 @@
 ---
 title: Termos de uso
-description: Rascunho da próxima versão dos termos da BeeverForge: o teste, os planos Prototype e Team, a chave própria do seu provedor de IA, o início assistido, cancelamentos e reembolsos.
+description: Rascunho da próxima versão dos termos da BeeverForge: o teste, os planos Prototype e Team, a chave própria do seu provedor de IA, o arranque assistido, cancelamentos e reembolsos.
 version: 1.1
 date: 2026-10-29
 status: draft
@@ -12,7 +12,7 @@ A plataforma BeeverForge e este site são fornecidos pela **HERMES ALVES & ROBER
 
 A plataforma é acessada em app.beeverforge.com, onde uma empresa pede a sua conta e as suas pessoas entram, e no endereço próprio de cada empresa sob beeverforge.com (por exemplo, acme.beeverforge.com).
 
-Estes termos se aplicam a tudo o que uma empresa faz na plataforma: a lista de espera, o pedido da empresa e a conta dela, os convites, o teste gratuito, os planos pagos (Prototype e Team), a chave própria da empresa no provedor de IA e o início assistido. Eles funcionam junto com a nossa [política de privacidade](/legal/privacy/) e a nossa [política de uso aceitável](/legal/acceptable-use/). Ao aceitá-los na primeira vez que você entra, você concorda com os três.
+Estes termos se aplicam a tudo o que uma empresa faz na plataforma: a lista de espera, o pedido da empresa e a conta dela, os convites, o teste gratuito, os planos pagos (Prototype e Team), a chave própria da empresa no provedor de IA e o arranque assistido. Eles funcionam junto com a nossa [política de privacidade](/legal/privacy/) e a nossa [política de uso aceitável](/legal/acceptable-use/). Ao aceitá-los na primeira vez que você entra, você concorda com os três.
 
 ## 2. Quem pode usar a BeeverForge
 
@@ -46,7 +46,7 @@ A conta da empresa é uma única conta; quem a administra convida os colegas que
 - Os preços são **por empresa**, não por usuário. Uma empresa tem uma assinatura de cada vez, Prototype ou Team, nunca as duas.
 - Os preços são em euros e **não incluem o IVA nem qualquer outro imposto, que são acrescentados quando aplicável**. **[Contador: como o IVA é cobrado e indicado — IVA português para clientes em Portugal, autoliquidação para clientes empresariais noutros países da UE, clientes fora da UE; o registro fiscal de que o cálculo automático de impostos precisa antes de ser ativado; e se as faturas emitidas pelo provedor de pagamentos cumprem as regras portuguesas de faturação (programa de faturação certificado, comunicação à autoridade tributária) ou se a BeeverForge precisa emitir as suas próprias.]**
 - **A mensalidade dá acesso à plataforma. Infraestrutura, consumo de IA e serviços de terceiros são pagos à parte pelo cliente.** Nenhum plano inclui hospedar o produto da empresa, um acordo de nível de serviço nem suporte ilimitado. **[Product owner: que suporte, se algum, cada plano inclui.]**
-- No Team, conectar a infraestrutura de execução própria da empresa é uma etapa à parte, que a equipe da BeeverForge conclui com a empresa. Pagar não significa que tudo esteja operacional: a página de cobrança da empresa mostra separadamente a assinatura, a chave do provedor de IA, a infraestrutura e qualquer início assistido. **[Advogado e product owner: o que a BeeverForge se compromete a fazer para conectar a infraestrutura de uma empresa no Team, e em que prazo; se a mensalidade do Team é devida enquanto a infraestrutura ainda não está conectada. Este rascunho não se compromete com nada.]**
+- No Team, conectar a infraestrutura de execução própria da empresa é uma etapa à parte, que a equipe da BeeverForge conclui com a empresa. Pagar não significa que tudo esteja operacional: a página de cobrança da empresa mostra separadamente a assinatura, a chave do provedor de IA, a infraestrutura e qualquer arranque assistido. **[Advogado e product owner: o que a BeeverForge se compromete a fazer para conectar a infraestrutura de uma empresa no Team, e em que prazo; se a mensalidade do Team é devida enquanto a infraestrutura ainda não está conectada. Este rascunho não se compromete com nada.]**
 - **[Advogado e product owner: se e como a BeeverForge pode alterar os preços ou os planos de uma assinatura existente, o aviso que dá e o direito da empresa de cancelar antes de a alteração valer. Este rascunho não diz nada sobre isso.]**
 
 ## 6. A chave da sua empresa no provedor de IA
@@ -69,34 +69,34 @@ A conta da empresa é uma única conta; quem a administra convida os colegas que
 - **Somente leitura** significa que as pessoas da empresa podem entrar, ler e exportar, mas não podem iniciar novas execuções.
 - **Nenhum dado é apagado por causa da situação de um pagamento.** As regras de retenção da [política de privacidade](/legal/privacy/) continuam valendo. **[Product owner e advogado: por quanto tempo o conteúdo de uma conta em somente leitura é guardado depois que ela deixa de pagar — os 90 dias após a última atividade do teste, ou outro período para contas que pagaram.]**
 
-## 8. O início assistido
+## 8. O arranque assistido
 
 - **O que é.** Um pedido avulso em que a equipe da BeeverForge leva adiante um dos protótipos da empresa. O seu **pacote base custa € 1.490**, + IVA quando aplicável. Ele está vinculado a um protótipo e à empresa que o pede. **[Product owner: o que o pacote base cobre em geral e qualquer limite a ele (tempo, telas, ambientes); este rascunho não nomeia nenhum e deixa isso para cada escopo.]**
 - **Pedir.** A empresa o pede a partir do seu protótipo, no Prototype Builder. Pedir não cria nenhuma obrigação para nenhuma das partes.
 - **O escopo.** A equipe da BeeverForge avalia o protótipo e os seus requisitos e escreve um escopo: o que o pacote base entrega para esse protótipo, o que não entrega e o que pressupõe. Cada escopo tem uma versão. A BeeverForge pode recusar um pedido que não consiga delimitar num escopo.
 - **Aceitar o escopo.** A empresa aceita uma versão do escopo, por meio de uma pessoa autorizada a agir por ela, na sua conta. Só o aceite de uma pessoa vale: nenhuma mensagem automática, nenhum aviso de pagamento e nem o PO virtual podem aceitar um escopo pela empresa. Nada é devido antes de um escopo ser aceito.
-- **Pagamento.** Depois de aceito o escopo, a empresa paga o pacote base pela Stripe. O trabalho é agendado assim que o pagamento é confirmado. **O pagamento não significa que o trabalho esteja feito, nem que o seu resultado esteja aceito.** **[Contador: a fatura do início assistido — as mesmas questões dos planos.]**
+- **Pagamento.** Depois de aceito o escopo, a empresa paga o pacote base pela Stripe. O trabalho é agendado assim que o pagamento é confirmado. **O pagamento não significa que o trabalho esteja feito, nem que o seu resultado esteja aceito.** **[Contador: a fatura do arranque assistido — as mesmas questões dos planos.]**
 - **O trabalho e o seu aceite.** A equipe da BeeverForge trabalha dentro do escopo aceito e mostra o resultado à empresa antes da produção, para que a empresa o revise e aceite. **[Advogado: os critérios e o prazo de aceite, o que acontece quando a empresa não responde e como são tratados os defeitos encontrados no aceite; este rascunho não define nenhum deles.]**
 - **Produção.** Nada chega à produção sem a **autorização expressa** da empresa, dada por uma pessoa autorizada a agir por ela, depois de ter aceitado o resultado. Um pagamento, uma mensagem automática ou o PO virtual não podem autorizar a produção.
 - **Extras.** O que estiver fora do escopo aceito é um extra. A BeeverForge o orça à parte, fora da plataforma; ele é acordado por escrito antes de começar e pago à parte.
 - A infraestrutura, o consumo de IA e os serviços de terceiros de que o trabalho precisa são da própria empresa e pagos à parte por ela.
-- **[Advogado: a quem pertencem o código e as demais entregas do início assistido, e a licença sobre os componentes da própria BeeverForge contidos neles; a garantia, se alguma, sobre as entregas; o prazo de entrega, se algum; e as regras de responsabilidade para este serviço pago (a seção 16 foi escrita para um teste gratuito).]**
+- **[Advogado: a quem pertencem o código e as demais entregas do arranque assistido, e a licença sobre os componentes da própria BeeverForge contidos neles; a garantia, se alguma, sobre as entregas; o prazo de entrega, se algum; e as regras de responsabilidade para este serviço pago (a seção 16 foi escrita para um teste gratuito).]**
 
 ## 9. Cancelamento e reembolsos
 
 - **Planos.** Uma assinatura cancelada termina no fim do período já pago, e nada mais é cobrado. Uma passagem do Team para o Prototype também vale no fim do período. **[Product owner e advogado: se alguma parte de um período já pago é reembolsada. Hoje a plataforma encerra uma assinatura cancelada no fim do período pago e não faz reembolso parcial.]**
 - **Subir de plano.** Quando a empresa passa do Prototype para o Team, a diferença cobrada cobre o resto do período atual.
-- **O início assistido.** Antes de um escopo ser aceito, nada é devido e a empresa pode simplesmente retirar o seu pedido. **[Product owner e advogado: o que é reembolsado se a empresa cancelar depois de pagar e antes de o trabalho começar, enquanto ele está em andamento, ou se a BeeverForge não conseguir entregar o escopo aceito; este rascunho não define nenhuma regra.]**
+- **O arranque assistido.** Antes de um escopo ser aceito, nada é devido e a empresa pode simplesmente retirar o seu pedido. **[Product owner e advogado: o que é reembolsado se a empresa cancelar depois de pagar e antes de o trabalho começar, enquanto ele está em andamento, ou se a BeeverForge não conseguir entregar o escopo aceito; este rascunho não define nenhuma regra.]**
 - Um reembolso, quando devido, é devolvido ao meio de pagamento usado, pela Stripe.
-- **[Advogado: os planos são oferecidos a empresas. Confirmar se o direito de livre resolução (o direito de arrependimento) previsto na legislação de consumo da UE (Diretiva 2011/83/UE, tal como transposta em Portugal) pode se aplicar a algum cliente e, se puder, como se aplica a uma assinatura e a um início assistido cujo trabalho já começou.]**
+- **[Advogado: os planos são oferecidos a empresas. Confirmar se o direito de livre resolução (o direito de arrependimento) previsto na legislação de consumo da UE (Diretiva 2011/83/UE, tal como transposta em Portugal) pode se aplicar a algum cliente e, se puder, como se aplica a uma assinatura e a um arranque assistido cujo trabalho já começou.]**
 - Cancelar nunca apaga os dados da empresa: veja a seção 7.
 
 ## 10. Seu conteúdo
 
 - "Seu conteúdo" é o que você e os seus colegas escrevem, os documentos e imagens que enviam e o que a plataforma produz na conta da sua empresa: protótipos, anotações, requisitos e o pacote para download.
-- O seu conteúdo pertence à conta da sua empresa e às suas pessoas: **elas mantêm os direitos que têm sobre ele.** Elas concedem à BeeverForge uma licença limitada e não exclusiva para hospedá-lo, processá-lo e transmiti-lo somente na medida necessária para operar a conta da empresa e o seu plano, mantê-lo seguro e realizar um início assistido que a empresa encomende.
+- O seu conteúdo pertence à conta da sua empresa e às suas pessoas: **elas mantêm os direitos que têm sobre ele.** Elas concedem à BeeverForge uma licença limitada e não exclusiva para hospedá-lo, processá-lo e transmiti-lo somente na medida necessária para operar a conta da empresa e o seu plano, mantê-lo seguro e realizar um arranque assistido que a empresa encomende.
 - Você confirma que tem o direito de usar o que envia e que isso não inclui informações confidenciais que você não pode compartilhar, dados pessoais de outras pessoas nem dados reais de clientes. Use dados fictícios nos protótipos.
-- Não vendemos o seu conteúdo, não o usamos para treinar modelos e não lemos os seus protótipos, a menos que você peça o início assistido ou a nossa ajuda.
+- Não vendemos o seu conteúdo, não o usamos para treinar modelos e não lemos os seus protótipos, a menos que você peça o arranque assistido ou a nossa ajuda.
 
 ## 11. O que a plataforma produz
 
@@ -118,11 +118,11 @@ Podemos suspender ou encerrar o seu acesso, com ou sem aviso, se você descumpri
 
 ## 15. Sem garantia
 
-O teste é oferecido gratuitamente, **"no estado em que se encontra" e "conforme disponível"**, sem nenhuma garantia, na medida permitida pela lei. Não garantimos que a plataforma funcione sem interrupções ou erros, nem que os seus resultados sejam exatos ou adequados a uma finalidade específica. **[Advogado: a versão 1.0 exclui toda garantia porque o teste é gratuito; os planos pagos e o início assistido precisam dos seus próprios termos de garantia.]**
+O teste é oferecido gratuitamente, **"no estado em que se encontra" e "conforme disponível"**, sem nenhuma garantia, na medida permitida pela lei. Não garantimos que a plataforma funcione sem interrupções ou erros, nem que os seus resultados sejam exatos ou adequados a uma finalidade específica. **[Advogado: a versão 1.0 exclui toda garantia porque o teste é gratuito; os planos pagos e o arranque assistido precisam dos seus próprios termos de garantia.]**
 
 ## 16. Limitação de responsabilidade
 
-Na medida permitida pela lei, a BeeverForge não é responsável por perdas indiretas ou consequentes, lucros cessantes ou perda de dados, e a sua responsabilidade total por qualquer assunto relacionado ao teste fica limitada a **100 euros (cem euros)**. Nem estas exclusões nem o limite se aplicam a dolo ou culpa grave, nem a morte, danos pessoais ou danos à saúde. Nada nestes termos limita a responsabilidade que a lei não permite limitar, nem os seus direitos como consumidor quando a legislação de consumo se aplicar. **[Advogado: o limite de responsabilidade para os planos pagos e o início assistido — por exemplo, os valores pagos num dado período — para substituir ou completar os 100 euros escritos para o teste gratuito.]**
+Na medida permitida pela lei, a BeeverForge não é responsável por perdas indiretas ou consequentes, lucros cessantes ou perda de dados, e a sua responsabilidade total por qualquer assunto relacionado ao teste fica limitada a **100 euros (cem euros)**. Nem estas exclusões nem o limite se aplicam a dolo ou culpa grave, nem a morte, danos pessoais ou danos à saúde. Nada nestes termos limita a responsabilidade que a lei não permite limitar, nem os seus direitos como consumidor quando a legislação de consumo se aplicar. **[Advogado: o limite de responsabilidade para os planos pagos e o arranque assistido — por exemplo, os valores pagos num dado período — para substituir ou completar os 100 euros escritos para o teste gratuito.]**
 
 ## 17. Alterações nestes termos
 

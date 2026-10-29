@@ -146,7 +146,7 @@ const pricing = {
   pt: {
     title: 'Preços — BeeverForge',
     description: 'Planos para empresas: um teste gratuito de quinze dias, Prototype a € 19 por mês por empresa (+ IVA quando aplicável), e Business e Enterprise sob consulta. Você paga diretamente o seu provedor de IA e a sua nuvem; a BeeverForge cobra pelo software e pela plataforma.',
-    yours: 'O que continua sendo seu', plans: 'Planos e preços', assisted: 'Como funciona o início assistido',
+    yours: 'O que continua sendo seu', plans: 'Planos e preços', assisted: 'Como funciona o arranque assistido',
   },
 };
 const legalPages = ['terms', 'privacy', 'acceptable-use'];
