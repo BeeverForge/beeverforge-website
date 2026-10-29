@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { buildArchitecture, urlOf } from './architecture.mjs';
@@ -6,6 +6,7 @@ import { buildArchitecture, urlOf } from './architecture.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const source = await readFile(`${root}final-preview/index.html`, 'utf8');
 const trySource = await readFile(`${root}final-preview/try.html`, 'utf8');
+const pricingSource = await readFile(`${root}final-preview/pricing.html`, 'utf8');
 const lines = (await readFile(`${root}scripts/translations.tsv`, 'utf8')).trim().split('\n');
 const translations = new Map(lines.map((line, index) => {
   const columns = line.split('\t');
@@ -60,6 +61,8 @@ const trial = {
     thanksBack: 'Return to the trial page ↗',
     legal: 'Legal documents', legalEyebrow: 'Legal', version: 'Version',
     draft: 'Draft — under legal review. This text has not yet been approved by counsel and may change before the trial opens.',
+    nextDraft: 'Draft of the next version — not in force. It has not been reviewed by counsel, its open points are in brackets, and it may change before it is offered for acceptance.',
+    inForce: 'Read the version in force',
   },
   es: {
     title: 'Pruebe el Prototype Builder — BeeverForge',
@@ -85,6 +88,8 @@ const trial = {
     thanksBack: 'Volver a la página de la prueba ↗',
     legal: 'Documentos legales', legalEyebrow: 'Legal', version: 'Versión',
     draft: 'Borrador — en revisión legal. Este texto aún no ha sido aprobado por un abogado y puede cambiar antes de que abra la prueba.',
+    nextDraft: 'Borrador de la próxima versión — no está en vigor. No ha sido revisado por un abogado, sus puntos abiertos están entre corchetes y puede cambiar antes de ofrecerse para su aceptación.',
+    inForce: 'Lea la versión en vigor',
   },
   pt: {
     title: 'Experimente o Prototype Builder — BeeverForge',
@@ -110,6 +115,29 @@ const trial = {
     thanksBack: 'Voltar à página do teste ↗',
     legal: 'Documentos legais', legalEyebrow: 'Jurídico', version: 'Versão',
     draft: 'Rascunho — em revisão jurídica. Este texto ainda não foi aprovado por advogados e pode mudar antes de o teste abrir.',
+    nextDraft: 'Rascunho da próxima versão — não está em vigor. Ainda não foi revisado por advogados, os seus pontos em aberto estão entre colchetes e ele pode mudar antes de ser oferecido para aceite.',
+    inForce: 'Leia a versão em vigor',
+  },
+};
+
+// What the pricing page says outside its text nodes: its title, its description and the names of its regions. Every text
+// node of `final-preview/pricing.html` comes from `scripts/translations.tsv`, prices included (each language writes euros
+// its own way), and the build fails on a missing one.
+const pricing = {
+  en: {
+    title: 'Pricing — BeeverForge',
+    description: 'Plans for companies: a free fifteen-day trial, Prototype at €19 a month, Team at €299 a month, and a one-off assisted start at €1,490 for the base package. Per company, in euros, + VAT where applicable.',
+    onEveryPlan: 'On every plan', plans: 'Plans and prices', scope: 'What a plan includes and what it does not', assisted: 'How the assisted start works',
+  },
+  es: {
+    title: 'Precios — BeeverForge',
+    description: 'Planes para empresas: una prueba gratuita de quince días, Prototype a 19 € al mes, Team a 299 € al mes y un arranque asistido puntual de 1.490 € por el paquete base. Por empresa, en euros, + IVA cuando proceda.',
+    onEveryPlan: 'En todos los planes', plans: 'Planes y precios', scope: 'Lo que incluye un plan y lo que no', assisted: 'Cómo funciona el arranque asistido',
+  },
+  pt: {
+    title: 'Preços — BeeverForge',
+    description: 'Planos para empresas: um teste gratuito de quinze dias, Prototype a € 19 por mês, Team a € 299 por mês e um início assistido avulso de € 1.490 pelo pacote base. Por empresa, em euros, + IVA quando aplicável.',
+    onEveryPlan: 'Em todos os planos', plans: 'Planos e preços', scope: 'O que um plano inclui e o que não inclui', assisted: 'Como funciona o início assistido',
   },
 };
 const legalPages = ['terms', 'privacy', 'acceptable-use'];
@@ -117,6 +145,10 @@ const legalPages = ['terms', 'privacy', 'acceptable-use'];
 const trialKeys = new Set(Object.values(trial).flatMap((texts) => Object.keys(texts)));
 for (const [locale, texts] of Object.entries(trial)) {
   for (const key of trialKeys) if (!texts[key]) throw new Error(`Missing ${locale} trial text: ${key}`);
+}
+const pricingKeys = new Set(Object.values(pricing).flatMap((texts) => Object.keys(texts)));
+for (const locale of Object.keys(locales)) {
+  for (const key of pricingKeys) if (!pricing[locale]?.[key]) throw new Error(`Missing ${locale} pricing text: ${key}`);
 }
 
 function replaceRequired(html, oldText, newText) {
@@ -154,8 +186,8 @@ function buildPage(locale) {
   html = replaceRequired(html, 'Final design preview · not indexed', 'From idea to engineered software');
   html = replaceRequired(html, 'data-success-url="/thank-you/"', `data-success-url="${l.path}thank-you/" data-pending-message="${l.formPending}" data-error-message="${l.formError}" data-unavailable-message="${l.formUnavailable}"`);
   html = replaceRequired(html, 'placeholder="What do you want to build, and how does your team work today?"', `placeholder="${locale === 'es' ? '¿Qué quiere construir y cómo trabaja hoy su equipo?' : locale === 'pt' ? 'O que você quer construir e como sua equipe trabalha hoje?' : 'What do you want to build, and how does your team work today?'}"`);
-  // links to the trial and the legal pages are written English-rooted in the source and follow the page's language
-  html = html.replace(/href="\/(try|legal)\//g, (match, folder) => `href="${l.path}${folder}/`);
+  // links to the trial, the pricing and the legal pages are written English-rooted in the source and follow the page's language
+  html = html.replace(/href="\/(try|pricing|legal)\//g, (match, folder) => `href="${l.path}${folder}/`);
   html = html.replace(/(<option value="\/(?:es\/|pt\/)?") selected>/g, '$1>');
   html = replaceRequired(html, `<option value="${l.path}">`, `<option value="${l.path}" selected>`);
   html = html.replaceAll('href="/architecture/"', `href="${l.path}architecture/"`);
@@ -268,7 +300,7 @@ function tryPage(locale, home) {
   const l = locales[locale];
   const t = trial[locale];
   let main = trySource
-    .replace(/href="\/(try|legal)\//g, (match, folder) => `href="${l.path}${folder}/`)
+    .replace(/href="\/(try|pricing|legal)\//g, (match, folder) => `href="${l.path}${folder}/`)
     .replace('aria-label="What you get"', `aria-label="${t.whatYouGet}"`)
     .replace('aria-label="How the trial works"', `aria-label="${t.steps}"`)
     .replace('aria-label="What the trial includes and what it does not"', `aria-label="${t.scope}"`);
@@ -302,6 +334,33 @@ function tryThanksPage(locale) {
   const l = locales[locale];
   const t = trial[locale];
   return `<!doctype html><html lang="${l.lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><title>${t.thanksTitle}</title><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/final.css"><script>${themeScript}</script></head><body class="thanks-body"><main class="shell thanks-content"><a href="${l.path}" aria-label="BeeverForge"><img src="/assets/logo-dark.svg" alt="BeeverForge" width="240" height="74"></a><p class="eyebrow">${t.thanksEyebrow}</p><h1>${t.thanksHeading}</h1><p>${t.thanksBody}</p><a class="button button-gold" href="${l.path}try/">${t.thanksBack}</a></main><script src="/assets/final.js" defer></script></body></html>`;
+}
+
+// The pricing page: the plans and the assisted start, in the home page's chrome. It carries no form and no script of its
+// own, so it needs no policy beyond the rest of the site's. Its rows are checked more strictly than the other pages': a
+// text node with a letter or a digit needs its row, so that a price or a plan's index cannot stay in English by starting
+// with a symbol or a digit. Bare step numbers and the contact address read the same in every language.
+function requireRows(html, locale, name) {
+  if (locale === 'en') return;
+  for (const [, content] of html.matchAll(/>([^<>]+)</g)) {
+    const text = content.trim();
+    if (!/[A-Za-z0-9]/.test(text) || /^\d+$/.test(text) || text === 'contact@beeverforge.com') continue;
+    if (!translations.has(text)) throw new Error(`Missing ${locale} translation on ${name}: ${text}`);
+  }
+}
+function pricingPage(locale, home) {
+  const l = locales[locale];
+  const p = pricing[locale];
+  requireRows(pricingSource, locale, 'the pricing page');
+  let main = pricingSource
+    .replace(/href="\/(try|pricing|legal)\//g, (match, folder) => `href="${l.path}${folder}/`)
+    .replace(/href="\/#/g, `href="${l.path}#`);
+  main = replaceRequired(main, 'aria-label="On every plan"', `aria-label="${p.onEveryPlan}"`);
+  main = replaceRequired(main, 'aria-label="Plans and prices"', `aria-label="${p.plans}"`);
+  main = replaceRequired(main, 'aria-label="What a plan includes and what it does not"', `aria-label="${p.scope}"`);
+  main = replaceRequired(main, 'aria-label="How the assisted start works"', `aria-label="${p.assisted}"`);
+  main = localizeText(main, locale);
+  return page(locale, home, 'pricing/', { title: p.title, description: p.description }, main, '');
 }
 
 // ── The legal pages: Markdown with a front matter (title, description, version, date, status), rendered here.
@@ -377,13 +436,20 @@ function legalDate(locale, iso) {
 async function legalDocument(locale, name) {
   return markdown(await readFile(`${root}content/legal/${locale}/${name}.md`, 'utf8'), locale);
 }
-function legalPage(locale, home, name, documents) {
+// `next` is the next version of a text while it is drafted (content/legal/<language>/next/<name>.md): it is published at
+// /legal/next/<name>/, always as a draft, with a banner that says it is not in force and links the version that is; the
+// legal pages' nav and the footer keep linking the version in force only.
+function legalPage(locale, home, name, documents, next = null) {
   const l = locales[locale];
   const t = trial[locale];
-  const { meta, html, forCounsel } = documents[name];
+  const { meta, html, forCounsel } = next || documents[name];
+  if (next && meta.status !== 'draft') throw new Error(`content/legal/${locale}/next/${name}.md is the next version while it is drafted: its status stays draft until it replaces content/legal/${locale}/${name}.md`);
   if (forCounsel && meta.status !== 'draft') throw new Error(`content/legal/${locale}/${name}.md still carries a note for counsel: its status must stay draft`);
-  const nav = legalPages.map((other) => `<a href="${l.path}legal/${other}/"${other === name ? ' aria-current="page"' : ''}>${escapeHtml(documents[other].meta.title)}</a>`).join('');
-  const draft = meta.status === 'draft' ? `\n        <p class="legal-draft" role="note">${t.draft}</p>` : '';
+  const nav = legalPages.map((other) => `<a href="${l.path}legal/${other}/"${!next && other === name ? ' aria-current="page"' : ''}>${escapeHtml(documents[other].meta.title)}</a>`).join('');
+  const draft = next
+    ? `\n        <p class="legal-draft" role="note">${t.nextDraft} <a href="${l.path}legal/${name}/">${t.inForce} <span aria-hidden="true">↗</span></a></p>`
+    : meta.status === 'draft' ? `\n        <p class="legal-draft" role="note">${t.draft}</p>` : '';
+  const sub = next ? `legal/next/${name}/` : `legal/${name}/`;
   const main = `  <main id="main" class="legal-main">
     <div class="shell legal-layout">
       <article class="legal">
@@ -396,15 +462,23 @@ ${html}
     </div>
   </main>`;
   const robots = meta.status === 'draft' ? 'noindex,follow' : 'index,follow';
-  const built = page(locale, home, `legal/${name}/`, { title: `${meta.title} — BeeverForge`, description: meta.description, robots }, main, '');
+  const built = page(locale, home, sub, { title: `${meta.title} — BeeverForge`, description: meta.description, robots }, main, '');
   // the assertion on the page itself: whatever the front matter says, a note for counsel is never indexable
   if (renderedCounselNote.test(built) && !built.includes('<meta name="robots" content="noindex,follow">')) {
-    throw new Error(`${l.path}legal/${name}/ would be indexable with a note for counsel on it`);
+    throw new Error(`${l.path}${sub} would be indexable with a note for counsel on it`);
   }
   return built;
 }
+// The next versions being drafted, the same names in every language, each the next version of a legal page.
+async function nextDocuments(locale) {
+  const folder = `${root}content/legal/${locale}/next/`;
+  const names = (await readdir(folder).catch(() => [])).filter((file) => file.endsWith('.md')).map((file) => file.slice(0, -3)).sort();
+  for (const name of names) if (!legalPages.includes(name)) throw new Error(`content/legal/${locale}/next/${name}.md is not the next version of a legal page`);
+  return Object.fromEntries(await Promise.all(names.map(async (name) => [name, markdown(await readFile(`${folder}${name}.md`, 'utf8'), locale)])));
+}
 
 const legal = {};
+const nextDrafts = {};
 for (const [locale, l] of Object.entries(locales)) {
   const directory = `${root}${l.path}`;
   await mkdir(directory, { recursive: true });
@@ -415,20 +489,29 @@ for (const [locale, l] of Object.entries(locales)) {
   await mkdir(`${directory}try/thank-you/`, { recursive: true });
   await writeFile(`${directory}try/index.html`, tryPage(locale, home));
   await writeFile(`${directory}try/thank-you/index.html`, tryThanksPage(locale));
+  await mkdir(`${directory}pricing/`, { recursive: true });
+  await writeFile(`${directory}pricing/index.html`, pricingPage(locale, home));
   const documents = {};
   for (const name of legalPages) documents[name] = await legalDocument(locale, name);
   for (const name of legalPages) {
     await mkdir(`${directory}legal/${name}/`, { recursive: true });
     await writeFile(`${directory}legal/${name}/index.html`, legalPage(locale, home, name, documents));
   }
+  const next = await nextDocuments(locale);
+  for (const [name, draft] of Object.entries(next)) {
+    await mkdir(`${directory}legal/next/${name}/`, { recursive: true });
+    await writeFile(`${directory}legal/next/${name}/index.html`, legalPage(locale, home, name, documents, draft));
+  }
   legal[locale] = documents;
+  nextDrafts[locale] = Object.keys(next).join(',');
 }
+if (new Set(Object.values(nextDrafts)).size > 1) throw new Error('The next versions being drafted must be the same in every language');
 const retiredConcept = (version) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><meta http-equiv="refresh" content="0;url=/"><link rel="canonical" href="https://beeverforge.com/"><title>BeeverForge — website</title><script>location.replace('/')</script></head><body><main><h1>BeeverForge has a new home.</h1><p>The ${version.toUpperCase()} concept has been replaced by the website.</p><p><a href="/">Visit BeeverForge</a></p></main></body></html>`;
 await Promise.all(['v1', 'v2'].map((version) => writeFile(`${root}${version}/index.html`, retiredConcept(version))));
 const architecture = await buildArchitecture({ root, source, translations, locales, localizeText, localizeLabels });
 // a legal page enters the sitemap once it is final in every language, so no entry points at a draft
 const finalEverywhere = (name) => Object.keys(locales).every((locale) => legal[locale][name].meta.status === 'final');
-const indexed = ['', 'try/', ...legalPages.filter(finalEverywhere).map((name) => `legal/${name}/`)];
+const indexed = ['', 'try/', 'pricing/', ...legalPages.filter(finalEverywhere).map((name) => `legal/${name}/`)];
 const alternatesFor = (pathOf) => `${Object.entries(locales).map(([code, alt]) => `<xhtml:link rel="alternate" hreflang="${alt.lang}" href="https://beeverforge.com${pathOf(code)}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="https://beeverforge.com${pathOf('en')}"/>`;
 const sitemapUrls = [
   ...indexed.flatMap((sub) => Object.keys(locales).map((code) => `  <url><loc>https://beeverforge.com${locales[code].path}${sub}</loc>${alternatesFor((alt) => `${locales[alt].path}${sub}`)}</url>`)),
@@ -437,5 +520,6 @@ const sitemapUrls = [
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapUrls.join('\n')}\n</urlset>\n`;
 await writeFile(`${root}sitemap.xml`, sitemap);
 const drafts = legalPages.filter((name) => !finalEverywhere(name));
-console.log(`Built English, Spanish and Portuguese static pages, the trial’s waitlist page, the legal pages, the architecture section and localized confirmation pages${buildLocal ? ' — a local build: the waitlist page knows the local door' : ''}.`);
+console.log(`Built English, Spanish and Portuguese static pages, the trial’s waitlist page, the pricing page, the legal pages, the architecture section and localized confirmation pages${buildLocal ? ' — a local build: the waitlist page knows the local door' : ''}.`);
 if (drafts.length) console.log(`Legal drafts, noindex and out of the sitemap: ${drafts.join(', ')}.`);
+if (nextDrafts.en) console.log(`Next versions being drafted, at /legal/next/ (noindex, out of the sitemap, not in force): ${nextDrafts.en.split(',').join(', ')}.`);
