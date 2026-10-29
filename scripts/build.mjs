@@ -135,18 +135,18 @@ const trial = {
 const pricing = {
   en: {
     title: 'Pricing — BeeverForge',
-    description: 'Plans for companies: a free fifteen-day trial, Prototype at €19 a month, and the one-off assisted start at €1,490 for its base package, paid only if you accept BeeverForge’s proposal. Per company, in euros, + VAT where applicable.',
-    onEveryPlan: 'On every plan', plans: 'Plans and prices', scope: 'What a plan includes and what it does not', assisted: 'How the assisted start works',
+    description: 'Plans for companies: a free fifteen-day trial, Prototype at €19 a month per company (+ VAT where applicable), and Business and Enterprise on request. You pay your AI provider and your cloud directly; BeeverForge charges for the software and the platform.',
+    yours: 'What stays yours', plans: 'Plans and prices', assisted: 'How the assisted start works',
   },
   es: {
     title: 'Precios — BeeverForge',
-    description: 'Planes para empresas: una prueba gratuita de quince días, Prototype a 19 € al mes y el arranque asistido puntual de 1.490 € por su paquete base, que solo se paga si acepta la propuesta de BeeverForge. Por empresa, en euros, + IVA cuando proceda.',
-    onEveryPlan: 'En todos los planes', plans: 'Planes y precios', scope: 'Lo que incluye un plan y lo que no', assisted: 'Cómo funciona el arranque asistido',
+    description: 'Planes para empresas: una prueba gratuita de quince días, Prototype a 19 € al mes por empresa (+ IVA cuando proceda), y Business y Enterprise a consultar. Usted paga directamente a su proveedor de IA y a su nube; BeeverForge cobra por el software y la plataforma.',
+    yours: 'Lo que sigue siendo suyo', plans: 'Planes y precios', assisted: 'Cómo funciona el arranque asistido',
   },
   pt: {
     title: 'Preços — BeeverForge',
-    description: 'Planos para empresas: um teste gratuito de quinze dias, Prototype a € 19 por mês e o início assistido avulso de € 1.490 pelo seu pacote base, pago só se você aceitar a proposta da BeeverForge. Por empresa, em euros, + IVA quando aplicável.',
-    onEveryPlan: 'Em todos os planos', plans: 'Planos e preços', scope: 'O que um plano inclui e o que não inclui', assisted: 'Como funciona o início assistido',
+    description: 'Planos para empresas: um teste gratuito de quinze dias, Prototype a € 19 por mês por empresa (+ IVA quando aplicável), e Business e Enterprise sob consulta. Você paga diretamente o seu provedor de IA e a sua nuvem; a BeeverForge cobra pelo software e pela plataforma.',
+    yours: 'O que continua sendo seu', plans: 'Planos e preços', assisted: 'Como funciona o início assistido',
   },
 };
 const legalPages = ['terms', 'privacy', 'acceptable-use'];
@@ -373,9 +373,8 @@ function pricingPage(locale, home) {
   let main = pricingSource
     .replace(/href="\/(try|pricing|legal)\//g, (match, folder) => `href="${l.path}${folder}/`)
     .replace(/href="\/#/g, `href="${l.path}#`);
-  main = replaceRequired(main, 'aria-label="On every plan"', `aria-label="${p.onEveryPlan}"`);
+  main = replaceRequired(main, 'aria-label="What stays yours"', `aria-label="${p.yours}"`);
   main = replaceRequired(main, 'aria-label="Plans and prices"', `aria-label="${p.plans}"`);
-  main = replaceRequired(main, 'aria-label="What a plan includes and what it does not"', `aria-label="${p.scope}"`);
   main = replaceRequired(main, 'aria-label="How the assisted start works"', `aria-label="${p.assisted}"`);
   main = withBillingNotice(localizeText(main, locale), locale);
   return page(locale, home, 'pricing/',{ title: p.title, description: p.description }, main, '');
