@@ -31,7 +31,7 @@ These terms apply to everything a company does on the platform: the waitlist, th
 - It is **free of charge**, within a limited AI and infrastructure budget that BeeverForge sets for the company and for the trial as a whole. When the company's budget is reached, the trial tells you when you can continue. We may also limit the total use of the trial at any time.
 - No card is asked for. **The trial never turns into a charge:** nothing is billed unless the company chooses a paid plan.
 - Each person in the account makes **one prototype**, about one product. It can change as much as the budget allows, but it stays that product: a request for a different product is declined.
-- When the trial ends, new runs stop. The account's people can still sign in to read and download what they created until it is deleted (see the [privacy policy](/legal/privacy/)).
+- When the trial ends, new work stops, except one generation of a prototype's requirements when the company asks BeeverForge's team to look at that prototype. The account's people can still sign in to read and download what they created until it is deleted (see the [privacy policy](/legal/privacy/)).
 - If the company chooses a paid plan, the same account continues, at the same address, with its data.
 - The trial is a preview of a service that is still evolving. We may change, suspend or end it, or any part of it, at any time. There is no service level, uptime commitment or support obligation during the trial.
 

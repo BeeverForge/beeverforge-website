@@ -28,6 +28,15 @@ const site = {
   localTurnstileSiteKey: '1x00000000000000000000AA',
 };
 
+// Billing is not open yet: the payment provider still runs in test mode. Until it goes live, the pricing page and the Try
+// it page say so in this one sentence, written once here for each language and placed where their sources carry
+// `<!-- billing-notice -->`. When billing goes live, set `billingNotice` to null: both pages drop it, in every language.
+const billingNotice = {
+  en: 'Paid plans open soon; write to contact@beeverforge.com to start one now.',
+  es: 'Los planes de pago abren pronto; escriba a contact@beeverforge.com para empezar uno ahora.',
+  pt: 'Os planos pagos abrem em breve; escreva para contact@beeverforge.com para começar um agora.',
+};
+
 const locales = {
   en: { path: '/', lang: 'en', og: 'en_US', title: 'BeeverForge — From idea to engineered software', description: 'Connect business needs to prototypes, requirements, portfolio context, architecture and LLM-agent software delivery. Explore Community and Enterprise.', formPending: 'Sending your inquiry…', formError: 'We could not send your inquiry. Please try again or email contact@beeverforge.com.', formUnavailable: 'The inquiry form is being prepared. Please email contact@beeverforge.com.', thanksTitle: 'Thank you — BeeverForge', thanksEyebrow: 'Enterprise inquiry', thanksHeading: 'Thanks for getting in touch.', thanksBody: 'Your inquiry has been submitted. We’ll respond to the email address you provided.', thanksBack: 'Return to BeeverForge ↗' },
   es: { path: '/es/', lang: 'es', og: 'es_ES', title: 'BeeverForge — De la idea al software desarrollado', description: 'Conecte necesidades de negocio con prototipos, requisitos, portafolio, arquitectura y desarrollo por agentes LLM. Conozca Community y Enterprise.', formPending: 'Enviando su consulta…', formError: 'No pudimos enviar su consulta. Inténtelo de nuevo o escriba a contact@beeverforge.com.', formUnavailable: 'El formulario no está disponible. Escriba a contact@beeverforge.com.', thanksTitle: 'Gracias — BeeverForge', thanksEyebrow: 'Consulta sobre Enterprise', thanksHeading: 'Gracias por contactarnos.', thanksBody: 'Su consulta fue enviada. Responderemos a la dirección de correo que indicó.', thanksBack: 'Volver a BeeverForge ↗' },
@@ -126,17 +135,17 @@ const trial = {
 const pricing = {
   en: {
     title: 'Pricing — BeeverForge',
-    description: 'Plans for companies: a free fifteen-day trial, Prototype at €19 a month, Team at €299 a month, and a one-off assisted start at €1,490 for the base package. Per company, in euros, + VAT where applicable.',
+    description: 'Plans for companies: a free fifteen-day trial, Prototype at €19 a month, and the one-off assisted start at €1,490 for its base package, paid only if you accept BeeverForge’s proposal. Per company, in euros, + VAT where applicable.',
     onEveryPlan: 'On every plan', plans: 'Plans and prices', scope: 'What a plan includes and what it does not', assisted: 'How the assisted start works',
   },
   es: {
     title: 'Precios — BeeverForge',
-    description: 'Planes para empresas: una prueba gratuita de quince días, Prototype a 19 € al mes, Team a 299 € al mes y un arranque asistido puntual de 1.490 € por el paquete base. Por empresa, en euros, + IVA cuando proceda.',
+    description: 'Planes para empresas: una prueba gratuita de quince días, Prototype a 19 € al mes y el arranque asistido puntual de 1.490 € por su paquete base, que solo se paga si acepta la propuesta de BeeverForge. Por empresa, en euros, + IVA cuando proceda.',
     onEveryPlan: 'En todos los planes', plans: 'Planes y precios', scope: 'Lo que incluye un plan y lo que no', assisted: 'Cómo funciona el arranque asistido',
   },
   pt: {
     title: 'Preços — BeeverForge',
-    description: 'Planos para empresas: um teste gratuito de quinze dias, Prototype a € 19 por mês, Team a € 299 por mês e um início assistido avulso de € 1.490 pelo pacote base. Por empresa, em euros, + IVA quando aplicável.',
+    description: 'Planos para empresas: um teste gratuito de quinze dias, Prototype a € 19 por mês e o início assistido avulso de € 1.490 pelo seu pacote base, pago só se você aceitar a proposta da BeeverForge. Por empresa, em euros, + IVA quando aplicável.',
     onEveryPlan: 'Em todos os planos', plans: 'Planos e preços', scope: 'O que um plano inclui e o que não inclui', assisted: 'Como funciona o início assistido',
   },
 };
@@ -154,6 +163,15 @@ for (const locale of Object.keys(locales)) {
 function replaceRequired(html, oldText, newText) {
   if (!html.includes(oldText)) throw new Error(`Missing source marker: ${oldText}`);
   return html.replace(oldText, newText);
+}
+// The billing notice goes in after the page is translated: it is already in the page's language, and its address is a link.
+function withBillingNotice(html, locale) {
+  const sentence = billingNotice?.[locale];
+  if (billingNotice && !sentence) throw new Error(`Missing ${locale} billing notice`);
+  const mail = 'contact@beeverforge.com';
+  return replaceRequired(html, '<!-- billing-notice -->', sentence
+    ? `<p class="billing-notice">${sentence.replace(mail, `<a href="mailto:${mail}">${mail}</a>`)}</p>`
+    : '');
 }
 function localizeText(html, locale) {
   if (locale === 'en') return html;
@@ -327,8 +345,8 @@ function tryPage(locale, home) {
     `data-captcha-message="${t.captcha}"`,
   ].join(' '));
   main = replaceRequired(main, '<div class="turnstile-slot" data-turnstile></div>', `<div class="turnstile-slot" data-turnstile role="group" aria-label="${t.captchaLabel}"></div>`);
-  main = localizeText(main, locale);
-  return page(locale, home, 'try/', { title: t.title, description: t.description, csp: tryPolicy }, main, '\n  <script src="/assets/try.js" defer></script>');
+  main = withBillingNotice(localizeText(main, locale), locale);
+  return page(locale, home, 'try/',{ title: t.title, description: t.description, csp: tryPolicy }, main, '\n  <script src="/assets/try.js" defer></script>');
 }
 function tryThanksPage(locale) {
   const l = locales[locale];
@@ -359,8 +377,8 @@ function pricingPage(locale, home) {
   main = replaceRequired(main, 'aria-label="Plans and prices"', `aria-label="${p.plans}"`);
   main = replaceRequired(main, 'aria-label="What a plan includes and what it does not"', `aria-label="${p.scope}"`);
   main = replaceRequired(main, 'aria-label="How the assisted start works"', `aria-label="${p.assisted}"`);
-  main = localizeText(main, locale);
-  return page(locale, home, 'pricing/', { title: p.title, description: p.description }, main, '');
+  main = withBillingNotice(localizeText(main, locale), locale);
+  return page(locale, home, 'pricing/',{ title: p.title, description: p.description }, main, '');
 }
 
 // ── The legal pages: Markdown with a front matter (title, description, version, date, status), rendered here.

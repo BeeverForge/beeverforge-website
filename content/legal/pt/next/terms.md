@@ -31,7 +31,7 @@ Estes termos se aplicam a tudo o que uma empresa faz na plataforma: a lista de e
 - Ele é **gratuito**, dentro de um orçamento limitado de IA e infraestrutura que a BeeverForge define para a empresa e para o teste como um todo. Quando o orçamento da empresa é atingido, o teste informa quando você pode continuar. Também podemos limitar o uso total do teste a qualquer momento.
 - Nenhum cartão é pedido. **O teste nunca vira uma cobrança:** nada é cobrado a menos que a empresa escolha um plano pago.
 - Cada pessoa da conta faz **um protótipo**, sobre um produto. Ele pode mudar o quanto o orçamento permitir, mas continua sendo esse produto: um pedido de outro produto é recusado.
-- Quando o teste termina, as novas execuções param. As pessoas da conta ainda podem entrar para ler e baixar o que criaram até que seja apagado (veja a [política de privacidade](/legal/privacy/)).
+- Quando o teste termina, o trabalho novo para, exceto uma geração dos requisitos de um protótipo quando a empresa pede à equipe da BeeverForge que avalie esse protótipo. As pessoas da conta ainda podem entrar para ler e baixar o que criaram até que seja apagado (veja a [política de privacidade](/legal/privacy/)).
 - Se a empresa escolher um plano pago, a mesma conta continua, no mesmo endereço, com os seus dados.
 - O teste é uma versão preliminar de um serviço que ainda está evoluindo. Podemos alterá-lo, suspendê-lo ou encerrá-lo, no todo ou em parte, a qualquer momento. Não há nível de serviço, compromisso de disponibilidade nem obrigação de suporte durante o teste.
 

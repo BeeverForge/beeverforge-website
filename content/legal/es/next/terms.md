@@ -31,7 +31,7 @@ Estos términos se aplican a todo lo que una empresa hace en la plataforma: la l
 - Es **gratuita**, dentro de un presupuesto limitado de IA e infraestructura que BeeverForge fija para la empresa y para la prueba en su conjunto. Cuando se alcanza el presupuesto de la empresa, la prueba le indica cuándo puede continuar. También podemos limitar el uso total de la prueba en cualquier momento.
 - No se pide tarjeta. **La prueba nunca se convierte en un cobro:** no se factura nada salvo que la empresa elija un plan de pago.
 - Cada persona de la cuenta hace **un prototipo**, sobre un producto. Puede cambiar tanto como el presupuesto lo permita, pero sigue siendo ese producto: una solicitud de otro producto se rechaza.
-- Cuando termina la prueba, las ejecuciones nuevas se detienen. Las personas de la cuenta todavía pueden iniciar sesión para leer y descargar lo que crearon hasta que se elimine (vea la [política de privacidad](/legal/privacy/)).
+- Cuando termina la prueba, el trabajo nuevo se detiene, salvo una generación de los requisitos de un prototipo cuando la empresa pide al equipo de BeeverForge que revise ese prototipo. Las personas de la cuenta todavía pueden iniciar sesión para leer y descargar lo que crearon hasta que se elimine (vea la [política de privacidad](/legal/privacy/)).
 - Si la empresa elige un plan de pago, la misma cuenta continúa, en la misma dirección, con sus datos.
 - La prueba es una versión preliminar de un servicio que sigue evolucionando. Podemos cambiarla, suspenderla o terminarla, total o parcialmente, en cualquier momento. Durante la prueba no hay nivel de servicio, compromiso de disponibilidad ni obligación de soporte.
 
