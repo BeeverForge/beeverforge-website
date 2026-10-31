@@ -5,6 +5,7 @@
 // Code, <pre> blocks and elements marked translate="no" stay in English; inside a unit they
 // appear as {0}, {1}… and every translation must carry exactly the same tokens.
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { marketingChrome, themeScript } from './marketing.mjs';
 
 export const pages = [
   { slug: '', file: 'overview.html', nav: 'Overview' },
@@ -112,7 +113,7 @@ async function inlineDiagrams(html, locale) {
   return html;
 }
 
-export async function buildArchitecture({ root, source, translations, locales, localizeText, localizeLabels }) {
+export async function buildArchitecture({ root, translations, locales }) {
   diagramRoot = root;
   const sources = await Promise.all(pages.map(async (page) => {
     const raw = await readFile(`${root}architecture-src/${page.file}`, 'utf8');
@@ -122,9 +123,6 @@ export async function buildArchitecture({ root, source, translations, locales, l
     const body = raw.replaceAll('href="@core/', `href="${CORE}/blob/${CORE_REF}/`).replaceAll('href="@tree/', `href="${CORE}/tree/${CORE_REF}/`).replace(/<title>[^<]+<\/title>\s*/, '').replace(/<meta name="description" content="[^"]+">\s*/, '');
     return { ...page, title, description, body, slugs: slugsOf(body) };
   }));
-  const header = source.match(/<header class="site-header">[\s\S]*?<\/header>/)[0];
-  const consent = source.match(/<aside class="consent-panel"[\s\S]*?<\/aside>/)[0];
-  const footer = source.match(/<footer class="site-footer">[\s\S]*?<\/footer>/)[0];
   const missing = new Set();
   const urls = [];
   for (const locale of Object.keys(locales)) {
@@ -138,21 +136,8 @@ export async function buildArchitecture({ root, source, translations, locales, l
       const pager = `<nav class="doc-pager" aria-label="${t('Previous and next pages')}">${prev ? `<a class="doc-pager-prev" rel="prev" href="${urlOf(locale, locales, prev)}"><small>Previous</small><span>${prev.nav}</span></a>` : '<span class="doc-pager-gap"></span>'}${next ? `<a class="doc-pager-next" rel="next" href="${urlOf(locale, locales, next)}"><small>Next</small><span>${next.nav}</span></a>` : ''}</nav>`;
       const localized = localizeDoc(`<main id="main" class="doc-main"><div class="shell doc-layout">${sidebar}<article class="doc-article">${page.body}${pager}</article></div></main>`, locale, translations, missing);
       const main = anchorHeadings(await inlineDiagrams(localized, locale), page.slugs, t('Link to this section'));
-      const chrome = (part) => {
-        part = part.replace('href="/final-preview/" aria-label="BeeverForge preview home"', `href="${l.path}" aria-label="BeeverForge home"`)
-          .replace(/href="#(editions|lifecycle|comparison|questions|contact)"/g, `href="${l.path}#$1"`)
-          .replaceAll('href="/architecture/">', `href="${l.path}architecture/" aria-current="true">`)
-          // the trial, the pricing and the legal pages are English-rooted in the source and follow the page's language
-          .replace(/href="\/(try|pricing|legal)\//g, (match, folder) => `href="${l.path}${folder}/`)
-          .replace('Final design preview · not indexed', 'From idea to engineered software')
-          .replace(/<option value="\/(es\/|pt\/)?"( selected)?>/g, (m, prefix) => {
-            const code = prefix ? prefix.slice(0, 2) : 'en';
-            return `<option value="${urlOf(code, locales, page)}"${code === locale ? ' selected' : ''}>`;
-          });
-        if (locale !== 'en') part = localizeText(part, locale);
-        return localizeLabels(part, locale);
-      };
-      const body = `${chrome(header)}\n  ${main}\n  ${chrome(consent)}\n  ${chrome(footer)}`;
+      const shared = marketingChrome(locale, `architecture/${page.slug}`);
+      const body = `${shared.header}\n  ${main}\n  ${shared.consent}\n  ${shared.footer}`;
       const title = `${t(page.title)} — BeeverForge`;
       const description = t(page.description);
       const alternates = Object.keys(locales).map((code) => `\n  <link rel="alternate" hreflang="${locales[code].lang}" href="https://beeverforge.com${urlOf(code, locales, page)}">`).join('');
@@ -180,14 +165,14 @@ export async function buildArchitecture({ root, source, translations, locales, l
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="stylesheet" href="/assets/final.css">
-  <link rel="stylesheet" href="/assets/docs.css">
-  <script>try{document.documentElement.dataset.theme=localStorage.getItem('beeverforge-theme')==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+  <link rel="stylesheet" href="/assets/docs.css"><link rel="stylesheet" href="/assets/marketing.css">
+  <script>${themeScript}</script>
 </head>
 <body class="doc-body">
   <a class="skip-link" href="#main">${t('Skip to content')}</a>
   ${body}
   <script src="/assets/final.js" defer></script>
-  <script src="/assets/docs.js" defer></script>
+  <script src="/assets/docs.js" defer></script><script src="/assets/marketing.js" defer></script>
 </body>
 </html>
 `;
