@@ -71,7 +71,7 @@ The company's account is one account; its admin invites the colleagues who take 
 
 ## 8. The assisted start
 
-- **What it is.** A one-off order in which BeeverForge's team takes one of the company's prototypes further. Its **base package costs €1,490**, plus VAT where applicable. It is tied to one prototype and to the company that asks for it. **[Product owner: what the base package covers in general and any limit to it (time, screens, environments); this draft names none and leaves it to each scope.]**
+- **What it is.** A one-off order in which BeeverForge's team takes one of the company's prototypes further. Its **scope and price are defined in a proposal** for the company to accept before work starts. It is tied to one prototype and to the company that asks for it. **[Product owner: what the base package covers in general and any limit to it (time, screens, environments); this draft names none and leaves it to each scope.]**
 - **Asking.** The company asks for it from its prototype, in the Prototype Builder. Asking creates no obligation for either side.
 - **The scope.** BeeverForge's team reviews the prototype and its requirements and writes a scope: what the base package delivers for that prototype, what it does not, and what it assumes. Each scope has a version. BeeverForge may decline a request it cannot scope.
 - **Accepting the scope.** The company accepts one version of the scope, through a person authorised to act for it, in its account. Only a person's acceptance counts: no automated message, no payment notice and not the virtual PO can accept a scope for the company. Nothing is due before a scope is accepted.

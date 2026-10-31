@@ -71,7 +71,7 @@ A conta da empresa é uma única conta; quem a administra convida os colegas que
 
 ## 8. O arranque assistido
 
-- **O que é.** Um pedido avulso em que a equipe da BeeverForge leva adiante um dos protótipos da empresa. O seu **pacote base custa € 1.490**, + IVA quando aplicável. Ele está vinculado a um protótipo e à empresa que o pede. **[Product owner: o que o pacote base cobre em geral e qualquer limite a ele (tempo, telas, ambientes); este rascunho não nomeia nenhum e deixa isso para cada escopo.]**
+- **O que é.** Um pedido avulso em que a equipe da BeeverForge leva adiante um dos protótipos da empresa. O seu **âmbito e preço são definidos numa proposta** que a empresa aceita antes de começar o trabalho. Ele está vinculado a um protótipo e à empresa que o pede. **[Product owner: o que o pacote base cobre em geral e qualquer limite a ele (tempo, telas, ambientes); este rascunho não nomeia nenhum e deixa isso para cada escopo.]**
 - **Pedir.** A empresa o pede a partir do seu protótipo, no Prototype Builder. Pedir não cria nenhuma obrigação para nenhuma das partes.
 - **O escopo.** A equipe da BeeverForge avalia o protótipo e os seus requisitos e escreve um escopo: o que o pacote base entrega para esse protótipo, o que não entrega e o que pressupõe. Cada escopo tem uma versão. A BeeverForge pode recusar um pedido que não consiga delimitar num escopo.
 - **Aceitar o escopo.** A empresa aceita uma versão do escopo, por meio de uma pessoa autorizada a agir por ela, na sua conta. Só o aceite de uma pessoa vale: nenhuma mensagem automática, nenhum aviso de pagamento e nem o PO virtual podem aceitar um escopo pela empresa. Nada é devido antes de um escopo ser aceito.

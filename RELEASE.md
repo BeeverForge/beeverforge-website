@@ -1,3 +1,17 @@
+# Production-focused commercial update — 2026-10-31
+
+Home now leads with the journey from prototype to production. It distinguishes validating a demo from preparing and delivering the working application, and adds a dedicated section for provider/model choice, customer-owned AI credentials, direct usage billing and customer-controlled execution infrastructure. The default remains dark. Provider choices are qualified by deployment; the hosted trial remains Anthropic-only. The inspected core reference is `ef33e7e4a59fa60e1fd6c8f906e0c0fa6e9bb0ee`; its adapter configuration supports provider/model selection and compatible endpoints. No additional backend support or end-to-end validation is claimed by this website change.
+
+The assisted start is explicitly part of the in-platform journey: create and conclude a BeeverForge prototype, optionally request expert analysis/architecture/technical preparation, and choose Team for implementation and evolution in the same company account. Home, pricing, trial and the production guide use that sequence. No external-prototype intake or automatic subscription activation is implied.
+
+The assisted-start amount is no longer disclosed in marketing, metadata, the trial FAQ or the public nonbinding next-terms draft. The service is offered by proposal. Subscription prices and billing configuration are unchanged; the terms currently in force are unchanged.
+
+A native, indexable blog contains two original guides in all three languages. Articles cite CHI 2026, DORA, NIST and relevant provider documentation, explain the limits of the evidence and avoid competitor-specific or market-wide failure percentages. The blog has its own routes, canonical/language alternates, sitemap entries, Blog/BlogPosting/BreadcrumbList structured data and links from home, header and footer. The static hosting workflow packages the blog.
+
+Validation: build and generated-site check pass for 48 sitemap pages and 2,067 local links/assets. Seventy-two browser cases (home, pricing, trial, blog index and both articles; three languages; 320, 390, 1024 and 1280 px) passed one-H1, no-horizontal-overflow, no assisted-price disclosure and dark-theme checks. No production form, payment or backend operation was exercised. Review evidence is in `review/commercial/`.
+
+---
+
 # Subscription-led redesign — 2026-10-31
 
 This release replaces the earlier edition-led marketing model below. The owner reconfirmed Prototype (€19/month), Team (€299/month), and an optional assisted start (from €1,490) in this chat. Home and pricing use one catalog and one set of localized copy. Business/Enterprise no longer appear as competing marketing plans. Open-source code and technical architecture remain accessible under Resources.

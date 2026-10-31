@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { buildArchitecture, urlOf } from './architecture.mjs';
 import { marketingPage, themeScript } from './marketing.mjs';
 import { copy as marketingCopy } from './marketing-copy.mjs';
+import { blogRoutes } from './blog.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const trySource = await readFile(`${root}final-preview/try.html`, 'utf8');
@@ -426,6 +427,10 @@ for (const [locale, l] of Object.entries(locales)) {
   await writeFile(`${directory}try/thank-you/index.html`, tryThanksPage(locale));
   await mkdir(`${directory}pricing/`, { recursive: true });
   await writeFile(`${directory}pricing/index.html`, pricingPage(locale, home));
+  for (const sub of blogRoutes) {
+    await mkdir(`${directory}${sub}`, { recursive: true });
+    await writeFile(`${directory}${sub}index.html`, marketingPage(locale, sub));
+  }
   const documents = {};
   for (const name of legalPages) documents[name] = await legalDocument(locale, name);
   for (const name of legalPages) {
@@ -446,7 +451,7 @@ await Promise.all(['v1', 'v2'].map((version) => writeFile(`${root}${version}/ind
 const architecture = await buildArchitecture({ root, translations, locales });
 // a legal page enters the sitemap once it is final in every language, so no entry points at a draft
 const finalEverywhere = (name) => Object.keys(locales).every((locale) => legal[locale][name].meta.status === 'final');
-const indexed = ['', 'try/', 'pricing/', ...legalPages.filter(finalEverywhere).map((name) => `legal/${name}/`)];
+const indexed = ['', 'try/', 'pricing/', ...blogRoutes, ...legalPages.filter(finalEverywhere).map((name) => `legal/${name}/`)];
 const alternatesFor = (pathOf) => `${Object.entries(locales).map(([code, alt]) => `<xhtml:link rel="alternate" hreflang="${alt.lang}" href="https://beeverforge.com${pathOf(code)}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="https://beeverforge.com${pathOf('en')}"/>`;
 const sitemapUrls = [
   ...indexed.flatMap((sub) => Object.keys(locales).map((code) => `  <url><loc>https://beeverforge.com${locales[code].path}${sub}</loc>${alternatesFor((alt) => `${locales[alt].path}${sub}`)}</url>`)),
