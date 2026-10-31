@@ -1,0 +1,362 @@
+[
+  {
+    "automationHeading": "BeeverForge Automation",
+    "h1": 1,
+    "path": "/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "automationHeading": "BeeverForge Automation",
+    "h1": 1,
+    "path": "/pricing/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/try/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/blog/from-ai-prototype-to-production/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "automationHeading": "Automação BeeverForge",
+    "h1": 1,
+    "path": "/pt/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "automationHeading": "Automação BeeverForge",
+    "h1": 1,
+    "path": "/pt/pricing/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/pt/try/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/pt/blog/from-ai-prototype-to-production/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "automationHeading": "Automatización BeeverForge",
+    "h1": 1,
+    "path": "/es/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "automationHeading": "Automatización BeeverForge",
+    "h1": 1,
+    "path": "/es/pricing/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/es/try/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/es/blog/from-ai-prototype-to-production/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "automationHeading": "BeeverForge Automation",
+    "h1": 1,
+    "path": "/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "automationHeading": "BeeverForge Automation",
+    "h1": 1,
+    "path": "/pricing/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/try/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/blog/from-ai-prototype-to-production/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "automationHeading": "Automação BeeverForge",
+    "h1": 1,
+    "path": "/pt/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "automationHeading": "Automação BeeverForge",
+    "h1": 1,
+    "path": "/pt/pricing/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/pt/try/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/pt/blog/from-ai-prototype-to-production/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "automationHeading": "Automatización BeeverForge",
+    "h1": 1,
+    "path": "/es/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "automationHeading": "Automatización BeeverForge",
+    "h1": 1,
+    "path": "/es/pricing/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/es/try/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/es/blog/from-ai-prototype-to-production/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "automationHeading": "BeeverForge Automation",
+    "h1": 1,
+    "path": "/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "automationHeading": "BeeverForge Automation",
+    "h1": 1,
+    "path": "/pricing/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/try/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/blog/from-ai-prototype-to-production/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "automationHeading": "Automação BeeverForge",
+    "h1": 1,
+    "path": "/pt/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "automationHeading": "Automação BeeverForge",
+    "h1": 1,
+    "path": "/pt/pricing/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/pt/try/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/pt/blog/from-ai-prototype-to-production/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "automationHeading": "Automatización BeeverForge",
+    "h1": 1,
+    "path": "/es/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "automationHeading": "Automatización BeeverForge",
+    "h1": 1,
+    "path": "/es/pricing/",
+    "priceExposed": false,
+    "roles": 3,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/es/try/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "automationHeading": null,
+    "h1": 1,
+    "path": "/es/blog/from-ai-prototype-to-production/",
+    "priceExposed": false,
+    "roles": null,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  }
+]

@@ -35,7 +35,7 @@ export const copy = {
     "skip": "Skip to content",
     "eyebrow": "Your software factory. From idea to production.",
     "hero": "From prototype.<br> To production.<br> <em>On your terms.</em>",
-    "lead": "BeeverForge connects the idea you validate to the software your business runs. Requirements, architecture, AI implementation and review stay connected. Your team directs the work and approves production.",
+    "lead": "Create and validate your idea with AI. Prepare the architecture with BeeverForge or your team. Then the factory automates implementation, configured checks and independent review, while the virtual Product Owner organizes ongoing evolution.",
     "watch": "See how it works",
     "trialNote": "15 days · No card · Access by approval",
     "from": "Subscriptions from",
@@ -58,28 +58,28 @@ export const copy = {
     "processLead": "The prototype is the starting point. Carry what you learn into the decisions, engineering and delivery that make the product real.",
     "steps": [
       [
-        "Validate the idea",
-        "Explore screens and flows through conversation. Use the prototype to agree on what matters to the business before implementation.",
-        "A shared product direction"
+        "Prototype with AI",
+        "You explore the idea with AI, validate the screens and conclude the prototype and its requirements inside BeeverForge.",
+        "You + AI"
       ],
       [
-        "Prepare the product",
-        "Turn the validated idea into explicit requirements and architecture. Keep business rules, technical decisions and the delivery scope together.",
-        "Work ready for engineering"
+        "Prepare the architecture",
+        "Turn the requirements into architecture and a technical foundation. Your team prepares it, or you choose BeeverForge’s optional assisted start.",
+        "BeeverForge or your team"
       ],
       [
-        "Deliver and evolve with Team",
-        "AI agents implement the work, run configured checks and obtain an independent review. Your team approves production and directs the next changes.",
-        "A controlled path into production"
+        "Automate with Team",
+        "AI agents execute the prepared work, run configured checks and obtain an independent review. The virtual Product Owner organizes delivery and evolution. Your team approves production.",
+        "BeeverForge Automation · Team"
       ]
     ],
     "planEyebrow": "The subscription",
     "planTitle": "Two plans.<br> Choose your next step.",
-    "planLead": "Start in Prototype to create and validate your idea. When you decide to build, Team coordinates implementation and evolution in the same company account. Expert help is optional.",
+    "planLead": "Prototype to create and validate with AI. Architecture prepared by BeeverForge or your team. Team for automated implementation and evolution in the same platform.",
     "prototypeTag": "Explore & validate",
     "teamTag": "Build & evolve",
     "prototypeIntro": "Make your idea clear before you build it.",
-    "teamIntro": "Implement and evolve the product after validating your prototype.",
+    "teamIntro": "The software factory automates implementation and evolution after your prototype is validated.",
     "prototypeFeatures": [
       "Conversation-based prototyping",
       "Collaboration and prototype versions",
@@ -88,7 +88,7 @@ export const copy = {
     ],
     "teamFeatures": [
       "Everything in Prototype",
-      "Virtual Product Owner and orchestration",
+      "Virtual Product Owner + automated AI-agent execution",
       "One execution running at a time",
       "Execution and apps in your own infrastructure"
     ],
@@ -98,11 +98,11 @@ export const copy = {
     "planRule": "Team replaces Prototype; your company does not pay for both.",
     "costRule": "Your subscription pays for the platform. AI usage, infrastructure and third-party services are paid separately by your company.",
     "availability": "Paid plans are opening soon. Contact us to discuss access; online checkout is not open yet.",
-    "assistedEyebrow": "Optional · Within your BeeverForge journey",
-    "assistedTitle": "Your prototype. A foundation to build on.",
-    "assistedText": "Create and refine your idea in Prototype. Once you conclude it inside BeeverForge, you can request an assisted start: our team reviews the requirements, designs the architecture and prepares a technical foundation for implementation.",
-    "assistedCta": "Talk about your prototype’s next step",
-    "assistedNote": "The initial conversation is free. Expert assistance is optional; its proposal does not include or automatically activate the Team subscription.",
+    "assistedEyebrow": "One platform · Clear roles",
+    "assistedTitle": "You shape the product. The factory executes.",
+    "assistedText": "The journey starts with a prototype created in BeeverForge. Once the architecture and technical foundation are prepared, Team’s automation turns the agreed work into implementation and ongoing evolution.",
+    "assistedCta": "Discuss the optional assisted start",
+    "assistedNote": "Expert help with architecture and the technical foundation is optional and quoted separately. It does not include or automatically activate the Team subscription.",
     "controlEyebrow": "Clear costs. Clear responsibilities.",
     "controlTitle": "Know what you are paying for.",
     "costs": [
@@ -119,20 +119,6 @@ export const copy = {
         "Your company pays for its execution resources, application hosting and third-party services."
       ]
     ],
-    "assistedSteps": [
-      [
-        "Conclude in Prototype",
-        "Create, refine and conclude your idea inside BeeverForge. The prototype and its requirements become the context for the next stage."
-      ],
-      [
-        "Choose expert help if you need it",
-        "Request the optional assisted start from your concluded prototype. Under an accepted proposal, our team analyzes the requirements, designs the architecture and prepares the agreed technical foundation."
-      ],
-      [
-        "Continue with Team",
-        "Use Team to coordinate implementation and evolution with the virtual Product Owner and AI agents. The plan change is an explicit choice; production still requires your approval."
-      ]
-    ],
     "faqEyebrow": "A few useful answers",
     "faqTitle": "Before you start.",
     "faqs": [
@@ -141,8 +127,8 @@ export const copy = {
         "No. It lasts 15 days within a limited quota, once your company is approved and its space opens. No card is required and it does not turn into an automatic charge."
       ],
       [
-        "What is the difference between Prototype and Team?",
-        "Prototype is where you create and validate the idea and its requirements. After that, Team coordinates implementation and evolution in the same company account, with a virtual Product Owner and one execution at a time. Team includes Prototype access and replaces its subscription."
+        "What changes when we move from Prototype to Team?",
+        "In Prototype, you and AI create and validate the idea. Architecture and the technical foundation are prepared by your team or with BeeverForge’s optional assisted start. Team then provides the automation: AI agents implement prepared work, run configured checks and obtain independent review, while the virtual Product Owner organizes delivery and evolution. Your team sets priorities and approves production. Team replaces the Prototype subscription."
       ],
       [
         "Does a prototype become a production application?",
@@ -154,7 +140,7 @@ export const copy = {
       ],
       [
         "Do we have to buy the assisted start?",
-        "No. Conclude your prototype inside BeeverForge and choose whether to request help from our specialists. If you do, they analyze the requirements, design the architecture and prepare a scoped technical foundation under a separate proposal. Team coordinates implementation and evolution; the assisted start is optional and does not activate Team automatically."
+        "No. Conclude your prototype inside BeeverForge and choose whether to request help from our specialists. If you do, they analyze the requirements, design the architecture and prepare a scoped technical foundation under a separate proposal. Team automates prepared implementation work with AI agents and organizes evolution with the virtual Product Owner; the assisted start is optional and does not activate Team automatically."
       ]
     ],
     "finalEyebrow": "Start with an idea. Aim for production.",
@@ -198,7 +184,7 @@ export const copy = {
     "save": "Save choices",
     "cancel": "Cancel",
     "pricingHero": "A clear plan.<br> <em>For your next step.</em>",
-    "pricingLead": "Explore your idea with Prototype. Coordinate delivery with Team. Add expert help when you need it.",
+    "pricingLead": "Prototype: you and AI. Team: the automated factory for implementation and evolution. Prepare the architecture with your team or choose our optional expert help.",
     "missionEyebrow": "Built for what comes after the demo",
     "missionTitle": "The prototype starts it.<br> Production is the destination.",
     "missionLead": "A convincing screen is an important milestone. A working product also needs real business rules, engineering decisions and a way to release and evolve. BeeverForge connects that work.",
@@ -235,8 +221,6 @@ export const copy = {
     ],
     "freedomNote": "Provider and model availability depend on the configured deployment. The hosted trial currently uses Anthropic. Private endpoints and on-premises models require compatible APIs, suitable hardware and validation.",
     "freedomLink": "How model choice and ownership work",
-    "assistedQuote": "After Prototype, continue with Team",
-    "assistedQuoteText": "Team carries implementation and evolution forward in the same platform. If you choose the assisted start, its scope, deliverables and commercial terms are agreed in a separate proposal.",
     "blog": "Blog",
     "blogEyebrow": "From prototype to product",
     "blogTitle": "Decisions that get<br> software into production.",
@@ -248,7 +232,26 @@ export const copy = {
     "blogPublished": "Published",
     "blogBack": "All articles",
     "blogRelated": "Keep reading",
-    "blogCta": "Discuss your path to production"
+    "blogCta": "Discuss your path to production",
+    "automationRoles": [
+      [
+        "Prototype",
+        "You + AI",
+        "Describe, explore and refine the idea through conversation. Conclude your prototype and its requirements inside BeeverForge."
+      ],
+      [
+        "Architecture & technical foundation",
+        "BeeverForge or your team",
+        "Your team can prepare the solution for execution. If you choose the optional assisted start, BeeverForge analyzes the requirements, designs the architecture and prepares the agreed foundation under a proposal."
+      ],
+      [
+        "BeeverForge Automation",
+        "Team · Execution & evolution",
+        "AI agents implement the prepared work. The factory runs configured checks and an independent review by agents. The virtual Product Owner organizes the work and the next changes."
+      ]
+    ],
+    "automationApproval": "AI agents execute. Your team sets priorities and approves production.",
+    "automationCta": "Explore Team automation"
   },
   "pt": {
     "lang": "pt-BR",
@@ -273,7 +276,7 @@ export const copy = {
     "skip": "Ir para o conteúdo",
     "eyebrow": "A sua fábrica de software. Da ideia à produção.",
     "hero": "Do protótipo.<br> À produção.<br> <em>Com liberdade.</em>",
-    "lead": "A BeeverForge liga a ideia que valida ao software que o seu negócio usa. Requisitos, arquitetura, implementação com IA e revisão seguem juntos. A sua equipa orienta o trabalho e aprova a produção.",
+    "lead": "Crie e valide a ideia com IA. Prepare a arquitetura com a BeeverForge ou com a sua equipa. Depois, a fábrica automatiza a implementação, as verificações configuradas e a revisão independente, enquanto o Product Owner virtual organiza a evolução.",
     "watch": "Veja como funciona",
     "trialNote": "15 dias · Sem cartão · Acesso por aprovação",
     "from": "Assinaturas a partir de",
@@ -296,28 +299,28 @@ export const copy = {
     "processLead": "O protótipo é o ponto de partida. Leve o que aprendeu para as decisões, a engenharia e a entrega que tornam o produto real.",
     "steps": [
       [
-        "Valide a ideia",
-        "Explore ecrãs e percursos através de conversa. Use o protótipo para acordar o que importa para o negócio antes da implementação.",
-        "Uma direção partilhada para o produto"
+        "Prototype com IA",
+        "Explore a ideia com IA, valide os ecrãs e conclua o protótipo e os requisitos dentro da BeeverForge.",
+        "Você + IA"
       ],
       [
-        "Prepare o produto",
-        "Transforme a ideia validada em requisitos explícitos e arquitetura. Mantenha juntas as regras de negócio, as decisões técnicas e o âmbito da entrega.",
-        "Trabalho preparado para engenharia"
+        "Prepare a arquitetura",
+        "Transforme os requisitos em arquitetura e numa base técnica. A sua equipa prepara essa base, ou pode optar pelo arranque assistido da BeeverForge.",
+        "BeeverForge ou a sua equipa"
       ],
       [
-        "Entregue e evolua com o Team",
-        "Agentes de IA implementam o trabalho, executam as verificações configuradas e obtêm uma revisão independente. A sua equipa aprova a produção e orienta as próximas alterações.",
-        "Um caminho controlado até à produção"
+        "Automatize com o Team",
+        "Agentes de IA executam o trabalho preparado, correm as verificações configuradas e obtêm uma revisão independente. O Product Owner virtual organiza a entrega e a evolução. A sua equipa aprova a produção.",
+        "Automação BeeverForge · Team"
       ]
     ],
     "planEyebrow": "A assinatura",
     "planTitle": "Dois planos.<br> Escolha o próximo passo.",
-    "planLead": "Comece no Prototype para criar e validar a ideia. Quando decidir construir, o Team coordena a implementação e a evolução na mesma conta da empresa. A ajuda especializada é opcional.",
+    "planLead": "Prototype para criar e validar com IA. Arquitetura preparada pela BeeverForge ou pela sua equipa. Team para automatizar a implementação e a evolução na mesma plataforma.",
     "prototypeTag": "Explorar e validar",
     "teamTag": "Construir e evoluir",
     "prototypeIntro": "Torne a sua ideia clara antes de a construir.",
-    "teamIntro": "Implemente e evolua o produto depois de validar o protótipo.",
+    "teamIntro": "A fábrica automatiza a implementação e a evolução depois de validar o protótipo.",
     "prototypeFeatures": [
       "Prototipação através de conversa",
       "Colaboração e versões dos protótipos",
@@ -326,7 +329,7 @@ export const copy = {
     ],
     "teamFeatures": [
       "Tudo o que está no Prototype",
-      "Product Owner virtual e orquestração",
+      "Product Owner virtual + execução automatizada por agentes de IA",
       "Uma execução de cada vez",
       "Execução e aplicações na sua infraestrutura"
     ],
@@ -336,11 +339,11 @@ export const copy = {
     "planRule": "O Team substitui o Prototype; a sua empresa não paga os dois.",
     "costRule": "A assinatura dá acesso à plataforma. O consumo de IA, a infraestrutura e os serviços de terceiros são pagos à parte pela sua empresa.",
     "availability": "Os planos pagos abrem em breve. Fale connosco sobre o acesso; a contratação online ainda não está aberta.",
-    "assistedEyebrow": "Opcional · Dentro da sua jornada BeeverForge",
-    "assistedTitle": "Do seu protótipo à base para construir.",
-    "assistedText": "Crie e refine a sua ideia no Prototype. Ao concluir o protótipo dentro da BeeverForge, pode pedir o arranque assistido: a nossa equipa analisa os requisitos, desenha a arquitetura e prepara uma base técnica para a implementação.",
-    "assistedCta": "Falar sobre o próximo passo do meu protótipo",
-    "assistedNote": "A conversa inicial é gratuita. A ajuda especializada é opcional; a proposta não inclui nem ativa automaticamente a assinatura Team.",
+    "assistedEyebrow": "Uma plataforma · Papéis claros",
+    "assistedTitle": "Você define o produto. A fábrica executa.",
+    "assistedText": "A jornada começa com um protótipo criado na BeeverForge. Depois de preparar a arquitetura e a base técnica, a automação do Team transforma o trabalho acordado em implementação e evolução contínua.",
+    "assistedCta": "Falar sobre o arranque opcional",
+    "assistedNote": "A ajuda especializada na arquitetura e na base técnica é opcional e tem proposta própria. Não inclui nem ativa automaticamente a assinatura Team.",
     "controlEyebrow": "Custos claros. Responsabilidades claras.",
     "controlTitle": "Saiba o que está a pagar.",
     "costs": [
@@ -357,20 +360,6 @@ export const copy = {
         "A sua empresa paga os recursos de execução, o alojamento das aplicações e os serviços de terceiros."
       ]
     ],
-    "assistedSteps": [
-      [
-        "Conclua no Prototype",
-        "Crie, refine e conclua a sua ideia dentro da BeeverForge. O protótipo e os requisitos tornam-se o contexto da próxima etapa."
-      ],
-      [
-        "Escolha ajuda especializada, se precisar",
-        "Peça o arranque assistido opcional a partir do protótipo concluído. Sob uma proposta aceite, a nossa equipa analisa os requisitos, desenha a arquitetura e prepara a base técnica acordada."
-      ],
-      [
-        "Continue com o Team",
-        "Use o Team para coordenar a implementação e a evolução com o Product Owner virtual e os agentes de IA. A mudança de plano é uma escolha explícita; a produção continua a exigir a sua aprovação."
-      ]
-    ],
     "faqEyebrow": "Algumas respostas úteis",
     "faqTitle": "Antes de começar.",
     "faqs": [
@@ -379,8 +368,8 @@ export const copy = {
         "Não. Dura 15 dias, dentro de uma quota limitada, depois da aprovação da empresa e da abertura do seu espaço. Não exige cartão nem se transforma numa cobrança automática."
       ],
       [
-        "Qual é a diferença entre Prototype e Team?",
-        "O Prototype é onde cria e valida a ideia e os requisitos. Depois, o Team coordena a implementação e a evolução na mesma conta da empresa, com um Product Owner virtual e uma execução de cada vez. O Team inclui o acesso ao Prototype e substitui a sua assinatura."
+        "O que muda ao passar do Prototype para o Team?",
+        "No Prototype, você e a IA criam e validam a ideia. A arquitetura e a base técnica são preparadas pela sua equipa ou com o arranque assistido opcional da BeeverForge. Depois, o Team fornece a automação: agentes de IA implementam o trabalho preparado, executam as verificações configuradas e obtêm revisão independente, enquanto o Product Owner virtual organiza a entrega e a evolução. A sua equipa define prioridades e aprova a produção. O Team substitui a assinatura Prototype."
       ],
       [
         "O protótipo torna-se uma aplicação de produção?",
@@ -392,7 +381,7 @@ export const copy = {
       ],
       [
         "É obrigatório contratar o arranque assistido?",
-        "Não. Conclua o protótipo dentro da BeeverForge e escolha se quer pedir ajuda aos nossos especialistas. Se pedir, a equipa analisa os requisitos, desenha a arquitetura e prepara uma base técnica com âmbito definido, sob proposta separada. O Team coordena a implementação e a evolução; o arranque é opcional e não ativa o Team automaticamente."
+        "Não. Conclua o protótipo dentro da BeeverForge e escolha se quer pedir ajuda aos nossos especialistas. Se pedir, a equipa analisa os requisitos, desenha a arquitetura e prepara uma base técnica com âmbito definido, sob proposta separada. O Team automatiza o trabalho de implementação preparado com agentes de IA e organiza a evolução com o Product Owner virtual; o arranque é opcional e não ativa o Team automaticamente."
       ]
     ],
     "finalEyebrow": "Comece pela ideia. Aponte à produção.",
@@ -436,7 +425,7 @@ export const copy = {
     "save": "Guardar escolhas",
     "cancel": "Cancelar",
     "pricingHero": "Um plano claro.<br> <em>Para o próximo passo.</em>",
-    "pricingLead": "Explore a ideia com o Prototype. Coordene a entrega com o Team. Acrescente ajuda especializada quando precisar.",
+    "pricingLead": "Prototype: você e a IA. Team: a fábrica automatizada para implementar e evoluir. Prepare a arquitetura com a sua equipa ou escolha a nossa ajuda especializada opcional.",
     "missionEyebrow": "Pensada para o que vem depois da demonstração",
     "missionTitle": "O protótipo dá início.<br> A produção é o destino.",
     "missionLead": "Um ecrã convincente é uma etapa importante. Um produto em funcionamento também precisa de regras reais de negócio, decisões de engenharia e uma forma de publicar e evoluir. A BeeverForge liga esse trabalho.",
@@ -473,8 +462,6 @@ export const copy = {
     ],
     "freedomNote": "A disponibilidade de fornecedores e modelos depende da instalação configurada. O teste hospedado usa atualmente Anthropic. Endpoints privados e modelos on-premises exigem APIs compatíveis, hardware adequado e validação.",
     "freedomLink": "Como funcionam a escolha de modelos e o controlo",
-    "assistedQuote": "Depois do Prototype, continue com o Team",
-    "assistedQuoteText": "O Team dá continuidade à implementação e à evolução na mesma plataforma. Se optar pelo arranque assistido, o âmbito, os entregáveis e as condições comerciais são acordados numa proposta à parte.",
     "blog": "Blog",
     "blogEyebrow": "Do protótipo ao produto",
     "blogTitle": "Decisões que levam<br> o software à produção.",
@@ -486,7 +473,26 @@ export const copy = {
     "blogPublished": "Publicado",
     "blogBack": "Todos os artigos",
     "blogRelated": "Continue a ler",
-    "blogCta": "Falar sobre o caminho até à produção"
+    "blogCta": "Falar sobre o caminho até à produção",
+    "automationRoles": [
+      [
+        "Prototype",
+        "Você + IA",
+        "Descreva, explore e refine a ideia por conversa. Conclua o protótipo e os requisitos dentro da BeeverForge."
+      ],
+      [
+        "Arquitetura e base técnica",
+        "BeeverForge ou a sua equipa",
+        "A sua equipa pode preparar a solução para execução. Se optar pelo arranque assistido, a BeeverForge analisa os requisitos, desenha a arquitetura e prepara a base acordada, sob proposta."
+      ],
+      [
+        "Automação BeeverForge",
+        "Team · Execução e evolução",
+        "Agentes de IA implementam o trabalho preparado. A fábrica executa as verificações configuradas e uma revisão independente por agentes. O Product Owner virtual organiza o trabalho e as próximas alterações."
+      ]
+    ],
+    "automationApproval": "Os agentes de IA executam. A sua equipa define prioridades e aprova a produção.",
+    "automationCta": "Conhecer a automação do Team"
   },
   "es": {
     "lang": "es",
@@ -511,7 +517,7 @@ export const copy = {
     "skip": "Ir al contenido",
     "eyebrow": "Su fábrica de software. De la idea a producción.",
     "hero": "Del prototipo.<br> A producción.<br> <em>Con libertad.</em>",
-    "lead": "BeeverForge conecta la idea que valida con el software que utiliza su negocio. Requisitos, arquitectura, implementación con IA y revisión siguen unidos. Su equipo dirige el trabajo y aprueba la producción.",
+    "lead": "Cree y valide la idea con IA. Prepare la arquitectura con BeeverForge o su equipo. Después, la fábrica automatiza la implementación, las verificaciones configuradas y la revisión independiente, mientras el Product Owner virtual organiza la evolución.",
     "watch": "Vea cómo funciona",
     "trialNote": "15 días · Sin tarjeta · Acceso por aprobación",
     "from": "Suscripciones desde",
@@ -534,28 +540,28 @@ export const copy = {
     "processLead": "El prototipo es el punto de partida. Lleve lo aprendido a las decisiones, la ingeniería y la entrega que hacen real el producto.",
     "steps": [
       [
-        "Valide la idea",
-        "Explore pantallas y flujos mediante conversación. Use el prototipo para acordar lo que importa al negocio antes de implementar.",
-        "Una dirección compartida del producto"
+        "Prototype con IA",
+        "Explore la idea con IA, valide las pantallas y concluya el prototipo y los requisitos dentro de BeeverForge.",
+        "Usted + IA"
       ],
       [
-        "Prepare el producto",
-        "Convierta la idea validada en requisitos explícitos y arquitectura. Mantenga unidas las reglas de negocio, las decisiones técnicas y el alcance de entrega.",
-        "Trabajo preparado para ingeniería"
+        "Prepare la arquitectura",
+        "Convierta los requisitos en arquitectura y una base técnica. Su equipo la prepara, o puede elegir el arranque asistido opcional de BeeverForge.",
+        "BeeverForge o su equipo"
       ],
       [
-        "Entregue y evolucione con Team",
-        "Los agentes de IA implementan, ejecutan las verificaciones configuradas y obtienen una revisión independiente. Su equipo aprueba la producción y dirige los siguientes cambios.",
-        "Un camino controlado hasta producción"
+        "Automatice con Team",
+        "Los agentes de IA ejecutan el trabajo preparado, realizan las verificaciones configuradas y obtienen revisión independiente. El Product Owner virtual organiza la entrega y evolución. Su equipo aprueba la producción.",
+        "Automatización BeeverForge · Team"
       ]
     ],
     "planEyebrow": "La suscripción",
     "planTitle": "Dos planes.<br> Elija su próximo paso.",
-    "planLead": "Empiece en Prototype para crear y validar la idea. Cuando decida construir, Team coordina la implementación y evolución en la misma cuenta de empresa. La ayuda experta es opcional.",
+    "planLead": "Prototype para crear y validar con IA. Arquitectura preparada por BeeverForge o su equipo. Team para automatizar la implementación y evolución en la misma plataforma.",
     "prototypeTag": "Explorar y validar",
     "teamTag": "Construir y evolucionar",
     "prototypeIntro": "Aclare su idea antes de construirla.",
-    "teamIntro": "Implemente y evolucione el producto tras validar el prototipo.",
+    "teamIntro": "La fábrica automatiza la implementación y evolución tras validar el prototipo.",
     "prototypeFeatures": [
       "Prototipado mediante conversación",
       "Colaboración y versiones de prototipos",
@@ -564,7 +570,7 @@ export const copy = {
     ],
     "teamFeatures": [
       "Todo lo que incluye Prototype",
-      "Product Owner virtual y orquestación",
+      "Product Owner virtual + ejecución automatizada con agentes de IA",
       "Una ejecución a la vez",
       "Ejecución y aplicaciones en su infraestructura"
     ],
@@ -574,11 +580,11 @@ export const copy = {
     "planRule": "Team sustituye a Prototype; su empresa no paga ambos.",
     "costRule": "La suscripción da acceso a la plataforma. El consumo de IA, la infraestructura y los servicios de terceros se pagan aparte por su empresa.",
     "availability": "Los planes de pago abren pronto. Consúltenos sobre el acceso; la contratación online aún no está abierta.",
-    "assistedEyebrow": "Opcional · Dentro de su recorrido BeeverForge",
-    "assistedTitle": "De su prototipo a la base para construir.",
-    "assistedText": "Cree y refine su idea en Prototype. Al concluir el prototipo dentro de BeeverForge, puede solicitar el arranque asistido: nuestro equipo analiza los requisitos, diseña la arquitectura y prepara una base técnica para implementar.",
-    "assistedCta": "Hablar del siguiente paso de mi prototipo",
-    "assistedNote": "La conversación inicial es gratuita. La ayuda experta es opcional; la propuesta no incluye ni activa automáticamente la suscripción Team.",
+    "assistedEyebrow": "Una plataforma · Funciones claras",
+    "assistedTitle": "Usted define el producto. La fábrica ejecuta.",
+    "assistedText": "El recorrido empieza con un prototipo creado en BeeverForge. Tras preparar la arquitectura y la base técnica, la automatización de Team convierte el trabajo acordado en implementación y evolución continua.",
+    "assistedCta": "Hablar del arranque opcional",
+    "assistedNote": "La ayuda experta con la arquitectura y la base técnica es opcional y tiene propuesta propia. No incluye ni activa automáticamente la suscripción Team.",
     "controlEyebrow": "Costes claros. Responsabilidades claras.",
     "controlTitle": "Sepa lo que está pagando.",
     "costs": [
@@ -595,20 +601,6 @@ export const copy = {
         "Su empresa paga los recursos de ejecución, el alojamiento de aplicaciones y los servicios de terceros."
       ]
     ],
-    "assistedSteps": [
-      [
-        "Concluya en Prototype",
-        "Cree, refine y concluya su idea dentro de BeeverForge. El prototipo y los requisitos se convierten en el contexto de la siguiente etapa."
-      ],
-      [
-        "Elija ayuda experta si la necesita",
-        "Solicite el arranque asistido opcional desde el prototipo concluido. Bajo una propuesta aceptada, nuestro equipo analiza los requisitos, diseña la arquitectura y prepara la base técnica acordada."
-      ],
-      [
-        "Continúe con Team",
-        "Use Team para coordinar la implementación y evolución con el Product Owner virtual y los agentes de IA. El cambio de plan es una elección explícita; la producción sigue requiriendo su aprobación."
-      ]
-    ],
     "faqEyebrow": "Algunas respuestas útiles",
     "faqTitle": "Antes de empezar.",
     "faqs": [
@@ -617,8 +609,8 @@ export const copy = {
         "No. Dura 15 días con una cuota limitada, una vez aprobada la empresa y abierto su espacio. No requiere tarjeta ni se convierte en un cobro automático."
       ],
       [
-        "¿En qué se diferencian Prototype y Team?",
-        "Prototype es donde crea y valida la idea y sus requisitos. Después, Team coordina la implementación y evolución en la misma cuenta de empresa, con un Product Owner virtual y una ejecución a la vez. Team incluye acceso a Prototype y sustituye su suscripción."
+        "¿Qué cambia al pasar de Prototype a Team?",
+        "En Prototype, usted y la IA crean y validan la idea. Su equipo prepara la arquitectura y la base técnica, o puede elegir el arranque asistido opcional de BeeverForge. Después, Team aporta la automatización: agentes de IA implementan el trabajo preparado, ejecutan las verificaciones configuradas y obtienen revisión independiente, mientras el Product Owner virtual organiza la entrega y evolución. Su equipo define prioridades y aprueba la producción. Team sustituye la suscripción Prototype."
       ],
       [
         "¿El prototipo se convierte en una aplicación de producción?",
@@ -630,7 +622,7 @@ export const copy = {
       ],
       [
         "¿Es obligatorio contratar el arranque asistido?",
-        "No. Concluya el prototipo dentro de BeeverForge y elija si quiere pedir ayuda a nuestros especialistas. Si la pide, el equipo analiza los requisitos, diseña la arquitectura y prepara una base técnica con alcance definido bajo una propuesta separada. Team coordina la implementación y evolución; el arranque es opcional y no activa Team automáticamente."
+        "No. Concluya el prototipo dentro de BeeverForge y elija si quiere pedir ayuda a nuestros especialistas. Si la pide, el equipo analiza los requisitos, diseña la arquitectura y prepara una base técnica con alcance definido bajo una propuesta separada. Team automatiza el trabajo de implementación preparado con agentes de IA y organiza la evolución con el Product Owner virtual; el arranque es opcional y no activa Team automáticamente."
       ]
     ],
     "finalEyebrow": "Empiece por la idea. Apunte a producción.",
@@ -674,7 +666,7 @@ export const copy = {
     "save": "Guardar preferencias",
     "cancel": "Cancelar",
     "pricingHero": "Un plan claro.<br> <em>Para su próximo paso.</em>",
-    "pricingLead": "Explore la idea con Prototype. Coordine la entrega con Team. Añada ayuda especializada cuando la necesite.",
+    "pricingLead": "Prototype: usted y la IA. Team: la fábrica automatizada para implementar y evolucionar. Prepare la arquitectura con su equipo o elija nuestra ayuda experta opcional.",
     "missionEyebrow": "Pensada para lo que viene después de la demostración",
     "missionTitle": "El prototipo inicia.<br> La producción es el destino.",
     "missionLead": "Una pantalla convincente es un hito importante. Un producto en funcionamiento también necesita reglas reales de negocio, decisiones de ingeniería y una forma de publicar y evolucionar. BeeverForge conecta ese trabajo.",
@@ -711,8 +703,6 @@ export const copy = {
     ],
     "freedomNote": "La disponibilidad de proveedores y modelos depende de la instalación configurada. La prueba alojada utiliza actualmente Anthropic. Los endpoints privados y modelos on-premises requieren APIs compatibles, hardware adecuado y validación.",
     "freedomLink": "Cómo funcionan la elección de modelos y el control",
-    "assistedQuote": "Después de Prototype, continúe con Team",
-    "assistedQuoteText": "Team da continuidad a la implementación y evolución en la misma plataforma. Si elige el arranque asistido, el alcance, los entregables y las condiciones comerciales se acuerdan en una propuesta aparte.",
     "blog": "Blog",
     "blogEyebrow": "Del prototipo al producto",
     "blogTitle": "Decisiones que llevan<br> el software a producción.",
@@ -724,7 +714,26 @@ export const copy = {
     "blogPublished": "Publicado",
     "blogBack": "Todos los artículos",
     "blogRelated": "Siga leyendo",
-    "blogCta": "Hablar del camino hasta producción"
+    "blogCta": "Hablar del camino hasta producción",
+    "automationRoles": [
+      [
+        "Prototype",
+        "Usted + IA",
+        "Describa, explore y refine la idea mediante conversación. Concluya el prototipo y los requisitos dentro de BeeverForge."
+      ],
+      [
+        "Arquitectura y base técnica",
+        "BeeverForge o su equipo",
+        "Su equipo puede preparar la solución para ejecutar. Si elige el arranque asistido opcional, BeeverForge analiza los requisitos, diseña la arquitectura y prepara la base acordada bajo propuesta."
+      ],
+      [
+        "Automatización BeeverForge",
+        "Team · Ejecución y evolución",
+        "Los agentes de IA implementan el trabajo preparado. La fábrica ejecuta las verificaciones configuradas y una revisión independiente por agentes. El Product Owner virtual organiza el trabajo y los siguientes cambios."
+      ]
+    ],
+    "automationApproval": "Los agentes de IA ejecutan. Su equipo define prioridades y aprueba la producción.",
+    "automationCta": "Conocer la automatización de Team"
   }
 };
 for (const [locale, texts] of Object.entries(copy)) {
