@@ -1,3 +1,13 @@
+# Clarify automation and delivery roles — 2026-10-31
+
+The journey now explicitly distinguishes three roles: Prototype is the customer working with AI; architecture and the technical foundation are prepared by the customer’s team or BeeverForge’s optional assisted start; Team provides BeeverForge automation, with AI agents implementing prepared work, running configured checks and obtaining independent review, while the virtual Product Owner organizes work and evolution. A person approves production. This describes automated software delivery, not unlimited managed hosting or incident-response services.
+
+The assisted-start block is a shared three-stage role diagram on home and pricing, with clear automation and optional architecture-help contact paths. Hero copy, plan descriptions/features, process steps, FAQ, trial and the production guide use the same distinction. Dark default, subscription prices, service pricing by proposal, contact/trial contracts and billing availability are preserved.
+
+Validation: generated-site check passed for 48 sitemap pages and 2,073 local links/assets. Thirty-six browser cases covered home, pricing, trial and the production guide in three languages at 320, 390 and 1280 px: one H1, no page overflow, dark theme and no assisted-start amount. Home/pricing also verified three role stages and an explicit automation heading. Both contact links selected their intended topics without submitting a form. Evidence is in `review/automation/`.
+
+---
+
 # Production-focused commercial update — 2026-10-31
 
 Home now leads with the journey from prototype to production. It distinguishes validating a demo from preparing and delivering the working application, and adds a dedicated section for provider/model choice, customer-owned AI credentials, direct usage billing and customer-controlled execution infrastructure. The default remains dark. Provider choices are qualified by deployment; the hosted trial remains Anthropic-only. The inspected core reference is `ef33e7e4a59fa60e1fd6c8f906e0c0fa6e9bb0ee`; its adapter configuration supports provider/model selection and compatible endpoints. No additional backend support or end-to-end validation is claimed by this website change.
