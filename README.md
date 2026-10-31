@@ -28,7 +28,7 @@ Home and `/pricing/` (including `/es/` and `/pt/`) show **Prototype at €19/mon
 
 Online paid checkout is not open yet. All marketing pages and the trial page say this, using the availability sentence in `scripts/marketing-copy.mjs`. Team and assisted-start links go to the existing contact form, with the appropriate topic selected. The engineering core remains independently available under Apache-2.0, linked under Resources and in the footer. Specific deployment requirements can be discussed through the contact form; the website does not promise an additional plan or SLA.
 
-The supplied 2m33s English walkthrough is served from `assets/beeverforge-overview.mp4`, with native video controls, `playsinline`, no autoplay and `preload="none"`. Its poster loads first, and a localized text summary is available alongside it. No external video player or font service is loaded. A light theme is the default; a visitor’s saved dark theme continues to work.
+The supplied 2m33s English walkthrough is served from `assets/beeverforge-overview.mp4`, with native video controls, `playsinline`, no autoplay and `preload="none"`. Its poster loads first, and a localized text summary is available alongside it. No external video player or font service is loaded. Dark is the default throughout the site, including when preference storage is unavailable. Light mode is used only when the visitor explicitly selects it; that choice is remembered.
 
 Run `node scripts/build.mjs` and `node scripts/check-site.mjs` before publishing. The latter verifies generated sitemap pages, local destinations and fragment links, SEO metadata, shared offers and on-demand video. GitHub Pages runs both checks before deployment.
 
