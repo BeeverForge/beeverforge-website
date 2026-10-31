@@ -26,7 +26,9 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Build static pages
-        run: node scripts/build.mjs
+        run: |
+          node scripts/build.mjs
+          node scripts/check-site.mjs
       - name: Prepare public files
         run: |
           mkdir -p _site

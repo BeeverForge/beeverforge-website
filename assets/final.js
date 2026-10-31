@@ -95,12 +95,13 @@ consentOpen?.addEventListener('click', () => showConsentPanel(true));
 try {
   if (sessionStorage.getItem('beeverforge-lead-submitted') === '1') {
     sessionStorage.removeItem('beeverforge-lead-submitted');
-    if (readAnalyticsConsent() === 'accepted') window.gtag?.('event', 'generate_lead', { form_name: 'Enterprise inquiry' });
+    if (readAnalyticsConsent() === 'accepted') window.gtag?.('event', 'generate_lead', { form_name: 'Project inquiry' });
   }
 } catch {}
 if (menuButton && menu) {
   const close = () => {
     menu.classList.remove('open');
+    menu.querySelectorAll('details[open]').forEach((details) => { details.open = false; });
     menuButton.setAttribute('aria-expanded', 'false');
     menuButton.setAttribute('aria-label', words.open);
   };

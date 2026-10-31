@@ -1,3 +1,17 @@
+# Subscription-led redesign — 2026-10-31
+
+This release replaces the earlier edition-led marketing model below. The owner reconfirmed Prototype (€19/month), Team (€299/month), and an optional assisted start (from €1,490) in this chat. Home and pricing use one catalog and one set of localized copy. Business/Enterprise no longer appear as competing marketing plans. Open-source code and technical architecture remain accessible under Resources.
+
+Home explains three steps: describe an idea, agree on requirements, then build and evolve with Team. The supplied English video is embedded with native controls and an initial poster; its 11 MB file is fetched on demand. Text summaries are localized. The existing trial waitlist, Turnstile integration, contact endpoint, legal text, authentication destination and analytics consent behavior are preserved. Paid checkout remains closed; the site offers trial requests and contact paths.
+
+Technical SEO retains canonical URLs, EN/ES/pt-BR/x-default alternates and sitemap coverage. Home and pricing add Organization/SoftwareApplication structured data with matching offers; home adds VideoObject metadata. Existing technical articles and legal documents keep their routes and indexing rules. All pages share the simplified header/footer and support saved light/dark themes.
+
+Validation: generated-site check verifies 39 sitemap pages and 1,629 local links/assets. Browser checks covered home and pricing in three languages at 320, 390, 768 and 1280 px, with one H1 and no page-level horizontal overflow or broken images in all 24 cases. Native video playback reached readyState 4 and advanced with the expected 153.17-second duration. Mobile navigation closes with Escape, assisted-start links preserve the inquiry topic across pages, and cookie settings retain a rejected analytics choice. Screenshots live in `review/redesign/`. The existing inquiry handler also passed simulated-HTTP checks for invalid input, failed response and the localized success redirect. Trial, documentation and legal landing pages in all three languages were checked at 320 px without horizontal overflow. No live inquiry or trial request was submitted, and no payment flow was enabled. These checks do not constitute a Lighthouse score or a full accessibility audit.
+
+---
+
+The notes below describe prior releases and their historical decisions.
+
 # Multilingual site and theme release
 
 ## Product claims
