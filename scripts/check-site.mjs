@@ -1,6 +1,7 @@
 import { readFile, access, stat } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { copy, plans } from './marketing-copy.mjs';
+import { blogRoutes } from './blog.mjs';
 
 // Verify the generated public experience, including every local destination and
 // fragment reachable from the home, pricing, trial, legal and documentation pages.
@@ -50,6 +51,19 @@ for (const [locale, t] of Object.entries(copy)) {
       assert(html.includes('preload="none"'), `${locale}: no initial video download`);
       assert(!html.includes('autoplay'), `${locale}: no autoplay`);
       assert(schemas.some((s) => s['@type'] === 'VideoObject'));
+    }
+  }
+  for (const sub of ['', 'pricing/', 'try/', 'legal/next/terms/', ...blogRoutes]) {
+    const html = await load(`${t.path.slice(1)}${sub}index.html`);
+    assert(!/1[.,\s]?490/.test(html), `${locale} ${sub}: assisted-start price must not be public`);
+    if (sub.startsWith('blog/')) {
+      const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+      assert(schemas.some((s) => s['@type'] === (sub === 'blog/' ? 'Blog' : 'BlogPosting')), `${locale} ${sub}: editorial schema`);
+      assert(!schemas.some((s) => s['@type'] === 'SoftwareApplication'), `${locale} ${sub}: article is not an application`);
+      if (sub !== 'blog/') {
+        assert(html.includes('class="m-article-sources"'), `${locale} ${sub}: cited sources`);
+        assert(html.includes('property="og:type" content="article"'), `${locale} ${sub}: article metadata`);
+      }
     }
   }
 }

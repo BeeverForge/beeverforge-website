@@ -71,7 +71,7 @@ La cuenta de la empresa es una sola cuenta; quien la administra invita a los col
 
 ## 8. El arranque asistido
 
-- **Qué es.** Un pedido puntual en el que el equipo de BeeverForge lleva más lejos uno de los prototipos de la empresa. Su **paquete base cuesta 1.490 €**, + IVA cuando proceda. Está vinculado a un prototipo y a la empresa que lo pide. **[Product owner: qué cubre el paquete base en general y cualquier límite (tiempo, pantallas, entornos); este borrador no nombra ninguno y lo deja a cada alcance.]**
+- **Qué es.** Un pedido puntual en el que el equipo de BeeverForge lleva más lejos uno de los prototipos de la empresa. Su **alcance y precio se definen en una propuesta** que la empresa acepta antes de empezar el trabajo. Está vinculado a un prototipo y a la empresa que lo pide. **[Product owner: qué cubre el paquete base en general y cualquier límite (tiempo, pantallas, entornos); este borrador no nombra ninguno y lo deja a cada alcance.]**
 - **Pedirlo.** La empresa lo pide desde su prototipo, en el Prototype Builder. Pedirlo no crea ninguna obligación para ninguna de las partes.
 - **El alcance.** El equipo de BeeverForge revisa el prototipo y sus requisitos y redacta un alcance: lo que entrega el paquete base para ese prototipo, lo que no entrega y lo que supone. Cada alcance tiene una versión. BeeverForge puede rechazar una solicitud que no pueda delimitar.
 - **Aceptar el alcance.** La empresa acepta una versión del alcance, a través de una persona autorizada a actuar en su nombre, en su cuenta. Solo cuenta la aceptación de una persona: ningún mensaje automático, ningún aviso de pago y tampoco el PO virtual pueden aceptar un alcance en nombre de la empresa. No se debe nada antes de aceptar un alcance.

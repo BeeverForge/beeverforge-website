@@ -1,0 +1,650 @@
+[
+  {
+    "h1": 1,
+    "path": "/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/pricing/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/blog/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/blog/from-ai-prototype-to-production/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/blog/model-agnostic-ai-software-factory/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/try/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/pt/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/pt/pricing/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/pt/blog/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/pt/blog/from-ai-prototype-to-production/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/pt/blog/model-agnostic-ai-software-factory/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/pt/try/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/es/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/es/pricing/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/es/blog/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/es/blog/from-ai-prototype-to-production/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/es/blog/model-agnostic-ai-software-factory/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/es/try/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 320,
+    "theme": "dark",
+    "width": 320
+  },
+  {
+    "h1": 1,
+    "path": "/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/pricing/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/blog/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/blog/from-ai-prototype-to-production/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/blog/model-agnostic-ai-software-factory/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/try/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/pt/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/pt/pricing/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/pt/blog/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/pt/blog/from-ai-prototype-to-production/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/pt/blog/model-agnostic-ai-software-factory/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/pt/try/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/es/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/es/pricing/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/es/blog/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/es/blog/from-ai-prototype-to-production/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/es/blog/model-agnostic-ai-software-factory/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/es/try/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 390,
+    "theme": "dark",
+    "width": 390
+  },
+  {
+    "h1": 1,
+    "path": "/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/pricing/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/blog/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/blog/from-ai-prototype-to-production/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/blog/model-agnostic-ai-software-factory/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/try/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/pt/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/pt/pricing/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/pt/blog/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/pt/blog/from-ai-prototype-to-production/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/pt/blog/model-agnostic-ai-software-factory/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/pt/try/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/es/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/es/pricing/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/es/blog/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/es/blog/from-ai-prototype-to-production/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/es/blog/model-agnostic-ai-software-factory/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/es/try/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1024,
+    "theme": "dark",
+    "width": 1024
+  },
+  {
+    "h1": 1,
+    "path": "/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/pricing/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/blog/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/blog/from-ai-prototype-to-production/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/blog/model-agnostic-ai-software-factory/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/try/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/pt/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/pt/pricing/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/pt/blog/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/pt/blog/from-ai-prototype-to-production/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/pt/blog/model-agnostic-ai-software-factory/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/pt/try/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/es/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/es/pricing/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/es/blog/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/es/blog/from-ai-prototype-to-production/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/es/blog/model-agnostic-ai-software-factory/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  },
+  {
+    "h1": 1,
+    "path": "/es/try/",
+    "platformJourney": true,
+    "priceExposed": false,
+    "scroll": 1280,
+    "theme": "dark",
+    "width": 1280
+  }
+]
