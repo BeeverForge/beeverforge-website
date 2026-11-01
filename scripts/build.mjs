@@ -434,7 +434,7 @@ for (const [locale, l] of Object.entries(locales)) {
     await writeFile(`${directory}${sub}index.html`, marketingPage(locale, sub));
   }
   await writeFile(`${directory}blog/feed.xml`, blogFeed(locale));
-  await writeFile(`${root}assets/journal-evidence-${locale}.svg`, journalArt(locale));
+  await writeFile(`${root}assets/journal-audit-${locale}.svg`, journalArt(locale));
   // Retire the old articles in every language. GitHub Pages has no native 301
   // config: keep a noindex redirect and a visible link, without the old content.
   for (const slug of retiredBlogSlugs) {
