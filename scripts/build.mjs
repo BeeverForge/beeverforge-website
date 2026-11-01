@@ -4,7 +4,9 @@ import { fileURLToPath } from 'node:url';
 import { buildArchitecture, urlOf } from './architecture.mjs';
 import { marketingPage, themeScript } from './marketing.mjs';
 import { copy as marketingCopy } from './marketing-copy.mjs';
-import { blogRoutes } from './blog.mjs';
+import { blogRoutes, blogFeed } from './blog.mjs';
+import { retiredBlogSlugs } from './blog-content.mjs';
+import { journalArt } from './journal-art.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const trySource = await readFile(`${root}final-preview/try.html`, 'utf8');
@@ -430,6 +432,15 @@ for (const [locale, l] of Object.entries(locales)) {
   for (const sub of blogRoutes) {
     await mkdir(`${directory}${sub}`, { recursive: true });
     await writeFile(`${directory}${sub}index.html`, marketingPage(locale, sub));
+  }
+  await writeFile(`${directory}blog/feed.xml`, blogFeed(locale));
+  await writeFile(`${root}assets/journal-${locale}.svg`, journalArt(locale));
+  // Retire the old articles in every language. GitHub Pages has no native 301
+  // config: keep a noindex redirect and a visible link, without the old content.
+  for (const slug of retiredBlogSlugs) {
+    const target = `${l.path}blog/`;
+    await mkdir(`${directory}blog/${slug}/`, { recursive: true });
+    await writeFile(`${directory}blog/${slug}/index.html`, `<!doctype html><html lang="${l.lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="https://beeverforge.com${target}"><title>BeeverForge Journal</title><script>location.replace('${target}')</script></head><body><main><h1>BeeverForge Journal</h1><a href="${target}">BeeverForge Journal ↗</a></main></body></html>`);
   }
   const documents = {};
   for (const name of legalPages) documents[name] = await legalDocument(locale, name);

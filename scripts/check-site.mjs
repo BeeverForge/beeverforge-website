@@ -2,6 +2,7 @@ import { readFile, access, stat } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { copy, plans } from './marketing-copy.mjs';
 import { blogRoutes } from './blog.mjs';
+import { articles, retiredBlogSlugs } from './blog-content.mjs';
 
 // Verify the generated public experience, including every local destination and
 // fragment reachable from the home, pricing, trial, legal and documentation pages.
@@ -38,6 +39,15 @@ for (const path of paths) {
   }
 }
 for (const [locale, t] of Object.entries(copy)) {
+  const feed = await load(`${t.path.slice(1)}blog/feed.xml`);
+  assert.equal((feed.match(/<item>/g) || []).length, articles.length, `${locale}: RSS contains current articles`);
+  for (const oldSlug of retiredBlogSlugs) {
+    const oldPath = `${t.path.slice(1)}blog/${oldSlug}/`;
+    const retired = await load(`${oldPath}index.html`);
+    assert(retired.includes('content="noindex,follow"'), `${oldPath}: retired article is not indexed`);
+    assert(retired.includes(`content="0;url=${t.path}blog/"`), `${oldPath}: retired article has a destination`);
+    assert(!paths.includes(oldPath) && !feed.includes(oldSlug), `${oldPath}: absent from sitemap and feed`);
+  }
   for (const sub of ['', 'pricing/']) {
     const html = await load(`${t.path.slice(1)}${sub}index.html`);
     assert(!/\b(Business|Enterprise|Community)\b/.test(html), `${locale} ${sub}: legacy editions must not compete with subscriptions`);
@@ -61,8 +71,11 @@ for (const [locale, t] of Object.entries(copy)) {
       assert(schemas.some((s) => s['@type'] === (sub === 'blog/' ? 'Blog' : 'BlogPosting')), `${locale} ${sub}: editorial schema`);
       assert(!schemas.some((s) => s['@type'] === 'SoftwareApplication'), `${locale} ${sub}: article is not an application`);
       if (sub !== 'blog/') {
-        assert(html.includes('class="m-article-sources"'), `${locale} ${sub}: cited sources`);
+        assert(html.includes('id="sources"'), `${locale} ${sub}: cited sources`);
         assert(html.includes('property="og:type" content="article"'), `${locale} ${sub}: article metadata`);
+        const post = schemas.find((s) => s['@type'] === 'BlogPosting');
+        await access(new URL(post.image.replace('https://beeverforge.com/', ''), root));
+        assert(post.citation.length >= 6, `${locale} ${sub}: primary references retained`);
       }
     }
   }
