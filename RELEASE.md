@@ -1,3 +1,13 @@
+# Focus the editorial on production delivery — 2026-11-01
+
+Removed the monetization survey, percentages, chart and artwork from the article, index, home teaser, RSS and social metadata in all three languages. The editorial now concerns the engineering transition from prototype to an operating product. A qualitative readiness checklist replaces the monetization chart. New original production-themed SVG and social PNG assets use new URLs to avoid serving the previous artwork from cache.
+
+Primary research: CHI 2026 and DORA describe barriers to deployment, verification and long-term maintenance in their study populations. They do not establish a population conversion rate. A credible primary source for “less than 1% reach production” was not found, and that number is not published. Lovable’s documented production/security/portability capabilities are recognized, alongside ClickHouse’s technical case. NIST provides secure-development context. The BeeverForge commitment concerns technical delivery within agreed scope and acceptance criteria, not revenue or a fabricated comparative success rate.
+
+The article URL and the editorial layout are preserved. The six primary references and new artwork are localized. Build/site checks and responsive review are required before publication.
+
+---
+
 # Editorial journal and first researched article — 2026-11-01
 
 Rebuilt the blog as BeeverForge Journal: featured original artwork, a searchable archive, editorial typography, author/date/read-time metadata, responsive contents navigation, reading progress, copy/LinkedIn sharing, annotated primary sources and localized RSS. One new post replaces the two prior guides in all three languages. Old addresses are noindex redirects to the journal; no old article body remains.
