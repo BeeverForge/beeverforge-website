@@ -1,3 +1,15 @@
+# Security-audit editorial, Enterprise and hero simplification — 2026-11-01
+
+The first article now opens with the approved finding that 182 of 200 audited deployed applications had vulnerabilities (91%, Deng/Fan/Meng preprint v4). The title, lead, sample attribution and new audit-themed SVG/PNG covers are localized. A six-platform single-case comparison from October 2025 and SlopCodeBench v2 broaden the evidence; dates, strict evaluation criteria and scope limits are explicit. Ten annotated references distinguish the reported findings from BeeverForge's product positioning. There is no global failure/conversion rate or revenue promise.
+
+Enterprise appears on home and pricing alongside Prototype and Team: quoted price, entire platform self-hosted in customer infrastructure, RBAC, corporate SSO, deployment and BeeverForge support under an agreed proposal. The shared catalog, pricing metadata, FAQs, delivery roles and contact-topic selection are consistent. The quoted offer has no numeric price or free-price representation. Prototype remains €19/month/company, Team €299/month/company; assisted-start pricing remains private.
+
+Removed the redundant “See how it works” hero link in all languages. Native video controls and the existing video remain available.
+
+Validation: build and site check passed, covering 45 sitemap pages and 2,076 local references. Sixty browser cases reviewed home, pricing, journal and article across three languages at 320, 390, 900, 1024 and 1280 pixels: one H1, no overflow, no broken loaded images or missing internal anchors, three plan cards on home/pricing and ten article source notes. Enterprise contact selection was checked without submitting the form. All localized RSS feeds parse. Review evidence is in review/audit-enterprise/. App work is outside this website publication.
+
+---
+
 # Focus the editorial on production delivery — 2026-11-01
 
 Removed the monetization survey, percentages, chart and artwork from the article, index, home teaser, RSS and social metadata in all three languages. The editorial now concerns the engineering transition from prototype to an operating product. A qualitative readiness checklist replaces the monetization chart. New original production-themed SVG and social PNG assets use new URLs to avoid serving the previous artwork from cache.

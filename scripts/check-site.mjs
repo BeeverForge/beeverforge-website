@@ -50,16 +50,20 @@ for (const [locale, t] of Object.entries(copy)) {
   }
   for (const sub of ['', 'pricing/']) {
     const html = await load(`${t.path.slice(1)}${sub}index.html`);
-    assert(!/\b(Business|Enterprise|Community)\b/.test(html), `${locale} ${sub}: legacy editions must not compete with subscriptions`);
+    assert(!/\b(Business|Community)\b/.test(html), `${locale} ${sub}: retired editions must not compete with the current plans`);
     assert(html.includes(`<html lang="${t.lang}">`), `${locale}: language`);
     const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
     const app = schemas.find((s) => s['@type'] === 'SoftwareApplication');
-    assert.deepEqual(app.offers.map((o) => o.price), plans.map((p) => p.price));
-    assert.equal((html.match(/class="m-plan(?: m-plan-team)?"/g) || []).length, 2);
-    for (const id of ['prototype', 'team']) assert(app.offers.some((o) => o.name.toLowerCase().endsWith(id)));
+    assert.deepEqual(app.offers.filter(o => 'price' in o).map(o => o.price), plans.filter(p => p.price !== null).map(p => p.price));
+    assert.equal((html.match(/class="m-plan(?: m-plan-[^"]+)?"/g) || []).length, plans.length);
+    for (const id of ['prototype', 'team', 'enterprise']) assert(app.offers.some((o) => o.name.toLowerCase().endsWith(id)));
+    const enterprise = app.offers.find(o => o.name.endsWith('Enterprise'));
+    assert(!('price' in enterprise) && !('priceSpecification' in enterprise), `${locale}: quoted Enterprise must never appear free`);
+    assert(html.includes('id="enterprise"') && html.includes('RBAC') && html.includes('SSO'), `${locale}: customer-hosted Enterprise is visible`);
     if (!sub) {
       assert(html.includes('preload="none"'), `${locale}: no initial video download`);
       assert(!html.includes('autoplay'), `${locale}: no autoplay`);
+      assert(!html.includes('class="m-watch"'), `${locale}: no redundant video jump beside the video`);
       assert(schemas.some((s) => s['@type'] === 'VideoObject'));
     }
   }

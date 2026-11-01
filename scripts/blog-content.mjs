@@ -1,4 +1,4 @@
-// External evidence is scoped to its sample; delivery is the editorial focus.
+// Scoped external audits support the production-delivery argument.
 export const retiredBlogSlugs = ["from-ai-prototype-to-production","model-agnostic-ai-software-factory"];
 export const articles = [
   {
@@ -36,17 +36,25 @@ export const articles = [
       [
         "Lovable · Security overview",
         "https://docs.lovable.dev/features/security"
+      ],
+      [
+        "Aqua Voice · Vibe Coding Showdown · 30 Oct 2025",
+        "https://aquavoice.com/blog/vibe-coding-showdown-2025-base44-vs-replit-vs-bolt-vs-loveable-vs-rork-vs-v0"
+      ],
+      [
+        "SlopCodeBench · preprint v2 · 7 May 2026",
+        "https://arxiv.org/html/2603.24755v2"
       ]
     ],
     "pt": {
       "category": "Investigação e produto",
-      "seoTitle": "9.041 projetos com IA: o salto até à produção | BeeverForge",
-      "title": "9.041 projetos com IA. Apenas 11,14% com publicação verificável.",
-      "summary": "Um estudo externo encontrou links de publicação em 1.007 de 9.041 projetos públicos associados à Lovable e ao Claude Code. O que isso revela — e o que exige chegar à operação.",
-      "lead": "Num estudo com repositórios públicos associados à Lovable e ao Claude Code, 1.007 de 9.041 projetos tinham um endereço de publicação validado e acessível. Para quem quer pôr uma ideia a funcionar, o percurso até à operação precisa fazer parte do produto.",
-      "coverAlt": "11,14% com publicação verificável: 1.007 de 9.041 projetos públicos associados à Lovable e ao Claude Code, num estudo externo em preprint.",
-      "coverLabel": "O salto até à operação",
-      "coverScope": "Fonte: Deng, Fan e Meng, preprint v4, secção 4. Amostra de repositórios públicos no GitHub; não é uma taxa global de produção da Lovable.",
+      "seoTitle": "Apps com IA: 91% com vulnerabilidades na auditoria | BeeverForge",
+      "title": "91% das aplicações auditadas tinham vulnerabilidades. O desafio continua depois de publicar.",
+      "summary": "Uma auditoria de 200 aplicações publicadas encontrou vulnerabilidades em 182. O que comparativos de ferramentas com IA revelam sobre o caminho até à operação.",
+      "lead": "Uma investigação preliminar auditou 200 aplicações publicadas associadas à Lovable e ao Claude Code e identificou vulnerabilidades em 182. Arquitetura, verificações e evolução precisam acompanhar a ideia até à operação.",
+      "coverAlt": "91% das aplicações auditadas tinham vulnerabilidades: 182 de 200 aplicações publicadas associadas à Lovable e ao Claude Code, num estudo preliminar.",
+      "coverLabel": "Depois de publicar",
+      "coverScope": "Fonte: Deng, Fan e Meng, preprint v4, secção 5. Amostra de 200 aplicações publicadas com repositórios públicos no GitHub; não é uma taxa global de insucesso.",
       "takeaway": "A BeeverForge existe para levar a ideia validada até ao produto em operação, com arquitetura, implementação automatizada e critérios de entrega acordados.",
       "journey": [
         [
@@ -66,23 +74,25 @@ export const articles = [
         ]
       ],
       "sourceNotes": [
-        "Preprint v4 de 14/09/2026, não apresentado aqui como artigo revisto por pares. Secção 4: 1.007/9.041 projetos com links acessíveis; secção 5: 182/200 aplicações auditadas com vulnerabilidades. Amostra GitHub, predominantemente criada por IA, sem cobertura de projetos privados nem taxa de conversão global.",
+        "Preprint v4 de 14/09/2026. Secção 5: 182 das 200 aplicações publicadas auditadas tinham vulnerabilidades. Amostra com repositórios públicos no GitHub e autoria predominante por IA, associada a Lovable e Claude Code; não é uma taxa global de insucesso nem pesquisa apresentada como revista por pares.",
         "Benchmark de fornecedor de segurança: 18 modelos, quatro linguagens e quatro categorias de vulnerabilidade, sem orientação específica de segurança. Cerca de 38% de tarefas com código vulnerável; não mede aplicações completas nem a Lovable.",
         "Estudo misto: 85 respostas, 31 entrevistas em hackathon e oito com profissionais. Discute barreiras depois do protótipo; não estima a proporção de projetos que chega à produção.",
         "Análise de 1.110 respostas abertas de engenheiros do Google. Contextualiza verificação e integração; não mede conversão de projetos da Lovable.",
         "Referência de práticas para o desenvolvimento seguro ao longo do ciclo de vida; não é uma certificação da BeeverForge.",
         "Índice comercial externo e dinâmico de domínios próprios encontrados. Cobertura parcial, sem projetos apenas em lovable.app; não permite calcular uma taxa global de produção.",
         "Documentação da plataforma, usada exclusivamente para confirmar funcionalidades de hospedagem, exportação e portabilidade.",
-        "Documentação da plataforma, usada exclusivamente para confirmar verificações de segurança disponíveis."
+        "Documentação da plataforma, usada exclusivamente para confirmar verificações de segurança disponíveis.",
+        "Comparativo prático externo, com um caso testado em 27/10/2025 em seis plataformas. Resultado lido da tabela de seis funcionalidades. Não é um estudo populacional nem uma avaliação das versões atuais.",
+        "Preprint v2 de 07/05/2026: 15 agentes, 36 problemas e 196 checkpoints. O resultado integral exige passar todos os testes em todas as etapas. Não mede a taxa de passagem a produção de plataformas comerciais."
       ],
       "sections": [
         {
           "id": "evidence",
-          "heading": "O número tem fonte. E tem um recorte.",
+          "heading": "182 aplicações com vulnerabilidades, numa amostra de 200.",
           "paragraphs": [
-            "O <a href=\"#source-1\">estudo de Deng, Fan e Meng<sup>[1]</sup></a> selecionou projetos públicos no GitHub predominantemente criados por IA. Encontrou publicação verificável em <strong>1.007 de 9.041: 11,14%</strong>. Os projetos foram associados à Lovable e ao Claude Code por sinais nos repositórios. É um preprint, na versão de setembro de 2026.",
-            "Não encontrar um link público não prova abandono: pode haver uma instalação privada, um endereço não identificado ou trabalho em curso. A amostra também não representa todos os projetos dessas ferramentas. O dado mede publicação observável no conjunto estudado, sem demonstrar quantos projetos falharam.",
-            "A pergunta para quem escolhe uma plataforma continua de pé: depois de validar a ideia, que caminho existe para a pôr em operação?"
+            "O <a href=\"#source-1\">estudo de Deng, Fan e Meng<sup>[1]</sup></a> auditou aplicações publicadas associadas à Lovable e ao Claude Code. Em <strong>182 das 200 aplicações avaliadas — 91% —</strong>, os investigadores identificaram pelo menos uma vulnerabilidade. O trabalho está disponível como preprint, na versão de setembro de 2026.",
+            "A amostra foi selecionada entre aplicações com publicação acessível e repositórios públicos no GitHub, predominantemente criadas por IA. O resultado descreve a segurança das aplicações auditadas. Não mede abandono nem permite concluir que 91% de todos os produtos dessas ferramentas fracassa.",
+            "Para quem quer transformar uma ideia num produto em operação, o achado coloca uma pergunta concreta: que trabalho continua depois de a aplicação já estar online?"
           ]
         },
         {
@@ -98,9 +108,18 @@ export const articles = [
           "id": "verification",
           "heading": "Mesmo entre as aplicações publicadas, o trabalho continua.",
           "paragraphs": [
-            "Numa auditoria de 200 aplicações publicadas, o mesmo <a href=\"#source-1\">preprint<sup>[1]</sup></a> identificou vulnerabilidades em <strong>182: 91%</strong>. Esse resultado pertence à amostra auditada; não mede a taxa de falha de toda a Lovable. Mostra por que a simples presença online é um critério de entrega insuficiente.",
+            "Uma aplicação pode permitir uma reserva e, ao mesmo tempo, ter permissões mal definidas. Confirmar a experiência prevista é uma parte da entrega; testar as fronteiras de acesso e as respostas a falhas exige verificações próprias.",
             "Há outra evidência, obtida por um método diferente: a <a href=\"#source-2\">atualização de outono de 2026 da Veracode<sup>[2]</sup></a> encontrou código com vulnerabilidades conhecidas em cerca de <strong>38% das tarefas avaliadas</strong>. O benchmark cobriu 18 modelos, quatro linguagens e quatro categorias de falhas. Houve melhoria face à medição anterior. Ainda assim, o resultado sustenta a necessidade de verificação; não autoriza atribuir esses 38% a aplicações da Lovable.",
             "O problema também aparece na passagem do protótipo à manutenção, discutida na <a href=\"#source-3\">investigação da CHI 2026<sup>[3]</sup></a>, e no trabalho de verificação e integração descrito pela <a href=\"#source-4\">DORA<sup>[4]</sup></a>. A nossa leitura editorial: a velocidade de gerar código só se traduz em entrega quando o trabalho seguinte também tem um processo."
+          ]
+        },
+        {
+          "id": "comparison",
+          "heading": "Outras ferramentas, o mesmo desafio de concluir e evoluir.",
+          "paragraphs": [
+            "Num <a href=\"#source-9\">comparativo prático da Aqua Voice<sup>[9]</sup></a>, realizado em outubro de 2025, Base44, Replit, Bolt, Lovable, v0 e Rork receberam um caso de aplicação. Pela tabela publicada, <strong>apenas uma das seis ferramentas obteve aprovação nas seis funcionalidades avaliadas</strong>: autenticação, publicações, imagens, comentários, likes e base de dados. É um teste de um único caso e das versões da época, não uma taxa de fracasso do mercado.",
+            "A continuidade foi o foco do <a href=\"#source-10\">SlopCodeBench, preprint v2<sup>[10]</sup></a>: 15 agentes de programação foram avaliados em 36 problemas com requisitos que evoluíam por etapas. <strong>Nenhuma execução passou todos os testes de todas as etapas de um problema, de ponta a ponta.</strong> É um benchmark controlado de evolução de código, com critérios estritos; não uma medição das plataformas Lovable ou Bolt em produção.",
+            "São recortes diferentes, com uma questão em comum para o comprador: como a solução executa as partes que faltam, trata regressões e continua a evoluir quando os requisitos mudam? Essa pergunta deve entrar na escolha da plataforma desde o início."
           ]
         },
         {
@@ -139,7 +158,8 @@ export const articles = [
           "paragraphs": [
             "OpenAI, Anthropic, Moonshot AI/Kimi e outros fornecedores compatíveis podem integrar a solução, conforme a configuração e a validação do ambiente. Modelos locais, endpoints privados e instalações on-premises exigem interfaces compatíveis e os recursos adequados.",
             "O cliente controla as suas chaves de API e a infraestrutura de execução; o consumo de IA e os recursos são pagos separadamente. O trial alojado tem configuração própria. Essa liberdade permite escolher e rever os fornecedores conforme o produto evolui.",
-            "A automação deve continuar a fazer o produto avançar quando as suas escolhas mudam. É essa continuidade que uma fábrica de software precisa oferecer."
+            "A automação deve continuar a fazer o produto avançar quando as suas escolhas mudam. É essa continuidade que uma fábrica de software precisa oferecer.",
+            "Para empresas que precisam de toda a plataforma na sua infraestrutura, o <a href=\"/pt/pricing/#enterprise\">Enterprise</a> é contratado sob consulta, com instalação self-hosted, RBAC, SSO e suporte BeeverForge. A implantação, a capacidade e as condições de suporte são definidas por proposta."
           ]
         },
         {
@@ -178,13 +198,13 @@ export const articles = [
     },
     "en": {
       "category": "Research and product",
-      "seoTitle": "9,041 AI projects: the path to production | BeeverForge",
-      "title": "9,041 AI projects. Just 11.14% with a verifiable deployment.",
-      "summary": "An external study found deployment links in 1,007 of 9,041 public projects associated with Lovable and Claude Code. What the finding means for the path to operation.",
-      "lead": "In a study of public repositories associated with Lovable and Claude Code, 1,007 of 9,041 projects had a validated, reachable deployment address. For someone building a product, the path to operation needs to be part of the platform.",
-      "coverAlt": "11.14% with a verifiable deployment: 1,007 of 9,041 public projects associated with Lovable and Claude Code, in an external preprint study.",
-      "coverLabel": "The path to operation",
-      "coverScope": "Source: Deng, Fan and Meng, preprint v4, section 4. Public GitHub repository sample; not a platform-wide Lovable production rate.",
+      "seoTitle": "AI apps: 91% had vulnerabilities in an audit | BeeverForge",
+      "title": "91% of audited apps had vulnerabilities. The work continues after publishing.",
+      "summary": "An audit of 200 deployed apps found vulnerabilities in 182. What AI-tool comparisons reveal about the path to an operating product.",
+      "lead": "A preliminary study audited 200 deployed applications associated with Lovable and Claude Code and found vulnerabilities in 182. Architecture, verification and evolution need to accompany an idea all the way into operation.",
+      "coverAlt": "91% of audited apps had vulnerabilities: 182 of 200 deployed applications associated with Lovable and Claude Code, in a preliminary study.",
+      "coverLabel": "After publishing",
+      "coverScope": "Source: Deng, Fan and Meng, preprint v4, section 5. Sample of 200 deployed applications with public GitHub repositories; not a platform-wide failure rate.",
       "takeaway": "BeeverForge exists to take a validated idea to an operating product, with architecture, automated implementation and agreed delivery criteria.",
       "journey": [
         [
@@ -204,23 +224,25 @@ export const articles = [
         ]
       ],
       "sourceNotes": [
-        "Preprint v4, 14 September 2026; not presented as peer-reviewed research. Section 4: 1,007/9,041 projects with reachable deployment links; section 5: 182/200 audited apps with vulnerabilities. Predominantly AI-created GitHub sample; no coverage of private projects or global conversion rate.",
+        "Preprint v4, 14 September 2026. Section 5: 182 of 200 audited deployed apps had vulnerabilities. Predominantly AI-created public GitHub sample associated with Lovable and Claude Code; not a platform-wide failure rate or research presented as peer reviewed.",
         "Security-vendor benchmark: 18 models, four languages and four vulnerability categories, without security-specific guidance. Roughly 38% of tasks produced vulnerable code; not a study of complete apps or Lovable.",
         "Mixed-method study: 85 responses, 31 hackathon interviews and eight practitioner interviews. Examines post-prototype barriers; no population deployment rate.",
         "Analysis of 1,110 open-ended responses from Google engineers about verification and integration, not Lovable project conversion.",
         "Secure development lifecycle practices; not a BeeverForge certification.",
         "External commercial, live index of discovered custom domains. Partial coverage excluding lovable.app-only projects; no platform-wide production rate can be calculated.",
         "Platform documentation used only to confirm hosting, export and portability features.",
-        "Platform documentation used only to confirm available security checks."
+        "Platform documentation used only to confirm available security checks.",
+        "External practical comparison: one scenario tested on 27 October 2025 across six platforms. Finding read from the six-feature table; not a population study or an evaluation of current versions.",
+        "Preprint v2, 7 May 2026: 15 agents, 36 problems and 196 checkpoints. Full success requires passing every test at every stage. Not a production-conversion rate for commercial platforms."
       ],
       "sections": [
         {
           "id": "evidence",
-          "heading": "A sourced number, with a defined scope.",
+          "heading": "182 apps with vulnerabilities in a sample of 200.",
           "paragraphs": [
-            "<a href=\"#source-1\">Deng, Fan and Meng’s study<sup>[1]</sup></a> selected public GitHub projects predominantly created by AI. It found verifiable deployments in <strong>1,007 of 9,041: 11.14%</strong>. Repository markers associated the projects with Lovable and Claude Code. The source is a preprint, in its September 2026 version.",
-            "An absent public link does not prove abandonment: a project may have a private deployment, an unidentified address or ongoing development. The sample also does not represent every project on those tools. The finding measures observable deployment within the studied set, without establishing how many projects failed.",
-            "The question for anyone choosing a platform remains: once the idea is validated, what path gets it into operation?"
+            "<a href=\"#source-1\">Deng, Fan and Meng’s study<sup>[1]</sup></a> audited deployed applications associated with Lovable and Claude Code. Researchers identified at least one vulnerability in <strong>182 of the 200 evaluated apps — 91%</strong>. The work is available as a preprint, in its September 2026 version.",
+            "The sample was selected from applications with reachable deployments and public GitHub repositories, predominantly created by AI. The result describes the audited apps’ security. It does not measure abandonment or establish that 91% of all products from those tools fail.",
+            "For anyone turning an idea into an operating product, the finding raises a concrete question: what work continues after the application is already online?"
           ]
         },
         {
@@ -236,9 +258,18 @@ export const articles = [
           "id": "verification",
           "heading": "The work continues even after publication.",
           "paragraphs": [
-            "In an audit of 200 deployed applications, the same <a href=\"#source-1\">preprint<sup>[1]</sup></a> found vulnerabilities in <strong>182: 91%</strong>. This result belongs to the audited sample; it is not a platform-wide Lovable failure rate. It explains why being online is an insufficient delivery criterion.",
+            "An app can accept a booking while enforcing permissions incorrectly. Checking the intended experience is one part of delivery; testing access boundaries and failure responses requires dedicated verification.",
             "A different method provides another piece of evidence: <a href=\"#source-2\">Veracode’s Fall 2026 update<sup>[2]</sup></a> found known vulnerabilities in code from roughly <strong>38% of evaluated tasks</strong>. Its benchmark covered 18 models, four languages and four vulnerability categories. Results improved over the previous snapshot. They still support the need for verification; they do not attribute a 38% vulnerability rate to Lovable apps.",
             "The transition from prototyping to maintenance is also discussed by <a href=\"#source-3\">CHI 2026 research<sup>[3]</sup></a>, while <a href=\"#source-4\">DORA<sup>[4]</sup></a> examines verification and integration work. Our editorial reading: faster code generation becomes delivery when the work that follows has a process too."
+          ]
+        },
+        {
+          "id": "comparison",
+          "heading": "Other tools face the challenge of completing and evolving software.",
+          "paragraphs": [
+            "In an <a href=\"#source-9\">Aqua Voice practical comparison<sup>[9]</sup></a> conducted in October 2025, Base44, Replit, Bolt, Lovable, v0 and Rork were given one application scenario. In the published table, <strong>only one of the six tools passed all six evaluated features</strong>: authentication, posts, images, comments, likes and database. This is a single-case test of the versions available then, not a market-wide failure rate.",
+            "<a href=\"#source-10\">SlopCodeBench, preprint v2<sup>[10]</sup></a>, focused on continuity: 15 coding agents were evaluated on 36 problems with requirements evolving through successive stages. <strong>No run passed every test at every stage of a problem end to end.</strong> This is a controlled code-evolution benchmark with strict criteria, not a measurement of Lovable or Bolt platforms in production.",
+            "These are different observations with a shared question for a buyer: how does the solution execute missing work, handle regressions and keep evolving when requirements change? That question belongs in platform selection from the start."
           ]
         },
         {
@@ -277,7 +308,8 @@ export const articles = [
           "paragraphs": [
             "OpenAI, Anthropic, Moonshot AI/Kimi and other compatible providers can form part of the solution, subject to environment configuration and validation. Local models, private endpoints and on-premises installations need compatible interfaces and suitable resources.",
             "Customers control API keys and execution infrastructure; AI consumption and resources are paid separately. The hosted trial has its own configuration. This freedom lets you select and reconsider providers as the product evolves.",
-            "Automation needs to keep advancing the product when your choices change. A software factory should provide that continuity."
+            "Automation needs to keep advancing the product when your choices change. A software factory should provide that continuity.",
+            "For companies needing the entire platform in their own infrastructure, <a href=\"/pricing/#enterprise\">Enterprise</a> is available by quotation with self-hosted deployment, RBAC, SSO and BeeverForge support. Deployment, capacity and support terms are agreed in a proposal."
           ]
         },
         {
@@ -316,13 +348,13 @@ export const articles = [
     },
     "es": {
       "category": "Investigación y producto",
-      "seoTitle": "9.041 proyectos con IA: el salto a producción | BeeverForge",
-      "title": "9.041 proyectos con IA. Solo el 11,14% con publicación verificable.",
-      "summary": "Un estudio externo encontró enlaces de publicación en 1.007 de 9.041 proyectos públicos asociados a Lovable y Claude Code. Qué significa para el camino hasta la operación.",
-      "lead": "En un estudio con repositorios públicos asociados a Lovable y Claude Code, 1.007 de 9.041 proyectos tenían una dirección de publicación validada y accesible. Para quien quiere poner una idea en funcionamiento, el camino hasta la operación debe formar parte del producto.",
-      "coverAlt": "11,14% con publicación verificable: 1.007 de 9.041 proyectos públicos asociados a Lovable y Claude Code, en un estudio externo en preprint.",
-      "coverLabel": "El salto hasta la operación",
-      "coverScope": "Fuente: Deng, Fan y Meng, preprint v4, sección 4. Muestra de repositorios públicos de GitHub; no es una tasa global de producción de Lovable.",
+      "seoTitle": "Apps con IA: el 91% con vulnerabilidades en auditoría | BeeverForge",
+      "title": "El 91% de las aplicaciones auditadas tenía vulnerabilidades. El reto continúa después de publicar.",
+      "summary": "Una auditoría de 200 aplicaciones publicadas encontró vulnerabilidades en 182. Qué revelan los comparativos de herramientas con IA sobre el camino hasta la operación.",
+      "lead": "Una investigación preliminar auditó 200 aplicaciones publicadas asociadas a Lovable y Claude Code y encontró vulnerabilidades en 182. Arquitectura, verificaciones y evolución deben acompañar la idea hasta la operación.",
+      "coverAlt": "El 91% de las aplicaciones auditadas tenía vulnerabilidades: 182 de 200 aplicaciones publicadas asociadas a Lovable y Claude Code, en un estudio preliminar.",
+      "coverLabel": "Después de publicar",
+      "coverScope": "Fuente: Deng, Fan y Meng, preprint v4, sección 5. Muestra de 200 aplicaciones publicadas con repositorios públicos de GitHub; no es una tasa global de fracaso.",
       "takeaway": "BeeverForge existe para llevar la idea validada hasta el producto operativo, con arquitectura, implementación automatizada y criterios de entrega acordados.",
       "journey": [
         [
@@ -342,23 +374,25 @@ export const articles = [
         ]
       ],
       "sourceNotes": [
-        "Preprint v4 de 14/09/2026; no se presenta como artículo revisado por pares. Sección 4: 1.007/9.041 proyectos con enlaces accesibles; sección 5: 182/200 aplicaciones auditadas con vulnerabilidades. Muestra GitHub predominantemente creada por IA, sin cobertura de proyectos privados ni tasa global de conversión.",
+        "Preprint v4 de 14/09/2026. Sección 5: 182 de 200 aplicaciones publicadas auditadas tenían vulnerabilidades. Muestra de GitHub público con autoría predominante de IA, asociada a Lovable y Claude Code; no es una tasa global de fracaso ni investigación presentada como revisada por pares.",
         "Benchmark de proveedor de seguridad: 18 modelos, cuatro lenguajes y cuatro categorías de vulnerabilidad, sin instrucciones específicas de seguridad. Cerca del 38% de tareas con código vulnerable; no mide aplicaciones completas ni Lovable.",
         "Estudio mixto: 85 respuestas, 31 entrevistas en hackathon y ocho a profesionales. Examina barreras después del prototipo; no estima una tasa general de publicación.",
         "Análisis de 1.110 respuestas abiertas de ingenieros de Google sobre verificación e integración, no sobre conversión de proyectos Lovable.",
         "Prácticas de desarrollo seguro durante el ciclo de vida; no es una certificación de BeeverForge.",
         "Índice comercial externo y dinámico de dominios propios encontrados. Cobertura parcial, sin proyectos solo en lovable.app; no permite calcular una tasa global de producción.",
         "Documentación de la plataforma usada exclusivamente para confirmar alojamiento, exportación y portabilidad.",
-        "Documentación de la plataforma usada exclusivamente para confirmar verificaciones de seguridad disponibles."
+        "Documentación de la plataforma usada exclusivamente para confirmar verificaciones de seguridad disponibles.",
+        "Comparativo práctico externo: un caso probado el 27/10/2025 en seis plataformas. Resultado leído de la tabla de seis funciones; no es un estudio poblacional ni una evaluación de las versiones actuales.",
+        "Preprint v2 de 07/05/2026: 15 agentes, 36 problemas y 196 checkpoints. El resultado completo exige superar todas las pruebas en todas las etapas. No mide conversión a producción de plataformas comerciales."
       ],
       "sections": [
         {
           "id": "evidence",
-          "heading": "El número tiene fuente. Y un alcance definido.",
+          "heading": "182 aplicaciones con vulnerabilidades en una muestra de 200.",
           "paragraphs": [
-            "El <a href=\"#source-1\">estudio de Deng, Fan y Meng<sup>[1]</sup></a> seleccionó proyectos públicos de GitHub creados predominantemente por IA. Encontró publicación verificable en <strong>1.007 de 9.041: 11,14%</strong>. Los proyectos se asociaron a Lovable y Claude Code por señales en los repositorios. Es un preprint, en su versión de septiembre de 2026.",
-            "No encontrar un enlace público no demuestra abandono: puede existir una instalación privada, una dirección no identificada o trabajo en curso. La muestra tampoco representa todos los proyectos de esas herramientas. El dato mide publicación observable en el conjunto estudiado, sin demostrar cuántos proyectos fracasaron.",
-            "La pregunta para quien elige plataforma sigue en pie: después de validar la idea, ¿qué camino existe para ponerla en funcionamiento?"
+            "El <a href=\"#source-1\">estudio de Deng, Fan y Meng<sup>[1]</sup></a> auditó aplicaciones publicadas asociadas a Lovable y Claude Code. Los investigadores identificaron al menos una vulnerabilidad en <strong>182 de las 200 aplicaciones evaluadas: el 91%</strong>. El trabajo está disponible como preprint, en su versión de septiembre de 2026.",
+            "La muestra se seleccionó entre aplicaciones con publicación accesible y repositorios públicos de GitHub, creadas predominantemente por IA. El resultado describe la seguridad de las aplicaciones auditadas. No mide abandono ni permite concluir que el 91% de todos los productos de esas herramientas fracase.",
+            "Para quien quiere convertir una idea en un producto operativo, el hallazgo plantea una pregunta concreta: ¿qué trabajo continúa después de que la aplicación ya está en línea?"
           ]
         },
         {
@@ -374,9 +408,18 @@ export const articles = [
           "id": "verification",
           "heading": "El trabajo continúa incluso después de publicar.",
           "paragraphs": [
-            "En una auditoría de 200 aplicaciones publicadas, el mismo <a href=\"#source-1\">preprint<sup>[1]</sup></a> identificó vulnerabilidades en <strong>182: el 91%</strong>. El resultado pertenece a esa muestra; no mide la tasa de fallo de toda Lovable. Muestra por qué estar en línea es un criterio de entrega insuficiente.",
+            "Una aplicación puede aceptar una reserva y, al mismo tiempo, aplicar permisos incorrectos. Comprobar la experiencia prevista es una parte de la entrega; probar los límites de acceso y las respuestas a fallos requiere verificaciones propias.",
             "Otro método aporta evidencia adicional: la <a href=\"#source-2\">actualización de otoño de 2026 de Veracode<sup>[2]</sup></a> encontró vulnerabilidades conocidas en el código de alrededor del <strong>38% de las tareas evaluadas</strong>. El benchmark abarcó 18 modelos, cuatro lenguajes y cuatro categorías de fallos. Hubo mejoras respecto a la medición anterior. El resultado respalda la necesidad de verificación; no permite atribuir ese 38% a las aplicaciones Lovable.",
             "El paso del prototipo al mantenimiento también aparece en la <a href=\"#source-3\">investigación de CHI 2026<sup>[3]</sup></a>, mientras que <a href=\"#source-4\">DORA<sup>[4]</sup></a> examina el trabajo de verificación e integración. Nuestra lectura editorial: generar código más rápido se convierte en entrega cuando el trabajo siguiente también tiene un proceso."
+          ]
+        },
+        {
+          "id": "comparison",
+          "heading": "Otras herramientas, el reto de completar y evolucionar el software.",
+          "paragraphs": [
+            "En un <a href=\"#source-9\">comparativo práctico de Aqua Voice<sup>[9]</sup></a>, realizado en octubre de 2025, Base44, Replit, Bolt, Lovable, v0 y Rork recibieron un caso de aplicación. Según la tabla publicada, <strong>solo una de las seis herramientas aprobó las seis funciones evaluadas</strong>: autenticación, publicaciones, imágenes, comentarios, likes y base de datos. Es una prueba de un solo caso y de las versiones de entonces, no una tasa de fracaso del mercado.",
+            "<a href=\"#source-10\">SlopCodeBench, preprint v2<sup>[10]</sup></a>, examinó la continuidad: 15 agentes de programación fueron evaluados en 36 problemas con requisitos que evolucionaban por etapas. <strong>Ninguna ejecución superó todas las pruebas de todas las etapas de un problema de principio a fin.</strong> Es un benchmark controlado de evolución de código con criterios estrictos, no una medición de las plataformas Lovable o Bolt en producción.",
+            "Son observaciones distintas con una pregunta común para el comprador: ¿cómo ejecuta la solución el trabajo que falta, trata regresiones y sigue evolucionando cuando cambian los requisitos? Esa pregunta debe entrar en la elección de plataforma desde el principio."
           ]
         },
         {
@@ -415,7 +458,8 @@ export const articles = [
           "paragraphs": [
             "OpenAI, Anthropic, Moonshot AI/Kimi y otros proveedores compatibles pueden formar parte de la solución, según la configuración y validación del entorno. Los modelos locales, endpoints privados e instalaciones on-premises requieren interfaces compatibles y recursos adecuados.",
             "El cliente controla sus claves API y su infraestructura de ejecución; el consumo de IA y los recursos se pagan por separado. La prueba alojada tiene configuración propia. Esa libertad permite elegir y revisar proveedores a medida que evoluciona el producto.",
-            "La automatización debe seguir haciendo avanzar el producto cuando sus elecciones cambian. Una fábrica de software debe ofrecer esa continuidad."
+            "La automatización debe seguir haciendo avanzar el producto cuando sus elecciones cambian. Una fábrica de software debe ofrecer esa continuidad.",
+            "Para empresas que necesitan toda la plataforma en su infraestructura, <a href=\"/es/pricing/#enterprise\">Enterprise</a> se contrata bajo consulta, con instalación self-hosted, RBAC, SSO y soporte BeeverForge. La implantación, la capacidad y las condiciones de soporte se definen en una propuesta."
           ]
         },
         {
