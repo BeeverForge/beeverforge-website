@@ -1,0 +1,299 @@
+{
+  "dark": [
+    {
+      "path": "/blog/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "path": "/blog/lovable-prototypes-to-businesses/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "path": "/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "path": "/pt/blog/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "path": "/pt/blog/lovable-prototypes-to-businesses/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "path": "/pt/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "path": "/es/blog/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "path": "/es/blog/lovable-prototypes-to-businesses/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "path": "/es/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "path": "/blog/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "path": "/blog/lovable-prototypes-to-businesses/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "path": "/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "path": "/pt/blog/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "path": "/pt/blog/lovable-prototypes-to-businesses/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "path": "/pt/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "path": "/es/blog/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "path": "/es/blog/lovable-prototypes-to-businesses/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "path": "/es/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "path": "/blog/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "path": "/blog/lovable-prototypes-to-businesses/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "path": "/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "path": "/pt/blog/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "path": "/pt/blog/lovable-prototypes-to-businesses/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "path": "/pt/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "path": "/es/blog/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "path": "/es/blog/lovable-prototypes-to-businesses/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "path": "/es/",
+      "anchors": [],
+      "broken": [],
+      "h1": 1,
+      "overflow": 0,
+      "theme": "dark",
+      "width": 1280
+    }
+  ],
+  "light": [
+    {
+      "overflow": 0,
+      "theme": "light"
+    },
+    {
+      "overflow": 0,
+      "theme": "light"
+    },
+    {
+      "overflow": 0,
+      "theme": "light"
+    },
+    {
+      "overflow": 0,
+      "theme": "light"
+    },
+    {
+      "overflow": 0,
+      "theme": "light"
+    },
+    {
+      "overflow": 0,
+      "theme": "light"
+    }
+  ],
+  "retired": [
+    {
+      "canonical": "https://beeverforge.com/blog/",
+      "heading": "Beyond the prototype."
+    },
+    {
+      "canonical": "https://beeverforge.com/blog/",
+      "heading": "Beyond the prototype."
+    },
+    {
+      "canonical": "https://beeverforge.com/pt/blog/",
+      "heading": "Além do protótipo."
+    },
+    {
+      "canonical": "https://beeverforge.com/pt/blog/",
+      "heading": "Além do protótipo."
+    },
+    {
+      "canonical": "https://beeverforge.com/es/blog/",
+      "heading": "Más allá del prototipo."
+    },
+    {
+      "canonical": "https://beeverforge.com/es/blog/",
+      "heading": "Más allá del prototipo."
+    }
+  ]
+}

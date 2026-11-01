@@ -1,3 +1,13 @@
+# Editorial journal and first researched article — 2026-11-01
+
+Rebuilt the blog as BeeverForge Journal: featured original artwork, a searchable archive, editorial typography, author/date/read-time metadata, responsive contents navigation, reading progress, copy/LinkedIn sharing, annotated primary sources and localized RSS. One new post replaces the two prior guides in all three languages. Old addresses are noindex redirects to the journal; no old article body remains.
+
+The Lovable article uses the vendor’s June 2026 survey: 60.5% of respondents were not yet monetizing but planned to. The denominator is people responding to a survey, not projects, and this is not a failure rate. All categories, rounding and method limits are visible. The article acknowledges Lovable’s production/security/portability capabilities and distinguishes BeeverForge’s factory design from a measured claim of superior commercial outcomes. Six primary references were verified on 2026-11-01. Product/provider availability remains qualified by deployment.
+
+SEO includes self-canonicals, language alternates, Blog/BlogPosting/Breadcrumb structured data, dedicated social images, publication metadata and RSS discovery. The site check covers 45 sitemap pages and more than 2,000 local references. Browser verification covers home, journal and article in three languages at 320, 390 and 1280px, with one H1, valid internal anchors, dark default and no horizontal overflow. Search (including accents), copy-link feedback, mobile contents, source links and retired routes were reviewed. This is not a Lighthouse score or a guarantee of search ranking.
+
+---
+
 # Clarify automation and delivery roles — 2026-10-31
 
 The journey now explicitly distinguishes three roles: Prototype is the customer working with AI; architecture and the technical foundation are prepared by the customer’s team or BeeverForge’s optional assisted start; Team provides BeeverForge automation, with AI agents implementing prepared work, running configured checks and obtaining independent review, while the virtual Product Owner organizes work and evolution. A person approves production. This describes automated software delivery, not unlimited managed hosting or incident-response services.
