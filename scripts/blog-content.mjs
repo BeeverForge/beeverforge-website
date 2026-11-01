@@ -1,10 +1,18 @@
-// Production delivery is the editorial focus; no unsupported conversion rate.
+// External evidence is scoped to its sample; delivery is the editorial focus.
 export const retiredBlogSlugs = ["from-ai-prototype-to-production","model-agnostic-ai-software-factory"];
 export const articles = [
   {
     "slug": "lovable-prototypes-to-businesses",
     "date": "2026-11-01",
     "sources": [
+      [
+        "Deng, Fan & Meng · Understanding the (In)Security of Vibe-Coded Applications · preprint v4, 14 Sep 2026",
+        "https://arxiv.org/html/2606.23130v4"
+      ],
+      [
+        "Veracode · Fall 2026 GenAI Code Security Update",
+        "https://www.veracode.com/blog/fall-2026-genai-code-security/"
+      ],
       [
         "CHI 2026 · From Throw-Away to Takeaway",
         "https://doi.org/10.1145/3772318.3790757"
@@ -14,32 +22,32 @@ export const articles = [
         "https://dora.dev/insights/balancing-ai-tensions/"
       ],
       [
+        "NIST · Secure Software Development Framework",
+        "https://csrc.nist.gov/projects/ssdf"
+      ],
+      [
+        "VibeCodedIndex · Lovable statistics · October 2026, live index",
+        "https://vibecodedindex.com/lovable-statistics/"
+      ],
+      [
         "Lovable · Deployment, hosting, and ownership",
         "https://docs.lovable.dev/tips-tricks/deployment-hosting-ownership"
       ],
       [
         "Lovable · Security overview",
         "https://docs.lovable.dev/features/security"
-      ],
-      [
-        "NIST · Secure Software Development Framework",
-        "https://csrc.nist.gov/projects/ssdf"
-      ],
-      [
-        "ClickHouse · Lovable: observability and analytics · 29 Jan 2026",
-        "https://clickhouse.com/blog/lovable-ai-powered-observability"
       ]
     ],
     "pt": {
-      "category": "Estratégia de produto",
-      "seoTitle": "Do protótipo à produção com IA | BeeverForge Journal",
-      "title": "O protótipo está pronto. Quem coloca o produto em operação?",
-      "summary": "Lovable e ferramentas de IA aceleram a criação. O desafio seguinte é a entrega em produção — o compromisso que orienta a fábrica e a automação da BeeverForge.",
-      "lead": "Uma demonstração pode convencer numa reunião. Um produto em operação precisa funcionar no dia a dia da empresa. É essa passagem, do protótipo à produção, que a BeeverForge se compromete a entregar.",
-      "coverAlt": "Ilustração editorial: protótipo, engenharia e produto em operação, ligados num percurso de entrega.",
-      "coverLabel": "Do protótipo à produção",
-      "coverScope": "Ilustração editorial BeeverForge · criação, entrega e operação.",
-      "takeaway": "O compromisso é entregar o produto em operação, com o âmbito e os critérios técnicos acordados.",
+      "category": "Investigação e produto",
+      "seoTitle": "9.041 projetos com IA: o salto até à produção | BeeverForge",
+      "title": "9.041 projetos com IA. Apenas 11,14% com publicação verificável.",
+      "summary": "Um estudo externo encontrou links de publicação em 1.007 de 9.041 projetos públicos associados à Lovable e ao Claude Code. O que isso revela — e o que exige chegar à operação.",
+      "lead": "Num estudo com repositórios públicos associados à Lovable e ao Claude Code, 1.007 de 9.041 projetos tinham um endereço de publicação validado e acessível. Para quem quer pôr uma ideia a funcionar, o percurso até à operação precisa fazer parte do produto.",
+      "coverAlt": "11,14% com publicação verificável: 1.007 de 9.041 projetos públicos associados à Lovable e ao Claude Code, num estudo externo em preprint.",
+      "coverLabel": "O salto até à operação",
+      "coverScope": "Fonte: Deng, Fan e Meng, preprint v4, secção 4. Amostra de repositórios públicos no GitHub; não é uma taxa global de produção da Lovable.",
+      "takeaway": "A BeeverForge existe para levar a ideia validada até ao produto em operação, com arquitetura, implementação automatizada e critérios de entrega acordados.",
       "journey": [
         [
           "Prototype",
@@ -58,74 +66,88 @@ export const articles = [
         ]
       ],
       "sourceNotes": [
-        "Estudo misto: 85 respostas, 31 entrevistas em hackathon e oito entrevistas com profissionais. Identifica barreiras na amostra; não estima a percentagem de projetos que chega à produção.",
-        "Análise de 1.110 respostas abertas de engenheiros do Google. Discute verificação e integração em produção; não mede uma taxa de conversão da Lovable.",
-        "Capacidades de hospedagem, propriedade e portabilidade documentadas pela própria Lovable.",
-        "Verificações de segurança documentadas pela plataforma. A presença de ferramentas não substitui a avaliação do projeto concreto.",
-        "Práticas de desenvolvimento seguro ao longo do ciclo de vida; não é uma certificação da BeeverForge.",
-        "Caso técnico publicado por um fornecedor da Lovable sobre observabilidade e aplicações publicadas. Não é um estudo de conversão de protótipos."
+        "Preprint v4 de 14/09/2026, não apresentado aqui como artigo revisto por pares. Secção 4: 1.007/9.041 projetos com links acessíveis; secção 5: 182/200 aplicações auditadas com vulnerabilidades. Amostra GitHub, predominantemente criada por IA, sem cobertura de projetos privados nem taxa de conversão global.",
+        "Benchmark de fornecedor de segurança: 18 modelos, quatro linguagens e quatro categorias de vulnerabilidade, sem orientação específica de segurança. Cerca de 38% de tarefas com código vulnerável; não mede aplicações completas nem a Lovable.",
+        "Estudo misto: 85 respostas, 31 entrevistas em hackathon e oito com profissionais. Discute barreiras depois do protótipo; não estima a proporção de projetos que chega à produção.",
+        "Análise de 1.110 respostas abertas de engenheiros do Google. Contextualiza verificação e integração; não mede conversão de projetos da Lovable.",
+        "Referência de práticas para o desenvolvimento seguro ao longo do ciclo de vida; não é uma certificação da BeeverForge.",
+        "Índice comercial externo e dinâmico de domínios próprios encontrados. Cobertura parcial, sem projetos apenas em lovable.app; não permite calcular uma taxa global de produção.",
+        "Documentação da plataforma, usada exclusivamente para confirmar funcionalidades de hospedagem, exportação e portabilidade.",
+        "Documentação da plataforma, usada exclusivamente para confirmar verificações de segurança disponíveis."
       ],
       "sections": [
         {
           "id": "evidence",
-          "heading": "A dificuldade depois do protótipo é documentada.",
+          "heading": "O número tem fonte. E tem um recorte.",
           "paragraphs": [
-            "O estudo <a href=\"#source-1\">From Throw-Away to Takeaway, da CHI 2026<sup>[1]</sup></a>, combina 85 respostas com entrevistas a 31 participantes de hackathons e oito profissionais. Nessa amostra, as ferramentas de IA aceleraram a prototipação, mas a publicação e a manutenção de longo prazo continuaram a exigir conhecimento técnico. Os participantes não técnicos encontraram barreiras ao avançar além da demonstração.",
-            "A <a href=\"#source-2\">análise DORA de março de 2026<sup>[2]</sup></a> descreve um problema semelhante: o tempo ganho na geração pode voltar a ser gasto em verificação e integração em produção. A conclusão útil para quem está a escolher uma plataforma é olhar para o percurso completo da entrega, além da velocidade de criação.",
-            "Essas fontes não fornecem uma taxa geral de protótipos que chega à operação. Não encontramos uma fonte primária que permita publicar esse percentual com confiança. O argumento deste artigo é a barreira de engenharia documentada, não uma estatística de fracasso inventada."
+            "O <a href=\"#source-1\">estudo de Deng, Fan e Meng<sup>[1]</sup></a> selecionou projetos públicos no GitHub predominantemente criados por IA. Encontrou publicação verificável em <strong>1.007 de 9.041: 11,14%</strong>. Os projetos foram associados à Lovable e ao Claude Code por sinais nos repositórios. É um preprint, na versão de setembro de 2026.",
+            "Não encontrar um link público não prova abandono: pode haver uma instalação privada, um endereço não identificado ou trabalho em curso. A amostra também não representa todos os projetos dessas ferramentas. O dado mede publicação observável no conjunto estudado, sem demonstrar quantos projetos falharam.",
+            "A pergunta para quem escolhe uma plataforma continua de pé: depois de validar a ideia, que caminho existe para a pôr em operação?"
           ]
         },
         {
           "id": "conversion",
-          "heading": "Uma URL publicada não encerra a entrega.",
+          "heading": "Publicar é uma etapa. Operar exige continuidade.",
           "paragraphs": [
-            "Publicar disponibiliza uma versão. Colocar um produto em operação exige confirmar que ele executa o trabalho para o qual foi criado: com regras de negócio, acessos, dados, integrações e tratamento das situações que fogem do caminho ideal.",
-            "Uma ferramenta interna em uso diário é um produto operacional, mesmo sem cobrar assinaturas. O critério de entrega é a empresa conseguir utilizá-la para o trabalho acordado. O que interessa aqui é software em funcionamento, não desempenho comercial."
+            "Uma demonstração impressiona quando o percurso previsto funciona. Um produto precisa lidar com o dia em que duas pessoas reservam o mesmo horário, uma integração fica indisponível ou alguém tenta aceder a dados de outro cliente. Essas situações precisam de decisões de arquitetura, comportamento definido e verificações.",
+            "Um sistema interno usado diariamente também é um produto em operação. O critério é executar o trabalho acordado: gerir reservas, apoiar uma equipa, processar pedidos ou ligar sistemas. Receita, investimento e crescimento comercial dependem de outras decisões; a entrega técnica tem de ser verificável por si mesma.",
+            "<strong>A sua ideia não deveria terminar numa demonstração convincente e numa lista de tarefas técnicas que ninguém assumiu.</strong>"
+          ]
+        },
+        {
+          "id": "verification",
+          "heading": "Mesmo entre as aplicações publicadas, o trabalho continua.",
+          "paragraphs": [
+            "Numa auditoria de 200 aplicações publicadas, o mesmo <a href=\"#source-1\">preprint<sup>[1]</sup></a> identificou vulnerabilidades em <strong>182: 91%</strong>. Esse resultado pertence à amostra auditada; não mede a taxa de falha de toda a Lovable. Mostra por que a simples presença online é um critério de entrega insuficiente.",
+            "Há outra evidência, obtida por um método diferente: a <a href=\"#source-2\">atualização de outono de 2026 da Veracode<sup>[2]</sup></a> encontrou código com vulnerabilidades conhecidas em cerca de <strong>38% das tarefas avaliadas</strong>. O benchmark cobriu 18 modelos, quatro linguagens e quatro categorias de falhas. Houve melhoria face à medição anterior. Ainda assim, o resultado sustenta a necessidade de verificação; não autoriza atribuir esses 38% a aplicações da Lovable.",
+            "O problema também aparece na passagem do protótipo à manutenção, discutida na <a href=\"#source-3\">investigação da CHI 2026<sup>[3]</sup></a>, e no trabalho de verificação e integração descrito pela <a href=\"#source-4\">DORA<sup>[4]</sup></a>. A nossa leitura editorial: a velocidade de gerar código só se traduz em entrega quando o trabalho seguinte também tem um processo."
           ]
         },
         {
           "id": "fair-comparison",
-          "heading": "O que é justo comparar com a Lovable.",
+          "heading": "Lovable, protótipos e a responsabilidade pela entrega.",
           "paragraphs": [
-            "A Lovable documenta <a href=\"#source-3\">hospedagem e portabilidade<sup>[3]</sup></a> e <a href=\"#source-4\">verificações de segurança<sup>[4]</sup></a>. O <a href=\"#source-6\">caso técnico publicado pela ClickHouse<sup>[6]</sup></a> também descreve observabilidade e aplicações publicadas na plataforma. Portanto, seria incorreto afirmar que ninguém chega à produção com ela.",
-            "A comparação relevante é como cada solução conduz a entrega: como os requisitos viram implementação, quais verificações condicionam a publicação, quem resolve as decisões de arquitetura e como as alterações continuam a ser executadas depois da primeira versão."
+            "Lovable e ferramentas semelhantes mudaram a facilidade de experimentar uma ideia. Isso tem valor: testar uma experiência antes de investir na sua implementação pode evitar meses de trabalho no produto errado.",
+            "A Lovable permite <a href=\"#source-7\">publicar e exportar código<sup>[7]</sup></a> e oferece <a href=\"#source-8\">verificações de segurança<sup>[8]</sup></a>. A comparação relevante para a BeeverForge é a continuidade da execução: quem prepara a arquitetura, como os requisitos se tornam trabalho implementável e como as alterações passam por verificações até à autorização de produção.",
+            "Índices como o <a href=\"#source-6\">VibeCodedIndex<sup>[6]</sup></a> ajudam a descobrir produtos, mas observam apenas parte dos sites com domínio próprio. Dividir as aplicações que encontraram pelo total de projetos da Lovable não demonstra que os restantes ficaram pelo caminho. Um comparativo sério precisa distinguir projetos criados, publicações observadas e produtos preparados para operação."
           ]
         },
         {
           "id": "operation",
-          "heading": "O produto precisa funcionar fora da demonstração.",
+          "heading": "O que deve estar pronto quando o produto entra em operação.",
           "kind": "readiness",
           "paragraphs": [
-            "Pense num sistema de agendamentos. O protótipo mostra a escolha do horário e a confirmação com dados simulados. Na operação, duas pessoas podem tentar reservar o mesmo horário. Um pagamento pode falhar. Uma integração pode ficar indisponível. A solução precisa tratar essas situações de forma definida e verificável.",
-            "O <a href=\"#source-5\">Secure Software Development Framework do NIST<sup>[5]</sup></a> organiza práticas de segurança ao longo do desenvolvimento. A nossa leitura é que a preparação para produção deve fazer parte do percurso de entrega, com evidências adequadas ao produto, em vez de aparecer como uma tarefa indefinida depois da demonstração."
+            "Voltemos ao sistema de reservas. Validar a ideia ajuda a descobrir os passos que o cliente precisa de fazer. Preparar a operação exige resolver conflitos de horário, permissões, dados reais, falhas de pagamento e recuperação. Cada condição precisa de um responsável e de uma forma de confirmar o resultado.",
+            "O <a href=\"#source-5\">Secure Software Development Framework do NIST<sup>[5]</sup></a> organiza práticas de desenvolvimento seguro ao longo do ciclo de vida. Aplicadas ao projeto concreto, essas práticas ajudam a transformar a expressão “pronto para produção” em critérios que podem ser avaliados antes da entrega."
           ]
         },
         {
           "id": "factory",
-          "heading": "A BeeverForge assume a entrega além do protótipo.",
+          "heading": "BeeverForge: uma plataforma para levar a ideia à operação.",
           "kind": "journey",
           "paragraphs": [
-            "O nosso compromisso é entregar o produto em operação, dentro do âmbito e dos critérios acordados. A fábrica foi desenhada para conectar as etapas que tornam essa entrega possível: validar a ideia, consolidar requisitos, definir arquitetura, executar a implementação, verificar e autorizar a entrada em produção.",
-            "Você começa no Prototype com a IA. Valida a experiência e gera os requisitos. O protótipo usa dados simulados; a aplicação real é implementada a partir das decisões e dos requisitos que ele ajudou a revelar. A etapa seguinte não é simplesmente publicar a simulação.",
-            "A arquitetura e a base técnica podem ser preparadas pela sua equipa. Se quiser apoio, o arranque assistido da BeeverForge é opcional: analisamos o protótipo concluído na plataforma, desenhamos a solução e preparamos a base técnica acordada em proposta.",
-            "Com o Team, a execução é automatizada: agentes de IA implementam o trabalho preparado, a fábrica corre as verificações configuradas e obtém revisão independente, e o Product Owner virtual organiza prioridades e evolução. As pessoas orientam o produto, decidem a arquitetura e autorizam a produção."
+            "É para esse percurso que existe a BeeverForge. O compromisso é entregar o produto em operação, dentro do âmbito e dos critérios técnicos acordados, e dar continuidade à sua evolução com automação.",
+            "Começa no Prototype: você e a IA exploram a ideia, testam a experiência com dados simulados e consolidam requisitos. O protótipo ajuda a decidir o que construir e fornece as decisões para implementar a aplicação real.",
+            "A arquitetura pode ser preparada pela sua equipa. Se quiser apoio, o arranque assistido da BeeverForge é opcional: analisamos o protótipo concluído na plataforma, desenhamos a solução e preparamos a base técnica acordada numa proposta. Âmbito, entregáveis e condições são definidos antes de começar.",
+            "<strong>No Team, a automação BeeverForge executa o trabalho preparado.</strong> Os agentes implementam; a fábrica realiza as verificações configuradas e obtém revisão independente; o Product Owner virtual organiza prioridades e evolução. As pessoas orientam o produto, decidem a arquitetura e autorizam a entrada em produção.",
+            "A conclusão do protótipo abre uma etapa de implementação e evolução na mesma plataforma. Os critérios de entrega permitem acompanhar essa passagem e saber o que falta para a operação."
           ]
         },
         {
           "id": "model-choice",
-          "heading": "A operação continua sob o seu controlo.",
+          "heading": "A fábrica trabalha com as suas escolhas de IA e infraestrutura.",
           "paragraphs": [
-            "Modelos, credenciais e infraestrutura fazem parte da solução. OpenAI, Anthropic, Moonshot AI/Kimi e outros provedores compatíveis são opções conforme a configuração e a validação do ambiente. Endpoints privados e modelos locais ou on-premises exigem compatibilidade, recursos e configuração adequados.",
-            "O cliente controla as suas chaves e a infraestrutura de execução; o consumo de IA e os recursos são pagos separadamente. O teste hospedado tem uma configuração própria e não representa a disponibilidade de todos os modelos. O objetivo é que o produto possa evoluir sem ficar preso a um único fornecedor de IA."
+            "OpenAI, Anthropic, Moonshot AI/Kimi e outros fornecedores compatíveis podem integrar a solução, conforme a configuração e a validação do ambiente. Modelos locais, endpoints privados e instalações on-premises exigem interfaces compatíveis e os recursos adequados.",
+            "O cliente controla as suas chaves de API e a infraestrutura de execução; o consumo de IA e os recursos são pagos separadamente. O trial alojado tem configuração própria. Essa liberdade permite escolher e rever os fornecedores conforme o produto evolui.",
+            "A automação deve continuar a fazer o produto avançar quando as suas escolhas mudam. É essa continuidade que uma fábrica de software precisa oferecer."
           ]
         },
         {
           "id": "outcomes",
-          "heading": "A medida de entrega é o produto em funcionamento.",
+          "heading": "O próximo marco da sua ideia é funcionar no mundo real.",
           "paragraphs": [
-            "O protótipo ajuda a decidir o que construir. A produção exige demonstrar que o produto executa o trabalho acordado e pode continuar a evoluir. É nessa passagem que a BeeverForge concentra a sua arquitetura, a sua fábrica e a sua automação.",
-            "Antes de escolher a plataforma, peça para conhecer o caminho depois da demonstração: a implementação, as verificações, a decisão de publicar e a execução das próximas alterações. Esse percurso precisa estar previsto desde o início.",
-            "<strong>A sua ideia merece chegar à operação. A BeeverForge é a fábrica para fazer essa entrega acontecer.</strong>"
+            "Antes de escolher uma plataforma, peça para ver o percurso completo: requisitos, arquitetura, execução, verificações, autorização de produção e entrega das alterações seguintes. Um protótipo dá forma à ideia; o valor da fábrica aparece na capacidade de continuar a executá-la.",
+            "<strong>Crie com IA. Valide a ideia. Leve o produto à operação com a automação BeeverForge.</strong>"
           ]
         }
       ],
@@ -155,15 +177,15 @@ export const articles = [
       "readinessNote": "Os critérios concretos dependem do produto e são acordados antes da entrada em produção."
     },
     "en": {
-      "category": "Product strategy",
-      "seoTitle": "From AI prototype to production | BeeverForge Journal",
-      "title": "The prototype is ready. Who gets the product running in production?",
-      "summary": "Lovable and AI tools accelerate creation. The next challenge is production delivery — the commitment behind BeeverForge’s factory and automation.",
-      "lead": "A demo can win support in a meeting. An operating product has to work in the company’s day-to-day business. BeeverForge commits to delivering that transition from prototype to production.",
-      "coverAlt": "Editorial illustration connecting a prototype, engineering and a product in operation through one delivery journey.",
-      "coverLabel": "From prototype to production",
-      "coverScope": "BeeverForge editorial illustration · creation, delivery and operation.",
-      "takeaway": "The commitment is to deliver an operating product, within the agreed scope and technical acceptance criteria.",
+      "category": "Research and product",
+      "seoTitle": "9,041 AI projects: the path to production | BeeverForge",
+      "title": "9,041 AI projects. Just 11.14% with a verifiable deployment.",
+      "summary": "An external study found deployment links in 1,007 of 9,041 public projects associated with Lovable and Claude Code. What the finding means for the path to operation.",
+      "lead": "In a study of public repositories associated with Lovable and Claude Code, 1,007 of 9,041 projects had a validated, reachable deployment address. For someone building a product, the path to operation needs to be part of the platform.",
+      "coverAlt": "11.14% with a verifiable deployment: 1,007 of 9,041 public projects associated with Lovable and Claude Code, in an external preprint study.",
+      "coverLabel": "The path to operation",
+      "coverScope": "Source: Deng, Fan and Meng, preprint v4, section 4. Public GitHub repository sample; not a platform-wide Lovable production rate.",
+      "takeaway": "BeeverForge exists to take a validated idea to an operating product, with architecture, automated implementation and agreed delivery criteria.",
       "journey": [
         [
           "Prototype",
@@ -182,74 +204,88 @@ export const articles = [
         ]
       ],
       "sourceNotes": [
-        "Mixed-method study: 85 responses, 31 hackathon interviews and eight practitioner interviews. It identifies barriers in its sample, not a population production-conversion rate.",
-        "Analysis of 1,110 open-ended responses from Google engineers about verification and production integration; not a Lovable conversion study.",
-        "Hosting, ownership and portability documented by Lovable.",
-        "Security checks documented by the platform; capabilities do not replace assessment of a specific project.",
+        "Preprint v4, 14 September 2026; not presented as peer-reviewed research. Section 4: 1,007/9,041 projects with reachable deployment links; section 5: 182/200 audited apps with vulnerabilities. Predominantly AI-created GitHub sample; no coverage of private projects or global conversion rate.",
+        "Security-vendor benchmark: 18 models, four languages and four vulnerability categories, without security-specific guidance. Roughly 38% of tasks produced vulnerable code; not a study of complete apps or Lovable.",
+        "Mixed-method study: 85 responses, 31 hackathon interviews and eight practitioner interviews. Examines post-prototype barriers; no population deployment rate.",
+        "Analysis of 1,110 open-ended responses from Google engineers about verification and integration, not Lovable project conversion.",
         "Secure development lifecycle practices; not a BeeverForge certification.",
-        "A technical case published by a Lovable supplier about observability and deployed apps; not a prototype conversion study."
+        "External commercial, live index of discovered custom domains. Partial coverage excluding lovable.app-only projects; no platform-wide production rate can be calculated.",
+        "Platform documentation used only to confirm hosting, export and portability features.",
+        "Platform documentation used only to confirm available security checks."
       ],
       "sections": [
         {
           "id": "evidence",
-          "heading": "The difficulty after prototyping is documented.",
+          "heading": "A sourced number, with a defined scope.",
           "paragraphs": [
-            "<a href=\"#source-1\">The CHI 2026 study From Throw-Away to Takeaway<sup>[1]</sup></a> combines 85 survey responses with interviews involving 31 hackathon participants and eight practitioners. In that sample, AI tools accelerated prototyping, while deployment and long-term maintenance continued to require technical expertise. Non-technical participants encountered barriers beyond the demo.",
-            "<a href=\"#source-2\">DORA’s March 2026 analysis<sup>[2]</sup></a> describes a related problem: time saved generating software can be spent again on verification and production integration. The useful lesson when choosing a platform is to consider the complete delivery journey, alongside creation speed.",
-            "These sources do not establish a general rate of prototypes reaching operation. We did not find a primary source that would justify publishing that percentage with confidence. The argument here is a documented engineering barrier, not an invented failure statistic."
+            "<a href=\"#source-1\">Deng, Fan and Meng’s study<sup>[1]</sup></a> selected public GitHub projects predominantly created by AI. It found verifiable deployments in <strong>1,007 of 9,041: 11.14%</strong>. Repository markers associated the projects with Lovable and Claude Code. The source is a preprint, in its September 2026 version.",
+            "An absent public link does not prove abandonment: a project may have a private deployment, an unidentified address or ongoing development. The sample also does not represent every project on those tools. The finding measures observable deployment within the studied set, without establishing how many projects failed.",
+            "The question for anyone choosing a platform remains: once the idea is validated, what path gets it into operation?"
           ]
         },
         {
           "id": "conversion",
-          "heading": "A published URL does not finish delivery.",
+          "heading": "Publishing is one stage. Operation needs continuity.",
           "paragraphs": [
-            "Publishing makes a version available. Putting a product into operation requires confirming that it does its intended job, with business rules, access controls, data, integrations and defined responses to situations beyond the happy path.",
-            "An internal tool used every day is an operating product even if it sells no subscriptions. The delivery criterion is whether the company can use it for the agreed work. This article concerns functioning software, rather than commercial performance."
+            "A demo impresses when the intended path works. A product must handle the day when two people book the same slot, an integration becomes unavailable or someone attempts to access another customer’s data. Those situations need architecture decisions, defined behavior and checks.",
+            "An internal system used every day is also an operating product. The criterion is whether it performs the agreed work: managing bookings, supporting a team, processing orders or connecting systems. Revenue, investment and commercial growth depend on other decisions; technical delivery must be verifiable in its own right.",
+            "<strong>Your idea should not end with a convincing demo and a list of technical tasks nobody has taken responsibility for.</strong>"
+          ]
+        },
+        {
+          "id": "verification",
+          "heading": "The work continues even after publication.",
+          "paragraphs": [
+            "In an audit of 200 deployed applications, the same <a href=\"#source-1\">preprint<sup>[1]</sup></a> found vulnerabilities in <strong>182: 91%</strong>. This result belongs to the audited sample; it is not a platform-wide Lovable failure rate. It explains why being online is an insufficient delivery criterion.",
+            "A different method provides another piece of evidence: <a href=\"#source-2\">Veracode’s Fall 2026 update<sup>[2]</sup></a> found known vulnerabilities in code from roughly <strong>38% of evaluated tasks</strong>. Its benchmark covered 18 models, four languages and four vulnerability categories. Results improved over the previous snapshot. They still support the need for verification; they do not attribute a 38% vulnerability rate to Lovable apps.",
+            "The transition from prototyping to maintenance is also discussed by <a href=\"#source-3\">CHI 2026 research<sup>[3]</sup></a>, while <a href=\"#source-4\">DORA<sup>[4]</sup></a> examines verification and integration work. Our editorial reading: faster code generation becomes delivery when the work that follows has a process too."
           ]
         },
         {
           "id": "fair-comparison",
-          "heading": "What is fair to compare with Lovable.",
+          "heading": "Lovable, prototypes and responsibility for delivery.",
           "paragraphs": [
-            "Lovable documents <a href=\"#source-3\">hosting and portability<sup>[3]</sup></a> and <a href=\"#source-4\">security checks<sup>[4]</sup></a>. The <a href=\"#source-6\">technical case published by ClickHouse<sup>[6]</sup></a> also describes observability and deployed applications on the platform. It would therefore be inaccurate to claim that nobody reaches production with it.",
-            "The relevant comparison is how each solution carries delivery forward: how requirements become implementation, which checks govern releases, who resolves architecture decisions and how changes keep being executed after the first version."
+            "Lovable and similar tools have made experimenting with an idea much easier. That is valuable: testing an experience before committing to implementation can avoid months spent building the wrong product.",
+            "Lovable supports <a href=\"#source-7\">publishing and code export<sup>[7]</sup></a> and provides <a href=\"#source-8\">security checks<sup>[8]</sup></a>. The relevant comparison for BeeverForge is continuity of execution: who prepares the architecture, how requirements become implementable work and how changes proceed through checks to production approval.",
+            "Indexes such as <a href=\"#source-6\">VibeCodedIndex<sup>[6]</sup></a> help discover products but observe only part of the custom-domain landscape. Dividing the apps they discovered by Lovable’s total project count does not establish that the rest stalled. A useful comparison needs to distinguish created projects, observed deployments and products prepared for operation."
           ]
         },
         {
           "id": "operation",
-          "heading": "The product must work beyond the demo.",
+          "heading": "What needs to be ready when the product enters operation.",
           "kind": "readiness",
           "paragraphs": [
-            "Consider a booking system. Its prototype shows time selection and confirmation with simulated data. In operation, two people can request the same slot. A payment can fail. An integration can become unavailable. The solution needs defined, verifiable behavior in those situations.",
-            "<a href=\"#source-5\">NIST’s Secure Software Development Framework<sup>[5]</sup></a> organizes security practices across development. Our reading is that production preparation belongs within the delivery journey, supported by evidence appropriate to the product, instead of becoming an undefined task after the demo."
+            "Return to the booking system. Validating the idea helps identify the steps a customer needs. Preparing operation means resolving booking conflicts, permissions, real data, payment failures and recovery. Each condition needs an owner and a way to confirm the result.",
+            "<a href=\"#source-5\">NIST’s Secure Software Development Framework<sup>[5]</sup></a> organizes secure development practices across the lifecycle. Applied to a specific project, these practices help turn “production ready” into criteria that can be assessed before delivery."
           ]
         },
         {
           "id": "factory",
-          "heading": "BeeverForge takes responsibility for delivery beyond the prototype.",
+          "heading": "BeeverForge: a platform taking the idea into operation.",
           "kind": "journey",
           "paragraphs": [
-            "Our commitment is to deliver an operating product within the agreed scope and acceptance criteria. The factory connects the stages that make delivery possible: validate the idea, capture requirements, define architecture, execute implementation, verify and authorize production entry.",
-            "You begin in Prototype with AI. Validate the experience and generate requirements. The prototype uses simulated data; the real application is implemented from the decisions and requirements it helped uncover. The next step involves more than publishing the simulation.",
-            "Your team can prepare the architecture and technical foundation. If you want support, BeeverForge’s assisted start is optional: we analyze the prototype concluded in the platform, design the solution and prepare the foundation agreed in a proposal.",
-            "With Team, execution is automated: AI agents implement prepared work, the factory runs configured checks and obtains independent review, and the virtual Product Owner organizes priorities and evolution. People guide the product, decide its architecture and authorize production."
+            "BeeverForge exists for that journey. The commitment is to deliver an operating product within the agreed scope and technical acceptance criteria, then keep its evolution moving through automation.",
+            "Start in Prototype: you and AI explore the idea, test the experience with simulated data and capture requirements. The prototype helps decide what to build and records the decisions needed to implement the real application.",
+            "Your team can prepare the architecture. If you want support, BeeverForge’s assisted start is optional: we analyze the prototype completed in the platform, design the solution and prepare the technical foundation agreed in a proposal. Scope, deliverables and commercial terms are defined before work begins.",
+            "<strong>With Team, BeeverForge automation executes the prepared work.</strong> Agents implement; the factory runs configured checks and obtains independent review; the virtual Product Owner organizes priorities and evolution. People guide the product, decide its architecture and authorize production entry.",
+            "Completing the prototype opens a stage of implementation and evolution in the same platform. Delivery criteria make progress visible and show what remains before operation."
           ]
         },
         {
           "id": "model-choice",
-          "heading": "Operation remains under your control.",
+          "heading": "The factory works with your AI and infrastructure choices.",
           "paragraphs": [
-            "Models, credentials and infrastructure are part of the solution. OpenAI, Anthropic, Moonshot AI/Kimi and other compatible providers are options subject to environment configuration and validation. Private endpoints and local or on-premises models require compatible interfaces, resources and configuration.",
-            "The customer controls API keys and execution infrastructure; AI usage and resources are paid separately. The hosted trial has its own configuration and does not represent every model’s availability. The aim is to let the product evolve without tying it to a single AI provider."
+            "OpenAI, Anthropic, Moonshot AI/Kimi and other compatible providers can form part of the solution, subject to environment configuration and validation. Local models, private endpoints and on-premises installations need compatible interfaces and suitable resources.",
+            "Customers control API keys and execution infrastructure; AI consumption and resources are paid separately. The hosted trial has its own configuration. This freedom lets you select and reconsider providers as the product evolves.",
+            "Automation needs to keep advancing the product when your choices change. A software factory should provide that continuity."
           ]
         },
         {
           "id": "outcomes",
-          "heading": "A working product is the delivery measure.",
+          "heading": "Your idea’s next milestone is working in the real world.",
           "paragraphs": [
-            "The prototype helps decide what to build. Production requires demonstrating that the product performs the agreed work and can continue to evolve. BeeverForge concentrates its architecture, factory and automation on that transition.",
-            "Before choosing a platform, ask to see the path after the demo: implementation, checks, the release decision and execution of subsequent changes. That journey should be planned from the beginning.",
-            "<strong>Your idea deserves to reach operation. BeeverForge is the factory designed to deliver it.</strong>"
+            "Before choosing a platform, ask to see the complete journey: requirements, architecture, execution, checks, production approval and delivery of subsequent changes. A prototype gives an idea shape; the factory’s value appears in its ability to keep executing it.",
+            "<strong>Create with AI. Validate the idea. Take the product into operation with BeeverForge automation.</strong>"
           ]
         }
       ],
@@ -279,15 +315,15 @@ export const articles = [
       "readinessNote": "The specific criteria depend on the product and are agreed before production entry."
     },
     "es": {
-      "category": "Estrategia de producto",
-      "seoTitle": "Del prototipo con IA a producción | BeeverForge Journal",
-      "title": "El prototipo está listo. ¿Quién pone el producto en funcionamiento?",
-      "summary": "Lovable y las herramientas de IA aceleran la creación. El siguiente reto es la entrega en producción: el compromiso de la fábrica y la automatización BeeverForge.",
-      "lead": "Una demostración puede convencer en una reunión. Un producto operativo debe funcionar en el trabajo diario de la empresa. BeeverForge se compromete a entregar esa transición del prototipo a producción.",
-      "coverAlt": "Ilustración editorial que conecta prototipo, ingeniería y producto operativo en un recorrido de entrega.",
-      "coverLabel": "Del prototipo a producción",
-      "coverScope": "Ilustración editorial BeeverForge · creación, entrega y operación.",
-      "takeaway": "El compromiso es entregar un producto operativo, con el alcance y los criterios técnicos acordados.",
+      "category": "Investigación y producto",
+      "seoTitle": "9.041 proyectos con IA: el salto a producción | BeeverForge",
+      "title": "9.041 proyectos con IA. Solo el 11,14% con publicación verificable.",
+      "summary": "Un estudio externo encontró enlaces de publicación en 1.007 de 9.041 proyectos públicos asociados a Lovable y Claude Code. Qué significa para el camino hasta la operación.",
+      "lead": "En un estudio con repositorios públicos asociados a Lovable y Claude Code, 1.007 de 9.041 proyectos tenían una dirección de publicación validada y accesible. Para quien quiere poner una idea en funcionamiento, el camino hasta la operación debe formar parte del producto.",
+      "coverAlt": "11,14% con publicación verificable: 1.007 de 9.041 proyectos públicos asociados a Lovable y Claude Code, en un estudio externo en preprint.",
+      "coverLabel": "El salto hasta la operación",
+      "coverScope": "Fuente: Deng, Fan y Meng, preprint v4, sección 4. Muestra de repositorios públicos de GitHub; no es una tasa global de producción de Lovable.",
+      "takeaway": "BeeverForge existe para llevar la idea validada hasta el producto operativo, con arquitectura, implementación automatizada y criterios de entrega acordados.",
       "journey": [
         [
           "Prototype",
@@ -306,74 +342,88 @@ export const articles = [
         ]
       ],
       "sourceNotes": [
-        "Estudio mixto: 85 respuestas, 31 entrevistas en hackathon y ocho a profesionales. Identifica barreras en su muestra; no estima una tasa general de llegada a producción.",
-        "Análisis de 1.110 respuestas abiertas de ingenieros de Google sobre verificación e integración; no mide conversión de Lovable.",
-        "Alojamiento, propiedad y portabilidad documentados por Lovable.",
-        "Verificaciones de seguridad de la plataforma; no sustituyen la evaluación del proyecto concreto.",
-        "Prácticas de desarrollo seguro; no es una certificación de BeeverForge.",
-        "Caso técnico publicado por un proveedor de Lovable sobre observabilidad y aplicaciones desplegadas; no estudia conversión de prototipos."
+        "Preprint v4 de 14/09/2026; no se presenta como artículo revisado por pares. Sección 4: 1.007/9.041 proyectos con enlaces accesibles; sección 5: 182/200 aplicaciones auditadas con vulnerabilidades. Muestra GitHub predominantemente creada por IA, sin cobertura de proyectos privados ni tasa global de conversión.",
+        "Benchmark de proveedor de seguridad: 18 modelos, cuatro lenguajes y cuatro categorías de vulnerabilidad, sin instrucciones específicas de seguridad. Cerca del 38% de tareas con código vulnerable; no mide aplicaciones completas ni Lovable.",
+        "Estudio mixto: 85 respuestas, 31 entrevistas en hackathon y ocho a profesionales. Examina barreras después del prototipo; no estima una tasa general de publicación.",
+        "Análisis de 1.110 respuestas abiertas de ingenieros de Google sobre verificación e integración, no sobre conversión de proyectos Lovable.",
+        "Prácticas de desarrollo seguro durante el ciclo de vida; no es una certificación de BeeverForge.",
+        "Índice comercial externo y dinámico de dominios propios encontrados. Cobertura parcial, sin proyectos solo en lovable.app; no permite calcular una tasa global de producción.",
+        "Documentación de la plataforma usada exclusivamente para confirmar alojamiento, exportación y portabilidad.",
+        "Documentación de la plataforma usada exclusivamente para confirmar verificaciones de seguridad disponibles."
       ],
       "sections": [
         {
           "id": "evidence",
-          "heading": "La dificultad después del prototipo está documentada.",
+          "heading": "El número tiene fuente. Y un alcance definido.",
           "paragraphs": [
-            "El estudio <a href=\"#source-1\">From Throw-Away to Takeaway, de CHI 2026<sup>[1]</sup></a>, combina 85 respuestas con entrevistas a 31 participantes de hackathons y ocho profesionales. En esa muestra, las herramientas de IA aceleraron el prototipado, pero el despliegue y el mantenimiento siguieron requiriendo conocimiento técnico. Los participantes no técnicos encontraron barreras al avanzar más allá de la demostración.",
-            "El <a href=\"#source-2\">análisis DORA de marzo de 2026<sup>[2]</sup></a> describe un problema relacionado: el tiempo ganado generando software puede volver a gastarse en verificación e integración. La conclusión útil al elegir una plataforma es evaluar el recorrido completo de entrega, además de la velocidad de creación.",
-            "Estas fuentes no establecen una tasa general de prototipos que llegan a operación. No encontramos una fuente primaria que permita publicar ese porcentaje con confianza. El argumento es una barrera de ingeniería documentada, no una estadística de fracaso inventada."
+            "El <a href=\"#source-1\">estudio de Deng, Fan y Meng<sup>[1]</sup></a> seleccionó proyectos públicos de GitHub creados predominantemente por IA. Encontró publicación verificable en <strong>1.007 de 9.041: 11,14%</strong>. Los proyectos se asociaron a Lovable y Claude Code por señales en los repositorios. Es un preprint, en su versión de septiembre de 2026.",
+            "No encontrar un enlace público no demuestra abandono: puede existir una instalación privada, una dirección no identificada o trabajo en curso. La muestra tampoco representa todos los proyectos de esas herramientas. El dato mide publicación observable en el conjunto estudiado, sin demostrar cuántos proyectos fracasaron.",
+            "La pregunta para quien elige plataforma sigue en pie: después de validar la idea, ¿qué camino existe para ponerla en funcionamiento?"
           ]
         },
         {
           "id": "conversion",
-          "heading": "Una URL publicada no completa la entrega.",
+          "heading": "Publicar es una etapa. Operar exige continuidad.",
           "paragraphs": [
-            "Publicar pone una versión a disposición. Poner un producto en funcionamiento exige confirmar que realiza el trabajo previsto: reglas de negocio, accesos, datos, integraciones y respuestas a situaciones fuera del recorrido ideal.",
-            "Una herramienta interna de uso diario es un producto operativo aunque no venda suscripciones. El criterio de entrega es que la empresa pueda usarla para el trabajo acordado. Aquí importa software funcionando, no desempeño comercial."
+            "Una demostración impresiona cuando funciona el recorrido previsto. Un producto debe responder cuando dos personas reservan la misma hora, una integración deja de estar disponible o alguien intenta acceder a datos de otro cliente. Esas situaciones requieren decisiones de arquitectura, comportamiento definido y verificaciones.",
+            "Un sistema interno de uso diario también es un producto operativo. El criterio es ejecutar el trabajo acordado: gestionar reservas, apoyar a un equipo, procesar pedidos o conectar sistemas. Ingresos, inversión y crecimiento comercial dependen de otras decisiones; la entrega técnica debe ser verificable por sí misma.",
+            "<strong>Su idea no debería terminar en una demostración convincente y una lista de tareas técnicas de las que nadie se responsabilizó.</strong>"
+          ]
+        },
+        {
+          "id": "verification",
+          "heading": "El trabajo continúa incluso después de publicar.",
+          "paragraphs": [
+            "En una auditoría de 200 aplicaciones publicadas, el mismo <a href=\"#source-1\">preprint<sup>[1]</sup></a> identificó vulnerabilidades en <strong>182: el 91%</strong>. El resultado pertenece a esa muestra; no mide la tasa de fallo de toda Lovable. Muestra por qué estar en línea es un criterio de entrega insuficiente.",
+            "Otro método aporta evidencia adicional: la <a href=\"#source-2\">actualización de otoño de 2026 de Veracode<sup>[2]</sup></a> encontró vulnerabilidades conocidas en el código de alrededor del <strong>38% de las tareas evaluadas</strong>. El benchmark abarcó 18 modelos, cuatro lenguajes y cuatro categorías de fallos. Hubo mejoras respecto a la medición anterior. El resultado respalda la necesidad de verificación; no permite atribuir ese 38% a las aplicaciones Lovable.",
+            "El paso del prototipo al mantenimiento también aparece en la <a href=\"#source-3\">investigación de CHI 2026<sup>[3]</sup></a>, mientras que <a href=\"#source-4\">DORA<sup>[4]</sup></a> examina el trabajo de verificación e integración. Nuestra lectura editorial: generar código más rápido se convierte en entrega cuando el trabajo siguiente también tiene un proceso."
           ]
         },
         {
           "id": "fair-comparison",
-          "heading": "Qué es justo comparar con Lovable.",
+          "heading": "Lovable, prototipos y responsabilidad de entrega.",
           "paragraphs": [
-            "Lovable documenta <a href=\"#source-3\">alojamiento y portabilidad<sup>[3]</sup></a> y <a href=\"#source-4\">verificaciones de seguridad<sup>[4]</sup></a>. El <a href=\"#source-6\">caso técnico publicado por ClickHouse<sup>[6]</sup></a> también describe observabilidad y aplicaciones desplegadas. Sería incorrecto afirmar que nadie llega a producción con la plataforma.",
-            "La comparación relevante es cómo cada solución conduce la entrega: cómo los requisitos se convierten en implementación, qué verificaciones condicionan la publicación, quién resuelve la arquitectura y cómo siguen ejecutándose cambios después de la primera versión."
+            "Lovable y herramientas similares facilitaron experimentar con una idea. Eso tiene valor: probar una experiencia antes de invertir en implementarla puede evitar meses construyendo el producto equivocado.",
+            "Lovable permite <a href=\"#source-7\">publicar y exportar código<sup>[7]</sup></a> y ofrece <a href=\"#source-8\">verificaciones de seguridad<sup>[8]</sup></a>. La comparación relevante para BeeverForge es la continuidad de ejecución: quién prepara la arquitectura, cómo los requisitos se convierten en trabajo implementable y cómo los cambios pasan las verificaciones hasta la autorización de producción.",
+            "Índices como <a href=\"#source-6\">VibeCodedIndex<sup>[6]</sup></a> ayudan a descubrir productos, pero observan solo parte de los sitios con dominio propio. Dividir las aplicaciones que encontraron por el total de proyectos de Lovable no demuestra que el resto se haya quedado por el camino. Una comparación seria debe distinguir proyectos creados, publicaciones observadas y productos preparados para operar."
           ]
         },
         {
           "id": "operation",
-          "heading": "El producto debe funcionar fuera de la demostración.",
+          "heading": "Qué debe estar preparado cuando el producto entra en operación.",
           "kind": "readiness",
           "paragraphs": [
-            "Piense en un sistema de reservas. El prototipo muestra la elección del horario y la confirmación con datos simulados. En operación, dos personas pueden pedir la misma hora. Un pago puede fallar. Una integración puede quedar indisponible. La solución debe tratar esas situaciones de forma definida y verificable.",
-            "El <a href=\"#source-5\">Secure Software Development Framework de NIST<sup>[5]</sup></a> organiza prácticas de seguridad durante el desarrollo. Nuestra lectura es que preparar la producción forma parte de la entrega, con evidencias adecuadas al producto, en lugar de convertirse en una tarea indefinida después de la demostración."
+            "Volvamos al sistema de reservas. Validar la idea ayuda a descubrir los pasos del cliente. Preparar la operación exige resolver conflictos de horario, permisos, datos reales, fallos de pago y recuperación. Cada condición necesita un responsable y una forma de confirmar el resultado.",
+            "El <a href=\"#source-5\">Secure Software Development Framework de NIST<sup>[5]</sup></a> organiza prácticas de desarrollo seguro durante el ciclo de vida. Aplicadas al proyecto concreto, ayudan a convertir “listo para producción” en criterios que se pueden evaluar antes de la entrega."
           ]
         },
         {
           "id": "factory",
-          "heading": "BeeverForge asume la entrega más allá del prototipo.",
+          "heading": "BeeverForge: una plataforma para llevar la idea a operación.",
           "kind": "journey",
           "paragraphs": [
-            "Nuestro compromiso es entregar el producto operativo, dentro del alcance y los criterios acordados. La fábrica conecta las etapas necesarias: validar la idea, consolidar requisitos, definir arquitectura, ejecutar la implementación, verificar y autorizar la entrada en producción.",
-            "Empieza en Prototype con la IA. Valida la experiencia y genera requisitos. El prototipo utiliza datos simulados; la aplicación real se implementa a partir de las decisiones y requisitos que ayudó a descubrir. El siguiente paso exige más que publicar la simulación.",
-            "Su equipo puede preparar la arquitectura y la base técnica. Si quiere apoyo, el arranque asistido de BeeverForge es opcional: analizamos el prototipo concluido en la plataforma, diseñamos la solución y preparamos la base acordada en propuesta.",
-            "Con Team, la ejecución está automatizada: agentes de IA implementan el trabajo preparado, la fábrica realiza las verificaciones configuradas y obtiene revisión independiente, y el Product Owner virtual organiza prioridades y evolución. Las personas orientan el producto, deciden la arquitectura y autorizan producción."
+            "BeeverForge existe para ese recorrido. El compromiso es entregar el producto operativo dentro del alcance y los criterios técnicos acordados, y continuar su evolución con automatización.",
+            "Empiece en Prototype: usted y la IA exploran la idea, prueban la experiencia con datos simulados y consolidan requisitos. El prototipo ayuda a decidir qué construir y registra las decisiones para implementar la aplicación real.",
+            "Su equipo puede preparar la arquitectura. Si quiere apoyo, el arranque asistido de BeeverForge es opcional: analizamos el prototipo concluido en la plataforma, diseñamos la solución y preparamos la base técnica acordada en una propuesta. El alcance, los entregables y las condiciones se definen antes de empezar.",
+            "<strong>Con Team, la automatización BeeverForge ejecuta el trabajo preparado.</strong> Los agentes implementan; la fábrica realiza las verificaciones configuradas y obtiene revisión independiente; el Product Owner virtual organiza prioridades y evolución. Las personas orientan el producto, deciden la arquitectura y autorizan producción.",
+            "Finalizar el prototipo abre una etapa de implementación y evolución en la misma plataforma. Los criterios de entrega permiten seguir ese avance y saber qué falta para la operación."
           ]
         },
         {
           "id": "model-choice",
-          "heading": "La operación sigue bajo su control.",
+          "heading": "La fábrica trabaja con sus elecciones de IA e infraestructura.",
           "paragraphs": [
-            "Modelos, credenciales e infraestructura forman parte de la solución. OpenAI, Anthropic, Moonshot AI/Kimi y otros proveedores compatibles son opciones según la configuración y validación del entorno. Los endpoints privados y modelos locales u on-premises requieren compatibilidad, recursos y configuración adecuados.",
-            "El cliente controla sus claves y la infraestructura de ejecución; el consumo de IA y los recursos se pagan por separado. La prueba alojada tiene su propia configuración y no representa la disponibilidad de todos los modelos. El objetivo es que el producto evolucione sin depender de un único proveedor de IA."
+            "OpenAI, Anthropic, Moonshot AI/Kimi y otros proveedores compatibles pueden formar parte de la solución, según la configuración y validación del entorno. Los modelos locales, endpoints privados e instalaciones on-premises requieren interfaces compatibles y recursos adecuados.",
+            "El cliente controla sus claves API y su infraestructura de ejecución; el consumo de IA y los recursos se pagan por separado. La prueba alojada tiene configuración propia. Esa libertad permite elegir y revisar proveedores a medida que evoluciona el producto.",
+            "La automatización debe seguir haciendo avanzar el producto cuando sus elecciones cambian. Una fábrica de software debe ofrecer esa continuidad."
           ]
         },
         {
           "id": "outcomes",
-          "heading": "La medida de entrega es un producto funcionando.",
+          "heading": "El próximo hito de su idea es funcionar en el mundo real.",
           "paragraphs": [
-            "El prototipo ayuda a decidir qué construir. La producción exige demostrar que el producto ejecuta el trabajo acordado y puede seguir evolucionando. BeeverForge concentra su arquitectura, fábrica y automatización en esa transición.",
-            "Antes de elegir una plataforma, pida conocer el camino después de la demostración: implementación, verificaciones, decisión de publicar y ejecución de los siguientes cambios. Ese recorrido debe estar previsto desde el inicio.",
-            "<strong>Su idea merece llegar a operación. BeeverForge es la fábrica para hacer esa entrega posible.</strong>"
+            "Antes de elegir plataforma, pida ver el recorrido completo: requisitos, arquitectura, ejecución, verificaciones, autorización de producción y entrega de los siguientes cambios. Un prototipo da forma a la idea; el valor de la fábrica aparece en su capacidad para seguir ejecutándola.",
+            "<strong>Cree con IA. Valide la idea. Lleve el producto a operación con la automatización BeeverForge.</strong>"
           ]
         }
       ],
