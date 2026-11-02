@@ -2,7 +2,7 @@
 title: Privacy policy
 description: What BeeverForge collects on this website and in the Prototype Builder trial for companies, why, who processes it, how long it is kept and how to exercise your rights.
 version: 1.1
-date: 2026-11-03
+date: 2026-11-02
 status: final
 ---
 

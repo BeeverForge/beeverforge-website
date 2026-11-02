@@ -2,7 +2,7 @@
 title: Termos de uso
 description: Os termos que se aplicam ao teste do Prototype Builder da BeeverForge para empresas: quem pode usá-lo, o que ele inclui, o que é seu e o que prometemos.
 version: 1.1
-date: 2026-11-03
+date: 2026-11-02
 status: final
 ---
 
@@ -23,7 +23,7 @@ Estes termos se aplicam ao teste: a lista de espera, o pedido da sua empresa e a
 ## 3. O que é o teste
 
 - O teste permite descrever um produto numa conversa, vê-lo como um protótipo clicável com dados simulados e gerar os seus requisitos.
-- Ele é oferecido a poucas empresas de cada vez. Cada empresa aprovada recebe um espaço próprio no seu próprio endereço sob beeverforge.com, com o seu próprio Prototype Builder. O endereço que a empresa pede é um desejo; a BeeverForge pode definir outro.
+- Ele é oferecido a poucas empresas de cada vez. Cada empresa aprovada recebe um espaço próprio, no seu próprio endereço sob beeverforge.com, no Prototype Builder. O endereço que a empresa pede é um desejo; a BeeverForge pode definir outro.
 - O teste de uma empresa dura **quinze dias** a partir da data em que a sua conta é aberta.
 - Ele é **gratuito dentro da cota de uso da conta da empresa**. Quando a cota é atingida, o teste informa quando você pode continuar. Também podemos limitar o uso total do teste a qualquer momento.
 - A conta da empresa faz **um protótipo**, sobre um produto, que até cinco pessoas — contando com quem a administra — constroem juntas. Ele pode mudar o quanto a cota permitir, mas continua sendo esse produto: um pedido de outro produto é recusado.

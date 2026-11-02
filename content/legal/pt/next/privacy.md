@@ -2,7 +2,7 @@
 title: Política de privacidade
 description: Rascunho da próxima versão da política de privacidade da BeeverForge: o teste, os planos pagos, os pagamentos pela Stripe, o provedor de IA próprio da sua empresa e o arranque assistido.
 version: 1.2
-date: 2026-11-03
+date: 2026-11-02
 status: draft
 ---
 

@@ -2,7 +2,7 @@
 title: Termos de uso
 description: Rascunho da próxima versão dos termos da BeeverForge: o teste, os planos Prototype e Team, a chave própria do seu provedor de IA, o arranque assistido, cancelamentos e reembolsos.
 version: 1.2
-date: 2026-11-03
+date: 2026-11-02
 status: draft
 ---
 
@@ -28,7 +28,7 @@ Estes termos se aplicam a tudo o que uma empresa faz na plataforma: a lista de e
 ## 3. O teste
 
 - O teste permite que as pessoas da empresa descrevam um produto numa conversa, o vejam como um protótipo clicável com dados simulados e gerem os seus requisitos. Ele cobre o que o plano Prototype faz; os recursos do plano Team não fazem parte dele.
-- Ele é oferecido a poucas empresas de cada vez. Cada empresa aprovada recebe um espaço próprio no seu próprio endereço sob beeverforge.com, com o seu próprio Prototype Builder. O endereço que a empresa pede é um desejo; a BeeverForge pode definir outro.
+- Ele é oferecido a poucas empresas de cada vez. Cada empresa aprovada recebe um espaço próprio, no seu próprio endereço sob beeverforge.com, no Prototype Builder. O endereço que a empresa pede é um desejo; a BeeverForge pode definir outro.
 - O teste de uma empresa dura **quinze dias** a partir da data em que a sua conta é aberta.
 - Ele é **gratuito**, dentro de um orçamento limitado de IA e infraestrutura que a BeeverForge define para a empresa e para o teste como um todo. Quando o orçamento da empresa, ou o do teste como um todo, é atingido, o teste informa quando você pode continuar. Também podemos limitar o uso total do teste a qualquer momento.
 - Nenhum cartão é pedido. **O teste nunca vira uma cobrança:** nada é cobrado a menos que a empresa escolha um plano pago.

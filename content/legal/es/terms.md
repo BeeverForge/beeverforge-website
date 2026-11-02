@@ -2,7 +2,7 @@
 title: Términos de uso
 description: Los términos que se aplican a la prueba del Prototype Builder de BeeverForge para empresas: quién puede usarla, qué incluye, qué conserva usted y qué prometemos.
 version: 1.1
-date: 2026-11-03
+date: 2026-11-02
 status: final
 ---
 
@@ -23,7 +23,7 @@ Estos términos se aplican a la prueba: la lista de espera, la solicitud de su e
 ## 3. Qué es la prueba
 
 - La prueba le permite describir un producto en una conversación, verlo como un prototipo navegable con datos simulados y generar sus requisitos.
-- Se ofrece a pocas empresas a la vez. Cada empresa aprobada recibe su propio espacio en su propia dirección bajo beeverforge.com, con su propio Prototype Builder. La dirección que una empresa solicita es un deseo; BeeverForge puede asignar otra.
+- Se ofrece a pocas empresas a la vez. Cada empresa aprobada recibe su propio espacio, en su propia dirección bajo beeverforge.com, en el Prototype Builder. La dirección que una empresa solicita es un deseo; BeeverForge puede asignar otra.
 - La prueba de una empresa dura **quince días** desde la fecha en que se abre su cuenta.
 - Es **gratuita dentro de la cuota de uso de la cuenta de la empresa**. Cuando se alcanza la cuota, la prueba le indica cuándo puede continuar. También podemos limitar el uso total de la prueba en cualquier momento.
 - La cuenta de la empresa hace **un prototipo**, sobre un producto, que hasta cinco personas —incluida quien la administra— construyen juntas. Puede cambiar tanto como la cuota lo permita, pero sigue siendo ese producto: una solicitud de otro producto se rechaza.

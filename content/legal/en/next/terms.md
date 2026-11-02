@@ -2,7 +2,7 @@
 title: Terms of use
 description: Draft of the next version of BeeverForge's terms: the trial, the Prototype and Team plans, your own AI provider key, the assisted start, cancellations and refunds.
 version: 1.2
-date: 2026-11-03
+date: 2026-11-02
 status: draft
 ---
 
@@ -28,7 +28,7 @@ These terms apply to everything a company does on the platform: the waitlist, th
 ## 3. The trial
 
 - The trial lets the company's people describe a product in a conversation, see it as a clickable prototype on simulated data, and generate its requirements. It covers what the Prototype plan does; the Team plan's features are not part of it.
-- It is offered to a few companies at a time. Each approved company gets its own space at its own address under beeverforge.com, with its own Prototype Builder. The address a company asks for is a wish; BeeverForge may set a different one.
+- It is offered to a few companies at a time. Each approved company gets its own space, at its own address under beeverforge.com, in the Prototype Builder. The address a company asks for is a wish; BeeverForge may set a different one.
 - A company's trial lasts **fifteen days** from the date its account opens.
 - It is **free of charge**, within a limited AI and infrastructure budget that BeeverForge sets for the company and for the trial as a whole. When the company's budget, or the trial's as a whole, is reached, the trial tells you when you can continue. We may also limit the total use of the trial at any time.
 - No card is asked for. **The trial never turns into a charge:** nothing is billed unless the company chooses a paid plan.

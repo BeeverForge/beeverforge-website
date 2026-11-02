@@ -2,7 +2,7 @@
 title: Terms of use
 description: The terms that apply to the BeeverForge Prototype Builder trial for companies: who may use it, what it includes, what you keep and what we promise.
 version: 1.1
-date: 2026-11-03
+date: 2026-11-02
 status: final
 ---
 
@@ -23,7 +23,7 @@ These terms apply to the trial: the waitlist, your company's request and its acc
 ## 3. What the trial is
 
 - The trial lets you describe a product in a conversation, see it as a clickable prototype on simulated data, and generate its requirements.
-- It is offered to a few companies at a time. Each approved company gets its own space at its own address under beeverforge.com, with its own Prototype Builder. The address a company asks for is a wish; BeeverForge may set a different one.
+- It is offered to a few companies at a time. Each approved company gets its own space, at its own address under beeverforge.com, in the Prototype Builder. The address a company asks for is a wish; BeeverForge may set a different one.
 - A company's trial lasts **fifteen days** from the date its account opens.
 - It is **free of charge within the company account's usage quota**. When the quota is reached, the trial tells you when you can continue. We may also limit the total use of the trial at any time.
 - The company's account makes **one prototype**, about one product, which up to five people — the admin included — build together. It can change as much as the quota allows, but it stays that product: a request for a different product is declined.

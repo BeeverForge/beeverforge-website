@@ -2,7 +2,7 @@
 title: Política de privacidade
 description: O que a BeeverForge coleta neste site e no teste do Prototype Builder para empresas, para quê, quem trata os dados, por quanto tempo eles são guardados e como exercer os seus direitos.
 version: 1.1
-date: 2026-11-03
+date: 2026-11-02
 status: final
 ---
 

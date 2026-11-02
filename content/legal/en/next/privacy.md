@@ -2,7 +2,7 @@
 title: Privacy policy
 description: Draft of the next version of BeeverForge's privacy policy: the trial, the paid plans, payments through Stripe, your company's own AI provider and the assisted start.
 version: 1.2
-date: 2026-11-03
+date: 2026-11-02
 status: draft
 ---
 
