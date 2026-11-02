@@ -1,8 +1,8 @@
 ---
 title: Terms of use
 description: The terms that apply to the BeeverForge Prototype Builder trial for companies: who may use it, what it includes, what you keep and what we promise.
-version: 1.0
-date: 2026-10-27
+version: 1.1
+date: 2026-11-02
 status: final
 ---
 
@@ -23,12 +23,12 @@ These terms apply to the trial: the waitlist, your company's request and its acc
 ## 3. What the trial is
 
 - The trial lets you describe a product in a conversation, see it as a clickable prototype on simulated data, and generate its requirements.
-- It is offered to a few companies at a time. Each approved company gets its own space at its own address under beeverforge.com, with its own Prototype Builder. The address a company asks for is a wish; BeeverForge may set a different one.
+- It is offered to a few companies at a time. Each approved company gets its own space, at its own address under beeverforge.com, in the Prototype Builder. The address a company asks for is a wish; BeeverForge may set a different one.
 - A company's trial lasts **fifteen days** from the date its account opens.
 - It is **free of charge within the company account's usage quota**. When the quota is reached, the trial tells you when you can continue. We may also limit the total use of the trial at any time.
-- Each person in the account makes **one prototype**, about one product. It can change as much as the quota allows, but it stays that product: a request for a different product is declined.
+- The company's account makes **one prototype**, about one product, which up to five people — the admin included — build together. It can change as much as the quota allows, but it stays that product: a request for a different product is declined.
 - When the trial ends, the account's people can still sign in to read and download what they created until it is deleted (see the [privacy policy](/legal/privacy/)), but they cannot start new work.
-- If the company moves to the Business plan, the same account continues, at the same address, with its data. The Business plan is governed by a separate written agreement.
+- If the company moves to the Team plan, the same account continues, at the same address, with its data. The Team plan is governed by a separate written agreement.
 - The trial is a preview of a service that is still evolving. We may change, suspend or end it, or any part of it, at any time. There is no service level, uptime commitment or support obligation.
 
 ## 4. Your account

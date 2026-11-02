@@ -81,6 +81,7 @@ export const copy = {
     "planEyebrow": "The subscription",
     "planTitle": "Start with the idea.<br>Scale on your terms.",
     "planLead": "Prototype to create and validate with AI. Team for automated implementation and evolution. Enterprise to run the entire platform in your company’s infrastructure.",
+    "planPath": "Every company starts with a free trial: fifteen days, one prototype built together by up to five people. Then Prototype, Team or Enterprise.",
     "prototypeTag": "Explore & validate",
     "teamTag": "Build & evolve",
     "prototypeIntro": "Make your idea clear before you build it.",
@@ -212,7 +213,7 @@ export const copy = {
       "Google / Gemini",
       "Moonshot / Kimi",
       "Qwen",
-      "Local / on-premises"
+      "Local / on-premises (Enterprise)"
     ],
     "freedomCards": [
       [
@@ -220,15 +221,15 @@ export const copy = {
         "Use your company’s own supported API keys. After the trial, you pay your model provider directly, without BeeverForge token bundles."
       ],
       [
-        "Your infrastructure",
-        "Run execution resources and applications in the environment your company pays for and controls. Compatible local models can run on premises."
+        "Your infrastructure, with Enterprise",
+        "The whole platform runs in the environment your company pays for and controls, and compatible local models can run on premises."
       ],
       [
         "Room to change",
         "Provider and model choices are configurable. Change the configured engine as your needs change, with compatibility and quality checks."
       ]
     ],
-    "freedomNote": "Provider and model availability depend on the configured deployment. The hosted trial currently uses Anthropic. Private endpoints and on-premises models require compatible APIs, suitable hardware and validation.",
+    "freedomNote": "Provider and model availability depend on the configured deployment. The hosted trial currently uses Anthropic. Private endpoints and on-premises models are part of Enterprise, and require compatible APIs, suitable hardware and validation.",
     "freedomLink": "How model choice and ownership work",
     "blog": "Blog",
     "blogEyebrow": "From prototype to product",
@@ -339,6 +340,7 @@ export const copy = {
     "planEyebrow": "A assinatura",
     "planTitle": "Comece pela ideia.<br>Escale à sua medida.",
     "planLead": "Prototype para criar e validar com IA. Team para automatizar a implementação e evolução. Enterprise para operar toda a plataforma na infraestrutura da sua empresa.",
+    "planPath": "Toda empresa começa com um teste gratuito: quinze dias, um protótipo feito em conjunto por até cinco pessoas. Depois, Prototype, Team ou Enterprise.",
     "prototypeTag": "Explorar e validar",
     "teamTag": "Construir e evoluir",
     "prototypeIntro": "Torne a sua ideia clara antes de a construir.",
@@ -470,7 +472,7 @@ export const copy = {
       "Google / Gemini",
       "Moonshot / Kimi",
       "Qwen",
-      "Local / on-premises"
+      "Local / on-premises (Enterprise)"
     ],
     "freedomCards": [
       [
@@ -478,15 +480,15 @@ export const copy = {
         "Use as chaves de API suportadas da sua empresa. Após o teste, paga diretamente ao fornecedor do modelo, sem pacotes de tokens BeeverForge."
       ],
       [
-        "A sua infraestrutura",
-        "Execute o trabalho e as aplicações no ambiente que a sua empresa paga e controla. Modelos locais compatíveis podem correr nas suas instalações."
+        "A sua infraestrutura, com o Enterprise",
+        "A plataforma inteira corre no ambiente que a sua empresa paga e controla, e modelos locais compatíveis podem correr nas suas instalações."
       ],
       [
         "Liberdade para mudar",
         "A escolha do fornecedor e do modelo é configurável. Troque o motor configurado quando as necessidades mudarem, com verificações de compatibilidade e qualidade."
       ]
     ],
-    "freedomNote": "A disponibilidade de fornecedores e modelos depende da instalação configurada. O teste hospedado usa atualmente Anthropic. Endpoints privados e modelos on-premises exigem APIs compatíveis, hardware adequado e validação.",
+    "freedomNote": "A disponibilidade de fornecedores e modelos depende da instalação configurada. O teste hospedado usa atualmente Anthropic. Endpoints privados e modelos on-premises fazem parte do Enterprise e exigem APIs compatíveis, hardware adequado e validação.",
     "freedomLink": "Como funcionam a escolha de modelos e o controlo",
     "blog": "Blog",
     "blogEyebrow": "Do protótipo ao produto",
@@ -597,6 +599,7 @@ export const copy = {
     "planEyebrow": "La suscripción",
     "planTitle": "Empiece por la idea.<br>Escale a su medida.",
     "planLead": "Prototype para crear y validar con IA. Team para automatizar implementación y evolución. Enterprise para operar toda la plataforma en la infraestructura de su empresa.",
+    "planPath": "Toda empresa empieza con una prueba gratuita: quince días, un prototipo hecho en conjunto por hasta cinco personas. Después, Prototype, Team o Enterprise.",
     "prototypeTag": "Explorar y validar",
     "teamTag": "Construir y evolucionar",
     "prototypeIntro": "Aclare su idea antes de construirla.",
@@ -728,7 +731,7 @@ export const copy = {
       "Google / Gemini",
       "Moonshot / Kimi",
       "Qwen",
-      "Local / on-premises"
+      "Local / on-premises (Enterprise)"
     ],
     "freedomCards": [
       [
@@ -736,15 +739,15 @@ export const copy = {
         "Use las claves de API compatibles de su empresa. Después de la prueba, paga directamente al proveedor del modelo, sin paquetes de tokens BeeverForge."
       ],
       [
-        "Su infraestructura",
-        "Ejecute el trabajo y las aplicaciones en el entorno que su empresa paga y controla. Los modelos locales compatibles pueden ejecutarse en sus instalaciones."
+        "Su infraestructura, con Enterprise",
+        "Toda la plataforma se ejecuta en el entorno que su empresa paga y controla, y los modelos locales compatibles pueden ejecutarse en sus instalaciones."
       ],
       [
         "Libertad para cambiar",
         "La elección de proveedor y modelo es configurable. Cambie el motor configurado cuando cambien sus necesidades, con verificaciones de compatibilidad y calidad."
       ]
     ],
-    "freedomNote": "La disponibilidad de proveedores y modelos depende de la instalación configurada. La prueba alojada utiliza actualmente Anthropic. Los endpoints privados y modelos on-premises requieren APIs compatibles, hardware adecuado y validación.",
+    "freedomNote": "La disponibilidad de proveedores y modelos depende de la instalación configurada. La prueba alojada utiliza actualmente Anthropic. Los endpoints privados y los modelos on-premises son parte de Enterprise y requieren APIs compatibles, hardware adecuado y validación.",
     "freedomLink": "Cómo funcionan la elección de modelos y el control",
     "blog": "Blog",
     "blogEyebrow": "Del prototipo al producto",

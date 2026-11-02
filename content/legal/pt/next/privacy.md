@@ -1,10 +1,12 @@
 ---
 title: Política de privacidade
 description: Rascunho da próxima versão da política de privacidade da BeeverForge: o teste, os planos pagos, os pagamentos pela Stripe, o provedor de IA próprio da sua empresa e o arranque assistido.
-version: 1.1
-date: 2026-10-29
+version: 1.2
+date: 2026-11-02
 status: draft
 ---
+
+*Este rascunho tem como base a versão 1.1, de 3 de novembro de 2026.*
 
 ## 1. Quem é o responsável pelo tratamento
 
@@ -59,6 +61,7 @@ Esta política cobre este site (beeverforge.com), o formulário de contato da En
 
 - Para proteger a plataforma contra abusos (por exemplo, cadastros automatizados e tentativas repetidas de acesso), nós e os nossos provedores tratamos o seu **endereço IP e dados técnicos do seu navegador**, para limitar a frequência de requisições, para uma verificação humana (Cloudflare Turnstile) e para regras de firewall.
 - Mantemos um **registro de auditoria** das ações relevantes (um convite, uma entrada, um aceite, uma exclusão, uma entrega): quem, quando e o quê, nunca o conteúdo.
+- Se uma mensagem que enviamos a você voltar, ou se você a marcar como spam, o nosso provedor de e-mail nos avisa, e colocamos o seu endereço numa **lista de endereços para os quais nunca mais escrevemos**. Guardamos ali uma impressão digital do endereço, feita com uma chave nossa — nunca o próprio endereço —, com o motivo e a data.
 
 ## 3. Bases legais
 
@@ -80,7 +83,7 @@ Não vendemos os seus dados. Não usamos o seu conteúdo para treinar modelos de
 Usamos os seguintes provedores, cada um sob contrato e somente para a finalidade indicada:
 
 - **Durante o teste, o nosso provedor de modelos de IA (atualmente a Anthropic)** — recebe o que você escreve e envia, e os arquivos do protótipo, para gerar o protótipo e os requisitos.
-- **Amazon Web Services** — hospeda a plataforma e os seus dados nos Estados Unidos, e guarda a chave de cada empresa no provedor de IA no seu cofre de segredos.
+- **Amazon Web Services** — hospeda a plataforma e os seus dados no Reino Unido (Londres, eu-west-2), e guarda a chave de cada empresa no provedor de IA no seu cofre de segredos.
 - **Stripe** — processa os pagamentos dos planos e do arranque assistido, e guarda os dados de cobrança da empresa, os seus meios de pagamento e as suas faturas. **[Advogado: a Stripe também atua como responsável pelo tratamento independente em parte do tratamento que faz (por exemplo, prevenção de fraudes e as suas próprias obrigações legais); confirmar como descrevê-la aqui e nomear a entidade da Stripe com que a BeeverForge contrata.]**
 - **Resend** — envia os nossos e-mails (confirmação, convite, links de senha, avisos) e nos entrega os contatos sobre a Enterprise.
 - **Cloudflare** — a verificação humana dos nossos formulários (vê o seu endereço IP e sinais do navegador) e o serviço que recebe os contatos sobre a Enterprise.
@@ -93,7 +96,7 @@ Quando você define uma senha, também perguntamos ao Have I Been Pwned, um serv
 
 ## 6. Transferências internacionais
 
-Os nossos provedores tratam dados nos **Estados Unidos** e possivelmente em outros países, fora do Espaço Econômico Europeu. Só usamos provedores certificados no EU-U.S. Data Privacy Framework, que a Comissão Europeia considerou adequado (artigo 45 do RGPD), ou vinculados às cláusulas contratuais-tipo da Comissão nos seus termos de tratamento de dados (artigo 46 do RGPD). Você pode pedir uma cópia dessas garantias em contact@beeverforge.com. **[Advogado: registrar em que garantia a Stripe se apoia, junto com os demais provedores.]**
+A Amazon Web Services hospeda a plataforma e os seus dados no **Reino Unido**, para o qual a Comissão Europeia adotou uma decisão de adequação (artigo 45 do RGPD). Os nossos outros provedores tratam dados nos **Estados Unidos** e possivelmente em outros países, fora do Espaço Econômico Europeu. Só usamos provedores certificados no EU-U.S. Data Privacy Framework, que a Comissão Europeia considerou adequado (artigo 45 do RGPD), ou vinculados às cláusulas contratuais-tipo da Comissão nos seus termos de tratamento de dados (artigo 46 do RGPD). Você pode pedir uma cópia dessas garantias em contact@beeverforge.com. **[Advogado: registrar em que garantia a Stripe se apoia, junto com os demais provedores.]**
 
 ## 7. Por quanto tempo guardamos
 
@@ -106,10 +109,11 @@ Os nossos provedores tratam dados nos **Estados Unidos** e possivelmente em outr
 - **A chave da sua empresa no provedor de IA:** enquanto a sua empresa a usar; ela é substituída quando quem administra a conta informa uma nova. **[Product owner: por quanto tempo uma chave que deixou de ser usada, e os seus quatro últimos caracteres e datas, são guardados depois que o plano termina ou a conta é apagada.]**
 - **Registros de auditoria e de uso** (sem conteúdo): 2 anos.
 - **Registros de segurança e do servidor:** 30 dias.
+- **A lista de endereços para os quais nunca mais escrevemos** (uma impressão digital de cada um, nunca o endereço): sem prazo de fim, para nunca mais escrevermos para esse endereço — também depois de você apagar a sua conta.
 
 ## 8. Seus direitos
 
-Você pode pedir para **acessar, corrigir ou apagar** os seus dados, **recebê-los num formato portável ou que os enviemos a outro provedor**, **saber com quem os compartilhamos**, **retirar o seu consentimento**, **se opor** ao tratamento baseado nos nossos interesses legítimos e pedir que o **limitemos**. Você pode apagar a sua conta e tudo o que há nela a qualquer momento pela página da sua conta, ou escrevendo para contact@beeverforge.com; os registros de cobrança que a lei nos obriga a guardar ficam pelo período que ela define. Você também pode reclamar a uma autoridade de proteção de dados — em Portugal, a Comissão Nacional de Proteção de Dados (CNPD), ou a autoridade do país onde você vive.
+Você pode pedir para **acessar, corrigir ou apagar** os seus dados, **recebê-los num formato portável ou que os enviemos a outro provedor**, **saber com quem os compartilhamos**, **retirar o seu consentimento**, **se opor** ao tratamento baseado nos nossos interesses legítimos e pedir que o **limitemos**. Você pode apagar a sua conta e tudo o que há nela a qualquer momento pela página da sua conta, ou escrevendo para contact@beeverforge.com; os registros de cobrança que a lei nos obriga a guardar ficam pelo período que ela define. Quando você o faz, guardamos só o que não contém nada do que você escreveu: o registro de auditoria do que foi feito e quando, sob uma impressão digital do seu endereço (2 anos); os termos que você aceitou, e quando, sem nenhum endereço seu; a sua parte nos pedidos da sua empresa, que continuam da empresa, sem o seu endereço; e, se uma mensagem para você voltou ou foi marcada como spam, a impressão digital do seu endereço na lista acima. Você também pode reclamar a uma autoridade de proteção de dados — em Portugal, a Comissão Nacional de Proteção de Dados (CNPD), ou a autoridade do país onde você vive.
 
 ## 9. Segurança
 

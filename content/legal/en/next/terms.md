@@ -1,10 +1,12 @@
 ---
 title: Terms of use
 description: Draft of the next version of BeeverForge's terms: the trial, the Prototype and Team plans, your own AI provider key, the assisted start, cancellations and refunds.
-version: 1.1
-date: 2026-10-29
+version: 1.2
+date: 2026-11-02
 status: draft
 ---
+
+*This draft builds on version 1.1 of November 3, 2026.*
 
 ## 1. Who we are and what these terms cover
 
@@ -26,11 +28,11 @@ These terms apply to everything a company does on the platform: the waitlist, th
 ## 3. The trial
 
 - The trial lets the company's people describe a product in a conversation, see it as a clickable prototype on simulated data, and generate its requirements. It covers what the Prototype plan does; the Team plan's features are not part of it.
-- It is offered to a few companies at a time. Each approved company gets its own space at its own address under beeverforge.com, with its own Prototype Builder. The address a company asks for is a wish; BeeverForge may set a different one.
+- It is offered to a few companies at a time. Each approved company gets its own space, at its own address under beeverforge.com, in the Prototype Builder. The address a company asks for is a wish; BeeverForge may set a different one.
 - A company's trial lasts **fifteen days** from the date its account opens.
-- It is **free of charge**, within a limited AI and infrastructure budget that BeeverForge sets for the company and for the trial as a whole. When the company's budget is reached, the trial tells you when you can continue. We may also limit the total use of the trial at any time.
+- It is **free of charge**, within a limited AI and infrastructure budget that BeeverForge sets for the company and for the trial as a whole. When the company's budget, or the trial's as a whole, is reached, the trial tells you when you can continue. We may also limit the total use of the trial at any time.
 - No card is asked for. **The trial never turns into a charge:** nothing is billed unless the company chooses a paid plan.
-- Each person in the account makes **one prototype**, about one product. It can change as much as the budget allows, but it stays that product: a request for a different product is declined.
+- The company's account makes **one prototype**, about one product, which up to five people — the admin included — build together. It can change as much as the budget allows, but it stays that product: a request for a different product is declined.
 - When the trial ends, new work stops, except one generation of a prototype's requirements when the company asks BeeverForge's team to look at that prototype. The account's people can still sign in to read and download what they created until it is deleted (see the [privacy policy](/legal/privacy/)).
 - If the company chooses a paid plan, the same account continues, at the same address, with its data.
 - The trial is a preview of a service that is still evolving. We may change, suspend or end it, or any part of it, at any time. There is no service level, uptime commitment or support obligation during the trial.

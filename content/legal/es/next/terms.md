@@ -1,10 +1,12 @@
 ---
 title: Términos de uso
 description: Borrador de la próxima versión de los términos de BeeverForge: la prueba, los planes Prototype y Team, la clave de su propio proveedor de IA, el arranque asistido, las cancelaciones y los reembolsos.
-version: 1.1
-date: 2026-10-29
+version: 1.2
+date: 2026-11-02
 status: draft
 ---
+
+*Este borrador se basa en la versión 1.1, del 3 de noviembre de 2026.*
 
 ## 1. Quiénes somos y qué cubren estos términos
 
@@ -26,11 +28,11 @@ Estos términos se aplican a todo lo que una empresa hace en la plataforma: la l
 ## 3. La prueba
 
 - La prueba permite a las personas de la empresa describir un producto en una conversación, verlo como un prototipo navegable con datos simulados y generar sus requisitos. Cubre lo que hace el plan Prototype; las funciones del plan Team no forman parte de ella.
-- Se ofrece a pocas empresas a la vez. Cada empresa aprobada recibe su propio espacio en su propia dirección bajo beeverforge.com, con su propio Prototype Builder. La dirección que una empresa solicita es un deseo; BeeverForge puede asignar otra.
+- Se ofrece a pocas empresas a la vez. Cada empresa aprobada recibe su propio espacio, en su propia dirección bajo beeverforge.com, en el Prototype Builder. La dirección que una empresa solicita es un deseo; BeeverForge puede asignar otra.
 - La prueba de una empresa dura **quince días** desde la fecha en que se abre su cuenta.
-- Es **gratuita**, dentro de un presupuesto limitado de IA e infraestructura que BeeverForge fija para la empresa y para la prueba en su conjunto. Cuando se alcanza el presupuesto de la empresa, la prueba le indica cuándo puede continuar. También podemos limitar el uso total de la prueba en cualquier momento.
+- Es **gratuita**, dentro de un presupuesto limitado de IA e infraestructura que BeeverForge fija para la empresa y para la prueba en su conjunto. Cuando se alcanza el presupuesto de la empresa, o el de la prueba en su conjunto, la prueba le indica cuándo puede continuar. También podemos limitar el uso total de la prueba en cualquier momento.
 - No se pide tarjeta. **La prueba nunca se convierte en un cobro:** no se factura nada salvo que la empresa elija un plan de pago.
-- Cada persona de la cuenta hace **un prototipo**, sobre un producto. Puede cambiar tanto como el presupuesto lo permita, pero sigue siendo ese producto: una solicitud de otro producto se rechaza.
+- La cuenta de la empresa hace **un prototipo**, sobre un producto, que hasta cinco personas —incluida quien la administra— construyen juntas. Puede cambiar tanto como el presupuesto lo permita, pero sigue siendo ese producto: una solicitud de otro producto se rechaza.
 - Cuando termina la prueba, el trabajo nuevo se detiene, salvo una generación de los requisitos de un prototipo cuando la empresa pide al equipo de BeeverForge que revise ese prototipo. Las personas de la cuenta todavía pueden iniciar sesión para leer y descargar lo que crearon hasta que se elimine (vea la [política de privacidad](/legal/privacy/)).
 - Si la empresa elige un plan de pago, la misma cuenta continúa, en la misma dirección, con sus datos.
 - La prueba es una versión preliminar de un servicio que sigue evolucionando. Podemos cambiarla, suspenderla o terminarla, total o parcialmente, en cualquier momento. Durante la prueba no hay nivel de servicio, compromiso de disponibilidad ni obligación de soporte.

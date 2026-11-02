@@ -1,10 +1,12 @@
 ---
 title: Privacy policy
 description: Draft of the next version of BeeverForge's privacy policy: the trial, the paid plans, payments through Stripe, your company's own AI provider and the assisted start.
-version: 1.1
-date: 2026-10-29
+version: 1.2
+date: 2026-11-02
 status: draft
 ---
+
+*This draft builds on version 1.1 of November 3, 2026.*
 
 ## 1. Who is responsible
 
@@ -59,6 +61,7 @@ This policy covers this website (beeverforge.com), the Enterprise inquiry form, 
 
 - To protect the platform against abuse (for example, automated sign-ups and repeated access attempts), we and our providers process your **IP address and technical data about your browser**, for rate limiting, a human-verification check (Cloudflare Turnstile) and firewall rules.
 - We keep an **audit record** of significant actions (an invitation, a sign-in, an acceptance, a deletion, a hand-over): who, when and what, never the content.
+- If a letter we send you bounces, or you mark it as spam, our email provider tells us, and we add your address to a **list of addresses we never write to again**. We keep it there as a fingerprint of the address, made with a key of ours — never the address itself —, with the reason and the date.
 
 ## 3. Legal bases
 
@@ -80,7 +83,7 @@ We do not sell your data. We do not use your content to train AI models. We do n
 We use the following providers, each under contract and only for the purpose stated:
 
 - **During the trial, our AI model provider (currently Anthropic)** — receives what you write and upload, and the prototype's files, to generate the prototype and the requirements.
-- **Amazon Web Services** — hosts the platform and its data in the United States, and keeps each company's AI provider key in its secret store.
+- **Amazon Web Services** — hosts the platform and its data in the United Kingdom (London, eu-west-2), and keeps each company's AI provider key in its secret store.
 - **Stripe** — takes the payments for the plans and the assisted start, and keeps the company's billing details, its payment methods and its invoices. **[Counsel: Stripe also acts as an independent controller for some of its processing (for example, fraud prevention and its own legal obligations); confirm how to describe it here, and name the Stripe entity BeeverForge contracts with.]**
 - **Resend** — sends our emails (confirmation, invitation, password links, notices) and delivers Enterprise inquiries to us.
 - **Cloudflare** — the human-verification check on our forms (it sees your IP address and browser signals) and the service that receives Enterprise inquiries.
@@ -93,7 +96,7 @@ When you set a password, we also ask Have I Been Pwned, a public service we use 
 
 ## 6. International transfers
 
-Our providers process data in the **United States** and possibly in other countries, outside the European Economic Area. We use only providers that are certified under the EU-U.S. Data Privacy Framework, which the European Commission has found adequate (GDPR article 45), or that are bound by the Commission's standard contractual clauses in their data processing terms (GDPR article 46). You can ask for a copy of these safeguards at contact@beeverforge.com. **[Counsel: record which safeguard Stripe relies on, with the other providers.]**
+Amazon Web Services hosts the platform and its data in the **United Kingdom**, for which the European Commission has adopted an adequacy decision (GDPR article 45). Our other providers process data in the **United States** and possibly in other countries, outside the European Economic Area. We use only providers that are certified under the EU-U.S. Data Privacy Framework, which the European Commission has found adequate (GDPR article 45), or that are bound by the Commission's standard contractual clauses in their data processing terms (GDPR article 46). You can ask for a copy of these safeguards at contact@beeverforge.com. **[Counsel: record which safeguard Stripe relies on, with the other providers.]**
 
 ## 7. How long we keep it
 
@@ -106,10 +109,11 @@ Our providers process data in the **United States** and possibly in other countr
 - **Your company's AI provider key:** while your company uses it; it is replaced when the admin enters a new one. **[Product owner: how long a key no longer in use, and its last four characters and dates, are kept once the plan ends or the account is deleted.]**
 - **Audit and usage records** (no content): 2 years.
 - **Security and server logs:** 30 days.
+- **The list of addresses we never write to again** (a fingerprint of each, never the address): with no end date, so that we never write to that address again — also after you delete your account.
 
 ## 8. Your rights
 
-You can ask to **access, correct or delete** your data, to **receive it in a portable format or have it sent to another provider**, to **know who we share it with**, to **withdraw your consent**, to **object** to processing based on our legitimate interest and to ask us to **restrict** it. You can delete your account and everything in it at any time from your account page, or by writing to contact@beeverforge.com; billing records the law requires us to keep stay for the period it sets. You may also complain to a data protection authority — in Portugal, the Comissão Nacional de Proteção de Dados (CNPD), or the authority where you live.
+You can ask to **access, correct or delete** your data, to **receive it in a portable format or have it sent to another provider**, to **know who we share it with**, to **withdraw your consent**, to **object** to processing based on our legitimate interest and to ask us to **restrict** it. You can delete your account and everything in it at any time from your account page, or by writing to contact@beeverforge.com; billing records the law requires us to keep stay for the period it sets. When you do, we keep only what holds nothing you wrote: the audit record of what was done and when, under a fingerprint of your address (2 years); which terms you accepted, and when, under no address of yours; your part in your company's orders, which stay your company's, without your address; and, if a letter to you bounced or was marked as spam, your address's fingerprint on the list above. You may also complain to a data protection authority — in Portugal, the Comissão Nacional de Proteção de Dados (CNPD), or the authority where you live.
 
 ## 9. Security
 
