@@ -1,8 +1,8 @@
 ---
 title: Política de privacidad
 description: Qué recopila BeeverForge en este sitio web y en la prueba del Prototype Builder para empresas, para qué, quién lo procesa, cuánto tiempo se conserva y cómo ejercer sus derechos.
-version: 1.0
-date: 2026-10-27
+version: 1.1
+date: 2026-11-03
 status: final
 ---
 
@@ -43,6 +43,7 @@ Esta política cubre este sitio web (beeverforge.com), el formulario de consulta
 
 - Para proteger la prueba contra abusos (por ejemplo, registros automatizados e intentos repetidos de acceso), nosotros y nuestros proveedores procesamos su **dirección IP y datos técnicos de su navegador**, para limitar la frecuencia de solicitudes, para una verificación humana (Cloudflare Turnstile) y para reglas de cortafuegos.
 - Mantenemos un **registro de auditoría** de las acciones relevantes (una invitación, un inicio de sesión, una aceptación, una eliminación, una entrega): quién, cuándo y qué, nunca el contenido.
+- Si un mensaje que le enviamos rebota, o si usted lo marca como spam, nuestro proveedor de correo nos avisa, y añadimos su dirección a una **lista de direcciones a las que nunca volvemos a escribir**. Guardamos allí una huella digital de la dirección, hecha con una clave nuestra —nunca la propia dirección—, con el motivo y la fecha.
 
 ## 3. Bases legales
 
@@ -64,7 +65,7 @@ No vendemos sus datos. No usamos su contenido para entrenar modelos de IA. No lo
 Usamos los siguientes proveedores, cada uno bajo contrato y solo para la finalidad indicada:
 
 - **Nuestro proveedor de modelos de IA (actualmente Anthropic)** — recibe lo que usted escribe y sube, y los archivos del prototipo, para generar el prototipo y los requisitos.
-- **Amazon Web Services** — aloja la prueba y sus datos en los Estados Unidos.
+- **Amazon Web Services** — aloja la prueba y sus datos en el Reino Unido (Londres, eu-west-2).
 - **Resend** — envía nuestros correos (confirmación, invitación, enlaces de contraseña, avisos) y nos entrega las consultas Enterprise.
 - **Cloudflare** — la verificación humana de nuestros formularios (ve su dirección IP y señales del navegador) y el servicio que recibe las consultas Enterprise.
 - **Google** — la analítica del sitio, solo con su consentimiento.
@@ -74,21 +75,22 @@ Cuando define una contraseña, también preguntamos a Have I Been Pwned, un serv
 
 ## 6. Transferencias internacionales
 
-Nuestros proveedores procesan datos en los **Estados Unidos** y posiblemente en otros países, fuera del Espacio Económico Europeo. Solo usamos proveedores certificados en el EU-U.S. Data Privacy Framework, que la Comisión Europea ha declarado adecuado (artículo 45 del RGPD), o vinculados por las cláusulas contractuales tipo de la Comisión en sus condiciones de tratamiento de datos (artículo 46 del RGPD). Puede pedir una copia de estas garantías a contact@beeverforge.com.
+Amazon Web Services aloja la prueba y sus datos en el **Reino Unido**, para el que la Comisión Europea ha adoptado una decisión de adecuación (artículo 45 del RGPD). Nuestros otros proveedores procesan datos en los **Estados Unidos** y posiblemente en otros países, fuera del Espacio Económico Europeo. Solo usamos proveedores certificados en el EU-U.S. Data Privacy Framework, que la Comisión Europea ha declarado adecuado (artículo 45 del RGPD), o vinculados por las cláusulas contractuales tipo de la Comisión en sus condiciones de tratamiento de datos (artículo 46 del RGPD). Puede pedir una copia de estas garantías a contact@beeverforge.com.
 
 ## 7. Cuánto tiempo los conservamos
 
 - **Inscripciones no confirmadas en la lista de espera:** 7 días.
 - **Registros de lista de espera e invitación:** 12 meses después de nuestro último contacto con usted, o hasta que nos pida eliminarlos.
-- **Prototipos, archivos subidos y requisitos de la cuenta:** 90 días después de la última actividad en la cuenta de su empresa, o antes si se eliminan. Si la empresa pasa al plan Business, permanecen en su cuenta.
+- **Prototipos, archivos subidos y requisitos de la cuenta:** 90 días después de la última actividad en la cuenta de su empresa, o antes si se eliminan. Si la empresa pasa al plan Team, permanecen en su cuenta.
 - **Registros de los términos que aceptó:** mientras podamos necesitar demostrar lo que aceptó.
 - **Registros de auditoría y de uso** (sin contenido): 2 años.
 - **Registros de seguridad y del servidor:** 30 días.
 - **Requisitos que entrega a BeeverForge:** mientras la propuesta y cualquier proyecto posterior los necesiten.
+- **La lista de direcciones a las que nunca volvemos a escribir** (una huella digital de cada una, nunca la dirección): sin fecha de fin, para no volver a escribir nunca a esa dirección —también después de que elimine su cuenta.
 
 ## 8. Sus derechos
 
-Puede solicitar **acceder, corregir o eliminar** sus datos, **recibirlos en un formato portable o que los enviemos a otro proveedor**, **saber con quién los compartimos**, **retirar su consentimiento**, **oponerse** al tratamiento basado en nuestro interés legítimo y pedir que lo **limitemos**. Puede eliminar su cuenta y todo su contenido en cualquier momento desde la página de su cuenta en la prueba, o escribiendo a contact@beeverforge.com. También puede presentar una reclamación ante una autoridad de protección de datos — en Portugal, la Comissão Nacional de Proteção de Dados (CNPD), o la autoridad del país donde vive.
+Puede solicitar **acceder, corregir o eliminar** sus datos, **recibirlos en un formato portable o que los enviemos a otro proveedor**, **saber con quién los compartimos**, **retirar su consentimiento**, **oponerse** al tratamiento basado en nuestro interés legítimo y pedir que lo **limitemos**. Puede eliminar su cuenta y todo su contenido en cualquier momento desde la página de su cuenta en la prueba, o escribiendo a contact@beeverforge.com. Cuando lo haga, conservamos solo lo que no contiene nada de lo que usted escribió: el registro de auditoría de lo que se hizo y cuándo, bajo una huella digital de su dirección (2 años); qué términos aceptó, y cuándo, sin ninguna dirección suya; su parte en los pedidos de su empresa, que siguen siendo de la empresa, sin su dirección; y, si un mensaje para usted rebotó o se marcó como spam, la huella digital de su dirección en la lista anterior. También puede presentar una reclamación ante una autoridad de protección de datos — en Portugal, la Comissão Nacional de Proteção de Dados (CNPD), o la autoridad del país donde vive.
 
 ## 9. Seguridad
 

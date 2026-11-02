@@ -1,10 +1,12 @@
 ---
 title: Política de privacidad
 description: Borrador de la próxima versión de la política de privacidad de BeeverForge: la prueba, los planes de pago, los pagos a través de Stripe, el propio proveedor de IA de su empresa y el arranque asistido.
-version: 1.1
-date: 2026-10-29
+version: 1.2
+date: 2026-11-03
 status: draft
 ---
+
+*Este borrador se basa en la versión 1.1, del 3 de noviembre de 2026.*
 
 ## 1. Quién es responsable
 
@@ -59,6 +61,7 @@ Esta política cubre este sitio web (beeverforge.com), el formulario de consulta
 
 - Para proteger la plataforma contra abusos (por ejemplo, registros automatizados e intentos repetidos de acceso), nosotros y nuestros proveedores procesamos su **dirección IP y datos técnicos de su navegador**, para limitar la frecuencia de solicitudes, para una verificación humana (Cloudflare Turnstile) y para reglas de cortafuegos.
 - Mantenemos un **registro de auditoría** de las acciones relevantes (una invitación, un inicio de sesión, una aceptación, una eliminación, una entrega): quién, cuándo y qué, nunca el contenido.
+- Si un mensaje que le enviamos rebota, o si usted lo marca como spam, nuestro proveedor de correo nos avisa, y añadimos su dirección a una **lista de direcciones a las que nunca volvemos a escribir**. Guardamos allí una huella digital de la dirección, hecha con una clave nuestra —nunca la propia dirección—, con el motivo y la fecha.
 
 ## 3. Bases legales
 
@@ -80,7 +83,7 @@ No vendemos sus datos. No usamos su contenido para entrenar modelos de IA. No lo
 Usamos los siguientes proveedores, cada uno bajo contrato y solo para la finalidad indicada:
 
 - **Durante la prueba, nuestro proveedor de modelos de IA (actualmente Anthropic)** — recibe lo que usted escribe y sube, y los archivos del prototipo, para generar el prototipo y los requisitos.
-- **Amazon Web Services** — aloja la plataforma y sus datos en los Estados Unidos, y guarda la clave del proveedor de IA de cada empresa en su almacén de secretos.
+- **Amazon Web Services** — aloja la plataforma y sus datos en el Reino Unido (Londres, eu-west-2), y guarda la clave del proveedor de IA de cada empresa en su almacén de secretos.
 - **Stripe** — cobra los pagos de los planes y del arranque asistido, y guarda los datos de facturación de la empresa, sus medios de pago y sus facturas. **[Abogado: Stripe también actúa como responsable independiente en parte de su tratamiento (por ejemplo, la prevención del fraude y sus propias obligaciones legales); confirmar cómo describirlo aquí y nombrar la entidad de Stripe con la que contrata BeeverForge.]**
 - **Resend** — envía nuestros correos (confirmación, invitación, enlaces de contraseña, avisos) y nos entrega las consultas Enterprise.
 - **Cloudflare** — la verificación humana de nuestros formularios (ve su dirección IP y señales del navegador) y el servicio que recibe las consultas Enterprise.
@@ -93,7 +96,7 @@ Cuando define una contraseña, también preguntamos a Have I Been Pwned, un serv
 
 ## 6. Transferencias internacionales
 
-Nuestros proveedores procesan datos en los **Estados Unidos** y posiblemente en otros países, fuera del Espacio Económico Europeo. Solo usamos proveedores certificados en el EU-U.S. Data Privacy Framework, que la Comisión Europea ha declarado adecuado (artículo 45 del RGPD), o vinculados por las cláusulas contractuales tipo de la Comisión en sus condiciones de tratamiento de datos (artículo 46 del RGPD). Puede pedir una copia de estas garantías a contact@beeverforge.com. **[Abogado: registrar en qué garantía se basa Stripe, junto con los demás proveedores.]**
+Amazon Web Services aloja la plataforma y sus datos en el **Reino Unido**, para el que la Comisión Europea ha adoptado una decisión de adecuación (artículo 45 del RGPD). Nuestros otros proveedores procesan datos en los **Estados Unidos** y posiblemente en otros países, fuera del Espacio Económico Europeo. Solo usamos proveedores certificados en el EU-U.S. Data Privacy Framework, que la Comisión Europea ha declarado adecuado (artículo 45 del RGPD), o vinculados por las cláusulas contractuales tipo de la Comisión en sus condiciones de tratamiento de datos (artículo 46 del RGPD). Puede pedir una copia de estas garantías a contact@beeverforge.com. **[Abogado: registrar en qué garantía se basa Stripe, junto con los demás proveedores.]**
 
 ## 7. Cuánto tiempo los conservamos
 
@@ -106,10 +109,11 @@ Nuestros proveedores procesan datos en los **Estados Unidos** y posiblemente en 
 - **La clave del proveedor de IA de su empresa:** mientras su empresa la use; se sustituye cuando quien administra la cuenta introduce una nueva. **[Product owner: cuánto tiempo se conservan una clave que ya no se usa, sus cuatro últimos caracteres y sus fechas cuando termina el plan o se elimina la cuenta.]**
 - **Registros de auditoría y de uso** (sin contenido): 2 años.
 - **Registros de seguridad y del servidor:** 30 días.
+- **La lista de direcciones a las que nunca volvemos a escribir** (una huella digital de cada una, nunca la dirección): sin fecha de fin, para no volver a escribir nunca a esa dirección —también después de que elimine su cuenta.
 
 ## 8. Sus derechos
 
-Puede solicitar **acceder, corregir o eliminar** sus datos, **recibirlos en un formato portable o que los enviemos a otro proveedor**, **saber con quién los compartimos**, **retirar su consentimiento**, **oponerse** al tratamiento basado en nuestro interés legítimo y pedir que lo **limitemos**. Puede eliminar su cuenta y todo su contenido en cualquier momento desde la página de su cuenta, o escribiendo a contact@beeverforge.com; los registros de facturación que la ley nos obliga a conservar permanecen durante el período que fija. También puede presentar una reclamación ante una autoridad de protección de datos — en Portugal, la Comissão Nacional de Proteção de Dados (CNPD), o la autoridad del país donde vive.
+Puede solicitar **acceder, corregir o eliminar** sus datos, **recibirlos en un formato portable o que los enviemos a otro proveedor**, **saber con quién los compartimos**, **retirar su consentimiento**, **oponerse** al tratamiento basado en nuestro interés legítimo y pedir que lo **limitemos**. Puede eliminar su cuenta y todo su contenido en cualquier momento desde la página de su cuenta, o escribiendo a contact@beeverforge.com; los registros de facturación que la ley nos obliga a conservar permanecen durante el período que fija. Cuando lo haga, conservamos solo lo que no contiene nada de lo que usted escribió: el registro de auditoría de lo que se hizo y cuándo, bajo una huella digital de su dirección (2 años); qué términos aceptó, y cuándo, sin ninguna dirección suya; su parte en los pedidos de su empresa, que siguen siendo de la empresa, sin su dirección; y, si un mensaje para usted rebotó o se marcó como spam, la huella digital de su dirección en la lista anterior. También puede presentar una reclamación ante una autoridad de protección de datos — en Portugal, la Comissão Nacional de Proteção de Dados (CNPD), o la autoridad del país donde vive.
 
 ## 9. Seguridad
 
