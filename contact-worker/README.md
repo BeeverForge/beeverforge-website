@@ -1,6 +1,6 @@
 # BeeverForge contact worker
 
-The public site posts Enterprise inquiries to this Cloudflare Worker. The worker validates the request, limits repeat submissions and uses Resend server-side. The Resend API key must be stored as the Worker secret `RESEND_API_KEY`; it is never committed or sent to a browser.
+The public site posts its contact inquiries to this Cloudflare Worker. The worker validates the request, limits repeat submissions and uses Resend server-side. The Resend API key must be stored as the Worker secret `RESEND_API_KEY`; it is never committed or sent to a browser.
 
 Deployment requires a logged-in Cloudflare account and a verified `send.beeverforge.com` domain in Resend:
 

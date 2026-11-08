@@ -263,7 +263,7 @@ export const copy = {
     "automationApproval": "AI agents execute. Your team sets priorities and approves production.",
     "automationCta": "Explore Team automation",
     "enterpriseTag": "Control & governance",
-    "enterpriseIntro": "The entire platform in your company’s infrastructure, with corporate identity and BeeverForge support.",
+    "enterpriseIntro": "A plan of the BeeverForge Enterprise Platform (BEP): the entire platform in your company’s infrastructure, with corporate identity and BeeverForge support.",
     "enterprisePrice": "Contact us",
     "enterpriseTerms": "Scope, capacity and terms agreed in a proposal.",
     "enterpriseFeatures": [
@@ -522,7 +522,7 @@ export const copy = {
     "automationApproval": "Os agentes de IA executam. A sua equipa define prioridades e aprova a produção.",
     "automationCta": "Conhecer a automação do Team",
     "enterpriseTag": "Controlo e governança",
-    "enterpriseIntro": "Toda a plataforma na infraestrutura da sua empresa, com identidade corporativa e suporte BeeverForge.",
+    "enterpriseIntro": "Um plano da BeeverForge Enterprise Platform (BEP): toda a plataforma na infraestrutura da sua empresa, com identidade corporativa e suporte BeeverForge.",
     "enterprisePrice": "A consultar",
     "enterpriseTerms": "Âmbito, capacidade e condições definidos por proposta.",
     "enterpriseFeatures": [
@@ -781,7 +781,7 @@ export const copy = {
     "automationApproval": "Los agentes de IA ejecutan. Su equipo define prioridades y aprueba la producción.",
     "automationCta": "Conocer la automatización de Team",
     "enterpriseTag": "Control y gobernanza",
-    "enterpriseIntro": "Toda la plataforma en la infraestructura de su empresa, con identidad corporativa y soporte BeeverForge.",
+    "enterpriseIntro": "Un plan de BeeverForge Enterprise Platform (BEP): toda la plataforma en la infraestructura de su empresa, con identidad corporativa y soporte BeeverForge.",
     "enterprisePrice": "A consultar",
     "enterpriseTerms": "Alcance, capacidad y condiciones acordados en propuesta.",
     "enterpriseFeatures": [

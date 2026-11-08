@@ -159,7 +159,7 @@ export const articles = [
             "OpenAI, Anthropic, Moonshot AI/Kimi e outros fornecedores compatíveis podem integrar a solução, conforme a configuração e a validação do ambiente. Modelos locais, endpoints privados e instalações on-premises exigem interfaces compatíveis e os recursos adequados.",
             "O cliente controla as suas chaves de API e a infraestrutura de execução; o consumo de IA e os recursos são pagos separadamente. O trial alojado tem configuração própria. Essa liberdade permite escolher e rever os fornecedores conforme o produto evolui.",
             "A automação deve continuar a fazer o produto avançar quando as suas escolhas mudam. É essa continuidade que uma fábrica de software precisa oferecer.",
-            "Para empresas que precisam de toda a plataforma na sua infraestrutura, o <a href=\"/pt/pricing/#enterprise\">Enterprise</a> é contratado sob consulta, com instalação self-hosted, RBAC, SSO e suporte BeeverForge. A implantação, a capacidade e as condições de suporte são definidas por proposta."
+            "Para empresas que precisam de toda a plataforma na sua infraestrutura, o <a href=\"/pt/pricing/#enterprise\">Enterprise</a>, um plano da BeeverForge Enterprise Platform (BEP), é contratado sob consulta, com instalação self-hosted, RBAC, SSO e suporte BeeverForge. A implantação, a capacidade e as condições de suporte são definidas por proposta."
           ]
         },
         {
@@ -309,7 +309,7 @@ export const articles = [
             "OpenAI, Anthropic, Moonshot AI/Kimi and other compatible providers can form part of the solution, subject to environment configuration and validation. Local models, private endpoints and on-premises installations need compatible interfaces and suitable resources.",
             "Customers control API keys and execution infrastructure; AI consumption and resources are paid separately. The hosted trial has its own configuration. This freedom lets you select and reconsider providers as the product evolves.",
             "Automation needs to keep advancing the product when your choices change. A software factory should provide that continuity.",
-            "For companies needing the entire platform in their own infrastructure, <a href=\"/pricing/#enterprise\">Enterprise</a> is available by quotation with self-hosted deployment, RBAC, SSO and BeeverForge support. Deployment, capacity and support terms are agreed in a proposal."
+            "For companies needing the entire platform in their own infrastructure, <a href=\"/pricing/#enterprise\">Enterprise</a>, a plan of the BeeverForge Enterprise Platform (BEP), is available by quotation with self-hosted deployment, RBAC, SSO and BeeverForge support. Deployment, capacity and support terms are agreed in a proposal."
           ]
         },
         {
@@ -459,7 +459,7 @@ export const articles = [
             "OpenAI, Anthropic, Moonshot AI/Kimi y otros proveedores compatibles pueden formar parte de la solución, según la configuración y validación del entorno. Los modelos locales, endpoints privados e instalaciones on-premises requieren interfaces compatibles y recursos adecuados.",
             "El cliente controla sus claves API y su infraestructura de ejecución; el consumo de IA y los recursos se pagan por separado. La prueba alojada tiene configuración propia. Esa libertad permite elegir y revisar proveedores a medida que evoluciona el producto.",
             "La automatización debe seguir haciendo avanzar el producto cuando sus elecciones cambian. Una fábrica de software debe ofrecer esa continuidad.",
-            "Para empresas que necesitan toda la plataforma en su infraestructura, <a href=\"/es/pricing/#enterprise\">Enterprise</a> se contrata bajo consulta, con instalación self-hosted, RBAC, SSO y soporte BeeverForge. La implantación, la capacidad y las condiciones de soporte se definen en una propuesta."
+            "Para empresas que necesitan toda la plataforma en su infraestructura, <a href=\"/es/pricing/#enterprise\">Enterprise</a>, un plan de BeeverForge Enterprise Platform (BEP), se contrata bajo consulta, con instalación self-hosted, RBAC, SSO y soporte BeeverForge. La implantación, la capacidad y las condiciones de soporte se definen en una propuesta."
           ]
         },
         {
