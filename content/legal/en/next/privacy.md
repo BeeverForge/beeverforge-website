@@ -12,7 +12,7 @@ status: draft
 
 **HERMES ALVES & ROBERTO PEREIRA, LDA**, a company established in Portugal, NIPC 518786749, whose brand is BeeverForge ("we"), is responsible for the personal data described here. It is administered by Hermes Alves, who answers for the processing described here. You can reach us about privacy at contact@beeverforge.com. **[Counsel: add the registered office if the law requires it here. On a paid plan, BeeverForge may process the content a company puts in its account on that company's behalf, as its processor rather than as a controller; confirm the role for each kind of data and whether a data processing agreement (GDPR article 28) must be offered to paying companies.]**
 
-This policy covers this website (beeverforge.com), the Enterprise inquiry form, and the BeeverForge platform for companies — the trial, the paid plans and the assisted start — at app.beeverforge.com and at each company's own address under beeverforge.com.
+This policy covers this website (beeverforge.com), the contact form, and the BeeverForge platform for companies — the trial, the paid plans and the assisted start — at app.beeverforge.com and at each company's own address under beeverforge.com.
 
 ## 2. What we collect, and why
 
@@ -20,7 +20,7 @@ This policy covers this website (beeverforge.com), the Enterprise inquiry form, 
 
 - **Preferences.** Your theme and cookie choices are stored in your own browser. They never reach us.
 - **Analytics, only if you accept them.** With your consent, Google Analytics measures visits and how the site is used. You can withdraw consent at any time through *Cookie settings* in the footer.
-- **Enterprise inquiries.** If you use the contact form, we receive your name, work email, company, topic and message, only to answer you.
+- **Contact inquiries.** If you use the contact form, we receive your name, work email, company, topic and message, only to answer you.
 
 ### The waitlist
 
@@ -85,8 +85,8 @@ We use the following providers, each under contract and only for the purpose sta
 - **During the trial, our AI model provider (currently Anthropic)** — receives what you write and upload, and the prototype's files, to generate the prototype and the requirements.
 - **Amazon Web Services** — hosts the platform and its data in the United Kingdom (London, eu-west-2), and keeps each company's AI provider key in its secret store.
 - **Stripe** — takes the payments for the plans and the assisted start, and keeps the company's billing details, its payment methods and its invoices. **[Counsel: Stripe also acts as an independent controller for some of its processing (for example, fraud prevention and its own legal obligations); confirm how to describe it here, and name the Stripe entity BeeverForge contracts with.]**
-- **Resend** — sends our emails (confirmation, invitation, password links, notices) and delivers Enterprise inquiries to us.
-- **Cloudflare** — the human-verification check on our forms (it sees your IP address and browser signals) and the service that receives Enterprise inquiries.
+- **Resend** — sends our emails (confirmation, invitation, password links, notices) and delivers contact inquiries to us.
+- **Cloudflare** — the human-verification check on our forms (it sees your IP address and browser signals) and the service that receives contact inquiries.
 - **Google** — website analytics, only if you consent.
 - **GitHub** — sign-in, if you choose GitHub; and the hosting of this website.
 

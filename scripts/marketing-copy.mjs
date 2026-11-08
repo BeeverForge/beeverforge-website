@@ -24,7 +24,7 @@ export const copy = {
     "og": "en_US",
     "title": "BeeverForge — From AI prototype to production software",
     "description": "The AI software factory for the path from prototype to production. Choose your models. Use your own AI credentials and infrastructure. Keep people in control.",
-    "pricingTitle": "Plans & pricing — Prototype, Team and Enterprise | BeeverForge",
+    "pricingTitle": "Plans & pricing — BeeverForge Prototype, Team and Enterprise | BeeverForge",
     "pricingDescription": "Prototype €19/month, Team €299/month and Enterprise by quotation. Self-hosted platform in your infrastructure, RBAC, SSO and BeeverForge support.",
     "product": "Product",
     "how": "How it works",
@@ -81,7 +81,7 @@ export const copy = {
     "planEyebrow": "The subscription",
     "planTitle": "Start with the idea.<br>Scale on your terms.",
     "planLead": "Prototype to create and validate with AI. Team for automated implementation and evolution. Enterprise to run the entire platform in your company’s infrastructure.",
-    "planPath": "Every company starts with a free trial: fifteen days, one prototype built together by up to five people. Then Prototype, Team or Enterprise.",
+    "planPath": "Every company starts with a free trial: fifteen days, one prototype built together by up to five people. Then one of the plans of the BeeverForge Enterprise Platform (BEP): BeeverForge Prototype, BeeverForge Team or BeeverForge Enterprise.",
     "prototypeTag": "Explore & validate",
     "teamTag": "Build & evolve",
     "prototypeIntro": "Make your idea clear before you build it.",
@@ -104,6 +104,8 @@ export const copy = {
     "planRule": "Team replaces Prototype; your company does not pay for both. Enterprise has its own agreement and commercial terms.",
     "costRule": "Your subscription pays for the platform. AI usage, infrastructure and third-party services are paid separately by your company.",
     "availability": "Paid plans are opening soon. Contact us to discuss access; online checkout is not open yet.",
+    "coreRule": "The BeeverForge core is open source, under the Apache-2.0 licence.",
+    "coreRuleLink": "beeverforge-oss on GitHub",
     "assistedEyebrow": "One platform · Clear roles",
     "assistedTitle": "You shape the product. The factory executes.",
     "assistedText": "The journey starts with a prototype created in BeeverForge. Once the architecture and technical foundation are prepared, Team or Enterprise automation turns the agreed work into implementation and ongoing evolution.",
@@ -149,7 +151,7 @@ export const copy = {
         "No. Conclude your prototype inside BeeverForge and choose whether to request help from our specialists. If you do, they analyze the requirements, design the architecture and prepare a scoped technical foundation under a separate proposal. Team automates prepared implementation work with AI agents and organizes evolution with the virtual Product Owner; the assisted start is optional and does not activate Team automatically."
       ],
       [
-        "When should we choose Enterprise?",
+        "When should we choose BeeverForge Enterprise?",
         "When your company needs to run the entire platform in its own infrastructure, with RBAC, SSO and BeeverForge support. Deployment, corporate identity integration, capacity and support terms are agreed in a proposal."
       ]
     ],
@@ -170,7 +172,7 @@ export const copy = {
       "Team subscription",
       "Prototype subscription",
       "Assisted start",
-      "Enterprise — self-hosted"
+      "BeeverForge Enterprise — self-hosted"
     ],
     "message": "Your project",
     "placeholder": "What would you like to build?",
@@ -283,7 +285,7 @@ export const copy = {
     "og": "pt_BR",
     "title": "BeeverForge — Do protótipo com IA ao software em produção",
     "description": "A fábrica de software que liga o protótipo à produção. Escolha os modelos e use as suas credenciais de IA e infraestrutura. Pessoas no controlo da entrega.",
-    "pricingTitle": "Planos e preços — Prototype, Team e Enterprise | BeeverForge",
+    "pricingTitle": "Planos e preços — BeeverForge Prototype, Team e Enterprise | BeeverForge",
     "pricingDescription": "Prototype €19/mês, Team €299/mês e Enterprise a consultar. Plataforma self-hosted na infraestrutura do cliente, RBAC, SSO e suporte BeeverForge.",
     "product": "Produto",
     "how": "Como funciona",
@@ -340,7 +342,7 @@ export const copy = {
     "planEyebrow": "A assinatura",
     "planTitle": "Comece pela ideia.<br>Escale à sua medida.",
     "planLead": "Prototype para criar e validar com IA. Team para automatizar a implementação e evolução. Enterprise para operar toda a plataforma na infraestrutura da sua empresa.",
-    "planPath": "Toda empresa começa com um teste gratuito: quinze dias, um protótipo feito em conjunto por até cinco pessoas. Depois, Prototype, Team ou Enterprise.",
+    "planPath": "Toda empresa começa com um teste gratuito: quinze dias, um protótipo feito em conjunto por até cinco pessoas. Depois, um dos planos da BeeverForge Enterprise Platform (BEP): BeeverForge Prototype, BeeverForge Team ou BeeverForge Enterprise.",
     "prototypeTag": "Explorar e validar",
     "teamTag": "Construir e evoluir",
     "prototypeIntro": "Torne a sua ideia clara antes de a construir.",
@@ -363,6 +365,8 @@ export const copy = {
     "planRule": "O Team substitui o Prototype; a empresa não paga os dois. O Enterprise tem contratação e condições próprias.",
     "costRule": "A assinatura dá acesso à plataforma. O consumo de IA, a infraestrutura e os serviços de terceiros são pagos à parte pela sua empresa.",
     "availability": "Os planos pagos abrem em breve. Fale connosco sobre o acesso; a contratação online ainda não está aberta.",
+    "coreRule": "O núcleo da BeeverForge é open source, sob a licença Apache-2.0.",
+    "coreRuleLink": "beeverforge-oss no GitHub",
     "assistedEyebrow": "Uma plataforma · Papéis claros",
     "assistedTitle": "Você define o produto. A fábrica executa.",
     "assistedText": "O percurso começa com um protótipo criado na BeeverForge. Depois de preparar a arquitetura e a base técnica, a automação do Team ou Enterprise transforma o trabalho acordado em implementação e evolução contínua.",
@@ -408,7 +412,7 @@ export const copy = {
         "Não. Conclua o protótipo dentro da BeeverForge e escolha se quer pedir ajuda aos nossos especialistas. Se pedir, a equipa analisa os requisitos, desenha a arquitetura e prepara uma base técnica com âmbito definido, sob proposta separada. O Team automatiza o trabalho de implementação preparado com agentes de IA e organiza a evolução com o Product Owner virtual; o arranque é opcional e não ativa o Team automaticamente."
       ],
       [
-        "Quando escolher o Enterprise?",
+        "Quando escolher o BeeverForge Enterprise?",
         "Quando a sua empresa precisa de operar toda a plataforma na sua própria infraestrutura, com RBAC, SSO e suporte BeeverForge. A implantação, a integração com a identidade corporativa, a capacidade e as condições de suporte são acordadas numa proposta."
       ]
     ],
@@ -429,7 +433,7 @@ export const copy = {
       "Assinatura Team",
       "Assinatura Prototype",
       "Arranque assistido",
-      "Enterprise — self-hosted"
+      "BeeverForge Enterprise — self-hosted"
     ],
     "message": "O seu projeto",
     "placeholder": "O que gostaria de construir?",
@@ -542,7 +546,7 @@ export const copy = {
     "og": "es_ES",
     "title": "BeeverForge — Del prototipo con IA al software en producción",
     "description": "La fábrica de software que conecta el prototipo con la producción. Elija modelos y use sus propias credenciales de IA e infraestructura. Personas al mando.",
-    "pricingTitle": "Planes y precios — Prototype, Team y Enterprise | BeeverForge",
+    "pricingTitle": "Planes y precios — BeeverForge Prototype, Team y Enterprise | BeeverForge",
     "pricingDescription": "Prototype €19/mes, Team €299/mes y Enterprise a consultar. Plataforma self-hosted en su infraestructura, RBAC, SSO y soporte BeeverForge.",
     "product": "Producto",
     "how": "Cómo funciona",
@@ -599,7 +603,7 @@ export const copy = {
     "planEyebrow": "La suscripción",
     "planTitle": "Empiece por la idea.<br>Escale a su medida.",
     "planLead": "Prototype para crear y validar con IA. Team para automatizar implementación y evolución. Enterprise para operar toda la plataforma en la infraestructura de su empresa.",
-    "planPath": "Toda empresa empieza con una prueba gratuita: quince días, un prototipo hecho en conjunto por hasta cinco personas. Después, Prototype, Team o Enterprise.",
+    "planPath": "Toda empresa empieza con una prueba gratuita: quince días, un prototipo hecho en conjunto por hasta cinco personas. Después, uno de los planes de BeeverForge Enterprise Platform (BEP): BeeverForge Prototype, BeeverForge Team o BeeverForge Enterprise.",
     "prototypeTag": "Explorar y validar",
     "teamTag": "Construir y evolucionar",
     "prototypeIntro": "Aclare su idea antes de construirla.",
@@ -622,6 +626,8 @@ export const copy = {
     "planRule": "Team sustituye a Prototype; su empresa no paga ambos. Enterprise tiene contratación y condiciones propias.",
     "costRule": "La suscripción da acceso a la plataforma. El consumo de IA, la infraestructura y los servicios de terceros se pagan aparte por su empresa.",
     "availability": "Los planes de pago abren pronto. Consúltenos sobre el acceso; la contratación online aún no está abierta.",
+    "coreRule": "El núcleo de BeeverForge es open source, bajo la licencia Apache-2.0.",
+    "coreRuleLink": "beeverforge-oss en GitHub",
     "assistedEyebrow": "Una plataforma · Funciones claras",
     "assistedTitle": "Usted define el producto. La fábrica ejecuta.",
     "assistedText": "El recorrido empieza con un prototipo creado en BeeverForge. Tras preparar la arquitectura y la base técnica, la automatización de Team o Enterprise convierte el trabajo acordado en implementación y evolución continua.",
@@ -667,7 +673,7 @@ export const copy = {
         "No. Concluya el prototipo dentro de BeeverForge y elija si quiere pedir ayuda a nuestros especialistas. Si la pide, el equipo analiza los requisitos, diseña la arquitectura y prepara una base técnica con alcance definido bajo una propuesta separada. Team automatiza el trabajo de implementación preparado con agentes de IA y organiza la evolución con el Product Owner virtual; el arranque es opcional y no activa Team automáticamente."
       ],
       [
-        "¿Cuándo elegir Enterprise?",
+        "¿Cuándo elegir BeeverForge Enterprise?",
         "Cuando su empresa necesita operar toda la plataforma en su propia infraestructura, con RBAC, SSO y soporte BeeverForge. La implantación, la integración de identidad corporativa, la capacidad y las condiciones de soporte se acuerdan en una propuesta."
       ]
     ],
@@ -688,7 +694,7 @@ export const copy = {
       "Suscripción Team",
       "Suscripción Prototype",
       "Arranque asistido",
-      "Enterprise — self-hosted"
+      "BeeverForge Enterprise — self-hosted"
     ],
     "message": "Su proyecto",
     "placeholder": "¿Qué le gustaría construir?",

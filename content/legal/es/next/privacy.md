@@ -12,7 +12,7 @@ status: draft
 
 **HERMES ALVES & ROBERTO PEREIRA, LDA**, una sociedad establecida en Portugal, NIPC 518786749, cuya marca es BeeverForge ("nosotros"), es responsable de los datos personales descritos aquí. Está administrada por Hermes Alves, que responde del tratamiento descrito aquí. Puede escribirnos sobre privacidad a contact@beeverforge.com. **[Abogado: añadir el domicilio social si la ley lo exige aquí. En un plan de pago, BeeverForge puede tratar el contenido que una empresa pone en su cuenta por cuenta de esa empresa, como su encargado del tratamiento y no como responsable; confirmar el papel para cada tipo de dato y si debe ofrecerse a las empresas que pagan un contrato de encargo del tratamiento (artículo 28 del RGPD).]**
 
-Esta política cubre este sitio web (beeverforge.com), el formulario de consultas Enterprise y la plataforma BeeverForge para empresas —la prueba, los planes de pago y el arranque asistido— en app.beeverforge.com y en la dirección propia de cada empresa bajo beeverforge.com.
+Esta política cubre este sitio web (beeverforge.com), el formulario de contacto y la plataforma BeeverForge para empresas —la prueba, los planes de pago y el arranque asistido— en app.beeverforge.com y en la dirección propia de cada empresa bajo beeverforge.com.
 
 ## 2. Qué recopilamos y para qué
 
@@ -20,7 +20,7 @@ Esta política cubre este sitio web (beeverforge.com), el formulario de consulta
 
 - **Preferencias.** Su tema y sus elecciones de cookies se guardan en su propio navegador. Nunca nos llegan.
 - **Analítica, solo si la acepta.** Con su consentimiento, Google Analytics mide las visitas y el uso del sitio. Puede retirar el consentimiento en cualquier momento desde *Configuración de cookies* en el pie de página.
-- **Consultas Enterprise.** Si usa el formulario de contacto, recibimos su nombre, correo de trabajo, empresa, tema y mensaje, solo para responderle.
+- **Consultas de contacto.** Si usa el formulario de contacto, recibimos su nombre, correo de trabajo, empresa, tema y mensaje, solo para responderle.
 
 ### La lista de espera
 
@@ -85,8 +85,8 @@ Usamos los siguientes proveedores, cada uno bajo contrato y solo para la finalid
 - **Durante la prueba, nuestro proveedor de modelos de IA (actualmente Anthropic)** — recibe lo que usted escribe y sube, y los archivos del prototipo, para generar el prototipo y los requisitos.
 - **Amazon Web Services** — aloja la plataforma y sus datos en el Reino Unido (Londres, eu-west-2), y guarda la clave del proveedor de IA de cada empresa en su almacén de secretos.
 - **Stripe** — cobra los pagos de los planes y del arranque asistido, y guarda los datos de facturación de la empresa, sus medios de pago y sus facturas. **[Abogado: Stripe también actúa como responsable independiente en parte de su tratamiento (por ejemplo, la prevención del fraude y sus propias obligaciones legales); confirmar cómo describirlo aquí y nombrar la entidad de Stripe con la que contrata BeeverForge.]**
-- **Resend** — envía nuestros correos (confirmación, invitación, enlaces de contraseña, avisos) y nos entrega las consultas Enterprise.
-- **Cloudflare** — la verificación humana de nuestros formularios (ve su dirección IP y señales del navegador) y el servicio que recibe las consultas Enterprise.
+- **Resend** — envía nuestros correos (confirmación, invitación, enlaces de contraseña, avisos) y nos entrega las consultas de contacto.
+- **Cloudflare** — la verificación humana de nuestros formularios (ve su dirección IP y señales del navegador) y el servicio que recibe las consultas de contacto.
 - **Google** — la analítica del sitio, solo con su consentimiento.
 - **GitHub** — el inicio de sesión, si elige GitHub; y el alojamiento de este sitio web.
 

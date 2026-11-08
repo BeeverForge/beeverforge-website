@@ -32,9 +32,9 @@ export const buildEmail = (inquiry, env) => ({
   from: env.CONTACT_SENDER,
   to: [env.CONTACT_RECIPIENT],
   reply_to: inquiry.email,
-  subject: `Enterprise inquiry from ${inquiry.name}`,
-  text: `BeeverForge Enterprise inquiry\n\nName: ${inquiry.name}\nWork email: ${inquiry.email}\nCompany: ${inquiry.company}\nInterest: ${inquiry.interest}\nSource: ${inquiry.source}\n\nMessage:\n${inquiry.message}`,
-  html: `<h1>BeeverForge Enterprise inquiry</h1><p><strong>Name:</strong> ${escapeHtml(inquiry.name)}<br><strong>Work email:</strong> ${escapeHtml(inquiry.email)}<br><strong>Company:</strong> ${escapeHtml(inquiry.company)}<br><strong>Interest:</strong> ${escapeHtml(inquiry.interest)}<br><strong>Source:</strong> ${escapeHtml(inquiry.source)}</p><p><strong>Message</strong></p><p>${escapeHtml(inquiry.message).replace(/\n/g, '<br>')}</p>`,
+  subject: `BeeverForge inquiry from ${inquiry.name}`,
+  text: `BeeverForge inquiry\n\nName: ${inquiry.name}\nWork email: ${inquiry.email}\nCompany: ${inquiry.company}\nInterest: ${inquiry.interest}\nSource: ${inquiry.source}\n\nMessage:\n${inquiry.message}`,
+  html: `<h1>BeeverForge inquiry</h1><p><strong>Name:</strong> ${escapeHtml(inquiry.name)}<br><strong>Work email:</strong> ${escapeHtml(inquiry.email)}<br><strong>Company:</strong> ${escapeHtml(inquiry.company)}<br><strong>Interest:</strong> ${escapeHtml(inquiry.interest)}<br><strong>Source:</strong> ${escapeHtml(inquiry.source)}</p><p><strong>Message</strong></p><p>${escapeHtml(inquiry.message).replace(/\n/g, '<br>')}</p>`,
 });
 
 const withinRateLimit = async (request, ctx) => {
