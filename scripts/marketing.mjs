@@ -33,7 +33,7 @@ function planSection(t, compact) {
     ${compact ? `<div class="m-section-head"><div><p class="eyebrow">${t.planEyebrow}</p><h2 id="plans-title">${t.planTitle}</h2></div><p>${t.planLead}</p></div>` : `<h2 id="plans-title" class="sr-only">${t.planTitle.replace(/<br>/g, " ")}</h2>`}
     <p class="m-plan-path">${t.planPath}</p>
     <div class="m-plan-grid">${plans.map(p => planCard(t, p)).join('')}</div>
-    <p class="m-plan-rule"><span aria-hidden="true">↳</span> ${t.planRule}</p><p class="m-cost-rule">${t.costRule}</p><p class="m-availability">${t.availability} <a href="mailto:contact@beeverforge.com">contact@beeverforge.com ${arrow}</a></p>
+    <p class="m-plan-rule"><span aria-hidden="true">↳</span> ${t.planRule}</p><p class="m-cost-rule">${t.costRule}</p><p class="m-availability">${t.availability} <a href="mailto:contact@beeverforge.com">contact@beeverforge.com ${arrow}</a></p>${compact ? '' : `<p class="m-availability m-core-rule">${t.coreRule} <a href="${core}">${t.coreRuleLink} ${arrow}</a></p>`}
     ${assisted(t)}
   </div></section>`;
 }
