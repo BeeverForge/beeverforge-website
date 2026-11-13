@@ -1,5 +1,7 @@
+export const humanWorkSlug = 'voce-e-uma-maquina';
+
 export const humanWork = {
-  slug: 'voce-e-uma-maquina',
+  slug: humanWorkSlug,
   date: '2026-11-13',
   author: 'Roberto Costa Silva Pereira',
   artwork: '/assets/journal-human-work.jpg',
@@ -15,10 +17,11 @@ export const humanWork = {
   ],
   pt: {
     title: 'Você é uma máquina?',
-    seoTitle: 'Você é uma máquina? A IA e o valor do trabalho humano | BeeverForge',
+    seoTitle: 'IA vai substituir programadores? | BeeverForge',
     category: 'IA e trabalho',
-    summary: 'Se agentes de IA já escrevem, testam e revisam código, o que muda para quem desenvolve software? Um ensaio sobre produtividade, responsabilidade e o valor do trabalho humano.',
-    lead: 'Agentes de IA já escrevem, testam e revisam código. O que acontece com uma profissão quando a máquina assume as tarefas pelas quais ela aprendeu a ser reconhecida?',
+    shortDescription: 'O futuro dos programadores na era da IA',
+    summary: 'A IA vai substituir programadores? Veja quais etapas os agentes já podem assumir e como isso muda o papel de quem desenvolve software.',
+    lead: 'A IA vai substituir programadores? Agentes já escrevem, testam e revisam código. Isso pode reduzir o trabalho manual em algumas entregas e mudar o papel dos desenvolvedores. O efeito sobre os empregos depende de quais tarefas as empresas automatizam e de como passam a organizar o trabalho.',
     takeaway: 'Quando a execução fica mais rápida, ganha peso a decisão sobre o que construir, quem responde pelo resultado e como usar o tempo que a automação libera.',
     coverAlt: 'Uma mão repousa sobre uma bancada ao lado de um relógio de ponto mecânico.',
     coverScope: 'Ilustração editorial gerada com IA.',
@@ -51,7 +54,7 @@ export const humanWork = {
       },
       {
         id: 'entrega',
-        heading: 'Uma entrega inteira sem desenvolvedor?',
+        heading: 'O que a IA já pode assumir no desenvolvimento de software',
         paragraphs: [
           'Uma tarefa aprovada pode seguir para implementação por um agente, passar por verificações e chegar como proposta de alteração para avaliação. A <a href="#source-3">BeeverForge de código aberto, antes chamada OpenFactory<sup>[3]</sup></a>, organiza essas etapas em um só fluxo. Em determinadas entregas, as pessoas podem definir o objetivo e aceitar o resultado sem que um desenvolvedor conduza cada passo técnico.',
           'Esse cenário pode mudar tanto as atribuições quanto o tamanho das equipes. Em 2025, a <a href="#source-4">OIT e o instituto polonês NASK<sup>[4]</sup></a> estimaram que cerca de um em cada quatro trabalhadores no mundo estava em uma ocupação com algum grau de exposição à IA generativa. A estimativa se refere ao potencial de automação de tarefas. Os autores consideram mais provável uma transformação das ocupações, e o efeito sobre a quantidade de vagas depende de como cada organização adota a tecnologia.',
@@ -69,10 +72,11 @@ export const humanWork = {
   },
   en: {
     title: 'Are you a machine?',
-    seoTitle: 'Are you a machine? AI and the value of human work | BeeverForge',
+    seoTitle: 'Will AI Replace Software Developers? | BeeverForge',
     category: 'AI and work',
-    summary: 'AI agents can write, test, and review code. What changes for software developers? An essay on productivity, responsibility, and the value of human work.',
-    lead: 'AI agents already write, test, and review code. What happens to a profession when machines take over the tasks it has come to be known for?',
+    shortDescription: 'The future of software developers in the age of AI',
+    summary: 'Will AI replace software developers? Explore which tasks AI agents can take on and how that changes the role of software engineers.',
+    lead: 'Will AI replace software developers? Agents already write, test, and review code. That can reduce manual work on some changes and reshape what developers do. The effect on jobs depends on which tasks companies automate and how they organize the work that follows.',
     takeaway: 'As execution speeds up, deciding what to build, who answers for the outcome, and how to use the time automation frees up becomes more consequential.',
     coverAlt: 'A hand rests on a workbench beside a mechanical time clock.',
     coverScope: 'AI-generated editorial illustration.',
@@ -105,7 +109,7 @@ export const humanWork = {
       },
       {
         id: 'entrega',
-        heading: 'An entire delivery without a developer?',
+        heading: 'What AI can already take on in software development',
         paragraphs: [
           'An approved task can go to an agent for implementation, pass through checks, and arrive as a proposed change for review. <a href="#source-3">The open-source BeeverForge project, formerly OpenFactory<sup>[3]</sup></a>, brings these stages into one workflow. For some changes, people can set the goal and accept the result without a developer guiding every technical step.',
           'That possibility can alter what teams do and how large they are. In 2025, the <a href="#source-4">ILO and Poland’s NASK institute<sup>[4]</sup></a> estimated that about one in four workers worldwide held an occupation with some exposure to generative AI. The estimate concerns the potential to automate tasks. The authors expect occupations to change, while the effect on job numbers depends on how organizations adopt the technology.',
@@ -123,10 +127,11 @@ export const humanWork = {
   },
   es: {
     title: '¿Eres una máquina?',
-    seoTitle: '¿Eres una máquina? La IA y el valor del trabajo humano | BeeverForge',
+    seoTitle: '¿La IA reemplazará a los programadores? | BeeverForge',
     category: 'IA y trabajo',
-    summary: 'Los agentes de IA pueden escribir, probar y revisar código. ¿Qué cambia para quienes desarrollan software? Un ensayo sobre productividad, responsabilidad y el valor del trabajo humano.',
-    lead: 'Los agentes de IA ya escriben, prueban y revisan código. ¿Qué sucede con una profesión cuando las máquinas asumen las tareas por las que se la conoce?',
+    shortDescription: 'El futuro de los programadores en la era de la IA',
+    summary: '¿La IA reemplazará a los programadores? Explora qué tareas pueden asumir los agentes y cómo cambia el papel de quienes desarrollan software.',
+    lead: '¿La IA reemplazará a los programadores? Los agentes ya escriben, prueban y revisan código. Esto puede reducir el trabajo manual en algunas entregas y cambiar el papel de los desarrolladores. El efecto sobre el empleo depende de qué tareas automaticen las empresas y de cómo organicen el trabajo.',
     takeaway: 'Al acelerarse la ejecución, cobran más importancia las decisiones sobre qué construir, quién responde por el resultado y cómo aprovechar el tiempo que libera la automatización.',
     coverAlt: 'Una mano descansa sobre un banco de trabajo junto a un reloj mecánico de fichar.',
     coverScope: 'Ilustración editorial generada con IA.',
@@ -159,7 +164,7 @@ export const humanWork = {
       },
       {
         id: 'entrega',
-        heading: '¿Una entrega completa sin un desarrollador?',
+        heading: 'Qué tareas puede asumir ya la IA en el desarrollo de software',
         paragraphs: [
           'Una tarea aprobada puede pasar a un agente para su implementación, superar verificaciones y llegar como propuesta de cambio para su evaluación. <a href="#source-3">El proyecto de código abierto BeeverForge, antes OpenFactory<sup>[3]</sup></a>, reúne esas etapas en un solo flujo. En algunas entregas, las personas pueden fijar el objetivo y aceptar el resultado sin que un desarrollador dirija cada paso técnico.',
           'Esa posibilidad puede cambiar tanto las funciones como el tamaño de los equipos. En 2025, la <a href="#source-4">OIT y el instituto polaco NASK<sup>[4]</sup></a> estimaron que cerca de uno de cada cuatro trabajadores en el mundo tenía una ocupación con algún grado de exposición a la IA generativa. La estimación se refiere al potencial de automatizar tareas. Los autores consideran más probable una transformación de las ocupaciones, y el efecto sobre el número de empleos depende de cómo se adopte la tecnología.',

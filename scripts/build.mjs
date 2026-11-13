@@ -4,7 +4,7 @@ import { buildArchitecture, urlOf } from './architecture.mjs';
 import { marketingPage, themeScript } from './marketing.mjs';
 import { copy as marketingCopy } from './marketing-copy.mjs';
 import { blogRoutes, blogFeed } from './blog.mjs';
-import { retiredBlogSlugs } from './blog-content.mjs';
+import { articles, retiredBlogSlugs } from './blog-content.mjs';
 import { journalArt } from './journal-art.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -291,8 +291,9 @@ const architecture = await buildArchitecture({ root, translations, locales });
 const finalEverywhere = (name) => Object.keys(locales).every((locale) => legal[locale][name].meta.status === 'final');
 const indexed = ['', 'pricing/', ...blogRoutes, ...legalPages.filter(finalEverywhere).map((name) => `legal/${name}/`)];
 const alternatesFor = (pathOf) => `${Object.entries(locales).map(([code, alt]) => `<xhtml:link rel="alternate" hreflang="${alt.lang}" href="https://beeverforge.com${pathOf(code)}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="https://beeverforge.com${pathOf('en')}"/>`;
+const articleDates = new Map(articles.map((article) => [`blog/${article.slug}/`, article.date]));
 const sitemapUrls = [
-  ...indexed.flatMap((sub) => Object.keys(locales).map((code) => `  <url><loc>https://beeverforge.com${locales[code].path}${sub}</loc>${alternatesFor((alt) => `${locales[alt].path}${sub}`)}</url>`)),
+  ...indexed.flatMap((sub) => Object.keys(locales).map((code) => `  <url><loc>https://beeverforge.com${locales[code].path}${sub}</loc>${articleDates.has(sub) ? `<lastmod>${articleDates.get(sub)}</lastmod>` : ''}${alternatesFor((alt) => `${locales[alt].path}${sub}`)}</url>`)),
   ...architecture.flatMap(({ page }) => Object.keys(locales).map((code) => `  <url><loc>https://beeverforge.com${urlOf(code, locales, page)}</loc>${alternatesFor((alt) => urlOf(alt, locales, page))}</url>`)),
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapUrls.join('\n')}\n</urlset>\n`;

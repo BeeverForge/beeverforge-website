@@ -1,4 +1,4 @@
-import { humanWork } from './blog-human-work.mjs';
+import { humanWork, humanWorkSlug } from './blog-human-work.mjs';
 
 export const retiredBlogSlugs = ["from-ai-prototype-to-production","model-agnostic-ai-software-factory"];
 export const productionGuideSlug = 'lovable-prototypes-to-businesses';
@@ -501,3 +501,18 @@ export const articles = [
     }
   }
 ].sort((a, b) => b.date.localeCompare(a.date));
+
+export const relatedArticles = {
+  [productionGuideSlug]: {
+    slug: humanWorkSlug,
+    pt: 'A IA vai substituir programadores?',
+    en: 'Will AI replace software developers?',
+    es: '¿La IA reemplazará a los programadores?',
+  },
+  [humanWorkSlug]: {
+    slug: productionGuideSlug,
+    pt: 'O que acontece depois do protótipo de IA',
+    en: 'What happens after the AI prototype',
+    es: 'Qué pasa después del prototipo con IA',
+  },
+};
