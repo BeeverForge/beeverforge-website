@@ -87,7 +87,8 @@ for (const [locale, t] of Object.entries(copy)) {
         assert(html.includes('property="og:type" content="article"'), `${locale} ${sub}: article metadata`);
         const post = schemas.find((s) => s['@type'] === 'BlogPosting');
         await access(new URL(post.image.replace('https://beeverforge.com/', ''), root));
-        assert(post.citation.length >= 6, `${locale} ${sub}: primary references retained`);
+        const article = articles.find(({ slug }) => sub === `blog/${slug}/`);
+        assert.deepEqual(post.citation, article.sources.map(([, url]) => url), `${locale} ${sub}: structured citations match article sources`);
       }
     }
   }
