@@ -19,8 +19,8 @@ export const humanWork = {
     seoTitle: 'IA vai substituir programadores? | BeeverForge',
     category: 'IA e trabalho',
     shortDescription: 'O futuro dos programadores na era da IA',
-    summary: "Programadores passaram décadas automatizando o trabalho dos outros. O que acontece com a profissão quando a IA começa a automatizar a escrita e a revisão de código?",
-    lead: "Durante décadas, programadores foram pagos para transformar o trabalho dos outros em software. Agora, o trabalho deles virou uma tarefa na fila.",
+    summary: "O que muda no trabalho dos programadores quando agentes de IA já podem escrever código e rodar testes? Um ensaio sobre como as equipes medem produtividade.",
+    lead: "“Você é uma máquina.” Era assim que se elogiava alguém que entregava rápido e parecia nunca cansar. Agora, um agente de IA pode escrever código e rodar os testes antes que a equipe termine de discutir o que precisa mudar. Se a velocidade era motivo de elogio, vale olhar para o trabalho de quem faz a equipe parar e pensar.",
     coverAlt: 'Uma mão repousa sobre uma bancada ao lado de um relógio de ponto mecânico.',
     coverScope: 'Ilustração editorial gerada com IA.',
     sourceNotes: [
@@ -69,8 +69,8 @@ export const humanWork = {
     seoTitle: 'Will AI Replace Software Developers? | BeeverForge',
     category: 'AI and work',
     shortDescription: 'The future of software developers in the age of AI',
-    summary: "Programmers spent decades automating other people’s work. What happens to the profession when AI starts automating the writing and review of code?",
-    lead: "For decades, programmers were paid to turn other people’s work into software. Now their own work is a ticket in the queue.",
+    summary: "What changes for developers when AI agents can write code and run tests? An essay on how software teams measure productivity.",
+    lead: "“You’re a machine.” It was a compliment for someone who worked fast and never seemed to tire. Now an AI agent can write code and run the tests before the team has finished discussing what needs to change. If speed used to earn the praise, it’s worth looking at the work of the person who gets the team to stop and think.",
     coverAlt: 'A hand rests on a workbench beside a mechanical time clock.',
     coverScope: 'AI-generated editorial illustration.',
     sourceNotes: [
@@ -119,8 +119,8 @@ export const humanWork = {
     seoTitle: '¿La IA reemplazará a los programadores? | BeeverForge',
     category: 'IA y trabajo',
     shortDescription: 'El futuro de los programadores en la era de la IA',
-    summary: "Los programadores llevan décadas automatizando el trabajo ajeno. ¿Qué pasa con la profesión cuando la IA empieza a automatizar la escritura y la revisión de código?",
-    lead: "Durante décadas, a los programadores les pagaron por convertir el trabajo ajeno en software. Ahora su propio trabajo es una tarea más en la cola.",
+    summary: "¿Qué cambia para los programadores cuando los agentes de IA ya pueden escribir código y ejecutar pruebas? Un ensayo sobre cómo los equipos miden la productividad.",
+    lead: "«Eres una máquina». Así se elogiaba a quien trabajaba rápido y parecía no cansarse nunca. Ahora un agente de IA puede escribir código y ejecutar las pruebas antes de que el equipo termine de discutir qué debe cambiar. Si la velocidad merecía el elogio, vale la pena fijarse en el trabajo de quien hace que el equipo se detenga a pensar.",
     coverAlt: 'Una mano descansa sobre un banco de trabajo junto a un reloj mecánico de fichar.',
     coverScope: 'Ilustración editorial generada con IA.',
     sourceNotes: [
