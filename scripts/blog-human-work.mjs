@@ -21,8 +21,7 @@ export const humanWork = {
     category: 'IA e trabalho',
     shortDescription: 'O futuro dos programadores na era da IA',
     summary: 'A IA vai substituir programadores? Veja quais etapas os agentes já podem assumir e como isso muda o papel de quem desenvolve software.',
-    lead: 'A IA vai substituir programadores? Agentes já escrevem, testam e revisam código. Isso pode reduzir o trabalho manual em algumas entregas e mudar o papel dos desenvolvedores. O efeito sobre os empregos depende de quais tarefas as empresas automatizam e de como passam a organizar o trabalho.',
-    takeaway: 'Quando a execução fica mais rápida, ganha peso a decisão sobre o que construir, quem responde pelo resultado e como usar o tempo que a automação libera.',
+    lead: "Imagine que a IA da sua equipe aprendeu a cancelar reservas. O código passou nos testes. Na primeira manhã em produção, uma cliente recebe dois reembolsos. O relatório diz que a entrega foi um sucesso. De quem foi o erro?",
     coverAlt: 'Uma mão repousa sobre uma bancada ao lado de um relógio de ponto mecânico.',
     coverScope: 'Ilustração editorial gerada com IA.',
     sourceNotes: [
@@ -35,37 +34,35 @@ export const humanWork = {
     ],
     sections: [
       {
-        id: 'ritmo',
-        heading: 'Quando produtividade vira elogio',
-        paragraphs: [
-          '“Você é uma máquina.” A frase costuma chegar depois de um dia em que alguém resolveu tudo. A pessoa entregou rápido, deu conta do imprevisto e seguiu no mesmo ritmo. O elogio revela a medida que usamos para admirar seu trabalho. O que acontece com essa medida quando a máquina passa a fazer parte do serviço?',
-          'A fábrica industrial fez do ritmo da produção uma medida de desempenho. Em <em>Vigiar e punir</em>, Michel Foucault descreve a disciplina do tempo, do espaço e dos movimentos. Em <em>O capital</em>, Karl Marx examina como a maquinaria absorve tarefas e impõe seu ritmo a quem trabalha. No escritório digital, o trabalho também se divide em etapas e resultados que podem ser medidos e, em alguns casos, automatizados.',
-          'Em um <a href="#source-6">artigo publicado na MIT Technology Review Brasil<sup>[6]</sup></a>, Bruna Brito e eu examinamos como as redes sociais moldam o comportamento. Com a IA, a mesma pergunta chega ao trabalho de quem construiu boa parte dessas ferramentas.',
-        ],
-      },
-      {
         id: 'codigo',
-        heading: 'O difícil começa antes do código',
+        heading: "O teste que passou",
         paragraphs: [
-          'Imagine um pedido no quadro de tarefas: “Permitir o cancelamento de reservas”. Um agente pode implementar a mudança e rodar os testes. Quem pode cancelar? Até quando? O que acontece com o pagamento? As respostas mudam a rotina de quem usa e opera o sistema.',
-          'Frederick Brooks já tratava dessa dificuldade em <a href="#source-1"><em>No Silver Bullet</em><sup>[1]</sup></a>. Definir o comportamento do software e verificar se ele faz o que precisa fazer exige entender o problema. A geração de código acelera uma parte desse percurso.',
-          'Em <a href="#source-2">entrevista à Aviator<sup>[2]</sup></a>, Robert C. Martin contou que, ao trabalhar com agentes, passou a concentrar sua atenção na arquitetura e a experimentar o sistema para entender o que precisa mudar. É um exemplo de como o trabalho pode migrar da escrita de cada instrução para decisões sobre o comportamento do produto.',
+          "O pedido no quadro tinha uma linha: “Permitir o cancelamento de reservas”. A cliente cancelou pelo aplicativo. O pagamento demorou a ser atualizado, então ela ligou para o atendimento. O atendente cancelou a mesma reserva pelo painel. Cada caminho tinha seu próprio teste, e os dois passaram. Faltou testar o que acontecia quando os caminhos se encontravam.",
+          "Em <a href=\"#source-1\"><em>No Silver Bullet</em><sup>[1]</sup></a>, Frederick Brooks chama atenção para o trabalho de entender e definir o que um software deve fazer. Aqui, a regra só fica evidente quando a cliente passa do aplicativo para o telefone: uma reserva pode ser cancelada por dois canais, mas só deve ser reembolsada uma vez. Quem conhece os atalhos do atendimento talvez perceba isso antes de quem conhece o código.",
         ],
       },
       {
         id: 'entrega',
-        heading: 'O que a IA já pode assumir no desenvolvimento de software',
+        heading: "O desenvolvedor precisa entrar nessa história?",
         paragraphs: [
-          'Uma tarefa aprovada pode seguir para implementação por um agente, passar por verificações e chegar como proposta de alteração para avaliação. A <a href="#source-3">BeeverForge de código aberto, antes chamada OpenFactory<sup>[3]</sup></a>, organiza essas etapas em um só fluxo. Em determinadas entregas, as pessoas podem definir o objetivo e aceitar o resultado sem que um desenvolvedor conduza cada passo técnico.',
-          'Esse cenário pode mudar tanto as atribuições quanto o tamanho das equipes. Em 2025, a <a href="#source-4">OIT e o instituto polonês NASK<sup>[4]</sup></a> estimaram que cerca de um em cada quatro trabalhadores no mundo estava em uma ocupação com algum grau de exposição à IA generativa. A estimativa se refere ao potencial de automação de tarefas. Os autores consideram mais provável uma transformação das ocupações, e o efeito sobre a quantidade de vagas depende de como cada organização adota a tecnologia.',
+          "O problema vira um novo chamado, desta vez com a regra explícita. Um agente implementa a correção, roda os testes e encaminha a proposta para revisão. Esse é o tipo de fluxo que a <a href=\"#source-3\">BeeverForge de código aberto, antes chamada OpenFactory<sup>[3]</sup></a>, reúne. Para essa entrega, vale perguntar se o trabalho de escrever cada linha precisa passar por um desenvolvedor.",
+          "Robert C. Martin, o Uncle Bob, contou à <a href=\"#source-2\">Aviator<sup>[2]</sup></a> que, quando trabalha com agentes, dedica mais atenção à arquitetura e ao comportamento do sistema. No caso da reserva, isso significaria olhar para o que os dois canais têm em comum. Se o aplicativo e o painel decidem separadamente quando pagar, a próxima duplicidade pode vir de outro caminho.",
+          "A IA vai substituir programadores? Algumas entregas podem exigir menos trabalho direto de programação. O tamanho das equipes é outra pergunta. Em 2025, a <a href=\"#source-4\">OIT e o instituto polonês NASK<sup>[4]</sup></a> estimaram que cerca de um em cada quatro trabalhadores no mundo estava numa ocupação com algum grau de exposição à IA generativa. A estimativa trata das tarefas que podem mudar. No caso da reserva, a empresa pode usar o tempo ganho para investigar problemas como esse ou usar o ganho para reduzir a equipe. A decisão é da empresa.",
         ],
       },
       {
         id: 'trabalho',
-        heading: 'O trabalho que fica fora da tela',
+        heading: "Quem ganha o tempo que a IA economiza?",
         paragraphs: [
-          'Em <a href="#source-5"><em>Atlas da IA</em><sup>[5]</sup></a>, Kate Crawford acompanha o trabalho, os dados, a energia e os materiais que tornam esses sistemas possíveis. Dentro de uma empresa, o trabalho também muda de lugar. O tempo liberado da implementação pode ir para a investigação de problemas, a revisão de entregas ou a operação da infraestrutura. Também pode virar pressão para aprovar mais mudanças no mesmo dia.',
-          'Voltemos à reserva. Se a mudança causa um reembolso indevido, alguém precisa perceber o erro, responder a quem foi afetado e corrigir o processo. Quantas linhas o agente escreveu diz pouco sobre esse trabalho. O que uma empresa escolhe reconhecer quando diz “você é uma máquina” ajuda a definir que trabalho terá valor quando produzir código ficar mais rápido.',
+          "Enquanto a correção espera aprovação, alguém do financeiro concilia os pagamentos. O atendimento precisa explicar o reembolso em duplicidade à cliente. Em <a href=\"#source-5\"><em>Atlas da IA</em><sup>[5]</sup></a>, Kate Crawford segue o trabalho que fica fora da interface, além da energia e dos materiais que sustentam esses sistemas. A mesma mudança de perspectiva cabe aqui: o relatório de produtividade da engenharia registrou uma tarefa concluída. Onde aparece a hora que o atendimento gastou para resolver o problema?",
+        ],
+      },
+      {
+        id: 'ritmo',
+        heading: "O elogio que vira meta",
+        paragraphs: [
+          "Em <em>Vigiar e punir</em>, Michel Foucault descreve como a disciplina organiza o tempo e os gestos. Em <em>O capital</em>, Karl Marx examina o que acontece quando a máquina estabelece o ritmo do trabalho. Bruna Brito e eu discutimos como as plataformas moldam o comportamento em um <a href=\"#source-6\">ensaio sobre redes sociais na MIT Technology Review Brasil<sup>[6]</sup></a>. No trabalho com agentes, vale observar o que a equipe começa a fazer quando o painel recompensa a quantidade de tarefas fechadas. Conversar com o atendimento antes de implementar a mudança pode parecer uma demora. Até chegar a primeira ligação.",
+          "“Você é uma máquina” já foi o elogio para quem resolvia tudo sem perder o ritmo. Agora que a máquina consegue fechar a tarefa, quem vai receber o crédito por dizer, antes de todo mundo, que ela ainda está aberta?",
         ],
       },
     ],
@@ -76,8 +73,7 @@ export const humanWork = {
     category: 'AI and work',
     shortDescription: 'The future of software developers in the age of AI',
     summary: 'Will AI replace software developers? Explore which tasks AI agents can take on and how that changes the role of software engineers.',
-    lead: 'Will AI replace software developers? Agents already write, test, and review code. That can reduce manual work on some changes and reshape what developers do. The effect on jobs depends on which tasks companies automate and how they organize the work that follows.',
-    takeaway: 'As execution speeds up, deciding what to build, who answers for the outcome, and how to use the time automation frees up becomes more consequential.',
+    lead: "Imagine your team’s AI has learned to cancel bookings. The code passes every test. On its first morning in production, a customer gets two refunds. The report calls the release a success. Whose mistake was it?",
     coverAlt: 'A hand rests on a workbench beside a mechanical time clock.',
     coverScope: 'AI-generated editorial illustration.',
     sourceNotes: [
@@ -90,37 +86,35 @@ export const humanWork = {
     ],
     sections: [
       {
-        id: 'ritmo',
-        heading: 'When productivity becomes praise',
-        paragraphs: [
-          '“You’re a machine.” We tend to say it after someone has done it all. They delivered quickly, dealt with the unexpected, and kept up the pace. The compliment reveals how we measure their work. What happens to that measure when machines start doing some of the work themselves?',
-          'The industrial factory made the pace of production a measure of performance. In <em>Discipline and Punish</em>, Michel Foucault describes how discipline governs time, space, and movement. In <em>Capital</em>, Karl Marx examines how machinery absorbs tasks and sets the pace for workers. Digital work is also divided into stages and outputs that can be measured and, in some cases, automated.',
-          'In an <a href="#source-6">essay for MIT Technology Review Brasil<sup>[6]</sup></a>, Bruna Brito and I looked at how social networks shape behavior. AI brings the same question to the work of the people who built many of those tools.',
-        ],
-      },
-      {
         id: 'codigo',
-        heading: 'The hard part comes before the code',
+        heading: "The test that passed",
         paragraphs: [
-          'Imagine a ticket on a task board: “Allow booking cancellations.” An agent can implement the change and run the tests. Who can cancel? How late? What happens to the payment? The answers affect everyone who uses or operates the system.',
-          'Frederick Brooks addressed this difficulty in <a href="#source-1"><em>No Silver Bullet</em><sup>[1]</sup></a>. Defining how software should behave and verifying that it does what people need requires understanding the problem. Code generation speeds up one part of that work.',
-          'In <a href="#source-2">an Aviator interview<sup>[2]</sup></a>, Robert C. Martin described how working with agents led him to focus on architecture and try the software himself to understand what needed to change. His experience shows how work can shift from writing every instruction to making decisions about product behavior.',
+          "The ticket was one line long: “Allow booking cancellations.” The customer canceled in the app. The payment status took a while to update, so she called support. A support rep canceled the same booking from their dashboard. Each route had its own test, and both passed. Nobody had tested what would happen when the two routes met.",
+          "In <a href=\"#source-1\"><em>No Silver Bullet</em><sup>[1]</sup></a>, Frederick Brooks draws attention to the work of figuring out what software should do. Here, the rule only becomes obvious when the customer switches from the app to the phone. A booking can be canceled through two channels, but it should only be refunded once. Someone who knows how customers use support may spot that before someone who knows the code.",
         ],
       },
       {
         id: 'entrega',
-        heading: 'What AI can already take on in software development',
+        heading: "Does a developer need to be in the loop?",
         paragraphs: [
-          'An approved task can go to an agent for implementation, pass through checks, and arrive as a proposed change for review. <a href="#source-3">The open-source BeeverForge project, formerly OpenFactory<sup>[3]</sup></a>, brings these stages into one workflow. For some changes, people can set the goal and accept the result without a developer guiding every technical step.',
-          'That possibility can alter what teams do and how large they are. In 2025, the <a href="#source-4">ILO and Poland’s NASK institute<sup>[4]</sup></a> estimated that about one in four workers worldwide held an occupation with some exposure to generative AI. The estimate concerns the potential to automate tasks. The authors expect occupations to change, while the effect on job numbers depends on how organizations adopt the technology.',
+          "The problem becomes another ticket, this time with the rule spelled out. An agent implements the fix, runs the tests, and submits the proposed change for review. The <a href=\"#source-3\">open-source BeeverForge project, formerly OpenFactory<sup>[3]</sup></a>, brings those steps together. For this change, it is fair to ask whether a developer needs to write each line.",
+          "Robert C. Martin, better known as Uncle Bob, told <a href=\"#source-2\">Aviator<sup>[2]</sup></a> that when he works with agents, he pays closer attention to architecture and how the software behaves. For the booking, that would mean looking at what the two channels share. If the app and the dashboard decide separately when to issue a refund, the next duplicate may come through a different route.",
+          "Will AI replace software developers? Some changes may take less hands-on programming. Team size is a separate question. In 2025, the <a href=\"#source-4\">ILO and Poland’s NASK institute<sup>[4]</sup></a> estimated that about one in four workers worldwide held a job with some exposure to generative AI. The estimate concerns tasks that might change. In our booking example, the company can use the time it saves to investigate problems like this one, or use the savings to shrink the team. That choice belongs to the company.",
         ],
       },
       {
         id: 'trabalho',
-        heading: 'The work beyond the screen',
+        heading: "Who gets the time AI saves?",
         paragraphs: [
-          'In <a href="#source-5"><em>Atlas of AI</em><sup>[5]</sup></a>, Kate Crawford traces the workers, data, energy, and materials that make these systems possible. Work moves around inside a company, too. Time freed from implementation can go toward investigating problems, reviewing changes, or operating infrastructure. It can also become pressure to approve more changes in a day.',
-          'Return to the booking. If the change triggers a refund that shouldn’t have happened, someone has to spot the error, respond to the people affected, and fix the process. The number of lines the agent wrote tells us little about that work. What a company chooses to recognize when it says “you’re a machine” helps determine what work will be valued when producing code gets faster.',
+          "While the fix awaits approval, someone in finance reconciles the payments. Support has to explain the duplicate refund to the customer. In <a href=\"#source-5\"><em>Atlas of AI</em><sup>[5]</sup></a>, Kate Crawford follows the work that happens out of sight, along with the energy and materials these systems depend on. Apply that shift in perspective here. The engineering report records a completed ticket. Where does the hour support spent sorting it out show up?",
+        ],
+      },
+      {
+        id: 'ritmo',
+        heading: "When a compliment becomes a target",
+        paragraphs: [
+          "In <em>Discipline and Punish</em>, Michel Foucault describes how discipline organizes time and movement. In <em>Capital</em>, Karl Marx considers what happens when machines set the pace. Bruna Brito and I discussed how platforms shape behavior in an <a href=\"#source-6\">essay on social media for MIT Technology Review Brasil<sup>[6]</sup></a>. In teams that work with agents, watch what happens when the dashboard rewards closed tickets. Talking to support before making the change can look like a delay. Until the first call comes in.",
+          "“You’re a machine” used to be a compliment for someone who handled everything without slowing down. Now that the machine can close the ticket, who gets credit for being the first to say it’s still open?",
         ],
       },
     ],
@@ -131,8 +125,7 @@ export const humanWork = {
     category: 'IA y trabajo',
     shortDescription: 'El futuro de los programadores en la era de la IA',
     summary: '¿La IA reemplazará a los programadores? Explora qué tareas pueden asumir los agentes y cómo cambia el papel de quienes desarrollan software.',
-    lead: '¿La IA reemplazará a los programadores? Los agentes ya escriben, prueban y revisan código. Esto puede reducir el trabajo manual en algunas entregas y cambiar el papel de los desarrolladores. El efecto sobre el empleo depende de qué tareas automaticen las empresas y de cómo organicen el trabajo.',
-    takeaway: 'Al acelerarse la ejecución, cobran más importancia las decisiones sobre qué construir, quién responde por el resultado y cómo aprovechar el tiempo que libera la automatización.',
+    lead: "Imagina que la IA de tu equipo ha aprendido a cancelar reservas. El código supera todas las pruebas. En su primera mañana en producción, una clienta recibe dos reembolsos. El informe dice que la entrega fue un éxito. ¿De quién fue el error?",
     coverAlt: 'Una mano descansa sobre un banco de trabajo junto a un reloj mecánico de fichar.',
     coverScope: 'Ilustración editorial generada con IA.',
     sourceNotes: [
@@ -145,37 +138,35 @@ export const humanWork = {
     ],
     sections: [
       {
-        id: 'ritmo',
-        heading: 'Cuando la productividad se vuelve un elogio',
-        paragraphs: [
-          '«Eres una máquina». Solemos decirlo al final de un día en el que alguien lo ha resuelto todo. Entregó rápido, salió del paso ante los imprevistos y mantuvo el ritmo. El elogio revela cómo medimos su trabajo. ¿Qué pasa con esa medida cuando las propias máquinas empiezan a hacer parte del trabajo?',
-          'La fábrica industrial convirtió el ritmo de producción en una medida del rendimiento. En <em>Vigilar y castigar</em>, Michel Foucault describe cómo la disciplina rige el tiempo, el espacio y los movimientos. En <em>El capital</em>, Karl Marx analiza cómo la maquinaria asume tareas e impone el ritmo a los trabajadores. El trabajo digital también se divide en etapas y resultados que pueden medirse y, en algunos casos, automatizarse.',
-          'En un <a href="#source-6">artículo para MIT Technology Review Brasil<sup>[6]</sup></a>, Bruna Brito y yo examinamos cómo las redes sociales moldean el comportamiento. La IA lleva la misma pregunta al trabajo de quienes construyeron muchas de esas herramientas.',
-        ],
-      },
-      {
         id: 'codigo',
-        heading: 'La dificultad empieza antes del código',
+        heading: "La prueba que salió bien",
         paragraphs: [
-          'Imagina una tarea en el tablero: «Permitir la cancelación de reservas». Un agente puede implementar el cambio y ejecutar las pruebas. ¿Quién puede cancelar? ¿Hasta cuándo? ¿Qué ocurre con el pago? Las respuestas afectan a quienes usan el sistema y a quienes se encargan de operarlo.',
-          'Frederick Brooks ya abordaba esa dificultad en <a href="#source-1"><em>No Silver Bullet</em><sup>[1]</sup></a>. Definir cómo debe comportarse el software y verificar que cumpla su cometido exige comprender el problema. La generación de código acelera una parte de ese trabajo.',
-          'En <a href="#source-2">una entrevista con Aviator<sup>[2]</sup></a>, Robert C. Martin contó que al trabajar con agentes pasó a prestar más atención a la arquitectura y a probar el sistema para entender qué debía cambiar. Su experiencia ilustra cómo el trabajo puede pasar de escribir cada instrucción a tomar decisiones sobre el comportamiento del producto.',
+          "La tarea ocupaba una línea: «Permitir la cancelación de reservas». La clienta canceló desde la aplicación. Como el estado del pago tardó en actualizarse, llamó a atención al cliente. Desde allí volvieron a cancelar la misma reserva en su panel. Cada vía tenía su propia prueba y las dos salieron bien. Faltaba probar qué pasaba cuando se cruzaban.",
+          "En <a href=\"#source-1\"><em>No Silver Bullet</em><sup>[1]</sup></a>, Frederick Brooks pone el foco en el trabajo de entender y definir qué debe hacer el software. Aquí, la regla solo se hace evidente cuando la clienta pasa de la aplicación al teléfono. Una reserva puede cancelarse por dos canales, pero debe reembolsarse una sola vez. Quien conoce cómo se recurre a atención al cliente puede advertirlo antes que quien conoce el código.",
         ],
       },
       {
         id: 'entrega',
-        heading: 'Qué tareas puede asumir ya la IA en el desarrollo de software',
+        heading: "¿Hace falta que intervenga un desarrollador?",
         paragraphs: [
-          'Una tarea aprobada puede pasar a un agente para su implementación, superar verificaciones y llegar como propuesta de cambio para su evaluación. <a href="#source-3">El proyecto de código abierto BeeverForge, antes OpenFactory<sup>[3]</sup></a>, reúne esas etapas en un solo flujo. En algunas entregas, las personas pueden fijar el objetivo y aceptar el resultado sin que un desarrollador dirija cada paso técnico.',
-          'Esa posibilidad puede cambiar tanto las funciones como el tamaño de los equipos. En 2025, la <a href="#source-4">OIT y el instituto polaco NASK<sup>[4]</sup></a> estimaron que cerca de uno de cada cuatro trabajadores en el mundo tenía una ocupación con algún grado de exposición a la IA generativa. La estimación se refiere al potencial de automatizar tareas. Los autores consideran más probable una transformación de las ocupaciones, y el efecto sobre el número de empleos depende de cómo se adopte la tecnología.',
+          "El problema se convierte en otra tarea, esta vez con la regla escrita. Un agente implementa la corrección, ejecuta las pruebas y envía la propuesta a revisión. El <a href=\"#source-3\">proyecto de código abierto BeeverForge, antes OpenFactory<sup>[3]</sup></a>, reúne esos pasos. Para esta entrega, cabe preguntarse si hace falta que un desarrollador escriba cada línea.",
+          "Robert C. Martin, conocido como Uncle Bob, contó a <a href=\"#source-2\">Aviator<sup>[2]</sup></a> que cuando trabaja con agentes presta más atención a la arquitectura y al comportamiento del sistema. En el caso de la reserva, eso implica mirar qué comparten los dos canales. Si la aplicación y el panel deciden por separado cuándo devolver el dinero, el próximo reembolso duplicado puede llegar por otra vía.",
+          "¿La IA reemplazará a los programadores? Algunos cambios pueden requerir menos trabajo directo de programación. El tamaño de los equipos es otra cuestión. En 2025, la <a href=\"#source-4\">OIT y el instituto polaco NASK<sup>[4]</sup></a> estimaron que cerca de uno de cada cuatro trabajadores en el mundo tenía una ocupación con algún grado de exposición a la IA generativa. La estimación se refiere a las tareas que podrían cambiar. En el ejemplo de la reserva, la empresa puede dedicar el tiempo que gana a investigar problemas como este o aprovechar el ahorro para reducir el equipo. La decisión es de la empresa.",
         ],
       },
       {
         id: 'trabalho',
-        heading: 'El trabajo que queda fuera de la pantalla',
+        heading: "¿Quién se queda con el tiempo que ahorra la IA?",
         paragraphs: [
-          'En <a href="#source-5"><em>Atlas de IA</em><sup>[5]</sup></a>, Kate Crawford rastrea el trabajo, los datos, la energía y los materiales que hacen posibles estos sistemas. Dentro de una empresa, el trabajo también cambia de lugar. El tiempo que se libera de la implementación puede dedicarse a investigar problemas, revisar entregas u operar la infraestructura. También puede convertirse en presión para aprobar más cambios en el mismo día.',
-          'Volvamos a la reserva. Si el cambio provoca un reembolso indebido, alguien tiene que detectar el error, responder a las personas afectadas y corregir el proceso. El número de líneas que escribió el agente dice poco sobre ese trabajo. Lo que una empresa elige reconocer cuando dice «eres una máquina» contribuye a definir qué trabajo tendrá valor cuando producir código sea más rápido.',
+          "Mientras la corrección espera aprobación, alguien en finanzas concilia los pagos. Atención al cliente tiene que explicar el reembolso duplicado. En <a href=\"#source-5\"><em>Atlas de IA</em><sup>[5]</sup></a>, Kate Crawford sigue el trabajo que queda fuera de la interfaz, además de la energía y los materiales que sostienen estos sistemas. Ese cambio de perspectiva también sirve aquí. El informe de ingeniería registra una tarea completada. ¿Dónde figura la hora que dedicó atención al cliente a resolver el problema?",
+        ],
+      },
+      {
+        id: 'ritmo',
+        heading: "Cuando el elogio se convierte en objetivo",
+        paragraphs: [
+          "En <em>Vigilar y castigar</em>, Michel Foucault describe cómo la disciplina organiza el tiempo y los movimientos. En <em>El capital</em>, Karl Marx examina qué sucede cuando las máquinas marcan el ritmo. Bruna Brito y yo analizamos cómo las plataformas moldean el comportamiento en un <a href=\"#source-6\">ensayo sobre redes sociales en MIT Technology Review Brasil<sup>[6]</sup></a>. En los equipos que trabajan con agentes, vale la pena observar qué ocurre cuando el panel premia la cantidad de tareas cerradas. Hablar con atención al cliente antes de implementar el cambio puede parecer una demora. Hasta que llega la primera llamada.",
+          "«Eres una máquina» era el elogio para quien resolvía todo sin perder el ritmo. Ahora que la máquina puede cerrar la tarea, ¿quién se lleva el mérito de decir, antes que nadie, que sigue abierta?",
         ],
       },
     ],
