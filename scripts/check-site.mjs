@@ -1,11 +1,11 @@
 import { readFile, access, stat } from 'node:fs/promises';
 import assert from 'node:assert/strict';
-import { copy, plans } from './marketing-copy.mjs';
+import { copy } from './marketing-copy.mjs';
 import { blogRoutes } from './blog.mjs';
 import { articles, retiredBlogSlugs } from './blog-content.mjs';
 
 // Verify the generated public experience, including every local destination and
-// fragment reachable from the home, pricing, trial, legal and documentation pages.
+// fragment reachable from the home, pricing, legal and documentation pages.
 const root = new URL('../', import.meta.url);
 const sitemap = await readFile(new URL('sitemap.xml', root), 'utf8');
 const paths = [...sitemap.matchAll(/<loc>https:\/\/beeverforge\.com\/([^<]*)<\/loc>/g)].map((m) => m[1]);
@@ -54,9 +54,10 @@ for (const [locale, t] of Object.entries(copy)) {
     assert(html.includes(`<html lang="${t.lang}">`), `${locale}: language`);
     const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
     const app = schemas.find((s) => s['@type'] === 'SoftwareApplication');
-    assert.deepEqual(app.offers.filter(o => 'price' in o).map(o => o.price), plans.filter(p => p.price !== null).map(p => p.price));
-    assert.equal((html.match(/class="m-plan(?: m-plan-[^"]+)?"/g) || []).length, plans.length);
-    for (const id of ['prototype', 'team', 'enterprise']) assert(app.offers.some((o) => o.name.toLowerCase().endsWith(id)));
+    assert.deepEqual(app.offers.map(o => o.name), ['BeeverForge Enterprise']);
+    assert.equal((html.match(/class="m-plan m-plan-enterprise"/g) || []).length, 1);
+    assert(!html.includes('try/#waitlist') && !html.includes('data-waitlist-form'), `${locale} ${sub}: trial intake is retired`);
+    assert(html.includes('https://castellosoft.com.br/#beeverforge') && html.includes('Fink'), `${locale} ${sub}: Brazil sales and presence`);
     const enterprise = app.offers.find(o => o.name.endsWith('Enterprise'));
     assert(!('price' in enterprise) && !('priceSpecification' in enterprise), `${locale}: quoted Enterprise must never appear free`);
     assert(html.includes('id="enterprise"') && html.includes('RBAC') && html.includes('SSO'), `${locale}: customer-hosted Enterprise is visible`);
@@ -66,6 +67,13 @@ for (const [locale, t] of Object.entries(copy)) {
       assert(!html.includes('class="m-watch"'), `${locale}: no redundant video jump beside the video`);
       assert(schemas.some((s) => s['@type'] === 'VideoObject'));
     }
+  }
+  for (const sub of ['try/', 'try/thank-you/']) {
+    const path = `${t.path.slice(1)}${sub}`;
+    const html = await load(`${path}index.html`);
+    assert(!paths.includes(path), `${path}: retired trial is absent from the sitemap`);
+    assert(html.includes('content="noindex,follow"') && html.includes(`content="0;url=${t.path}pricing/#enterprise"`));
+    assert(!html.includes('<form'), `${path}: no trial intake`);
   }
   for (const sub of ['', 'pricing/', 'try/', 'legal/next/terms/', ...blogRoutes]) {
     const html = await load(`${t.path.slice(1)}${sub}index.html`);
@@ -85,4 +93,4 @@ for (const [locale, t] of Object.entries(copy)) {
   }
 }
 assert((await stat(new URL('assets/beeverforge-overview.mp4', root))).size < 15_000_000, 'Keep the supplied light video');
-console.log(`Verified ${paths.length} sitemap pages, ${links} local links/assets, three languages, shared plan offers and on-demand video.`);
+console.log(`Verified ${paths.length} sitemap pages, ${links} local links/assets, three languages, the Enterprise offer and retired trial routes and on-demand video.`);

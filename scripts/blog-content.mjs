@@ -68,7 +68,7 @@ export const articles = [
           "Defina a solução e prepare a base técnica. O apoio especializado da BeeverForge é opcional."
         ],
         [
-          "Team",
+          "Enterprise",
           "Automação BeeverForge",
           "Agentes implementam; a fábrica verifica e organiza a evolução. Uma pessoa autoriza a produção."
         ]
@@ -146,9 +146,9 @@ export const articles = [
           "kind": "journey",
           "paragraphs": [
             "É para esse percurso que existe a BeeverForge. O compromisso é entregar o produto em operação, dentro do âmbito e dos critérios técnicos acordados, e dar continuidade à sua evolução com automação.",
-            "Começa no Prototype: você e a IA exploram a ideia, testam a experiência com dados simulados e consolidam requisitos. O protótipo ajuda a decidir o que construir e fornece as decisões para implementar a aplicação real.",
-            "A arquitetura pode ser preparada pela sua equipa. Se quiser apoio, o arranque assistido da BeeverForge é opcional: analisamos o protótipo concluído na plataforma, desenhamos a solução e preparamos a base técnica acordada numa proposta. Âmbito, entregáveis e condições são definidos antes de começar.",
-            "<strong>No Team, a automação BeeverForge executa o trabalho preparado.</strong> Os agentes implementam; a fábrica realiza as verificações configuradas e obtém revisão independente; o Product Owner virtual organiza prioridades e evolução. As pessoas orientam o produto, decidem a arquitetura e autorizam a entrada em produção.",
+            "A partir da ideia ou do backlog, sua equipe valida os fluxos e consolida requisitos. O protótipo ajuda a decidir o que construir e fornece as decisões para implementar a aplicação real.",
+            "A arquitetura pode ser preparada pela sua equipa. Se quiser apoio, o arranque assistido da BeeverForge é opcional: analisamos os requisitos do projeto, desenhamos a solução e preparamos a base técnica acordada numa proposta. Âmbito, entregáveis e condições são definidos antes de começar.",
+            "<strong>No Enterprise, a automação BeeverForge executa o trabalho preparado.</strong> Os agentes implementam; a fábrica realiza as verificações configuradas e obtém revisão independente; o Product Owner virtual organiza prioridades e evolução. As pessoas orientam o produto, decidem a arquitetura e autorizam a entrada em produção.",
             "A conclusão do protótipo abre uma etapa de implementação e evolução na mesma plataforma. Os critérios de entrega permitem acompanhar essa passagem e saber o que falta para a operação."
           ]
         },
@@ -157,7 +157,7 @@ export const articles = [
           "heading": "A fábrica trabalha com as suas escolhas de IA e infraestrutura.",
           "paragraphs": [
             "OpenAI, Anthropic, Moonshot AI/Kimi e outros fornecedores compatíveis podem integrar a solução, conforme a configuração e a validação do ambiente. Modelos locais, endpoints privados e instalações on-premises exigem interfaces compatíveis e os recursos adequados.",
-            "O cliente controla as suas chaves de API e a infraestrutura de execução; o consumo de IA e os recursos são pagos separadamente. O trial alojado tem configuração própria. Essa liberdade permite escolher e rever os fornecedores conforme o produto evolui.",
+            "O cliente controla as suas chaves de API e a infraestrutura de execução; o consumo de IA e os recursos são pagos separadamente. Essa liberdade permite escolher e rever os fornecedores conforme o produto evolui.",
             "A automação deve continuar a fazer o produto avançar quando as suas escolhas mudam. É essa continuidade que uma fábrica de software precisa oferecer.",
             "Para empresas que precisam de toda a plataforma na sua infraestrutura, o <a href=\"/pt/pricing/#enterprise\">Enterprise</a> é contratado sob consulta, com instalação self-hosted, RBAC, SSO e suporte BeeverForge. A implantação, a capacidade e as condições de suporte são definidas por proposta."
           ]
@@ -218,7 +218,7 @@ export const articles = [
           "Design the solution and prepare its foundation. BeeverForge’s expert help is optional."
         ],
         [
-          "Team",
+          "Enterprise",
           "BeeverForge automation",
           "Agents implement; the factory checks and organizes evolution. A person authorizes production."
         ]
@@ -296,9 +296,9 @@ export const articles = [
           "kind": "journey",
           "paragraphs": [
             "BeeverForge exists for that journey. The commitment is to deliver an operating product within the agreed scope and technical acceptance criteria, then keep its evolution moving through automation.",
-            "Start in Prototype: you and AI explore the idea, test the experience with simulated data and capture requirements. The prototype helps decide what to build and records the decisions needed to implement the real application.",
-            "Your team can prepare the architecture. If you want support, BeeverForge’s assisted start is optional: we analyze the prototype completed in the platform, design the solution and prepare the technical foundation agreed in a proposal. Scope, deliverables and commercial terms are defined before work begins.",
-            "<strong>With Team, BeeverForge automation executes the prepared work.</strong> Agents implement; the factory runs configured checks and obtains independent review; the virtual Product Owner organizes priorities and evolution. People guide the product, decide its architecture and authorize production entry.",
+            "Your team validates workflows and consolidates requirements from an idea or backlog. The prototype helps decide what to build and records the decisions needed to implement the real application.",
+            "Your team can prepare the architecture. If you want support, BeeverForge’s assisted start is optional: we analyze the project requirements, design the solution and prepare the technical foundation agreed in a proposal. Scope, deliverables and commercial terms are defined before work begins.",
+            "<strong>With Enterprise, BeeverForge automation executes the prepared work.</strong> Agents implement; the factory runs configured checks and obtains independent review; the virtual Product Owner organizes priorities and evolution. People guide the product, decide its architecture and authorize production entry.",
             "Completing the prototype opens a stage of implementation and evolution in the same platform. Delivery criteria make progress visible and show what remains before operation."
           ]
         },
@@ -307,7 +307,7 @@ export const articles = [
           "heading": "The factory works with your AI and infrastructure choices.",
           "paragraphs": [
             "OpenAI, Anthropic, Moonshot AI/Kimi and other compatible providers can form part of the solution, subject to environment configuration and validation. Local models, private endpoints and on-premises installations need compatible interfaces and suitable resources.",
-            "Customers control API keys and execution infrastructure; AI consumption and resources are paid separately. The hosted trial has its own configuration. This freedom lets you select and reconsider providers as the product evolves.",
+            "Customers control API keys and execution infrastructure; AI consumption and resources are paid separately. This freedom lets you select and reconsider providers as the product evolves.",
             "Automation needs to keep advancing the product when your choices change. A software factory should provide that continuity.",
             "For companies needing the entire platform in their own infrastructure, <a href=\"/pricing/#enterprise\">Enterprise</a> is available by quotation with self-hosted deployment, RBAC, SSO and BeeverForge support. Deployment, capacity and support terms are agreed in a proposal."
           ]
@@ -368,7 +368,7 @@ export const articles = [
           "Diseñe la solución y prepare su base técnica. Nuestro apoyo especializado es opcional."
         ],
         [
-          "Team",
+          "Enterprise",
           "Automatización BeeverForge",
           "Los agentes implementan; la fábrica verifica y organiza la evolución. Una persona autoriza producción."
         ]
@@ -446,9 +446,9 @@ export const articles = [
           "kind": "journey",
           "paragraphs": [
             "BeeverForge existe para ese recorrido. El compromiso es entregar el producto operativo dentro del alcance y los criterios técnicos acordados, y continuar su evolución con automatización.",
-            "Empiece en Prototype: usted y la IA exploran la idea, prueban la experiencia con datos simulados y consolidan requisitos. El prototipo ayuda a decidir qué construir y registra las decisiones para implementar la aplicación real.",
-            "Su equipo puede preparar la arquitectura. Si quiere apoyo, el arranque asistido de BeeverForge es opcional: analizamos el prototipo concluido en la plataforma, diseñamos la solución y preparamos la base técnica acordada en una propuesta. El alcance, los entregables y las condiciones se definen antes de empezar.",
-            "<strong>Con Team, la automatización BeeverForge ejecuta el trabajo preparado.</strong> Los agentes implementan; la fábrica realiza las verificaciones configuradas y obtiene revisión independiente; el Product Owner virtual organiza prioridades y evolución. Las personas orientan el producto, deciden la arquitectura y autorizan producción.",
+            "Su equipo valida los flujos y consolida requisitos a partir de una idea o del backlog. El prototipo ayuda a decidir qué construir y registra las decisiones para implementar la aplicación real.",
+            "Su equipo puede preparar la arquitectura. Si quiere apoyo, el arranque asistido de BeeverForge es opcional: analizamos los requisitos del proyecto, diseñamos la solución y preparamos la base técnica acordada en una propuesta. El alcance, los entregables y las condiciones se definen antes de empezar.",
+            "<strong>Con Enterprise, la automatización BeeverForge ejecuta el trabajo preparado.</strong> Los agentes implementan; la fábrica realiza las verificaciones configuradas y obtiene revisión independiente; el Product Owner virtual organiza prioridades y evolución. Las personas orientan el producto, deciden la arquitectura y autorizan producción.",
             "Finalizar el prototipo abre una etapa de implementación y evolución en la misma plataforma. Los criterios de entrega permiten seguir ese avance y saber qué falta para la operación."
           ]
         },
@@ -457,7 +457,7 @@ export const articles = [
           "heading": "La fábrica trabaja con sus elecciones de IA e infraestructura.",
           "paragraphs": [
             "OpenAI, Anthropic, Moonshot AI/Kimi y otros proveedores compatibles pueden formar parte de la solución, según la configuración y validación del entorno. Los modelos locales, endpoints privados e instalaciones on-premises requieren interfaces compatibles y recursos adecuados.",
-            "El cliente controla sus claves API y su infraestructura de ejecución; el consumo de IA y los recursos se pagan por separado. La prueba alojada tiene configuración propia. Esa libertad permite elegir y revisar proveedores a medida que evoluciona el producto.",
+            "El cliente controla sus claves API y su infraestructura de ejecución; el consumo de IA y los recursos se pagan por separado. Esa libertad permite elegir y revisar proveedores a medida que evoluciona el producto.",
             "La automatización debe seguir haciendo avanzar el producto cuando sus elecciones cambian. Una fábrica de software debe ofrecer esa continuidad.",
             "Para empresas que necesitan toda la plataforma en su infraestructura, <a href=\"/es/pricing/#enterprise\">Enterprise</a> se contrata bajo consulta, con instalación self-hosted, RBAC, SSO y soporte BeeverForge. La implantación, la capacidad y las condiciones de soporte se definen en una propuesta."
           ]

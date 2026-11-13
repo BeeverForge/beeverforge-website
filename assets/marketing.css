@@ -92,3 +92,16 @@ body .consent-panel{max-width:960px;gap:16px;padding:20px 22px;border-radius:10p
 .m-plan-enterprise{border-color:var(--m-line)}.m-plan-price{min-height:59px}.m-plan-price.m-plan-quote strong{font-size:clamp(32px,3.8vw,44px);letter-spacing:-.04em}.m-plan .m-plan-intro{min-height:72px}.m-plan .m-tax{min-height:30px}
 @media(min-width:741px) and (max-width:1000px){.m-plan-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.m-plan-enterprise{grid-column:1/-1}.m-plan-enterprise ul{grid-template-columns:repeat(2,minmax(0,1fr))}.m-plan-enterprise>.button{max-width:360px}.m-plan-enterprise .m-plan-intro{min-height:0}}
 @media(max-width:740px){.m-plan .m-plan-intro{min-height:0}.m-plan .m-tax{min-height:0}}
+
+/* Enterprise and its regional sales partner */
+.m-plan-grid{grid-template-columns:1.2fr 1fr;align-items:start}
+.m-plan-enterprise{grid-column:auto}
+.m-plan-enterprise .m-plan-intro,.m-plan-enterprise .m-tax{min-height:0}
+.m-plan-enterprise>.button{width:auto}
+.m-hero-brazil{margin-top:18px}
+.m-brazil{padding:34px;border:1px solid var(--m-line);background:var(--m-surface);border-radius:10px;scroll-margin-top:110px}
+.m-brazil img{display:block;object-fit:contain;border-radius:10px;margin-bottom:24px}
+.m-brazil h3{font-size:27px;margin:0 0 14px}
+.m-brazil p{max-width:44ch;font-size:15px;line-height:1.65;margin:0 0 22px}
+.m-brazil .text-link{display:flex;width:fit-content;margin-top:16px}
+@media(max-width:740px){.m-plan-grid{grid-template-columns:1fr}.m-brazil{padding:25px}}
