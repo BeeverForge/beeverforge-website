@@ -1,11 +1,11 @@
 import { humanWork } from './blog-human-work.mjs';
 
-// Scoped external audits support the production-delivery argument.
 export const retiredBlogSlugs = ["from-ai-prototype-to-production","model-agnostic-ai-software-factory"];
+export const productionGuideSlug = 'lovable-prototypes-to-businesses';
 export const articles = [
   humanWork,
   {
-    "slug": "lovable-prototypes-to-businesses",
+    "slug": productionGuideSlug,
     "date": "2026-11-01",
     "sources": [
       [
@@ -500,4 +500,4 @@ export const articles = [
       "readinessNote": "Los criterios concretos dependen del producto y se acuerdan antes de entrar en producción."
     }
   }
-];
+].sort((a, b) => b.date.localeCompare(a.date));
