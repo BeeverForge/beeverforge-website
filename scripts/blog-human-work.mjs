@@ -17,6 +17,8 @@ export const humanWork = {
     ["BeeverForge — Open-source documentation", "https://github.com/BeeverForge/beeverforge-oss#your-first-ticket"],
     ["Frederick P. Brooks Jr. — No Silver Bullet", "https://doi.org/10.1109/MC.1987.1663532"],
     ["GitHub Docs — Managing environments for deployment", "https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments"],
+    ["Justin McCarthy — StrongDM Software Factory", "https://factory.strongdm.ai/"],
+    ["BeeverForge — Pull request #539", "https://github.com/BeeverForge/beeverforge-oss/pull/539"],
   ],
   pt: {
     title: 'Você é uma máquina?',
@@ -34,6 +36,8 @@ export const humanWork = {
       "O fluxo de implementação, testes e revisão da fábrica.",
       "Por que decidir o que o software deve fazer é parte central da engenharia.",
       "Como a aprovação de um deploy pode ser configurada.",
+      "Relato da equipe que delegou a escrita e a revisão do código a agentes.",
+      "Proposta de alteração aberta pela própria fábrica no repositório da BeeverForge.",
     ],
     sections: [
       {
@@ -64,8 +68,9 @@ export const humanWork = {
         id: 'trabalho',
         heading: "A empresa ainda vai precisar de mim?",
         paragraphs: [
-          "<strong>Para escrever cada linha de código, já pode dispensar você.</strong> Se esse era o motivo da contratação, a vaga perde sua razão de existir. Promover todo programador a revisor também só empurra o problema para o próximo degrau.",
-          "A empresa tem outro trabalho para quem sabe projetar o sistema. Imagine especificar “o cliente pode excluir a conta”. A IA entrega o botão. A engenharia define o que acontece com o acesso, quais dados precisam sumir e que teste demonstra que sumiram. <a href=\"#source-5\">Frederick Brooks<sup>[5]</sup></a> já colocava essa dificuldade no centro do ofício. Quando a implementação vira rotina da fábrica, saber projetar, testar e medir o comportamento do sistema passa a definir o cargo.",
+          "<strong>Para escrever cada linha de código, a empresa já pode dispensar você.</strong> Uma equipe da <a href=\"#source-7\">StrongDM<sup>[7]</sup></a> levou a ideia ao pé da letra. Os engenheiros definiam as especificações e os cenários de teste. Os agentes escreviam o código e rodavam as verificações. A equipe também dispensou a revisão manual do código.",
+          "A BeeverForge já usa a própria fábrica para evoluir. Uma <a href=\"#source-8\">mudança no repositório da BeeverForge<sup>[8]</sup></a> começou como um chamado no quadro. A fábrica implementou a alteração, rodou verificações e abriu a proposta. A decisão de incorporar a mudança cabe à equipe.",
+          "Na prática, o trabalho mudou de lugar. Se o cliente pode excluir a conta, alguém precisa decidir quando o acesso termina, quais dados devem sumir e como comprovar que sumiram. <a href=\"#source-5\">Frederick Brooks<sup>[5]</sup></a> já colocava esse tipo de decisão no centro da engenharia. A máquina consegue escrever o botão. O trabalho de engenharia começa por definir o que deve acontecer depois do clique.",
         ],
       },
       {
@@ -93,6 +98,8 @@ export const humanWork = {
       "The factory’s implementation, testing, and review workflow.",
       "Why deciding what software should do is central to engineering.",
       "How deployment approval can be configured.",
+      "The team’s account of delegating code writing and review to agents.",
+      "A change the factory proposed in BeeverForge’s own repository.",
     ],
     sections: [
       {
@@ -123,8 +130,9 @@ export const humanWork = {
         id: 'trabalho',
         heading: "Will the company still need me?",
         paragraphs: [
-          "<strong>It can already do without you writing every line of code.</strong> If that was the reason for hiring, the role loses its reason to exist. Promoting every programmer to reviewer just moves the problem up a rung.",
-          "The company has different work for someone who can design a system. Imagine specifying “customers can delete their accounts.” AI delivers the button. Engineering decides what happens to access, which data has to go, and what test proves it’s gone. <a href=\"#source-5\">Frederick Brooks<sup>[5]</sup></a> already put that difficulty at the heart of the job. Once implementation is routine factory work, the role is defined by the ability to design, test, and measure how the system behaves.",
+          "<strong>To write every line of code, the company can already do without you.</strong> A team at <a href=\"#source-7\">StrongDM<sup>[7]</sup></a> took that idea literally. Engineers defined the specifications and test scenarios. Agents wrote the code and ran the checks. The team also did away with manual code review.",
+          "BeeverForge already uses its own factory to develop itself. A <a href=\"#source-8\">change in BeeverForge’s own repository<sup>[8]</sup></a> started as a ticket on the board. The factory implemented it, ran checks, and opened the pull request. The team decides whether to merge it.",
+          "In practice, the work has shifted. If customers can delete their accounts, someone has to decide when access ends, which data goes away, and how to prove it’s gone. <a href=\"#source-5\">Frederick Brooks<sup>[5]</sup></a> already put decisions like these at the heart of engineering. The machine can build the button. The engineering starts with deciding what happens after the click.",
         ],
       },
       {
@@ -152,6 +160,8 @@ export const humanWork = {
       "El flujo de implementación, pruebas y revisión de la fábrica.",
       "Por qué decidir qué debe hacer el software es parte central de la ingeniería.",
       "Cómo se puede configurar la aprobación de un despliegue.",
+      "El relato del equipo que delegó la escritura y la revisión del código a agentes.",
+      "Una propuesta de cambio abierta por la propia fábrica en el repositorio de BeeverForge.",
     ],
     sections: [
       {
@@ -182,8 +192,9 @@ export const humanWork = {
         id: 'trabalho',
         heading: "¿La empresa seguirá necesitándome?",
         paragraphs: [
-          "<strong>Para escribir cada línea de código, ya puede prescindir de ti.</strong> Si ese era el motivo de la contratación, el puesto pierde su razón de ser. Convertir a todos los programadores en revisores solo traslada el problema al siguiente peldaño.",
-          "La empresa tiene otro trabajo para quien sabe diseñar el sistema. Imagina que la especificación dice «el cliente puede eliminar su cuenta». La IA entrega el botón. La ingeniería define qué pasa con el acceso, qué datos deben borrarse y qué prueba demuestra que se borraron. <a href=\"#source-5\">Frederick Brooks<sup>[5]</sup></a> ya situaba esa dificultad en el centro del oficio. Cuando implementar se vuelve una rutina de la fábrica, saber diseñar, probar y medir el comportamiento del sistema pasa a definir el puesto.",
+          "<strong>Para escribir cada línea de código, la empresa ya puede prescindir de ti.</strong> Un equipo de <a href=\"#source-7\">StrongDM<sup>[7]</sup></a> se tomó esa idea al pie de la letra. Los ingenieros definían las especificaciones y los escenarios de prueba. Los agentes escribían el código y ejecutaban las comprobaciones. El equipo también prescindió de la revisión manual del código.",
+          "BeeverForge ya usa su propia fábrica para seguir desarrollándose. Un <a href=\"#source-8\">cambio en el repositorio de BeeverForge<sup>[8]</sup></a> empezó como una tarea en el tablero. La fábrica lo implementó, ejecutó las comprobaciones y abrió la propuesta. El equipo decide si la incorpora.",
+          "En la práctica, el trabajo ha cambiado de lugar. Si el cliente puede eliminar su cuenta, alguien tiene que decidir cuándo pierde el acceso, qué datos se borran y cómo demostrar que se borraron. <a href=\"#source-5\">Frederick Brooks<sup>[5]</sup></a> ya situaba ese tipo de decisiones en el centro de la ingeniería. La máquina puede crear el botón. El trabajo de ingeniería empieza por definir qué debe pasar después del clic.",
         ],
       },
       {
