@@ -51,12 +51,13 @@ export const humanWork = {
       {
         id: 'entrega',
         heading: "Do chat à fábrica",
+        intro: "Você pede uma tela no chat e, minutos depois, tem algo para experimentar. Quando chega a próxima mudança, o trabalho é outro: fazer o pedido virar código, rodar os testes do projeto e saber se a entrega atende ao que foi combinado. A escada abaixo mostra quanto desse processo já pode passar para a máquina.",
         ladder: {
           caption: "Na <a href=\"#source-3\">escada de Dan Shapiro<sup>[3]</sup></a>, cada degrau transfere mais trabalho à máquina.",
           steps: ["Escrever o código", "Delegar tarefas pontuais", "Programar em dupla com a IA", "Revisar o código do agente", "Especificar e conferir os testes", "Entregar a especificação à fábrica"],
         },
         paragraphs: [
-          "Uma conversa pode render um protótipo. Industrializar é ter um processo que funciona também na próxima mudança. Na <a href=\"#source-4\">BeeverForge<sup>[4]</sup></a>, a tarefa entra com critérios de aceitação. A fábrica planeja, implementa, roda as verificações do projeto e encaminha a mudança para uma revisão independente. Esse fluxo se repete a cada tarefa. Em outros fluxos, a mudança pode inclusive ir à produção <a href=\"#source-6\">sem aprovação humana a cada entrega<sup>[6]</sup></a>.",
+          "Industrializar é repetir esse processo a cada mudança. Na <a href=\"#source-4\">BeeverForge<sup>[4]</sup></a>, a tarefa entra com critérios de aceitação. A fábrica planeja, implementa, roda as verificações do projeto e encaminha a mudança para uma revisão independente. Esse fluxo se repete a cada tarefa. Em outros fluxos, a mudança pode inclusive ir à produção <a href=\"#source-6\">sem aprovação humana a cada entrega<sup>[6]</sup></a>.",
         ],
       },
       {
@@ -109,12 +110,13 @@ export const humanWork = {
       {
         id: 'entrega',
         heading: "From chat to factory",
+        intro: "Ask for a screen in chat and minutes later you have something to try. The next change brings a different job: turn the request into code, run the project’s tests, and check whether the result meets the agreed requirements. The ladder below shows how much of that process you can hand to the machine.",
         ladder: {
           caption: "Each rung of <a href=\"#source-3\">Dan Shapiro’s ladder<sup>[3]</sup></a> hands more work to the machine.",
           steps: ["Write the code", "Delegate individual tasks", "Pair with AI", "Review the agent’s code", "Write a spec and check the tests", "Give the spec to the factory"],
         },
         paragraphs: [
-          "A conversation can get you a prototype. Industrialization gives you a process you can run again for the next change. At <a href=\"#source-4\">BeeverForge<sup>[4]</sup></a>, a task comes in with acceptance criteria. The factory plans the change, implements it, runs the project checks, and sends it for independent review. The same workflow runs for each task. Other workflows can even ship changes to production <a href=\"#source-6\">without human approval for each release<sup>[6]</sup></a>.",
+          "Industrializing means repeating that process for every change. At <a href=\"#source-4\">BeeverForge<sup>[4]</sup></a>, a task comes in with acceptance criteria. The factory plans the change, implements it, runs the project checks, and sends it for independent review. The same workflow runs for each task. Other workflows can even ship changes to production <a href=\"#source-6\">without human approval for each release<sup>[6]</sup></a>.",
         ],
       },
       {
@@ -167,12 +169,13 @@ export const humanWork = {
       {
         id: 'entrega',
         heading: "Del chat a la fábrica",
+        intro: "Pides una pantalla en el chat y, en unos minutos, tienes algo que probar. Con el siguiente cambio llega otro trabajo: convertir el pedido en código, ejecutar las pruebas del proyecto y comprobar si la entrega cumple lo acordado. La escala de abajo muestra cuánto de ese proceso puede asumir la máquina.",
         ladder: {
           caption: "Cada peldaño de la <a href=\"#source-3\">escala de Dan Shapiro<sup>[3]</sup></a> transfiere más trabajo a la máquina.",
           steps: ["Escribir el código", "Delegar tareas puntuales", "Programar en pareja con la IA", "Revisar el código del agente", "Especificar y comprobar las pruebas", "Entregar la especificación a la fábrica"],
         },
         paragraphs: [
-          "Una conversación puede dar lugar a un prototipo. Industrializar significa contar con un proceso que sirva también para el siguiente cambio. En <a href=\"#source-4\">BeeverForge<sup>[4]</sup></a>, la tarea llega con criterios de aceptación. La fábrica planifica, implementa, ejecuta las comprobaciones del proyecto y envía el cambio a una revisión independiente. El flujo se repite en cada tarea. Otros flujos incluso permiten llevar el cambio a producción <a href=\"#source-6\">sin aprobación humana en cada entrega<sup>[6]</sup></a>.",
+          "Industrializar significa repetir ese proceso con cada cambio. En <a href=\"#source-4\">BeeverForge<sup>[4]</sup></a>, la tarea llega con criterios de aceptación. La fábrica planifica, implementa, ejecuta las comprobaciones del proyecto y envía el cambio a una revisión independiente. El flujo se repite en cada tarea. Otros flujos incluso permiten llevar el cambio a producción <a href=\"#source-6\">sin aprobación humana en cada entrega<sup>[6]</sup></a>.",
         ],
       },
       {
