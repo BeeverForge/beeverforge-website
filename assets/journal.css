@@ -54,3 +54,12 @@
 .j-timeline li{position:relative;padding-inline-start:22px;margin-block:0 23px}
 .j-timeline li::before{content:"";position:absolute;inset-inline-start:-4px;top:.55em;width:7px;height:7px;border-radius:50%;background:var(--m-accent)}
 .j-body .j-timeline p{margin:5px 0 0}
+.j-timeline figure{margin:14px 0 0}
+.j-timeline img{display:block;width:100%;height:auto;border-radius:3px}
+.j-timeline figcaption{margin-top:6px;font-size:11px;color:var(--m-muted)}
+.j-ladder{margin:0 0 22px}
+.j-ladder figcaption{margin-bottom:12px;color:var(--m-muted)}
+.j-ladder figcaption a{color:var(--m-ink);text-decoration:underline;text-decoration-color:var(--m-accent);text-underline-offset:4px}
+.j-ladder ol{margin:0;padding:0;display:grid;gap:5px}
+.j-ladder li{margin-inline-start:calc(2ch + var(--level) * clamp(5px, 1.6vw, 17px));padding:7px 12px;border-inline-start:2px solid var(--m-accent);background:var(--m-surface);color:var(--m-ink);font-size:14px;line-height:1.4}
+.j-ladder li::marker{font-variant-numeric:tabular-nums;color:var(--m-accent);font-weight:600}

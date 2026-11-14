@@ -1,3 +1,6 @@
+const punchedCards = '/assets/journal-punched-cards.jpg';
+const robot = '/assets/journal-vibe-coding.jpg';
+
 export const humanWorkSlug = 'voce-e-uma-maquina';
 
 export const humanWork = {
@@ -37,18 +40,22 @@ export const humanWork = {
         id: 'codigo',
         heading: "Do cartão à conversa",
         paragraphs: [
+          "Antes de digitar um programa na tela, era possível escrevê-lo numa pilha de cartões perfurados. Os furos representavam caracteres, e o computador lia os cartões em ordem. Hoje dá para começar descrevendo em palavras o que você quer que o programa faça.",
         ],
         timeline: [
-          ["Cartão perfurado", "Cada cartão podia carregar uma linha de programa. Para rodar, era preciso levar a pilha ao leitor. <a href=\"#source-1\">[1]</a>"],
+          ["Cartão perfurado", "Cada cartão podia carregar uma linha de programa. Para rodar, era preciso levar a pilha ao leitor. <a href=\"#source-1\">[1]</a>", { src: punchedCards, alt: "Uma mão segura cartões perfurados diante da bandeja de um leitor.", credit: "Ilustração gerada com IA." }],
           ["Linguagens de programação", "O código virou o texto que colegas liam e mantinham. Compiladores e interpretadores cuidavam de fazê-lo rodar."],
-          ["Vibe coding", "Você descreve o que quer, experimenta o resultado e pede ajustes. O código pode ficar fora da conversa. <a href=\"#source-2\">[2]</a>"],
+          ["Vibe coding", "Você descreve o que quer, experimenta o resultado e pede ajustes. O código pode ficar fora da conversa. <a href=\"#source-2\">[2]</a>", { src: robot, alt: "Um robô e uma pessoa olham juntos para a tela de uma conversa.", credit: "Ilustração gerada com IA." }],
         ],
       },
       {
         id: 'entrega',
         heading: "Do chat à fábrica",
+        ladder: {
+          caption: "Na <a href=\"#source-3\">escada de Dan Shapiro<sup>[3]</sup></a>, cada degrau transfere mais trabalho à máquina.",
+          steps: ["Escrever o código", "Delegar tarefas pontuais", "Programar em dupla com a IA", "Revisar o código do agente", "Especificar e conferir os testes", "Entregar a especificação à fábrica"],
+        },
         paragraphs: [
-          "Na <a href=\"#source-3\">escada de Dan Shapiro<sup>[3]</sup></a>, o degrau muda conforme o trabalho que você delega. Nos primeiros degraus (0 a 2), você ainda programa, com ajuda pontual ou em dupla com a IA. No 3, troca o teclado pela revisão. No 4, entrega uma especificação e volta para conferir os testes. No 5, a fábrica recebe a especificação e produz o software.",
           "Uma conversa pode render um protótipo. Industrializar é ter um processo que funciona também na próxima mudança. Na <a href=\"#source-4\">BeeverForge<sup>[4]</sup></a>, a tarefa entra com critérios de aceitação. A fábrica planeja, implementa, roda as verificações do projeto e encaminha a mudança para uma revisão independente. Esse fluxo se repete a cada tarefa. Em outros fluxos, a mudança pode inclusive ir à produção <a href=\"#source-6\">sem aprovação humana a cada entrega<sup>[6]</sup></a>.",
         ],
       },
@@ -91,18 +98,22 @@ export const humanWork = {
         id: 'codigo',
         heading: "From cards to conversation",
         paragraphs: [
+          "Before programmers could type a program on a screen, they could write it on a stack of punched cards. The holes represented characters, and the computer read the cards in order. Today you can start by describing in words what you want the program to do.",
         ],
         timeline: [
-          ["Punched cards", "A card could hold one line of a program. Running it meant taking the stack to a card reader. <a href=\"#source-1\">[1]</a>"],
+          ["Punched cards", "A card could hold one line of a program. Running it meant taking the stack to a card reader. <a href=\"#source-1\">[1]</a>", { src: punchedCards, alt: "A hand holds punched cards in front of the reader tray.", credit: "AI-generated illustration." }],
           ["Programming languages", "Code became the text colleagues read and maintained. Compilers and interpreters took care of running it."],
-          ["Vibe coding", "Describe what you want, try the result, and ask for changes. The code can stay out of the conversation. <a href=\"#source-2\">[2]</a>"],
+          ["Vibe coding", "Describe what you want, try the result, and ask for changes. The code can stay out of the conversation. <a href=\"#source-2\">[2]</a>", { src: robot, alt: "A robot and a person look together at a chat screen.", credit: "AI-generated illustration." }],
         ],
       },
       {
         id: 'entrega',
         heading: "From chat to factory",
+        ladder: {
+          caption: "Each rung of <a href=\"#source-3\">Dan Shapiro’s ladder<sup>[3]</sup></a> hands more work to the machine.",
+          steps: ["Write the code", "Delegate individual tasks", "Pair with AI", "Review the agent’s code", "Write a spec and check the tests", "Give the spec to the factory"],
+        },
         paragraphs: [
-          "On <a href=\"#source-3\">Dan Shapiro’s ladder<sup>[3]</sup></a>, each step changes what you delegate. On the first rungs (0 to 2), you still write code, with occasional help or by pairing with AI. At 3, you trade typing for review. At 4, you write the spec and come back to check the tests. At 5, the factory takes the spec and produces software.",
           "A conversation can get you a prototype. Industrialization gives you a process you can run again for the next change. At <a href=\"#source-4\">BeeverForge<sup>[4]</sup></a>, a task comes in with acceptance criteria. The factory plans the change, implements it, runs the project checks, and sends it for independent review. The same workflow runs for each task. Other workflows can even ship changes to production <a href=\"#source-6\">without human approval for each release<sup>[6]</sup></a>.",
         ],
       },
@@ -145,18 +156,22 @@ export const humanWork = {
         id: 'codigo',
         heading: "De la tarjeta a la conversación",
         paragraphs: [
+          "Antes de teclear un programa en una pantalla, se podía escribir en una pila de tarjetas perforadas. Los agujeros representaban caracteres y la computadora leía las tarjetas en orden. Hoy puedes empezar describiendo con palabras lo que quieres que haga el programa.",
         ],
         timeline: [
-          ["Tarjeta perforada", "Una tarjeta podía contener una línea del programa. Para ejecutarlo había que llevar la pila al lector. <a href=\"#source-1\">[1]</a>"],
+          ["Tarjeta perforada", "Una tarjeta podía contener una línea del programa. Para ejecutarlo había que llevar la pila al lector. <a href=\"#source-1\">[1]</a>", { src: punchedCards, alt: "Una mano sostiene tarjetas perforadas delante de la bandeja de un lector.", credit: "Ilustración generada con IA." }],
           ["Lenguajes de programación", "El código se convirtió en el texto que los compañeros leían y mantenían. Los compiladores e intérpretes se encargaban de que pudiera ejecutarse."],
-          ["Vibe coding", "Describes lo que quieres, pruebas el resultado y pides ajustes. El código puede quedar fuera de la conversación. <a href=\"#source-2\">[2]</a>"],
+          ["Vibe coding", "Describes lo que quieres, pruebas el resultado y pides ajustes. El código puede quedar fuera de la conversación. <a href=\"#source-2\">[2]</a>", { src: robot, alt: "Un robot y una persona miran juntos una conversación en la pantalla.", credit: "Ilustración generada con IA." }],
         ],
       },
       {
         id: 'entrega',
         heading: "Del chat a la fábrica",
+        ladder: {
+          caption: "Cada peldaño de la <a href=\"#source-3\">escala de Dan Shapiro<sup>[3]</sup></a> transfiere más trabajo a la máquina.",
+          steps: ["Escribir el código", "Delegar tareas puntuales", "Programar en pareja con la IA", "Revisar el código del agente", "Especificar y comprobar las pruebas", "Entregar la especificación a la fábrica"],
+        },
         paragraphs: [
-          "En la <a href=\"#source-3\">escala de Dan Shapiro<sup>[3]</sup></a>, cada peldaño cambia lo que delegas. En los primeros peldaños (0 a 2), sigues escribiendo código, con ayuda puntual o en pareja con la IA. En el 3, cambias el teclado por la revisión. En el 4, redactas la especificación y vuelves para comprobar las pruebas. En el 5, la fábrica recibe la especificación y produce el software.",
           "Una conversación puede dar lugar a un prototipo. Industrializar significa contar con un proceso que sirva también para el siguiente cambio. En <a href=\"#source-4\">BeeverForge<sup>[4]</sup></a>, la tarea llega con criterios de aceptación. La fábrica planifica, implementa, ejecuta las comprobaciones del proyecto y envía el cambio a una revisión independiente. El flujo se repite en cada tarea. Otros flujos incluso permiten llevar el cambio a producción <a href=\"#source-6\">sin aprobación humana en cada entrega<sup>[6]</sup></a>.",
         ],
       },
