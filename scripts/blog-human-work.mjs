@@ -19,6 +19,7 @@ export const humanWork = {
     ["GitHub Docs — Managing environments for deployment", "https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments"],
     ["Justin McCarthy — StrongDM Software Factory", "https://factory.strongdm.ai/"],
     ["BeeverForge — Pull request #539", "https://github.com/BeeverForge/beeverforge-oss/pull/539"],
+    ["Robert C. Martin — Interview with Aviator", "https://www.aviator.co/podcast/uncle-bob-martin-ai-clean-code"],
   ],
   pt: {
     title: 'Você é uma máquina?',
@@ -38,6 +39,7 @@ export const humanWork = {
       "Como a aprovação de um deploy pode ser configurada.",
       "Relato da equipe que delegou a escrita e a revisão do código a agentes.",
       "Proposta de alteração aberta pela própria fábrica no repositório da BeeverForge.",
+      "Robert C. Martin descreve como passou a orientar agentes, examinar a arquitetura e experimentar o software, lendo pouco do código gerado.",
     ],
     sections: [
       {
@@ -69,15 +71,19 @@ export const humanWork = {
         heading: "A empresa ainda vai precisar de mim?",
         paragraphs: [
           "<strong>Para escrever cada linha de código, a empresa já pode dispensar você.</strong> Uma equipe da <a href=\"#source-7\">StrongDM<sup>[7]</sup></a> levou a ideia ao pé da letra. Os engenheiros definiam as especificações e os cenários de teste. Os agentes escreviam o código e rodavam as verificações. A equipe também dispensou a revisão manual do código.",
-          "A BeeverForge já usa a própria fábrica para evoluir. Uma <a href=\"#source-8\">mudança no repositório da BeeverForge<sup>[8]</sup></a> começou como um chamado no quadro. A fábrica implementou a alteração, rodou verificações e abriu a proposta. A decisão de incorporar a mudança cabe à equipe.",
-          "Na prática, o trabalho mudou de lugar. Se o cliente pode excluir a conta, alguém precisa decidir quando o acesso termina, quais dados devem sumir e como comprovar que sumiram. <a href=\"#source-5\">Frederick Brooks<sup>[5]</sup></a> já colocava esse tipo de decisão no centro da engenharia. A máquina consegue escrever o botão. O trabalho de engenharia começa por definir o que deve acontecer depois do clique.",
+          "Na BeeverForge, já temos soluções em produção cujo código foi todo escrito por agentes. Usamos a mesma fábrica para <a href=\"#source-8\">manter a própria BeeverForge<sup>[8]</sup></a>. Quem trabalha no projeto continua definindo o que precisa mudar e que evidências mostram que a mudança funcionou.",
+          "Vale voltar ao cartão perfurado. Durante muito tempo, quem projetava um sistema também passava boa parte do dia operando a ferramenta que o construía. Os cartões deram lugar às linguagens, e o <em>vibe coding</em> tornou possível começar pela conversa. A fábrica dá o passo seguinte: assume a implementação como rotina. É aí que a divisão, antes escondida dentro do mesmo cargo, fica visível. Escrever as instruções é um trabalho. Decidir como o sistema deve se comportar, inclusive quando as coisas dão errado, é outro.",
+          "Robert C. Martin, o <a href=\"#source-9\">Uncle Bob<sup>[9]</sup></a>, fez carreira ensinando gente a escrever código melhor. Em entrevista de 2026, o autor de <em>Clean Code</em> contou que hoje quase não vê o código gerado. Ele diz aos agentes o que quer e quais limites precisam respeitar. Depois examina a arquitetura e usa o software para ver como ele se comporta. A experiência de décadas escrevendo código aparece nas instruções que ele dá e no que percebe quando põe o sistema à prova.",
+          "De volta à pergunta do cargo: sim, ainda há trabalho para o desenvolvedor que sabe projetar e investigar. Quando alguém sugere “deixar o cliente excluir a conta”, o engenheiro ajuda a descobrir o que a empresa realmente quer dizer por excluir. Ele decide com a equipe quando o acesso acaba e o que o teste precisa demonstrar. Se o sistema se comporta de outro jeito em produção, ele sabe que evidência buscar. <a href=\"#source-5\">Frederick Brooks<sup>[5]</sup></a> já tratava essas decisões como parte central da engenharia. Agora elas podem ocupar o centro da jornada também.",
         ],
       },
       {
         id: 'ritmo',
         heading: "Você é uma máquina?",
         paragraphs: [
-          "A máquina consegue entregar dez mudanças numa manhã. Um engenheiro percebe que três vão criar problemas e manda parar. No painel da empresa, ele acabou de reduzir a produtividade. Se “você é uma máquina” ainda é o maior elogio, o painel está medindo o trabalho errado.",
+          "“Você é uma máquina” era a maneira de elogiar quem entregava muito e aguentava o ritmo. Quem aprendeu a programar desse jeito sabe o que dá orgulho: ver algo funcionar porque você entendeu um problema que, até ali, ninguém tinha conseguido explicar direito. Digitar a solução era parte desse prazer. Descobri-la ainda é.",
+          "Quando a máquina assume o teclado, dá para dedicar mais tempo a esse trabalho. Conversar com quem vai usar o software. Experimentar uma arquitetura antes de comprometer a equipe com ela. Escrever um teste para o caso que todo mundo esqueceu. É assim que o programador ocupa mais espaço como engenheiro.",
+          "Talvez o elogio que a gente devesse aprender a fazer seja outro: “Ainda bem que você percebeu isso antes de a gente construir.”",
         ],
       },
     ],
@@ -100,6 +106,7 @@ export const humanWork = {
       "How deployment approval can be configured.",
       "The team’s account of delegating code writing and review to agents.",
       "A change the factory proposed in BeeverForge’s own repository.",
+      "Robert C. Martin describes directing agents, examining architecture, and trying the software while reading little of the generated code.",
     ],
     sections: [
       {
@@ -131,15 +138,19 @@ export const humanWork = {
         heading: "Will the company still need me?",
         paragraphs: [
           "<strong>To write every line of code, the company can already do without you.</strong> A team at <a href=\"#source-7\">StrongDM<sup>[7]</sup></a> took that idea literally. Engineers defined the specifications and test scenarios. Agents wrote the code and ran the checks. The team also did away with manual code review.",
-          "BeeverForge already uses its own factory to develop itself. A <a href=\"#source-8\">change in BeeverForge’s own repository<sup>[8]</sup></a> started as a ticket on the board. The factory implemented it, ran checks, and opened the pull request. The team decides whether to merge it.",
-          "In practice, the work has shifted. If customers can delete their accounts, someone has to decide when access ends, which data goes away, and how to prove it’s gone. <a href=\"#source-5\">Frederick Brooks<sup>[5]</sup></a> already put decisions like these at the heart of engineering. The machine can build the button. The engineering starts with deciding what happens after the click.",
+          "At BeeverForge, we already have software in production whose code was written entirely by agents. We use the same factory to <a href=\"#source-8\">maintain BeeverForge itself<sup>[8]</sup></a>. The people working on the project still decide what needs to change and what evidence would show that it worked.",
+          "Go back to the punched card. For a long time, the person who designed a system also spent much of the day operating the tool that built it. Cards gave way to programming languages, and vibe coding made it possible to start with a conversation. The factory takes the next step: it makes implementation a routine operation. That exposes a division the job title used to hide. Writing the instructions is one kind of work. Deciding how the system should behave, including when things go wrong, is another.",
+          "Robert C. Martin, better known as <a href=\"#source-9\">Uncle Bob<sup>[9]</sup></a>, made a career teaching people to write better code. In a 2026 interview, the author of <em>Clean Code</em> said he now barely sees the generated code. He tells the agents what he wants and which constraints matter. Then he examines the architecture and tries the software to see how it behaves. Decades of writing code show up in the instructions he gives and in what he notices when he puts the system to the test.",
+          "Back to the question about your job: yes, there is still work for developers who can design and investigate. When someone says “let customers delete their accounts,” the engineer helps work out what the company actually means by delete. They decide with the team when access ends and what the test needs to prove. If the system behaves differently in production, they know what evidence to look for. <a href=\"#source-5\">Frederick Brooks<sup>[5]</sup></a> already put these decisions at the heart of engineering. Now they can be at the center of the workday too.",
         ],
       },
       {
         id: 'ritmo',
         heading: "Are you a machine?",
         paragraphs: [
-          "The machine can ship ten changes in a morning. An engineer sees that three will cause problems and stops them. On the company dashboard, they just lowered productivity. If “you’re a machine” is still the highest compliment, the dashboard is measuring the wrong work.",
+          "“You’re a machine” was how we praised someone who delivered a lot and kept up the pace. If you learned to program that way, you know what makes you proud: seeing something work because you understood a problem nobody had managed to explain properly. Typing out the solution was part of that pleasure. Discovering it still is.",
+          "When the machine takes over the keyboard, you can spend more time on that work. Talk to the people who will use the software. Try out an architecture before committing the team to it. Write a test for the case everyone forgot. That’s how programmers make more room for engineering in their work.",
+          "Maybe we need to learn a different compliment: “I’m glad you spotted that before we built it.”",
         ],
       },
     ],
@@ -162,6 +173,7 @@ export const humanWork = {
       "Cómo se puede configurar la aprobación de un despliegue.",
       "El relato del equipo que delegó la escritura y la revisión del código a agentes.",
       "Una propuesta de cambio abierta por la propia fábrica en el repositorio de BeeverForge.",
+      "Robert C. Martin cuenta cómo pasó a dirigir agentes, examinar la arquitectura y probar el software leyendo muy poco del código generado.",
     ],
     sections: [
       {
@@ -193,15 +205,19 @@ export const humanWork = {
         heading: "¿La empresa seguirá necesitándome?",
         paragraphs: [
           "<strong>Para escribir cada línea de código, la empresa ya puede prescindir de ti.</strong> Un equipo de <a href=\"#source-7\">StrongDM<sup>[7]</sup></a> se tomó esa idea al pie de la letra. Los ingenieros definían las especificaciones y los escenarios de prueba. Los agentes escribían el código y ejecutaban las comprobaciones. El equipo también prescindió de la revisión manual del código.",
-          "BeeverForge ya usa su propia fábrica para seguir desarrollándose. Un <a href=\"#source-8\">cambio en el repositorio de BeeverForge<sup>[8]</sup></a> empezó como una tarea en el tablero. La fábrica lo implementó, ejecutó las comprobaciones y abrió la propuesta. El equipo decide si la incorpora.",
-          "En la práctica, el trabajo ha cambiado de lugar. Si el cliente puede eliminar su cuenta, alguien tiene que decidir cuándo pierde el acceso, qué datos se borran y cómo demostrar que se borraron. <a href=\"#source-5\">Frederick Brooks<sup>[5]</sup></a> ya situaba ese tipo de decisiones en el centro de la ingeniería. La máquina puede crear el botón. El trabajo de ingeniería empieza por definir qué debe pasar después del clic.",
+          "En BeeverForge ya tenemos soluciones en producción cuyo código fue escrito íntegramente por agentes. Usamos la misma fábrica para <a href=\"#source-8\">mantener la propia BeeverForge<sup>[8]</sup></a>. Quienes trabajan en el proyecto siguen decidiendo qué debe cambiar y qué evidencia demuestra que el cambio funcionó.",
+          "Volvamos a la tarjeta perforada. Durante mucho tiempo, quien diseñaba un sistema también pasaba buena parte del día manejando la herramienta con la que lo construía. Las tarjetas dieron paso a los lenguajes de programación, y el vibe coding permitió empezar por una conversación. La fábrica da el siguiente paso: convierte la implementación en una operación rutinaria. Así se hace visible una división que el puesto solía ocultar. Escribir las instrucciones es un trabajo. Decidir cómo debe comportarse el sistema, incluso cuando las cosas salen mal, es otro.",
+          "Robert C. Martin, conocido como <a href=\"#source-9\">Uncle Bob<sup>[9]</sup></a>, hizo carrera enseñando a escribir mejor código. En una entrevista de 2026, el autor de <em>Clean Code</em> contó que hoy apenas ve el código generado. Les dice a los agentes qué quiere y qué límites deben respetar. Después examina la arquitectura y usa el software para ver cómo se comporta. Sus décadas escribiendo código se reflejan en las instrucciones que da y en lo que detecta al poner a prueba el sistema.",
+          "Volvamos a la pregunta sobre el puesto: sí, sigue habiendo trabajo para quien sabe diseñar e investigar. Cuando alguien propone «permitir que el cliente elimine su cuenta», el ingeniero ayuda a aclarar qué entiende la empresa por eliminar. Decide con el equipo cuándo termina el acceso y qué debe demostrar la prueba. Si el sistema se comporta de otra forma en producción, sabe qué evidencia buscar. <a href=\"#source-5\">Frederick Brooks<sup>[5]</sup></a> ya situaba estas decisiones en el centro de la ingeniería. Ahora también pueden ocupar el centro de la jornada.",
         ],
       },
       {
         id: 'ritmo',
         heading: "¿Eres una máquina?",
         paragraphs: [
-          "La máquina puede entregar diez cambios en una mañana. Un ingeniero ve que tres van a causar problemas y los detiene. En el panel de la empresa, acaba de reducir la productividad. Si «eres una máquina» sigue siendo el mejor elogio, el panel está midiendo el trabajo equivocado.",
+          "«Eres una máquina» era nuestra forma de elogiar a quien entregaba mucho y seguía el ritmo. Si aprendiste a programar así, sabes de dónde viene el orgullo: ver que algo funciona porque entendiste un problema que hasta entonces nadie había sabido explicar bien. Teclear la solución era parte de ese placer. Descubrirla sigue siéndolo.",
+          "Cuando la máquina se ocupa del teclado, puedes dedicar más tiempo a ese trabajo. Hablar con quienes van a usar el software. Probar una arquitectura antes de comprometer al equipo con ella. Escribir una prueba para el caso que todos olvidaron. Así es como el programador gana espacio para ejercer de ingeniero.",
+          "Quizá tengamos que aprender otro elogio: «Menos mal que te diste cuenta antes de que lo construyéramos».",
         ],
       },
     ],
