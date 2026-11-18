@@ -83,7 +83,7 @@ export const humanWork = {
         paragraphs: [
           "“Você é uma máquina” era a maneira de elogiar quem entregava muito e aguentava o ritmo. Quem aprendeu a programar desse jeito sabe o que dá orgulho: ver algo funcionar porque você entendeu um problema que, até ali, ninguém tinha conseguido explicar direito. Digitar a solução era parte desse prazer. Descobri-la ainda é.",
           "Quando a máquina assume o teclado, dá para dedicar mais tempo a esse trabalho. Conversar com quem vai usar o software. Experimentar uma arquitetura antes de comprometer a equipe com ela. Escrever um teste para o caso que todo mundo esqueceu. É assim que o programador ocupa mais espaço como engenheiro.",
-          "Talvez o elogio que a gente devesse aprender a fazer seja outro: “Ainda bem que você percebeu isso antes de a gente construir.”",
+          "Quanto do seu talento ficou esperando você terminar de escrever o código?",
         ],
       },
     ],
@@ -150,7 +150,7 @@ export const humanWork = {
         paragraphs: [
           "“You’re a machine” was how we praised someone who delivered a lot and kept up the pace. If you learned to program that way, you know what makes you proud: seeing something work because you understood a problem nobody had managed to explain properly. Typing out the solution was part of that pleasure. Discovering it still is.",
           "When the machine takes over the keyboard, you can spend more time on that work. Talk to the people who will use the software. Try out an architecture before committing the team to it. Write a test for the case everyone forgot. That’s how programmers make more room for engineering in their work.",
-          "Maybe we need to learn a different compliment: “I’m glad you spotted that before we built it.”",
+          "How much of your talent has been waiting for you to finish writing the code?",
         ],
       },
     ],
@@ -217,7 +217,7 @@ export const humanWork = {
         paragraphs: [
           "«Eres una máquina» era nuestra forma de elogiar a quien entregaba mucho y seguía el ritmo. Si aprendiste a programar así, sabes de dónde viene el orgullo: ver que algo funciona porque entendiste un problema que hasta entonces nadie había sabido explicar bien. Teclear la solución era parte de ese placer. Descubrirla sigue siéndolo.",
           "Cuando la máquina se ocupa del teclado, puedes dedicar más tiempo a ese trabajo. Hablar con quienes van a usar el software. Probar una arquitectura antes de comprometer al equipo con ella. Escribir una prueba para el caso que todos olvidaron. Así es como el programador gana espacio para ejercer de ingeniero.",
-          "Quizá tengamos que aprender otro elogio: «Menos mal que te diste cuenta antes de que lo construyéramos».",
+          "¿Cuánto de tu talento se quedó esperando a que terminaras de escribir el código?",
         ],
       },
     ],
