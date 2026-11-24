@@ -105,7 +105,3 @@ body .consent-panel{max-width:960px;gap:16px;padding:20px 22px;border-radius:10p
 .m-brazil p{max-width:44ch;font-size:15px;line-height:1.65;margin:0 0 22px}
 .m-brazil .text-link{display:flex;width:fit-content;margin-top:16px}
 @media(max-width:740px){.m-plan-grid{grid-template-columns:1fr}.m-brazil{padding:25px}}
-
-/* Keep the hero balanced after retiring the product walkthrough. */
-.m-hero-grid{grid-template-columns:1fr}
-.m-hero-copy{max-width:800px}

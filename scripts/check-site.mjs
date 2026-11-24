@@ -62,8 +62,10 @@ for (const [locale, t] of Object.entries(copy)) {
     assert(!('price' in enterprise) && !('priceSpecification' in enterprise), `${locale}: quoted Enterprise must never appear free`);
     assert(html.includes('id="enterprise"') && html.includes('RBAC') && html.includes('SSO'), `${locale}: customer-hosted Enterprise is visible`);
     if (!sub) {
-      assert(!html.includes('beeverforge-overview.mp4'), `${locale}: retired prototype walkthrough is not promoted`);
-      assert(!schemas.some((s) => s['@type'] === 'VideoObject'), `${locale}: no structured data for retired walkthrough`);
+      assert(html.includes('preload="none"'), `${locale}: no initial video download`);
+      assert(!html.includes('autoplay'), `${locale}: no autoplay`);
+      assert(!html.includes('class="m-watch"'), `${locale}: no redundant video jump beside the video`);
+      assert(schemas.some((s) => s['@type'] === 'VideoObject'));
     }
   }
   for (const sub of ['try/', 'try/thank-you/']) {
@@ -92,4 +94,4 @@ for (const [locale, t] of Object.entries(copy)) {
   }
 }
 assert((await stat(new URL('assets/beeverforge-overview.mp4', root))).size < 15_000_000, 'Keep the supplied light video');
-console.log(`Verified ${paths.length} sitemap pages, ${links} local links/assets, three languages, the Enterprise offer and retired trial routes and prototype walkthrough.`);
+console.log(`Verified ${paths.length} sitemap pages, ${links} local links/assets, three languages, the Enterprise offer and retired trial routes and on-demand video.`);
